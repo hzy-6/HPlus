@@ -849,8 +849,6 @@
     <Content Include="Scripts\UEditor\ueditor1.4.3.3\utf8-net\lang\zh-cn\images\upload.png" />
     <Content Include="Scripts\UEditor\ueditor1.4.3.3\utf8-net\lang\zh-cn\zh-cn.js" />
     <Content Include="Scripts\UEditor\ueditor1.4.3.3\utf8-net\net\Bin\Newtonsoft.Json.dll" />
-    <Content Include="Scripts\UEditor\ueditor1.4.3.3\utf8-net\net\Bin\Newtonsoft.Json.pdb" />
-    <Content Include="Scripts\UEditor\ueditor1.4.3.3\utf8-net\net\Bin\Newtonsoft.Json.xml" />
     <Content Include="Scripts\UEditor\ueditor1.4.3.3\utf8-net\net\net.sln" />
     <Content Include="Scripts\UEditor\ueditor1.4.3.3\utf8-net\themes\default\css\ueditor.css" />
     <Content Include="Scripts\UEditor\ueditor1.4.3.3\utf8-net\themes\default\css\ueditor.min.css" />
