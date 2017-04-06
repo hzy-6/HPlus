@@ -126,6 +126,15 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\ErrorController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomeController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Areas\Admin\Controllers\LoginController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1472,10 +1481,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Content\Template\" />
     <Folder Include="Content\UpFile\" />
     <Folder Include="Content\UpImages\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Models\" />
     <Folder Include="Scripts\UEditor\ueditor1.4.3.3\utf8-net\net\upload\image\" />
   </ItemGroup>
@@ -1506,6 +1516,39 @@
     <Content Include="Scripts\zTree\demo\en\asyncData\getNodesForBigData.php" />
     <Content Include="Scripts\zTree\README.md" />
     <Content Include="Scripts\zTree\zTree.v3.jquery.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Aop\Aop.csproj">
+      <Project>{6f39a3a6-2e53-45b9-b9e3-2d3db4f597a9}</Project>
+      <Name>Aop</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Application.csproj">
+      <Project>{33cac359-f4b4-4b82-84cc-5e7bade0fd8d}</Project>
+      <Name>Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BLL\BLL.csproj">
+      <Project>{dc21c673-f22d-4ff4-92a8-476cf947bfc9}</Project>
+      <Name>BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DBAccess\DBAccess.csproj">
+      <Project>{caa3bbe7-5940-4b59-bd23-dc3cb5c5e370}</Project>
+      <Name>DBAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{0065f6d0-f174-40e1-9733-1636b11e0d87}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utility\Utility.csproj">
+      <Project>{eb839cba-ae8f-45b8-88b3-f85a84e8c80f}</Project>
+      <Name>Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebControl\WebControl.csproj">
+      <Project>{5f2df45b-b6e5-4687-afde-bf2f9e5ab0db}</Project>
+      <Name>WebControl</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
