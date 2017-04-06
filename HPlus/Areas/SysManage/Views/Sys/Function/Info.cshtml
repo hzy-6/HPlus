@@ -1,0 +1,87 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox">
+            <div class="ibox-content" id="form">
+                <form class="row">
+                    <!--选项卡开始-->
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>编号：</label>
+                            <input type="text" class="form-control input-sm" name="iFunction_Number" data-bind="value:iFunction_Number" placeholder="请输入编号" />
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>名称：</label>
+                            <input type="text" class="form-control input-sm" name="cFunction_Name" data-bind="value:cFunction_Name" placeholder="请输入名称" />
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>英文名：</label>
+                            <input type="text" class="form-control input-sm" name="cFunction_ByName" data-bind="value:cFunction_ByName" placeholder="请输入英文名" />
+                        </div>
+                    </div>
+                    <!--选项卡结束-->
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--按钮-->
+<div style="height:50px; width:100%;"></div>
+<div style="width: 100%;height: 50px;background-color: #d2d2d2;position: fixed;bottom: 0px;padding: 10px; z-index:99999;" class="text-right">
+    <button type="button" class="btn btn-success btn-sm" data-bind="visible:!Func.IsAdd()" onclick="$Form.ResetUrl(null)">新增</button>
+    <button class="btn btn-primary btn-sm" onclick="$Form.Save({ url:'@Url.Action("Save")' })">提交</button>
+    <button class="btn btn-danger btn-sm" onclick="Lay.close($.GetFrameIndex())">关闭</button>
+</div>
+@section css{
+}
+@section js{
+    <script src="~/Scripts/SysFrameWork/FrameWork.js"></script>
+    <script src="~/Scripts/SysFrameWork/FrameWork_Form.js"></script>
+    <script type="text/javascript">
+        var KeyId = $.Tools.GetQueryString("ID");
+        $(function () {
+            ko.applyBindings(vModel);//注册vModel
+            Func.Load(KeyId);
+        });
+
+        var Func = {
+            IsAdd: function () {
+                if (KeyId == null || KeyId == "" || KeyId == undefined || KeyId == "@Guid.Empty")
+                    return true;
+                return false;
+            },
+            Load: function (ID) {
+                $Form.Load({
+                    id: ID,
+                    url: "@Url.Action("Find")"
+                });
+            },
+            FindBack: {
+                Role: {
+                    @*CallBack: function (id) {
+                        $.post('@Url.Action("Find", "Role")', { id: id }, function (r) {
+                            vModel.uRoles_ID((id == "" || id == undefined) ? '@Guid.Empty' : id);
+                            vModel.cRoles_Name(r.cRoles_Name == "" ? "请选择角色" : r.cRoles_Name);
+                        });
+                    }*@
+                }
+            }
+        };
+
+        //uFunction_ID, iFunction_Number, cFunction_Name, cFunction_ByName, dFunction_CreateTime
+        var vModel = {
+            uFunction_ID: ko.observable(""),
+            iFunction_Number: ko.observable(""),
+            cFunction_Name: ko.observable(""),
+            cFunction_ByName: ko.observable(""),
+            dFunction_CreateTime: ko.observable(""),
+        };
+    </script>
+}

@@ -53,7 +53,7 @@ namespace DBAccess.SQLContext
             return dy;
         }
 
-        public object Add(T entity)
+        public string Add(T entity)
         {
             var m = this.GetModel(entity);
             var sql = this.GetSql(m.T);
@@ -63,7 +63,7 @@ namespace DBAccess.SQLContext
             return null;
         }
 
-        public object Add(T entity, ref List<SQL_Container> li)
+        public string Add(T entity, ref List<SQL_Container> li)
         {
             var m = this.GetModel(entity);
             li.Add(this.GetSql(m.T));

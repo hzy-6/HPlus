@@ -1,0 +1,6 @@
+﻿@if (!string.IsNullOrEmpty(Tools.getString(ViewData["PowerModel"])))
+{
+    <script type="text/javascript">
+        var PowerModel=@Html.Raw(ViewData["PowerModel"]);
+    </script>
+}

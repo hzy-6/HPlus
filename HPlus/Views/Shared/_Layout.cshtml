@@ -1,16 +1,37 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <link rel="shortcut icon" href="favicon.ico">
+    <!--基础样式-->
+    <link href="~/Content/HPlus/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/HPlus/css/font-awesome.css" rel="stylesheet">
+    <link href="~/Content/HPlus/css/animate.css" rel="stylesheet" />
+    <link href="~/Content/HPlus/css/style.css" rel="stylesheet" />
+    <link href="~/Content/HPlus/css/plugins/jqgrid/ui.jqgrid.css" rel="stylesheet" />
+    <link href="~/Content/Css/FrameWork.css" rel="stylesheet" />
+    @RenderSection("css", required: false)
+    <!--外部样式-->
 </head>
-<body>
+<body class="gray-bg" id="Btn_Power_Find">
     @RenderBody()
-
-    @Scripts.Render("~/bundles/jquery")
-    @RenderSection("scripts", required: false)
+    <!--基础js-->
+    <script src="~/Scripts/Jquery/jquery-2.1.4.min.js"></script>
+    <script src="~/Scripts/Bootstrap/bootstrap.min.js"></script>
+    <script src="~/Scripts/Bootstrap/jquery.bootstrap.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    @*<script src="~/Scripts/Layer/layer-v2.4/layer/layer.js"></script>*@
+    <script src="~/Scripts/Layer/layer-v3.0.1/layer/layer.js"></script>
+    @*<script src="~/Scripts/Layer/laypage/laypage.js"></script>*@
+    <script src="~/Scripts/Ko/knockout-3.4.0.debug.js"></script>
+    <script src="~/Scripts/Ko/knockout.mapping-latest.js"></script>
+    <script src="~/Content/HPlus/js/plugins/jqgrid/jquery.jqGrid.min.js"></script>
+    <script src="~/Content/HPlus/js/plugins/jqgrid/i18n/grid.locale-cn.js"></script>
+    <script src="~/Scripts/AjaxFileUpload/ajaxfileupload.js"></script>
+    @{Html.RenderPartial("~/Areas/SysManage/Views/Sys/PowerControl/Index.cshtml");}
+    @RenderSection("js", required: false)    
 </body>
 </html>

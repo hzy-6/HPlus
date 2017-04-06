@@ -1,0 +1,288 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-sm-5">
+        <div class="wrapper wrapper-content">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="btn-group btn-group-sm">
+                                <button title="" class="btn btn-white btn-sm" onclick="window.location=''" data-toggle="tooltip" data-placement="top"><i class="fa fa-refresh"></i>&nbsp;刷新</button>
+                                <button type="button" id="Btn_Power_Add" class="btn btn-white btn-sm" onclick="Func.Add()"><i class="fa fa-plus"></i>&nbsp;添加</button>
+                                <button class="btn btn-white btn-sm" disabled="disabled" id="Btn_Power_Del" onclick="Func.Delete()"><i class="fa fa-trash"></i>&nbsp;删除</button>
+
+                            </div>
+                            <button type="button" class="btn btn-white btn-sm" onclick="Func.SaveMenuFunction()"><i class=""></i>&nbsp;保存菜单功能</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <!--标签树-->
+                        <ul id="tree" class="ztree"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-7">
+        <div class="wrapper wrapper-content">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h4>新增</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <form class="form-horizontal m-t" id="form">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">菜单编号：</label>
+                            <div class="col-sm-8">
+                                <input class="form-control" type="text" data-bind="value:cMenu_Number" placeholder="A 或者 A-100" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">菜单名称：</label>
+                            <div class="col-sm-8">
+                                <input class="form-control" type="text" data-bind="value:cMenu_Name" placeholder="请输入菜单名称" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">菜单Href：</label>
+                            <div class="col-sm-8">
+                                <input class="form-control" type="text" data-bind="value:cMenu_Url" placeholder="请输入菜单Href 如：/SysManage/User/Index" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">菜单图标：</label>
+                            <div class="col-sm-8">
+                                <input class="form-control" type="text" data-bind="value:cMenu_ICON" placeholder="请输入菜单图标 如：fa fa-file" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">父级菜单：</label>
+                            <div class="col-sm-8">
+                                <input class="form-control" type="text" data-bind="value:pname" disabled="disabled" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">创建时间：</label>
+                            <div class="col-sm-8">
+                                <input class="form-control" type="text" data-bind="value:dMenu_CreateTime" disabled="disabled" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-8 col-sm-offset-3">
+                                <button class="btn btn-primary" type="button" onclick="Func.Save()">提交</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section css{
+    <link href="~/Scripts/zTree/css/metroStyle/metroStyle.css" rel="stylesheet" />
+}
+@section js{
+    <script src="~/Scripts/SysFrameWork/FrameWork.js"></script>
+    <script src="~/Scripts/zTree/js/jquery.ztree.all.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            ko.applyBindings(vModel);
+            Func.GetMenuAndFunctionTree();
+            Func.LoadForm();
+        });
+
+        var Func = {
+            GetMenuAndFunctionTree: function () {
+                $.Tools.Ajax({
+                    type: "post",
+                    url: "@Url.Action("GetMenuAndFunctionTree")",
+                    data: {},
+                    async: false,
+                    success: function (r) {
+                        var setting = {
+                            check: {
+                                enable: true,
+                                chkboxType: { "Y": "ps", "N": "ps" }
+                            },
+                            view: {
+                                dblClickExpand: true
+                            },
+                            data: {
+                                simpleData: {
+                                    enable: true,
+                                    idKey: "id",
+                                    pIdKey: "pId",
+                                    rootPId: 0,
+                                },
+                                key: { checked: 'checked' }
+                            },
+                            callback: {
+                                onClick: function (event, treeId, treeNode) {
+                                    //alert(treeNode.id + ", " + treeNode.name);
+                                    if (treeNode.tag == null) {
+                                        //$("#btn_add").attr("disabled", true);
+                                        //$("#Btn_Power_Del").attr("disabled", false);
+                                        $("#Btn_Power_Del").removeAttr("disabled");
+                                        $(".ibox-title h4").text("修改");
+                                        vModel.uMenu_ID(treeNode.id);
+                                        Func.LoadForm();
+                                    } else {
+                                        $("#Btn_Power_Del").attr("disabled", true);
+                                    }
+                                },
+                            }
+                        };
+                        zTree = $.fn.zTree.init($("#tree"), setting, r.value);
+                        zTree.expandAll(true);//展开所有
+                    }
+                });
+            },
+            LoadForm: function () {
+                if (vModel.uMenu_ID() == "" || vModel.uMenu_ID() == null || vModel.uMenu_ID() == "@Guid.Empty")
+                    $(".ibox-title h4").text("新增");
+                else
+                    $(".ibox-title h4").text("修改");
+                $.Tools.Ajax({
+                    type: "post",
+                    url: "@Url.Action("Find")",
+                    data: { ID: vModel.uMenu_ID() },
+                    async: false,
+                    success: function (r) {
+                        ko.cleanNode(document.getElementById("form"));
+                        ko.utils.extend(vModel, ko.mapping.fromJS(r));//更新vModel
+                        ko.applyBindings(vModel, document.getElementById("form"));//注册vModel
+                        if (vModel.uMenu_ID() == "" || vModel.uMenu_ID() == null || vModel.uMenu_ID() == "@Guid.Empty") {
+                            var treeObj = $.fn.zTree.getZTreeObj("tree");
+                            var nodes = treeObj.getSelectedNodes();
+                            if (nodes.length > 0) {
+                                vModel.uMenu_ParentID(nodes[0].id);
+                                vModel.pname(nodes[0].name);
+                            }
+                            else
+                                vModel.pname("一级菜单");
+                        }
+                    }
+                });
+            },
+            Add: function () {
+                var treeObj = $.fn.zTree.getZTreeObj("tree");
+                var nodes = treeObj.getSelectedNodes();
+                var msg = "";
+                if (nodes.length == 0)
+                    msg = "您是否要一级菜单？";
+                else
+                    msg = "您是否要在该菜单下添加子菜单？";
+
+                $.ModalConfirm(msg, function (b, i) {
+                    if (b) {
+                        $(".ibox-title h4").text("新增");
+                        vModel.uMenu_ID("");
+                        Func.LoadForm();
+
+                        if (nodes.length > 0) {
+                            vModel.uMenu_ParentID(nodes[0].id);
+                            vModel.pname(nodes[0].name);
+                        }
+                        else
+                            vModel.pname("一级菜单");
+
+                        $.ModalMsg("请在右边填写内容!", "warning");
+                        Lay.close(i);
+                    }
+                    Lay.close(i);
+                });
+            },
+            Save: function () {
+                $.Tools.Ajax({
+                    type: "post",
+                    url: "@Url.Action("Save")",
+                    data: vModel,
+                    success: function (r) {
+                        if (r.status == 1) {
+                            vModel.uMenu_ID(r.ID);
+                            Func.LoadForm();
+                            Func.GetMenuAndFunctionTree();
+                            $.ModalMsg("提交成功!", "success");
+                        }
+                        else {
+                            $.ModalMsg("提交失败!", "error");
+                        }
+                    }
+                });
+            },
+            SaveMenuFunction: function () {
+                var treeObj = $.fn.zTree.getZTreeObj("tree");
+                var nodes = treeObj.getCheckedNodes(true);
+                //保存功能
+                $.Tools.Ajax({
+                    type: "post",
+                    url: "@Url.Action("SaveMenuFunction")",
+                    data: { nodes: JSON.stringify(nodes) },
+                    success: function (r) {
+                        if (r.status == 1) {
+                            vModel.uMenu_ID("");
+                            Func.LoadForm();
+                            Func.GetMenuAndFunctionTree();
+                            $.ModalMsg("保存成功!", "success");
+                        }
+                    }
+                });
+            },
+            Delete: function () {
+                var treeObj = $.fn.zTree.getZTreeObj("tree");
+                var nodes = treeObj.getSelectedNodes();
+                if (nodes.length > 0) {
+                    if (nodes[0].tag == "fun") {
+                        $.ModalMsg("功能不能删除!", "warning");
+                        return false;
+                    }
+
+                    $.ModalConfirm("是否要删除该栏目【删除该栏目将会删除该栏目下所有的资讯】？", function (b, i) {
+                        if (b) {
+                            $.Tools.Ajax({
+                                type: "post",
+                                url: "@Url.Action("Del")",
+                                data: { ID: vModel.uMenu_ID() },
+                                success: function (r) {
+                                    if (r.status == 1) {
+                                        vModel.uMenu_ID("");
+                                        Func.LoadForm();
+                                        Func.GetMenuAndFunctionTree();
+                                        $.ModalMsg("删除成功!", "success");
+                                    }
+                                    else {
+                                        $.ModalMsg("删除失败!", "error");
+                                    }
+                                }
+                            });
+                            Lay.close(i);
+                        }
+                        Lay.close(i);
+                    });
+                } else {
+                    $.ModalMsg("请选择要删除的菜单!", "warning");
+                }
+            }
+        };
+
+        //uMenu_ID, cMenu_Name, cMenu_Url, uMenu_ParentID, cMenu_Number, cMenu_ICON, dMenu_CreateTime
+        var vModel = {
+            uMenu_ID: ko.observable(""),
+            cMenu_Name: ko.observable(""),
+            cMenu_Url: ko.observable(""),
+            uMenu_ParentID: ko.observable(""),
+            cMenu_Number: ko.observable(""),
+            cMenu_ICON: ko.observable(""),
+            dMenu_CreateTime: ko.observable(""),
+            pname: ko.observable(""),
+        };
+    </script>
+}

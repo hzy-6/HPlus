@@ -50,7 +50,7 @@ namespace DBAccess
             check = new CheckContext<BaseModel>(_ConnectionString);
         }
 
-        public object Add(BaseModel entity, bool IsCheck = true)
+        public string Add(BaseModel entity, bool IsCheck = true)
         {
             try
             {
@@ -66,7 +66,7 @@ namespace DBAccess
 
         }
 
-        public object Add(BaseModel entity, ref List<SQL_Container> li, bool IsCheck = true)
+        public string Add(BaseModel entity, ref List<SQL_Container> li, bool IsCheck = true)
         {
             try
             {

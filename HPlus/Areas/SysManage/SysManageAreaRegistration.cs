@@ -1,25 +1,25 @@
 ﻿using System.Web.Mvc;
 
-namespace HPlus.Areas.Admin
+namespace HPlus.Areas.SysManage
 {
-    public class AdminAreaRegistration : AreaRegistration
+    public class SysManageAreaRegistration : AreaRegistration
     {
         public override string AreaName
         {
             get
             {
-                return "Admin";
+                return "SysManage";
             }
         }
 
         public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
-                "Admin_default",
-                "Admin/{controller}/{action}/{id}",
+                "SysManage_default",
+                "SysManage/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional },
                 namespaces: new string[] { 
-                "HPlus.Areas."+AreaName+".Controllers"
+                "HPlus.Areas."+AreaName+".Controllers.Sys"
                 }
             );
         }

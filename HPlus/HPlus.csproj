@@ -134,6 +134,14 @@
     <Compile Include="Areas\Admin\Controllers\LoginController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Areas\SysManage\Controllers\Sys\ChangePwdController.cs" />
+    <Compile Include="Areas\SysManage\Controllers\Sys\FunctionController.cs" />
+    <Compile Include="Areas\SysManage\Controllers\Sys\MenuFunctionController.cs" />
+    <Compile Include="Areas\SysManage\Controllers\Sys\PowerControlController.cs" />
+    <Compile Include="Areas\SysManage\Controllers\Sys\RoleController.cs" />
+    <Compile Include="Areas\SysManage\Controllers\Sys\RoleFunctionController.cs" />
+    <Compile Include="Areas\SysManage\Controllers\Sys\UserController.cs" />
+    <Compile Include="Areas\SysManage\SysManageAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -669,6 +677,8 @@
     <Content Include="Scripts\ECharts\echarts.js" />
     <Content Include="Scripts\ECharts\theme\dark.js" />
     <Content Include="Scripts\ECharts\theme\vintage.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\Jquery\jquery-2.1.4.min.js" />
     <Content Include="Scripts\Jquery\jquery.pin.min.js" />
     <Content Include="Scripts\Jquery\JqueryPrint.js" />
@@ -1483,6 +1493,8 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Areas\SysManage\Models\" />
+    <Folder Include="Areas\SysManage\Views\Shared\" />
     <Folder Include="Content\Template\" />
     <Folder Include="Content\UpFile\" />
     <Folder Include="Content\UpImages\" />
@@ -1549,6 +1561,45 @@
       <Project>{5f2df45b-b6e5-4687-afde-bf2f9e5ab0db}</Project>
       <Name>WebControl</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\SysManage\Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\SysManage\Views\Sys\ChangePwd\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\SysManage\Views\Sys\Function\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\SysManage\Views\Sys\Function\Info.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\SysManage\Views\Sys\MenuFunction\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\SysManage\Views\Sys\PowerControl\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\SysManage\Views\Sys\Role\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\SysManage\Views\Sys\Role\Info.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\SysManage\Views\Sys\RoleFunction\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\SysManage\Views\Sys\User\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\SysManage\Views\Sys\User\Info.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Error\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\HomePage.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Login\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

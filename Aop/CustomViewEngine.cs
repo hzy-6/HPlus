@@ -23,7 +23,6 @@ namespace Aop
                 "~/Areas/{2}/Views/{1}/{0}.cshtml",
                 "~/Areas/{2}/Views/Shared/{0}.cshtml",
                 "~/Areas/{2}/Views/Sys/{1}/{0}.cshtml",//系统管理
-                "~/Areas/{2}/Views/Shop/{1}/{0}.cshtml",//
             };//{2}：区域名称，{1}：控制器名称，{0}：Action名称
 
             PartialViewLocationFormats = ViewLocationFormats;

@@ -71,7 +71,7 @@ namespace Aop
                 }
                 else
                 {
-                    filterContext.Result = new ViewResult() { ViewName = "~/Areas/SysMain/Views/ErrorPage/Index.cshtml", ViewData = new ViewDataDictionary<CustomErrorModel>(cem) };
+                    filterContext.Result = new ViewResult() { ViewName = "~/Areas/Admin/Views/Error/Index.cshtml", ViewData = new ViewDataDictionary<CustomErrorModel>(cem) };
                 }
             }
             //表示异常已处理

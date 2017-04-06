@@ -1,0 +1,92 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+    <div class="row">
+        <div style="margin-top:150px;" class="col-sm-4 col-sm-offset-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4>修改密码</h4>
+                </div>
+                <div class="panel-body">
+                    @using (Ajax.BeginForm("ChangePwd", new AjaxOptions() { HttpMethod = "post", OnSuccess = "Success" }))
+                    {
+                        <div class="form-group">
+                            <input type="text" class="form-control" disabled="disabled" value="@ViewData["userName"]">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" name="oldpwd" placeholder="请输入旧密码">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" name="newpwd" placeholder="请输入新密码">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" name="newlypwd" placeholder="请重新输入新密码">
+                        </div>
+                        <button type="submit" class="btn btn-primary block full-width m-b">登 录</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section css{
+}
+@section js{
+    <script src="~/Scripts/Tools/Tools.js"></script>
+    <!--表单验证js-->
+    <script src="/Content/HPlus/js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="/Content/HPlus/js/plugins/validate/messages_zh.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            FormYz();
+        });
+
+        //表单验证
+        function FormYz() {
+            var icon = "<i class='fa fa-times-circle'></i> ";
+            $("#form0").validate({
+                debug: true,
+                rules: {
+                    oldpwd: "required",
+                    newpwd: "required",
+                    newlypwd: "required",
+                    oldpwd: {
+                        required: true,
+                        minlength: 3
+                    },
+                    newpwd: {
+                        required: true,
+                        minlength: 3
+                    },
+                    newlypwd: {
+                        required: true,
+                        minlength: 3
+                    }
+                },
+                messages: {
+                    oldpwd: icon + "请输入旧密码",
+                    newpwd: icon + "请输入新密码",
+                    newlypwd: icon + "请重新输入新密码",
+                    oldpwd: {
+                        required: icon + "请输入旧密码",
+                        minlength: icon + "用户名必须3个字符以上"
+                    },
+                    newpwd: {
+                        required: icon + "请输入新密码",
+                        minlength: icon + "密码必须3个字符以上"
+                    }, newlypwd: {
+                        required: icon + "请重新输入新密码",
+                        minlength: icon + "密码必须3个字符以上"
+                    }
+                }
+            });
+        }
+
+        //提交完成后成功回掉函数
+        function Success(r) {
+            if (r.status == 1)
+                Tools.Alert("操作成功", "");
+        }
+    </script>
+}

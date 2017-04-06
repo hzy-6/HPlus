@@ -1,0 +1,167 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    DBContext db = new DBContext();
+    T_Roles troles = new T_Roles();
+    var list = db.FINDToList(troles, " cRoles_Number ");
+}
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <div class="col-sm-6">
+                        <h4>
+                            &nbsp;请选择角色
+                        </h4>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="text-right">
+                            <div class="btn-group">
+                                <button title="" class="btn btn-white btn-sm" onclick="window.location=''"><i class="fa fa-refresh"></i>&nbsp;刷新</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <table class="table table-mail">
+                        <thead>
+                            <tr>
+                                <th class="text-center">
+                                    编号
+                                </th>
+                                <th class="text-center">
+                                    请选择角色
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in list)
+                            {
+                                <tr>
+                                    <td class="text-center">
+                                        @item.cRoles_Number
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="radio i-checks">
+                                            <label onclick="Func.GetRoleMenuFunctionTree('@item.uRoles_ID')">
+                                                <input type="radio" value="@item.uRoles_ID" name="role" />
+                                                <i></i>@item.cRoles_Name
+                                            </label>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>
+                        该角色拥有的权限
+                    </h5>
+                    <div class="text-right">
+                        <div class="btn-group">
+                            <button class="btn btn-primary btn-sm" onclick="Func.Save()" type="button">
+                                <i class="fa fa-check"></i>保存角色功能
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content Content">
+                    <div class="row">
+                        <!--标签树-->
+                        <ul id="tree" class="ztree"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section css{
+    <link href="~/Content/HPlus/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="~/Scripts/zTree/css/metroStyle/metroStyle.css" rel="stylesheet" />
+}
+@section js{
+    <script src="~/Scripts/SysFrameWork/FrameWork.js"></script>
+    <script src="~/Content/HPlus/JS/plugins/nestable/jquery.nestable.js" type="text/javascript"></script>
+    <script src="~/Content/HPlus/JS/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/zTree/js/jquery.ztree.all.min.js"></script>
+    <script type="text/javascript">
+        var _roleid;
+        $(function () {
+            $(".i-checks").iCheck({ checkboxClass: "icheckbox_square-green", radioClass: "iradio_square-green" });
+            $('tbody .iradio_square-green ins').on("click", function () {
+                GetNestableHtml($(this).prev().attr("value"));
+            });
+            $('tbody tr:first td:last label').click();//默认选中第一个角色
+        });
+
+        var Func = {
+            GetRoleMenuFunctionTree: function (id) {
+                _roleid = id;
+                $.Tools.Ajax({
+                    type: "post",
+                    url: "@Url.Action("GetRoleMenuFunctionTree")",
+                    data: {
+                        roleid: id
+                    },
+                    success: function (r) {
+                        var setting = {
+                            check: {
+                                enable: true,
+                                chkboxType: { "Y": "ps", "N": "ps" }
+                            },
+                            view: {
+                                dblClickExpand: true
+                            },
+                            data: {
+                                simpleData: {
+                                    enable: true,
+                                    idKey: "id",
+                                    pIdKey: "pId",
+                                    rootPId: 0,
+                                },
+                                key: { checked: 'checked' }
+                            },
+                            callback: {
+                                onClick: function (event, treeId, treeNode) {
+                                    var treeObj = $.fn.zTree.getZTreeObj("tree");
+                                    if (treeNode.checked == false && treeNode.tag == "fun") {
+                                        treeObj.checkNode(treeNode, true, true);
+                                    } else {
+                                        treeObj.checkNode(treeNode, false, false);
+                                    }
+                                },
+                            }
+                        };
+                        zTree = $.fn.zTree.init($("#tree"), setting, r.value);
+                        zTree.expandAll(true);//展开所有
+                    }
+                });
+            },
+            Save: function () {
+                var treeObj = $.fn.zTree.getZTreeObj("tree");
+                var nodes = treeObj.getCheckedNodes(true);
+                //保存功能
+                $.Tools.Ajax({
+                    type: "post",
+                    url: "@Url.Action("Save")",
+                    data: {
+                        json: JSON.stringify(nodes),
+                        roleid: _roleid
+                    },
+                    success: function (r) {
+                        if (r.status == 1) {
+                            Func.GetRoleMenuFunctionTree(_roleid);
+                            $.ModalMsg("保存成功!", "success");
+                        }
+                    }
+                });
+            }
+        };
+
+    </script>
+}

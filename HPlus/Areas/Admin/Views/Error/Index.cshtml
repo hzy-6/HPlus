@@ -1,0 +1,146 @@
+﻿@{
+    ViewBag.Title = "很抱歉出现了一些问题！";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Application.CustomErrorModel
+<div class="container">
+    <div class="row">
+        <div style="margin-top:20px;" class="col-sm-12">
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <h4>@ViewBag.Title</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <tr>
+                                        <td class="text-right">Success:</td>
+                                        <td class="text-left">@Model.Success</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right">消息提醒:</td>
+                                        <td class="text-left">
+                                            @if (string.IsNullOrEmpty(Model.ErrorMessage))
+                                            {
+                                                <text>无</text>
+                                            }
+                                            else
+                                            {
+                                                @Model.ErrorMessage
+                                            }
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right">
+                                            ErrorCode：
+                                        </td>
+                                        <td class="text-left">
+                                            @if (string.IsNullOrEmpty(Tools.getString(Model.ErrorCode)))
+                                            {
+                                                <text>无</text>
+                                            }
+                                            else
+                                            {
+                                                <text>@Model.ErrorCode</text>
+                                            }
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right">
+                                            ErrorSource：
+                                        </td>
+                                        <td class="text-left">
+                                            @if (string.IsNullOrEmpty(Tools.getString(Model.ErrorSource)))
+                                            {
+                                                <text>无</text>
+                                            }
+                                            else
+                                            {
+                                                <text>@Model.ErrorSource</text>
+                                            }
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right">
+                                            ErrorData：
+                                        </td>
+                                        <td class="text-left">
+                                            @if (string.IsNullOrEmpty(Tools.getString(Model.ErrorData)))
+                                            {
+                                                <text>无</text>
+                                            }
+                                            else
+                                            {
+                                                <text>@Model.ErrorData</text>
+                                            }
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right">
+                                            ErrorStackTrace：
+                                        </td>
+                                        <td class="text-left">
+                                            @if (string.IsNullOrEmpty(Tools.getString(Model.ErrorStackTrace)))
+                                            {
+                                                <text>无</text>
+                                            }
+                                            else
+                                            {
+                                                @Model.ErrorStackTrace
+                                            }
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right">
+                                            ErrorTargetSite：
+                                        </td>
+                                        <td class="text-left">
+                                            @if (string.IsNullOrEmpty(Tools.getString(Model.ErrorTargetSite)))
+                                            {
+                                                <text>无</text>
+                                            }
+                                            else
+                                            {
+                                                <text>@Model.ErrorTargetSite</text>
+                                            }
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right">
+                                            JumpUrl：
+                                        </td>
+                                        <td class="text-left">
+                                            @if (string.IsNullOrEmpty(Tools.getString(Model.JumpUrl)))
+                                            {
+                                                <text>无</text>
+                                            }
+                                            else
+                                            {
+                                                <text>@Model.JumpUrl</text>
+                                            }
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center" colspan="2">
+                                            <a target="_top" href="/Home/Index" class="btn btn-primary">返回登录</a>
+                                            <a target="_self" href="" class="btn btn-primary">刷新</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section css{
+}
+@section js{
+    <script src="~/Scripts/SysFrameWork/FrameWork.js"></script>
+    <script type="text/javascript">
+    </script>
+}
