@@ -852,7 +852,6 @@
     <Content Include="Scripts\UEditor\ueditor1.4.3.3\utf8-net\net\Bin\Newtonsoft.Json.pdb" />
     <Content Include="Scripts\UEditor\ueditor1.4.3.3\utf8-net\net\Bin\Newtonsoft.Json.xml" />
     <Content Include="Scripts\UEditor\ueditor1.4.3.3\utf8-net\net\net.sln" />
-    <Content Include="Scripts\UEditor\ueditor1.4.3.3\utf8-net\net\upload\image\20160927\6361058795964004892246828.jpg" />
     <Content Include="Scripts\UEditor\ueditor1.4.3.3\utf8-net\themes\default\css\ueditor.css" />
     <Content Include="Scripts\UEditor\ueditor1.4.3.3\utf8-net\themes\default\css\ueditor.min.css" />
     <Content Include="Scripts\UEditor\ueditor1.4.3.3\utf8-net\themes\default\dialogbase.css" />
@@ -1480,6 +1479,7 @@
     <Folder Include="Content\UpImages\" />
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
+    <Folder Include="Scripts\UEditor\ueditor1.4.3.3\utf8-net\net\upload\image\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
