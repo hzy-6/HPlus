@@ -19,5 +19,10 @@ namespace HPlus.Controllers
             return RedirectToAction("Index", "Login", new { area = "Admin" });
         }
 
+        public ActionResult TestPage()
+        {
+            return View();
+        }
+
     }
 }

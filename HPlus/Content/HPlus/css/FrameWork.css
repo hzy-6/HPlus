@@ -1,0 +1,79 @@
+/*左边菜单宽度*/
+body.canvas-menu .navbar-static-side, body.fixed-sidebar .navbar-static-side {
+    width: 180px;
+}
+
+#page-wrapper {
+    margin: 0 0 0 180px;
+}
+
+.navbar-header {
+    width: 20%;
+}
+/*顶部栏*/
+.navbar {
+    min-height: 40px;
+}
+/*顶部按钮，右边那一排，全屏等等*/
+.navbar-top-links li a {
+    padding: 10px 8px;
+    min-height: 40px;
+}
+/*顶部按钮{左边菜单的开关}*/
+.minimalize-styl-2 {
+    padding: 2px 10px;
+    margin: 8px 5px 5px 20px;
+}
+
+.fixed-nav .minimalize-styl-2 {
+    margin: 8px 5px 5px 15px;
+}
+
+.skin-1 .minimalize-styl-2 {
+    padding: 2px 10px;
+    margin: 8px 5px 5px 20px;
+}
+
+.skin-1.fixed-nav .minimalize-styl-2 {
+    margin: 8px 5px 5px 15px;
+}
+
+.skin-3 .minimalize-styl-2 {
+    margin: 8px 5px 5px 20px;
+}
+
+.skin-3.fixed-nav .minimalize-styl-2 {
+    margin: 8px 5px 5px 15px;
+}
+
+#content-main {
+    height: calc(100% - 124px);
+}
+
+.fixed-nav #wrapper {
+    padding-top: 40px;
+}
+
+#right-sidebar {
+    top: 40px;
+}
+/*tab 切换栏*/
+.content-tabs {
+    height: 40px;
+}
+
+    .content-tabs .roll-nav, .page-tabs-list {
+        height: 38px;
+    }
+
+nav.page-tabs {
+    height: 38px;
+}
+
+.content-tabs button {
+    height: 38px;
+}
+
+.roll-right.J_tabExit {
+    height: 38px;
+}

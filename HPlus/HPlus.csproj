@@ -166,6 +166,7 @@
     <Content Include="Content\HPlus\css\demo\webuploader-demo.css" />
     <Content Include="Content\HPlus\css\font-awesome.css" />
     <Content Include="Content\HPlus\css\font-awesome.min.css" />
+    <Content Include="Content\HPlus\css\FrameWork.css" />
     <Content Include="Content\HPlus\css\login.css" />
     <Content Include="Content\HPlus\css\patterns\header-profile-skin-1.png" />
     <Content Include="Content\HPlus\css\patterns\header-profile-skin-3.png" />
@@ -1600,6 +1601,9 @@
     <Content Include="Areas\Admin\Views\Home\HomePage.cshtml" />
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Login\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\TestPage.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,0 +1,21 @@
+﻿@{
+    Layout = null;
+}
+@using WebControl.BaseControl
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>TestPage</title>
+</head>
+<body>
+    <div>
+        测试控件库：<br />
+        @(new DoubleTag("b", new { @class = "test", style = "color:red;" }).Append("我是呗append添进去的。").Create())
+        @(new NoDoubleTag("br", null).Create())
+        @(new NoDoubleTag("input", new { type = "text", value = "哈哈我被创建出来了。" }).Create())
+    </div>
+</body>
+</html>
