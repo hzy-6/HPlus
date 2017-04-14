@@ -2,6 +2,7 @@
     ViewBag.Title = "商城管理系统";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <div id="wrapper">
     <!--左侧导航开始-->
     <nav class="navbar-default navbar-static-side" role="navigation">
@@ -11,17 +12,29 @@
         <div class="sidebar-collapse">
             <ul class="nav" id="side-menu">
                 <li class="nav-header">
-                    <div class="dropdown profile-element" style=" text-align: center;">
-                        <span>
-                            <img alt="image" class="img-circle" src="/Content/HPlus/img/profile_small.jpg" style="border-radius:5%;border: 2px solid #1abc9c;" width="80" height="80" />
-                        </span>
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                    <div class="dropdown profile-element">
+                        <span class="text-center"><img alt="image" class="img-circle" src="/Content/HPlus/img/profile_small.jpg" /></span>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:void(0)">
                             <span class="clear">
                                 <br />
+                                @*<span class="block m-t-xs"><strong class="font-bold">Beaut-zihan</strong></span>*@
                                 <span class="text-muted text-xs block">@ViewData["userName"]<b class="caret"></b></span>
                             </span>
                         </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                            @*<li>
+                                    <a class="J_menuItem" href="form_avatar.html">修改头像</a>
+                                </li>
+                                <li>
+                                    <a class="J_menuItem" href="profile.html">个人资料</a>
+                                </li>
+                                <li>
+                                    <a class="J_menuItem" href="contacts.html">联系我们</a>
+                                </li>
+                                <li>
+                                    <a class="J_menuItem" href="mailbox.html">信箱</a>
+                                </li>
+                                <li class="divider"></li>*@
                             <li>
                                 <a href="@Url.Action("Index","Login")">安全退出</a>
                             </li>
@@ -34,7 +47,7 @@
                 <li>
                     <a class="J_menuItem" href="@Url.Action("HomePage")" data-id="@Url.Action("HomePage")" data-index="0">
                         <i class="fa fa-home"></i>
-                        <span class="nav-label">首页</span>
+                        <span class="nav-label">主页</span>
                     </a>
                 </li>
                 @Html.Raw(ViewData["Menu"])
@@ -47,12 +60,20 @@
         <div class="row border-bottom">
             <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
                 <div class="navbar-header">
-                    <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="javascript:void(0);"><i class="fa fa-bars"></i> </a>
+                    <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                    <!--<form role="search" class="navbar-form-custom" method="post" action="search_results.html">
+                        <div class="form-group">
+                            <input type="text" placeholder="请输入您需要查找的内容 …" class="form-control" name="top-search" id="top-search">
+                        </div>
+                    </form>-->
                 </div>
-                <span style="margin-left: 30%; position: absolute; margin-top: 5px; color:#393D49; font-weight:bold;font-family:YouYuan;">
-                    <h3>@ViewBag.Title</h3>
-                </span>
                 <ul class="nav navbar-top-links navbar-right">
+                    <li class="hidden-xs">
+                        <a href="https://www.baidu.com" class="J_menuItem" data-index="qp">百度一下</a>
+                    </li>
+                    <li class="hidden-xs">
+                        <a href="javascript:void(0);" onclick="App.handleFullScreen()"><i class="fa fa-arrows-alt"></i>全屏</a>
+                    </li>
                     <li class="dropdown hidden-xs">
                         <a class="right-sidebar-toggle" aria-expanded="false">
                             <i class="fa fa-tasks"></i> 主题
@@ -90,14 +111,14 @@
                     </li>
                 </ul>
             </div>
-            <a href="javascript:void(0);" onclick="IsOut();" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
+            <a href="@Url.Action("Index","Login")" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
         </div>
         <div class="row J_mainContent" id="content-main">
             <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="@Url.Action("HomePage")" frameborder="0" data-id="@Url.Action("HomePage")" seamless></iframe>
         </div>
         <div class="footer">
             <div class="pull-right">
-                &copy; 2016 <a href="javascript:void(0)" target="_blank">@ViewBag.Title</a>
+                &copy; 2014-2015 <a href="http://www.zi-han.net/" target="_blank">@ViewBag.Title</a>
             </div>
         </div>
     </div>
@@ -193,8 +214,10 @@
                     </div>
                 </div>
                 <div id="tab-2" class="tab-pane">
+                    2
                 </div>
                 <div id="tab-3" class="tab-pane">
+                    3
                 </div>
             </div>
         </div>
@@ -202,11 +225,6 @@
     <!--右侧边栏结束-->
 </div>
 @section css{
-    <style type="text/css">
-        .navbar-header {
-            width: 8%;
-        }
-    </style>
 }
 @section js{
     <script src="~/Scripts/SysFrameWork/FrameWork.js"></script>
@@ -214,28 +232,13 @@
     <script src="/Content/HPlus/js/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="/Content/HPlus/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
     <!-- H+ 自定义js -->
-    <script src="/Content/HPlus/js/hplus.js?v=4.0.0"></script>
+    <script src="/Content/HPlus/js/hplus.js"></script>
     <script type="text/javascript" src="/Content/HPlus/js/contabs.js"></script>
     <script type="text/javascript">
-        $(window).load(function () {
-            if ($(window).width < 640) {
-                $("#content-main").css("height", $(window).height() - 100);//100);
-            }
-        });
         $(function () {
             var v = $.Tools.getCookie("skin");
             $('.s-' + v).click();
             $("body").addClass("fixed-sidebar full-height-layout gray-bg").css("overflow", "hidden");
         });
-        function IsOut() {
-            //模态框
-            $.messager.model = {
-                ok: { text: "退出", classed: 'btn-primary' },
-                cancel: { text: "关闭", classed: 'btn-danger' }
-            };
-            $.messager.confirm("提醒!", "您确定要退出吗?", function () {
-                window.location.href = '/Home/Index/';
-            });
-        }
     </script>
 }

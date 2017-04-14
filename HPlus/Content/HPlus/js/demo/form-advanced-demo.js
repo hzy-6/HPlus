@@ -177,7 +177,7 @@ $(document).ready(function () {
             });
 
             $('.clockpicker').clockpicker();
-            
+
             $( '#file-pretty input[type="file"]' ).prettyFile();
 
         });

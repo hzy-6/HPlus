@@ -1,13 +1,10 @@
 /**
  * jqGrid Chinese Translation
- * 咖啡兔 yanhonglei@gmail.com 
- * http://www.kafeitu.me 
- * 
- * 花岗岩 marbleqi@163.com
- * 
+ * 咖啡兔 yanhonglei@gmail.com
+ * http://www.kafeitu.me
  * Dual licensed under the MIT and GPL licenses:
  * http://www.opensource.org/licenses/mit-license.php
- * http://www.gnu.org/licenses/gpl.html 
+ * http://www.gnu.org/licenses/gpl.html
 **/
 /*global jQuery, define */
 (function( factory ) {
@@ -30,38 +27,34 @@ if(!$.jgrid.hasOwnProperty("regional")) {
 }
 $.jgrid.regional["cn"] = {
     defaults : {
-        recordtext: "第{0}到第{1}条\u3000共 {2} 条", // 共字前是全角空格
-        emptyrecords: "没有记录！",
+        recordtext: "{0} - {1}\u3000共 {2} 条", // 共字前是全角空格
+        emptyrecords: "无数据显示",
         loadtext: "读取中...",
-	savetext: "保存中...",
-        pgtext : "第{0}页\u3000共{1}页",
-		pgfirst : "第一页",
-		pglast : "最后一页",
-		pgnext : "下一页",
-		pgprev : "上一页",
-		pgrecs : "每页记录数",
-		showhide: "切换 展开 折叠 表格",
+		savetext: "Saving...",
+        pgtext : " {0} 共 {1} 页",
+		pgfirst : "First Page",
+		pglast : "Last Page",
+		pgnext : "Next Page",
+		pgprev : "Previous Page",
+		pgrecs : "Records per Page",
+		showhide: "Toggle Expand Collapse Grid",
 		// mobile
-		pagerCaption : "表格::页面设置",
+		pagerCaption : "Grid::Page Settings",
 		pageText : "Page:",
-		recordPage : "每页记录数",
-		nomorerecs : "没有更多记录...",
-		scrollPullup: "加载更多...",
-		scrollPulldown : "刷新...",
-		scrollRefresh : "滚动刷新..."
+		recordPage : "Records per Page",
+		nomorerecs : "No more records...",
+		scrollPullup: "Pull up to load more...",
+		scrollPulldown : "Pull down to refresh...",
+		scrollRefresh : "Release to refresh..."
     },
     search : {
         caption: "搜索...",
         Find: "查找",
         Reset: "重置",
-        odata: [{ oper:'eq', text:'等于\u3000\u3000'},{ oper:'ne', text:'不等于\u3000'},{ oper:'lt', text:'小于\u3000\u3000'},{ oper:'le', text:'小于等于'},{ oper:'gt', text:'大于\u3000\u3000'},{ oper:'ge', text:'大于等于'},{ oper:'bw', text:'开头是'},{ oper:'bn', text:'开头不是'},{ oper:'in', text:'属于\u3000\u3000'},{ oper:'ni', text:'不属于'},{ oper:'ew', text:'结尾是'},{ oper:'en', text:'结尾不是'},{ oper:'cn', text:'包含\u3000\u3000'},{ oper:'nc', text:'不包含'},{ oper:'nu', text:'为空'},{ oper:'nn', text:'不为空'}, {oper:'bt', text:'区间'}],
-        groupOps: [ { op: "AND", text: "满足所有条件" },    { op: "OR",  text: "满足任一条件" } ],
-		operandTitle : "单击进行搜索。",
-		resetTitle : "重置搜索条件",
-		addsubgrup : "添加条件组",
-		addrule : "添加条件",
-		delgroup : "删除条件组",
-		delrule : "删除条件"		
+        odata: [{ oper:'eq', text:'等于\u3000\u3000'},{ oper:'ne', text:'不等\u3000\u3000'},{ oper:'lt', text:'小于\u3000\u3000'},{ oper:'le', text:'小于等于'},{ oper:'gt', text:'大于\u3000\u3000'},{ oper:'ge', text:'大于等于'},{ oper:'bw', text:'开始于'},{ oper:'bn', text:'不开始于'},{ oper:'in', text:'属于\u3000\u3000'},{ oper:'ni', text:'不属于'},{ oper:'ew', text:'结束于'},{ oper:'en', text:'不结束于'},{ oper:'cn', text:'包含\u3000\u3000'},{ oper:'nc', text:'不包含'},{ oper:'nu', text:'不存在'},{ oper:'nn', text:'存在'}],
+        groupOps: [ { op: "AND", text: "所有" },    { op: "OR",  text: "任一" } ],
+		operandTitle : "Click to select search operation.",
+		resetTitle : "Reset Search Value"
     },
     edit : {
         addCaption: "添加记录",
@@ -69,7 +62,7 @@ $.jgrid.regional["cn"] = {
         bSubmit: "提交",
         bCancel: "取消",
         bClose: "关闭",
-        saveData: "数据已修改，是否保存？",
+        saveData: "数据已改变，是否保存？",
         bYes : "是",
         bNo : "否",
         bExit : "取消",
@@ -114,10 +107,10 @@ $.jgrid.regional["cn"] = {
         viewtext: "",
         viewtitle: "查看所选记录",
 		savetext: "",
-		savetitle: "保存记录",
+		savetitle: "Save row",
 		canceltext: "",
-		canceltitle : "取消编辑记录",
-		selectcaption : "操作..."
+		canceltitle : "Cancel row editing",
+		selectcaption : "Actions..."
     },
     col : {
         caption: "选择列",
@@ -127,7 +120,7 @@ $.jgrid.regional["cn"] = {
     errors : {
         errcap : "错误",
         nourl : "没有设置url",
-        norecords: "没有需要处理的记录",
+        norecords: "没有要处理的记录",
         model : "colNames 和 colModel 长度不等！"
     },
     formatter : {
@@ -209,18 +202,6 @@ $.jgrid.regional["cn"] = {
         target: '',
         checkbox : {disabled:true},
         idName : 'id'
-    },
-	colmenu : {
-		sortasc : "升序排序",
-		sortdesc : "降序排序",
-		columns : "列",
-		filter : "筛选",
-		grouping : "分类",
-		ungrouping : "取消分类",
-		searchTitle : "查找:",
-		freeze : "冻结",
-		unfreeze : "取消冻结",
-		reorder : "重新排序"
-	}
+    }
 };
 }));

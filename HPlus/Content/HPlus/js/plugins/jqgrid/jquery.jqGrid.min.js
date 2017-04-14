@@ -2,7 +2,7 @@
 *
 * @license Guriddo jqGrid JS - v5.0.0 - 2015-08-03
 * Copyright(c) 2008, Tony Tomov, tony@trirand.com
-* 
+*
 * License: http://guriddo.net/?page_id=103334
 */
 

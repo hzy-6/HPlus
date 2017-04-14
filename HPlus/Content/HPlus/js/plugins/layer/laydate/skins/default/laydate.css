@@ -1,9 +1,9 @@
-﻿/** 
- 
+/**
+
  @Name： laydate皮肤：墨绿
  @Author：贤心
  @Site：http://sentsin.com/layui/laydate
- 
+
 **/
 
 .laydate-icon{border:1px solid #ccc; background-image:url(icon.png)}
@@ -11,7 +11,7 @@
 .laydate_body .laydate_bottom #laydate_hms,
 .laydate_body .laydate_time{border:1px solid #ccc;}
 
-.laydate_body .laydate_box, 
+.laydate_body .laydate_box,
 .laydate_body .laydate_ym .laydate_yms,
 .laydate_body .laydate_time{box-shadow: 2px 2px 5px rgba(0,0,0,.1);}
 
@@ -28,7 +28,7 @@
 .laydate_body .laydate_y .laydate_yms .laydate_chdown{border-top:1px solid #009F95; border-bottom:none;}
 .laydate_body .laydate_choose{border-left:1px solid #009F95;}
 .laydate_body .laydate_chprev{border-left:none; border-right:1px solid #009F95;}
-.laydate_body .laydate_choose:hover, 
+.laydate_body .laydate_choose:hover,
 .laydate_body .laydate_y .laydate_yms a:hover{background-color:#00C1B3;}
 .laydate_body .laydate_chtop cite{border-bottom-color:#fff;}
 .laydate_body .laydate_chdown cite, .laydate_body .laydate_ym label{border-top-color:#fff;}

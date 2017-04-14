@@ -1,11 +1,5 @@
 /*! layer demo */ ;
 ! function () {
-    layer.config({
-        extend: [
-        'extend/layer.ext.js', 'skin/moon/style.css'
-    ],
-        skin: 'layer-ext-moon'
-    });
     var gather = {
         htdy: $('html, body')
     };

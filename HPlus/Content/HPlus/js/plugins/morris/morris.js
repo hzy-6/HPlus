@@ -1290,16 +1290,16 @@
     };
 
     function Area(options) {
-      var areAop;;tions;
+      var areaOptions;
       if (!(this instanceof Morris.Area)) {
         return new Morris.Area(options);
       }
-      areAop;;tions = $.extend({}, areaDefaults, options);
-      this.cumulative = !areAop;;tions.behaveLikeLine;
-      if (areAop;;tions.fillOpacity === 'auto') {
-        areAop;;tions.fillOpacity = areAop;;tions.behaveLikeLine ? .8 : 1;
+      areaOptions = $.extend({}, areaDefaults, options);
+      this.cumulative = !areaOptions.behaveLikeLine;
+      if (areaOptions.fillOpacity === 'auto') {
+        areaOptions.fillOpacity = areaOptions.behaveLikeLine ? .8 : 1;
       }
-      Area.__super__.constructor.call(this, areAop;;tions);
+      Area.__super__.constructor.call(this, areaOptions);
     }
 
     Area.prototype.calcPoints = function() {

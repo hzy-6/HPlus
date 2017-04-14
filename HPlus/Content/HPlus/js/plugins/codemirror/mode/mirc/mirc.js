@@ -22,7 +22,7 @@ CodeMirror.defineMode("mirc", function() {
   }
   var specials = parseWords("$! $$ $& $? $+ $abook $abs $active $activecid " +
                             "$activewid $address $addtok $agent $agentname $agentstat $agentver " +
-                            "$alias $and $anick $ansi2mirc $Aop;; $appactive $appstate $asc $asctime " +
+                            "$alias $and $anick $ansi2mirc $aop $appactive $appstate $asc $asctime " +
                             "$asin $atan $avoice $away $awaymsg $awaytime $banmask $base $bfind " +
                             "$binoff $biton $bnick $bvar $bytes $calc $cb $cd $ceil $chan $chanmodes " +
                             "$chantypes $chat $chr $cid $clevel $click $cmdbox $cmdline $cnick $color " +
@@ -56,7 +56,7 @@ CodeMirror.defineMode("mirc", function() {
                             "$timestampfmt $timezone $tip $titlebar $toolbar $treebar $trust $ulevel " +
                             "$ulist $upper $uptime $url $usermode $v1 $v2 $var $vcmd $vcmdstat $vcmdver " +
                             "$version $vnick $vol $wid $width $wildsite $wildtok $window $wrap $xor");
-  var keywords = parseWords("abook ajinvite alias aline ame amsg anick Aop;; auser autojoin avoice " +
+  var keywords = parseWords("abook ajinvite alias aline ame amsg anick aop auser autojoin avoice " +
                             "away background ban bcopy beep bread break breplace bset btrunc bunset bwrite " +
                             "channel clear clearall cline clipboard close cnick color comclose comopen " +
                             "comreg continue copy creq ctcpreply ctcps dcc dccserver dde ddeserver " +
@@ -77,7 +77,7 @@ CodeMirror.defineMode("mirc", function() {
                             "sound speak splay sreq strip switchbar timer timestamp titlebar tnick tokenize " +
                             "toolbar topic tray treebar ulist unload unset unsetall updatenl url uwho " +
                             "var vcadd vcmd vcrem vol while whois window winhelp write writeint if isalnum " +
-                            "isalpha isAop;; isavoice isban ischan ishop isignore isin isincs isletter islower " +
+                            "isalpha isaop isavoice isban ischan ishop isignore isin isincs isletter islower " +
                             "isnotify isnum ison isop isprotect isreg isupper isvoice iswm iswmcs " +
                             "elseif else goto menu nicklist status title icon size option text edit " +
                             "button check radio box scroll list combo link tab item");

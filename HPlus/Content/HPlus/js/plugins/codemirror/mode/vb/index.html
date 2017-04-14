@@ -44,7 +44,7 @@ function test(golden, text) {
     }
     i++;
   }
-  CodeMirror.runMode(text, "text/x-vb",callback); 
+  CodeMirror.runMode(text, "text/x-vb",callback);
 
   if (ok) return "Tests OK";
 }
@@ -88,7 +88,7 @@ function init() {
 function runTest() {
 	document.getElementById('testresult').innerHTML = testAll();
   initText(editor);
-	
+
 }
 document.body.onload = init;
 </script>

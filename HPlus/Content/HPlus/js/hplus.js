@@ -1,10 +1,7 @@
 //自定义js
 
 //公共配置
-//layer.config({
-//    extend: ['extend/layer.ext.js', 'skin/moon/style.css'],
-//    skin: 'layer-ext-moon'
-//});
+
 
 $(document).ready(function () {
 
@@ -49,8 +46,7 @@ $(document).ready(function () {
         $('.sidebar-collapse').slimScroll({
             height: '100%',
             railOpacity: 0.9,
-            alwaysVisible: false,
-            color: 'red'
+            alwaysVisible: false
         });
     });
 
@@ -131,14 +127,14 @@ function SmoothlyMenu() {
         setTimeout(
             function () {
                 $('#side-menu').fadeIn(500);
-            }, 100);
+            }, 300);
     } else {
         $('#side-menu').removeAttr('style');
     }
 }
 
 
-//主题设置    
+//主题设置
 $(function () {
 
     // 顶部菜单固定

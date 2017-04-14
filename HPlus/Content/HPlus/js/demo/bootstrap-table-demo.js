@@ -79,7 +79,7 @@ function buildTable($el, cells, rows) {
 
 (function(document, window, $) {
   'use strict';
-    
+
   // Example Bootstrap Table From Data
   // ---------------------------------
   (function() {

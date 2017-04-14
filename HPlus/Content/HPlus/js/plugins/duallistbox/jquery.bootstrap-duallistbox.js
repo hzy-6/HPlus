@@ -322,7 +322,7 @@
         '     <button type="button" class="btn move">' +
         '       <i></i>' +
         '     </button>' +
-        '   </div>' +        
+        '   </div>' +
         '   <input class="filter" type="text">' +
         '   <select multiple="multiple"></select>' +
         ' </div>' +

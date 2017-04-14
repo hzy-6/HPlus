@@ -1,4 +1,4 @@
-﻿/*
+/*
  * jQuery and Bootsrap3 Plugin prettyFile
  *
  * version 2.0, Jan 20th, 2014

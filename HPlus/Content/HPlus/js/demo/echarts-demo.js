@@ -65,7 +65,7 @@ $(function () {
             }
         ]
     };
-    lineChart.setOption(lineoption); 
+    lineChart.setOption(lineoption);
     $(window).resize(lineChart.resize);
 
     var barChart = echarts.init(document.getElementById("echarts-bar-chart"));
@@ -131,10 +131,10 @@ $(function () {
             }
         ]
     };
-    barChart.setOption(baroption); 
-    
+    barChart.setOption(baroption);
+
     window.onresize = barChart.resize;
-    
+
     var scatterChart = echarts.init(document.getElementById("echarts-scatter-chart"));
     var scatteroption = {
         title : {
@@ -187,7 +187,7 @@ $(function () {
                     formatter : function (params) {
                         if (params.value.length > 1) {
                             return params.seriesName + ' :<br/>'
-                               + params.value[0] + 'cm ' 
+                               + params.value[0] + 'cm '
                                + params.value[1] + 'kg ';
                         }
                         else {
@@ -270,7 +270,7 @@ $(function () {
                     formatter : function (params) {
                         if (params.value.length > 1) {
                             return params.seriesName + ' :<br/>'
-                               + params.value[0] + 'cm ' 
+                               + params.value[0] + 'cm '
                                + params.value[1] + 'kg ';
                         }
                         else {
@@ -345,10 +345,10 @@ $(function () {
             }
         ]
     };
-    scatterChart.setOption(scatteroption); 
+    scatterChart.setOption(scatteroption);
     $(window).resize(scatterChart.resize);
-    
-    
+
+
     var kChart = echarts.init(document.getElementById("echarts-k-chart"));
     var koption = {
         title : {
@@ -384,22 +384,22 @@ $(function () {
                 splitLine: {show:false},
                 data : [
                     "2013/1/24", "2013/1/25", "2013/1/28", "2013/1/29", "2013/1/30",
-                    "2013/1/31", "2013/2/1", "2013/2/4", "2013/2/5", "2013/2/6", 
-                    "2013/2/7", "2013/2/8", "2013/2/18", "2013/2/19", "2013/2/20", 
-                    "2013/2/21", "2013/2/22", "2013/2/25", "2013/2/26", "2013/2/27", 
-                    "2013/2/28", "2013/3/1", "2013/3/4", "2013/3/5", "2013/3/6", 
-                    "2013/3/7", "2013/3/8", "2013/3/11", "2013/3/12", "2013/3/13", 
-                    "2013/3/14", "2013/3/15", "2013/3/18", "2013/3/19", "2013/3/20", 
-                    "2013/3/21", "2013/3/22", "2013/3/25", "2013/3/26", "2013/3/27", 
-                    "2013/3/28", "2013/3/29", "2013/4/1", "2013/4/2", "2013/4/3", 
-                    "2013/4/8", "2013/4/9", "2013/4/10", "2013/4/11", "2013/4/12", 
-                    "2013/4/15", "2013/4/16", "2013/4/17", "2013/4/18", "2013/4/19", 
-                    "2013/4/22", "2013/4/23", "2013/4/24", "2013/4/25", "2013/4/26", 
-                    "2013/5/2", "2013/5/3", "2013/5/6", "2013/5/7", "2013/5/8", 
-                    "2013/5/9", "2013/5/10", "2013/5/13", "2013/5/14", "2013/5/15", 
-                    "2013/5/16", "2013/5/17", "2013/5/20", "2013/5/21", "2013/5/22", 
-                    "2013/5/23", "2013/5/24", "2013/5/27", "2013/5/28", "2013/5/29", 
-                    "2013/5/30", "2013/5/31", "2013/6/3", "2013/6/4", "2013/6/5", 
+                    "2013/1/31", "2013/2/1", "2013/2/4", "2013/2/5", "2013/2/6",
+                    "2013/2/7", "2013/2/8", "2013/2/18", "2013/2/19", "2013/2/20",
+                    "2013/2/21", "2013/2/22", "2013/2/25", "2013/2/26", "2013/2/27",
+                    "2013/2/28", "2013/3/1", "2013/3/4", "2013/3/5", "2013/3/6",
+                    "2013/3/7", "2013/3/8", "2013/3/11", "2013/3/12", "2013/3/13",
+                    "2013/3/14", "2013/3/15", "2013/3/18", "2013/3/19", "2013/3/20",
+                    "2013/3/21", "2013/3/22", "2013/3/25", "2013/3/26", "2013/3/27",
+                    "2013/3/28", "2013/3/29", "2013/4/1", "2013/4/2", "2013/4/3",
+                    "2013/4/8", "2013/4/9", "2013/4/10", "2013/4/11", "2013/4/12",
+                    "2013/4/15", "2013/4/16", "2013/4/17", "2013/4/18", "2013/4/19",
+                    "2013/4/22", "2013/4/23", "2013/4/24", "2013/4/25", "2013/4/26",
+                    "2013/5/2", "2013/5/3", "2013/5/6", "2013/5/7", "2013/5/8",
+                    "2013/5/9", "2013/5/10", "2013/5/13", "2013/5/14", "2013/5/15",
+                    "2013/5/16", "2013/5/17", "2013/5/20", "2013/5/21", "2013/5/22",
+                    "2013/5/23", "2013/5/24", "2013/5/27", "2013/5/28", "2013/5/29",
+                    "2013/5/30", "2013/5/31", "2013/6/3", "2013/6/4", "2013/6/5",
                     "2013/6/6", "2013/6/7", "2013/6/13"
                 ]
             }
@@ -508,9 +508,9 @@ $(function () {
             }
         ]
     };
-    kChart.setOption(koption);  
+    kChart.setOption(koption);
     $(window).resize(kChart.resize);
-    
+
     var pieChart = echarts.init(document.getElementById("echarts-pie-chart"));
     var pieoption = {
         title : {
@@ -544,9 +544,9 @@ $(function () {
             }
         ]
     };
-    pieChart.setOption(pieoption); 
+    pieChart.setOption(pieoption);
     $(window).resize(pieChart.resize);
-    
+
     var radarChart = echarts.init(document.getElementById("echarts-radar-chart"));
     var radaroption = {
         title : {
@@ -592,10 +592,10 @@ $(function () {
             }
         ]
     };
-        
-    radarChart.setOption(radaroption); 
+
+    radarChart.setOption(radaroption);
     $(window).resize(radarChart.resize);
-    
+
     var mapChart = echarts.init(document.getElementById("echarts-map-chart"));
     var mapoption = {
         title : {
@@ -735,9 +735,9 @@ $(function () {
             }
         ]
     };
-    mapChart.setOption(mapoption); 
+    mapChart.setOption(mapoption);
     $(window).resize(mapChart.resize);
-    
+
     var chordChart = echarts.init(document.getElementById("echarts-chord-chart"));
     var chordoption = {
         title : {
@@ -797,10 +797,10 @@ $(function () {
             }
         ]
     };
-                    
-    chordChart.setOption(chordoption); 
+
+    chordChart.setOption(chordoption);
     $(window).resize(chordChart.resize);
-    
+
     var forceChart = echarts.init(document.getElementById("echarts-force-chart"));
     var forceoption ={
         title : {
@@ -911,9 +911,9 @@ $(function () {
             }
         ]
     };
-    forceChart.setOption(forceoption); 
+    forceChart.setOption(forceoption);
     $(window).resize(forceChart.resize);
-    
+
     var gaugeChart = echarts.init(document.getElementById("echarts-gauge-chart"));
     var gaugeoption = {
         tooltip : {
@@ -1016,7 +1016,7 @@ $(function () {
                 splitNumber:2,
                 axisLine: {            // 坐标轴线
                     lineStyle: {       // 属性lineStyle控制线条样式
-                        color: [[0.2, '#ff4500'],[0.8, '#48b'],[1, '#228b22']], 
+                        color: [[0.2, '#ff4500'],[0.8, '#48b'],[1, '#228b22']],
                         width: 8
                     }
                 },
@@ -1065,7 +1065,7 @@ $(function () {
                 splitNumber:2,
                 axisLine: {            // 坐标轴线
                     lineStyle: {       // 属性lineStyle控制线条样式
-                        color: [[0.2, '#ff4500'],[0.8, '#48b'],[1, '#228b22']], 
+                        color: [[0.2, '#ff4500'],[0.8, '#48b'],[1, '#228b22']],
                         width: 8
                     }
                 },
@@ -1100,9 +1100,9 @@ $(function () {
             }
         ]
     };
-    gaugeChart.setOption(gaugeoption); 
+    gaugeChart.setOption(gaugeoption);
     $(window).resize(gaugeChart.resize);
-    
+
     var funnelChart = echarts.init(document.getElementById("echarts-funnel-chart"));
     var funneloption = {
         title : {
@@ -1153,8 +1153,8 @@ $(function () {
             }
         ]
     };
-                    
-    funnelChart.setOption(funneloption); 
+
+    funnelChart.setOption(funneloption);
     $(window).resize(funnelChart.resize);
-    
+
 });

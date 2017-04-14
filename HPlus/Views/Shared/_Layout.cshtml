@@ -12,27 +12,25 @@
     <link href="~/Content/HPlus/css/animate.css" rel="stylesheet" />
     <link href="~/Content/HPlus/css/style.css" rel="stylesheet" />
     <link href="~/Content/HPlus/css/plugins/jqgrid/ui.jqgrid.css" rel="stylesheet" />
-    <link href="~/Content/HPlus/css/FrameWork.css" rel="stylesheet" />
-    @*<link href="~/Content/Css/FrameWork.css" rel="stylesheet" />*@
+    <link href="~/Content/HPlus/css/HPlusExtend.css" rel="stylesheet" />
     @RenderSection("css", required: false)
     <!--外部样式-->
 </head>
-<body class="gray-bg" id="Btn_Power_Find">
+<body class="fixed-sidebar full-height-layout gray-bg" id="Btn_Power_Find">
     @RenderBody()
     <!--基础js-->
     <script src="~/Scripts/Jquery/jquery-2.1.4.min.js"></script>
     <script src="~/Scripts/Bootstrap/bootstrap.min.js"></script>
     <script src="~/Scripts/Bootstrap/jquery.bootstrap.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
-    @*<script src="~/Scripts/Layer/layer-v2.4/layer/layer.js"></script>*@
     <script src="~/Scripts/Layer/layer-v3.0.1/layer/layer.js"></script>
-    @*<script src="~/Scripts/Layer/laypage/laypage.js"></script>*@
     <script src="~/Scripts/Ko/knockout-3.4.0.debug.js"></script>
     <script src="~/Scripts/Ko/knockout.mapping-latest.js"></script>
     <script src="~/Content/HPlus/js/plugins/jqgrid/jquery.jqGrid.min.js"></script>
     <script src="~/Content/HPlus/js/plugins/jqgrid/i18n/grid.locale-cn.js"></script>
     <script src="~/Scripts/AjaxFileUpload/ajaxfileupload.js"></script>
+    <script src="~/Content/HPlus/js/HPlusExtend.js"></script>
     @{Html.RenderPartial("~/Areas/SysManage/Views/Sys/PowerControl/Index.cshtml");}
-    @RenderSection("js", required: false)    
+    @RenderSection("js", required: false)
 </body>
 </html>

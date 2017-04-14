@@ -1,3 +1,4 @@
+
 var menuItem;
 $(function () {
     //计算元素集合的总宽度
@@ -105,9 +106,6 @@ $(function () {
         }
     });
 
-
-    //在标签上菜单项
-    //<a href="/SysManage/User/Index" data-id="/SysManage/User/Index" class="J_menuItem" data-index="1"><i class=""></i><span class="nav-label">用户管理</span></a> //配置这样的菜单即可在父级添加菜单
     menuItem = function () {
         // 获取标识数据
         var dataUrl = $(this).attr('href'),
@@ -137,21 +135,23 @@ $(function () {
 
         // 选项卡菜单不存在
         if (flag) {
-            var str = '<a href="javascript:void(0);" class="active J_menuTab" data-id="' + dataUrl + '">' + menuName + ' <i class="fa fa-times-circle"></i></a>';
+            var str = '<a href="javascript:;" class="active J_menuTab" data-id="' + dataUrl + '">' + menuName + ' <i class="fa fa-times-circle"></i></a>';
             $('.J_menuTab').removeClass('active');
 
             // 添加选项卡对应的iframe ' + dataUrl + '
             var iframeName = dataUrl.replace("/", "FrameWork_").replace(/\//g, "");
+
+            // 添加选项卡对应的iframe
             var str1 = '<iframe class="J_iframe" name="' + iframeName + '" width="100%" height="100%" src="' + dataUrl + '" frameborder="0" data-id="' + dataUrl + '" seamless></iframe>';
             $('.J_mainContent').find('iframe.J_iframe').hide().parents('.J_mainContent').append(str1);
 
             //显示loading提示
-            var loading = layer.msg('请稍候...', { icon: 16, shade: [0.5, "#000"], time: 0 });
-
-            $('.J_mainContent iframe:visible').load(function () {
-                //iframe加载完成后隐藏loading提示
-                layer.close(loading);
-            });
+            //            var loading = layer.load();
+            //
+            //            $('.J_mainContent iframe:visible').load(function () {
+            //                //iframe加载完成后隐藏loading提示
+            //                layer.close(loading);
+            //            });
             // 添加选项卡
             $('.J_menuTabs .page-tabs-content').append(str);
             scrollToTab($('.J_menuTab.active'));
@@ -159,8 +159,7 @@ $(function () {
         return false;
     }
 
-
-    $('.J_menuItem').on('click', menuItem); //原来的版本
+    $('.J_menuItem').on('click', menuItem);
     $('.J_menuItem').on('click', refreshTab);//绑定刷新函数
 
     // 关闭选项卡菜单
@@ -284,19 +283,16 @@ $(function () {
     function refreshTab() {
         var target = $('.J_iframe[data-id="' + $(this).data('id') + '"]');
         var url = target.attr('src');
-        //显示loading提示
-        var loading = layer.msg('请稍候...', { icon: 16, shade: [0.5, "#000"], time: 0 });
-        target.attr('src', url).load(function () {
-            //关闭loading提示
-            layer.close(loading);
-        });
+        target.attr('src', url).load();
+        //        //显示loading提示
+        //        var loading = layer.load();
+        //        target.attr('src', url).load(function () {
+        //            //关闭loading提示
+        //            layer.close(loading);
+        //        });
     }
 
-    //双击选项卡刷新
     $('.J_menuTabs').on('dblclick', '.J_menuTab', refreshTab);
-
-    //双击左侧菜单刷新
-    //$(".J_menuItem").on('dblclick', refreshTab);
 
     // 左移按扭
     $('.J_tabLeft').on('click', scrollTabLeft);

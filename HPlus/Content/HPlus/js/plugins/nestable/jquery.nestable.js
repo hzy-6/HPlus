@@ -104,7 +104,7 @@
                 }
 
                 e.preventDefault();
-                //list.dragStart(e.touches ? e.touches[0] : e);//禁止拖动移除此代码
+                list.dragStart(e.touches ? e.touches[0] : e);
             };
 
             var onMoveEvent = function(e)

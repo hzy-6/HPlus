@@ -1,7 +1,10 @@
-/*左边菜单宽度*/
-body.canvas-menu .navbar-static-side, body.fixed-sidebar .navbar-static-side {
-    width: 180px;
+body {
+    font-size: 12px;
 }
+    /*左边菜单宽度*/
+    body.canvas-menu .navbar-static-side, body.fixed-sidebar .navbar-static-side {
+        width: 180px;
+    }
 
 #page-wrapper {
     margin: 0 0 0 180px;
@@ -14,6 +17,13 @@ body.canvas-menu .navbar-static-side, body.fixed-sidebar .navbar-static-side {
 .navbar {
     min-height: 40px;
 }
+
+.footer {
+    margin: 3px -15px;
+    height: 30px;
+    padding: 8px 20px;
+}
+
 /*顶部按钮，右边那一排，全屏等等*/
 .navbar-top-links li a {
     padding: 10px 8px;
@@ -47,7 +57,7 @@ body.canvas-menu .navbar-static-side, body.fixed-sidebar .navbar-static-side {
 }
 
 #content-main {
-    height: calc(100% - 124px);
+    height: calc(100% - 117px);
 }
 
 .fixed-nav #wrapper {
@@ -76,4 +86,38 @@ nav.page-tabs {
 
 .roll-right.J_tabExit {
     height: 38px;
+}
+
+.nav > li > a {
+    font-weight: normal;
+}
+
+.nav.navbar-right > li > a {
+    color: black;
+}
+
+.navbar-top-links li {
+    border-left: 1px solid #b7b6b6;
+}
+
+    .navbar-top-links li:last-child {
+        margin-right: 18px;
+    }
+
+.skin-1 .navbar-top-links li:last-child {
+    margin-right: 18px;
+}
+
+.skin-3 .navbar-top-links li:last-child {
+    margin-right: 18px;
+}
+
+.wrapper-content {
+    padding: 8px;
+}
+
+.form-control, .single-line {
+    font-size: 12px;
+    padding: 5px 10px;
+    height: 30px;
 }

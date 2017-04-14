@@ -4,7 +4,7 @@
  @Author：贤心（子涵修改）
  @Date: 2014-04-25
  @Blog: http://sentsin.com
- 
+
  */
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,input,button,textarea,p,blockquote,th,td,form{margin:0; padding:0;}
 input,button,textarea,select,optgroup,option{font-family:inherit; font-size:inherit; font-style:inherit; font-weight:inherit; outline: 0;}
@@ -117,7 +117,7 @@ li{list-style:none;}
 .layim_chateme .layim_chatsay .layim_zero{left:auto; right:10px;}
 .layim_chateme .layim_chatuser .layim_chattime{padding-left:0; padding-right:10px;}
 .layim_chateme .layim_chatsay{float:right; background-color:#EBFBE3}
-.layim_chateme .layim_zero{border-right-color:#EBFBE3;} 
+.layim_chateme .layim_zero{border-right-color:#EBFBE3;}
 .layim_groups{display:none; float:right; width:130px; border-left:1px solid #D9D9D9; background-color:#fff;}
 .layim_groups ul{display:none;}
 .layim_groups ul.layim_groupthis{display:block;}
