@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 //
 using DBAccess.Entity;
 using DBAccess.CustomAttribute;
-using System.Reflection;
 
 namespace Model
 {
@@ -22,7 +21,6 @@ namespace Model
         public Guid? uUsers_ID { get; set; }
 
         [CRequired(ErrorMessage = "{name}不能为空")]
-        //[CRepeat(ErrorMessage = "{name}已存在")]
         [Filed(DisplayName = "真实名称")]
         public string cUsers_Name { get; set; }
 

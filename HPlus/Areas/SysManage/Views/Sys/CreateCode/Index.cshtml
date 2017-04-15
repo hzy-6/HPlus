@@ -1,0 +1,166 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-sm-6">
+
+
+            <div class="ibox">
+                <div class="ibox-title">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="btn-group btn-group-sm">
+                                <button title="" class="btn btn-white btn-sm" onclick="window.location=''" data-toggle="tooltip" data-placement="top"><i class="fa fa-refresh"></i>&nbsp;刷新</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <!--标签树-->
+                        <ul id="tree" class="ztree"></ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-6">
+
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>创建</h5>
+                </div>
+                <div class="ibox-content">
+                    <form class="form-horizontal m-t" id="commentForm">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">类型：</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" data-bind="value:Type">
+                                    <option value="Model">Model</option>
+                                    <option value="BLL">BLL</option>
+                                    <option value="DAL">DAL</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">创建后保存路径：</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" value="" data-bind="value:Url" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">类名追加字符：</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" value="" placeholder="（如：M）不填则默认" data-bind="value:Str" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">表：</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" value="" readonly="readonly" data-bind="value:Table" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-8 col-sm-offset-3">
+                                <span style="color:red;">注意：<p>点击创建按钮是创建一个表（所以得选中左边要创建的表）</p>点击创建所有是创建库中所有的的表</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-3">
+                                <button class="btn btn-primary btn-sm" type="button" onclick="Func.Save()">创建</button>
+                            </div>
+                            <div class="col-sm-2">
+                                <button class="btn btn-primary btn-sm" type="button" onclick="Func.Save('all')">创建所有</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section css{
+    <link href="~/Scripts/zTree/css/metroStyle/metroStyle.css" rel="stylesheet" />
+}
+@section js{
+    <script src="~/Scripts/SysFrameWork/FrameWork.js"></script>
+    <script src="~/Scripts/Ko/Knockout-3.4.0.js"></script>
+    <script src="~/Scripts/zTree/js/jquery.ztree.all.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            ko.applyBindings(vModel);
+            Func.GetTree();
+        });
+
+        var Func = {
+            GetTree: function () {
+                $.Tools.Ajax({
+                    url: "@Url.Action("GetDatabaseAllTable")",
+                    success: function (r) {
+                        var setting = {
+                            check: {
+                                enable: false,
+                                chkboxType: { "Y": "ps", "N": "ps" }
+                            },
+                            view: {
+                                dblClickExpand: true
+                            },
+                            data: {
+                                simpleData: {
+                                    enable: true,
+                                    idKey: "id",
+                                    pIdKey: "pId",
+                                    rootPId: 0,
+                                },
+                                key: { checked: 'checked' }
+                            },
+                            callback: {
+                                onClick: function (event, treeId, treeNode) {
+                                    //console.log(treeNode.id);
+                                    var string = treeNode.id;
+                                    if (string.indexOf('$~') != -1) {
+                                        string = string.split('$~')[0];
+                                    }
+                                    vModel.Table(string);
+                                },
+                            }
+                        };
+                        zTree = $.fn.zTree.init($("#tree"), setting, r.value);
+                        zTree.expandAll(true);//展开所有
+                    }
+                });
+            },
+            Save: function (tag) {
+                if (!tag) {
+                    vModel.isall(false);
+                    if (!vModel.Table()) {
+                        $.ModalMsg("要创建单个类请在左边选则要创建的表", "警告");
+                        return false;
+                    }
+                }
+                $.Tools.Ajax({
+                    url: "@Url.Action("Save")",
+                    data: vModel,
+                    success: function (r) {
+                        if (r.status = 1) {
+                            $.ModalMsg("创建成功", "成功");
+                        }
+                    }
+                });
+            }
+        }
+        var d = "@(HttpContext.Current.Server.MapPath("/Content/CreateFile/").Replace("\\","\\\\"))";
+        var vModel = {
+            Type: ko.observable(),
+            Url: ko.observable(d),
+            Str: ko.observable(),
+            Table: ko.observable(),
+            isall: ko.observable(true),
+        }
+    </script>
+}

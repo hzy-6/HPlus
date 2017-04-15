@@ -134,8 +134,10 @@
     <Compile Include="Areas\Admin\Controllers\LoginController.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Areas\SysManage\Controllers\Sys\CanvasController.cs" />
     <Compile Include="Areas\SysManage\Controllers\Sys\ChangePwdController.cs" />
+    <Compile Include="Areas\SysManage\Controllers\Sys\CreateCodeController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Areas\SysManage\Controllers\Sys\FunctionController.cs" />
     <Compile Include="Areas\SysManage\Controllers\Sys\MenuFunctionController.cs" />
     <Compile Include="Areas\SysManage\Controllers\Sys\PowerControlController.cs" />
@@ -680,6 +682,9 @@
     <Content Include="Content\HPlus\js\plugins\webuploader\webuploader.withoutimage.min.js" />
     <Content Include="Content\HPlus\js\welcome.js" />
     <Content Include="Content\Images\bj.png" />
+    <Content Include="Content\Template\BLL\BLL.txt" />
+    <Content Include="Content\Template\DAL\DAL.txt" />
+    <Content Include="Content\Template\Model\Model.txt" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\AjaxFileUpload\ajaxfileupload.js" />
     <Content Include="Scripts\AjaxFileUpload\MyImageJS.js" />
@@ -1506,7 +1511,6 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Areas\SysManage\Views\Shared\" />
-    <Folder Include="Content\Template\" />
     <Folder Include="Content\UpFile\" />
     <Folder Include="Content\UpImages\" />
     <Folder Include="Models\" />
@@ -1616,7 +1620,10 @@
     <Content Include="Views\Home\TestPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\SysManage\Views\Sys\Canvas\Index.cshtml" />
+    <Content Include="Areas\SysManage\Views\Sys\CreateCode\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
