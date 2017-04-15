@@ -85,7 +85,7 @@ $.Tools = {
     Loading: {
         ix: 0,
         Open: function () {
-            this.ix = Lay.load(1); //Lay.msg('请稍候...', { icon: 16, shade: [0.5, "#000"], time: 0 });
+            this.ix = Lay.load(1, { shade: [0.5, "#000"] }); //Lay.msg('请稍候...', { icon: 16, shade: [0.5, "#000"], time: 0 });
         },
         Close: function () {
             Lay.close(this.ix);
