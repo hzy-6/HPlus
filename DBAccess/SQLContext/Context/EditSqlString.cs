@@ -74,8 +74,7 @@ namespace DBAccess.SQLContext.Context
                     where += key + "=@" + key + "";
                 else
                     set.Add(key + "=@" + key + "");
-
-                list_sqlpar.Add(new SqlParameter() { ParameterName = key, Value = value });
+                list_sqlpar.Add(new SqlParameter() { ParameterName = key, Value = value == null ? DBNull.Value : value });
             }
             string sql = string.Format(" UPDATE {0} SET {1} WHERE 1=1 {2} ", TableName, string.Join(",", set), " AND " + where);
             return new SQL_Container(sql, list_sqlpar.ToArray());
@@ -91,7 +90,7 @@ namespace DBAccess.SQLContext.Context
                 var value = item.Value;
                 var key = item.Key;
                 set.Add(key + "=@" + key + "");
-                list_sqlpar.Add(new SqlParameter() { ParameterName = key, Value = value });
+                list_sqlpar.Add(new SqlParameter() { ParameterName = key, Value = value == null ? DBNull.Value : value });
             }
             string sql = string.Format(" UPDATE {0} SET {1} WHERE 1=1 {2} ", TableName, string.Join(",", set), string.IsNullOrEmpty(where) ? where : " AND " + where);
             return new SQL_Container(sql, list_sqlpar.ToArray());

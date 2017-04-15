@@ -47,7 +47,7 @@ namespace DBAccess.SQLContext.Context
                 var value = item.Value;
                 var key = item.Key;
                 col.Add(key); val.Add("@" + key + "");
-                list_sqlpar.Add(new SqlParameter() { ParameterName = key, Value = value });
+                list_sqlpar.Add(new SqlParameter() { ParameterName = key, Value = value == null ? DBNull.Value : value });
             }
             string sql = string.Format(" INSERT INTO {0} ({1}) VALUES ({2}) ", TableName, string.Join(",", col), string.Join(",", val));
             return new SQL_Container(sql, list_sqlpar.ToArray());
