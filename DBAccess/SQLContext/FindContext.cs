@@ -112,18 +112,8 @@ namespace DBAccess.SQLContext
         public PagingEntity Find(string SQL, int PageIndex, int PageSize)
         {
             int PageCount = 0, Counts = 0;
-            var list = new List<Dictionary<string, object>>();
             var dt = this.Find(SQL, PageIndex, PageSize, out PageCount, out Counts);
-            var di = new Dictionary<string, object>();
-            foreach (DataRow dr in dt.Rows)
-            {
-                di = new Dictionary<string, object>();
-                foreach (DataColumn dc in dt.Columns)
-                {
-                    di.Add(dc.ColumnName, Convert.ChangeType(dr[dc.ColumnName], dc.DataType));
-                }
-                list.Add(di);
-            }
+            var list = this.ConvertDataTableToList<Dictionary<string, object>>(dt);
             return new PagingEntity() { List = list.Count > 0 ? list : new List<Dictionary<string, object>>(), dt = dt, PageCount = PageCount, Counts = Counts };
         }
 
@@ -147,14 +137,19 @@ namespace DBAccess.SQLContext
         /// <typeparam name="T"></typeparam>
         /// <param name="table"></param>
         /// <returns></returns>
-        private List<T> ConvertDataTableToList<T>(DataTable table)
+        public List<T> ConvertDataTableToList<T>(DataTable table)
         {
             var list = new List<T>();
             foreach (DataRow dr in table.Rows)
             {
                 var model = new Dictionary<string, object>();
                 foreach (DataColumn dc in table.Columns)
-                    model.Add(dc.ColumnName, dr[dc.ColumnName]);
+                {
+                    if (dc.DataType.Equals(typeof(DateTime)))
+                        model.Add(dc.ColumnName, dr[dc.ColumnName] == null ? "" : Convert.ToDateTime(dr[dc.ColumnName]).ToString("yyyy-MM-dd HH:mm:ss"));
+                    else
+                        model.Add(dc.ColumnName, dr[dc.ColumnName]);
+                }
                 list.Add(jss.Deserialize<T>(jss.Serialize(model)));
             }
             return list;

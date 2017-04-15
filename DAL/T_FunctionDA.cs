@@ -28,7 +28,7 @@ namespace DAL
         public PagingEntity GetDataSource(Hashtable query, int pageindex, int pagesize)
         {
             string where = "";
-            PagingEntity pe = db.Find(@"select uFunction_ID id, iFunction_Number, cFunction_Name, cFunction_ByName, dFunction_CreateTime from [dbo].[T_Function]
+            PagingEntity pe = db.Find(@"select uFunction_ID _ukid, iFunction_Number, cFunction_Name, cFunction_ByName, dFunction_CreateTime from [dbo].[T_Function]
                                                 where 1=1 " + where + " order by  iFunction_Number ", pageindex, pagesize);
             return new ToJson().GetPagingEntity(pe, new List<BaseModel>()
             {

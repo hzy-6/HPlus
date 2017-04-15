@@ -54,7 +54,7 @@ var $Form = {
         $.Tools.Ajax({
             type: "Post",
             url: (SaveUrl ? SaveUrl : options.url),
-            data: (options.data ? options.data : ko.toJS(vModel)),
+            data: (options.data ? options.data : vModel),
             success: function (r) {
                 if (options.success == null) {
                     if (r.status == 1) {
@@ -81,6 +81,12 @@ var $Form = {
                 }
                 else {
                     url = url + '?ID=' + r.ID + '';
+                }
+            }
+            else {
+                var obj = GetRequest();
+                if (!obj["ID"]) {
+                    url = url.replace("ID=", "ID=" + r.ID);
                 }
             }
             //top.$("iframe[name=" + $.GetFrameName() + "]").attr("src", url);

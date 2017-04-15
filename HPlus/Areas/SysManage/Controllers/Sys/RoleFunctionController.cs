@@ -32,12 +32,6 @@ namespace HPlus.Areas.SysManage.Controllers.Sys
         T_Function tfunction = new T_Function();
         T_RoleMenuFunction trolemenufunction = new T_RoleMenuFunction();
 
-        [HttpGet]
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         #region  基本操作，增删改查
 
         /// <summary>

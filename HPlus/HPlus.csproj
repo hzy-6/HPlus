@@ -157,7 +157,6 @@
     <Compile Include="Scripts\UEditor\ueditor1.4.3.3\utf8-net\net\App_Code\UploadHandler.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Css\FrameWork.css" />
     <Content Include="Content\Css\jquery.bootstrap.css" />
     <Content Include="Content\Css\Login.css" />
     <Content Include="Content\HPlus\css\.DS_Store" />
@@ -1505,7 +1504,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
-    <Folder Include="Areas\SysManage\Models\" />
     <Folder Include="Areas\SysManage\Views\Shared\" />
     <Folder Include="Content\Template\" />
     <Folder Include="Content\UpFile\" />

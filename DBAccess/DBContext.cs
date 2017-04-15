@@ -347,7 +347,7 @@ namespace DBAccess
         /// <returns></returns>
         public List<Dictionary<string, object>> GetList(DataTable table)
         {
-            return GetDataTableToList(table);
+            return find.ConvertDataTableToList<Dictionary<string, object>>(table);
         }
 
         /// <summary>
@@ -360,31 +360,6 @@ namespace DBAccess
         {
             T[] str = jss.Deserialize(Json, typeof(T[])) as T[];
             return new List<T>(str);
-        }
-
-        /// <summary>
-        /// 根据datatable获取List
-        /// </summary>
-        /// <param name="table"></param>
-        /// <returns></returns>
-        private List<Dictionary<string, object>> GetDataTableToList(DataTable table)
-        {
-            List<Dictionary<string, object>> list = new List<Dictionary<string, object>>();
-            Dictionary<string, object> di = new Dictionary<string, object>();
-            foreach (DataRow rowItem in table.Rows)
-            {
-                di = new Dictionary<string, object>();
-                //给objT的所有属性赋值
-                foreach (DataColumn columnItem in table.Columns)
-                {
-                    if (columnItem.DataType == typeof(DateTime))
-                        di.Add(columnItem.ColumnName, Convert.ToDateTime(rowItem[columnItem.ColumnName]).ToString("yyyy-MM-dd HH:mm:ss"));
-                    else
-                        di.Add(columnItem.ColumnName, rowItem[columnItem.ColumnName]);
-                }
-                list.Add(di);
-            }
-            return list;
         }
 
         /// <summary>

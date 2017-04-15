@@ -14,6 +14,7 @@ using BLL;
 using DBAccess;
 using DBAccess.Entity;
 using System.Data;
+using WebControl.BaseControl;
 //
 using NPOI;
 using NPOI.XSSF;
@@ -38,9 +39,28 @@ namespace Aop
         protected DBContext db = new DBContext();
         protected List<SQL_Container> li = new List<SQL_Container>();
 
+        /// <summary>
+        /// 主键ID
+        /// </summary>
         public string KeyID { get; set; }
 
+        /// <summary>
+        /// 菜单ID
+        /// </summary>
         public string MenuID { get; set; }
+
+        [HttpGet]
+        public virtual ActionResult Index()
+        {
+            this.GetBtn();
+            return View();
+        }
+
+        [HttpGet]
+        public virtual ActionResult Info()
+        {
+            return View();
+        }
 
         /// <summary>
         /// 在行为方法执行后执行
@@ -171,7 +191,7 @@ namespace Aop
             {
                 foreach (var item in list)
                 {
-                    if (!column.ColumnName.Equals("id") && column.ColumnName.Equals(item.name))
+                    if (!column.ColumnName.Equals("_ukid") && column.ColumnName.Equals(item.name))
                     {
                         dataRow.CreateCell(column.Ordinal).SetCellValue(item.label);
                     }
@@ -185,7 +205,7 @@ namespace Aop
                 dataRow = sheet.CreateRow(i + 1);
                 for (int j = 0; j < dt.Columns.Count; j++)
                 {
-                    if (!dt.Columns[j].ColumnName.Equals("id"))
+                    if (!dt.Columns[j].ColumnName.Equals("_ukid"))
                         dataRow.CreateCell(j).SetCellValue(dt.Rows[i][j].ToString());
                 }
             }
@@ -213,7 +233,62 @@ namespace Aop
             return hashtable;
         }
 
+        [NonAction]
+        public void GetBtn()
+        {
+            var Refresh = new DoubleTag("button", new
+            {
+                type = "button",
+                @class = "btn btn-white btn-sm",
+                onclick = "window.location=''"
+            }).Append(
+                new DoubleTag("i", new { @class = "fa fa-refresh" }).Create() + "&nbsp;刷新"
+            ).Create();
 
+            var Search = new DoubleTag("button", new
+            {
+                type = "button",
+                @class = "btn btn-white btn-sm",
+                id = "Btn_Power_Search",
+                onclick = "ShowSearch(this)"
+            }).Append(
+                new DoubleTag("i", new { @class = "fa fa-chevron-down" }).Create() + "&nbsp;检索"
+            ).Create();
+
+            var Add = new DoubleTag("button", new
+            {
+                type = "button",
+                @class = "btn btn-white btn-sm",
+                id = "Btn_Power_Add",
+                onclick = "Func.OpenInfoPage('add')"
+            }).Append(
+                new DoubleTag("i", new { @class = "fa fa-plus" }).Create() + "&nbsp;添加"
+            ).Create();
+
+            var Edit = new DoubleTag("button", new
+            {
+                type = "button",
+                @class = "btn btn-white btn-sm",
+                id = "Btn_Power_Edit",
+                onclick = "Func.OpenInfoPage('edit')",
+                disabled = "disabled"
+            }).Append(
+                new DoubleTag("i", new { @class = "fa fa-pencil" }).Create() + "&nbsp;修改"
+            ).Create();
+
+            var Del = new DoubleTag("button", new
+            {
+                type = "button",
+                @class = "btn btn-white btn-sm",
+                id = "Btn_Power_Del",
+                onclick = "$List.Del({url:'" + Url.Action("Del") + "'});",
+                disabled = "disabled"
+            }).Append(
+                new DoubleTag("i", new { @class = "fa fa-trash" }).Create() + "&nbsp;删除"
+            ).Create();
+
+            ViewData["SysBtn"] = Refresh.ToHtmlString() + Search.ToHtmlString() + Add.ToHtmlString() + Edit.ToHtmlString() + Del.ToHtmlString();
+        }
 
     }
 }

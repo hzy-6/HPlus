@@ -495,8 +495,12 @@ $.ModalClose = function (IsClose) {
     if (top.window.frames[parentName] == undefined) {
         parentName = $.GetWindowIframe();
     }
-    if (parentName) {
-        top.window.frames[parentName].Refresh();
+    try {
+        if (parentName) {
+            top.window.frames[parentName].Refresh();
+        }
+    } catch (e) {
+
     }
     if (IsClose) {
         Lay.close($.GetFrameIndex());
@@ -572,14 +576,18 @@ function SetPower() {
     try {
         if (PowerModel) {
             for (var item in PowerModel) {
-                if (PowerModel[item]) {
-                    $("*[data-power=" + item + "]").show();
-                    $("#Btn_Power_" + item).show();
-                }
-                else {
+                if (!PowerModel[item]) {
                     $("*[data-power=" + item + "]").remove();
                     $("#Btn_Power_" + item).remove();
                 }
+                //if (PowerModel[item]) {
+                //    $("*[data-power=" + item + "]").show();
+                //    $("#Btn_Power_" + item).show();
+                //}
+                //else {
+                //    $("*[data-power=" + item + "]").remove();
+                //    $("#Btn_Power_" + item).remove();
+                //}
             }
         }
     } catch (e) {

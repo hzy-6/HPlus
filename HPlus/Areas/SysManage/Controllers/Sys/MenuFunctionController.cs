@@ -30,12 +30,6 @@ namespace HPlus.Areas.SysManage.Controllers.Sys
         T_Function tfunction = new T_Function();
         T_MenuFunction tmenufunction = new T_MenuFunction();
 
-        [HttpGet]
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         /// <summary>
         /// 获取菜单和功能树
         /// </summary>

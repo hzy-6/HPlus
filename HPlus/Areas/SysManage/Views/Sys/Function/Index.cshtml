@@ -11,25 +11,20 @@
                         <form id="form_search">
                             @*<div class="col-sm-3">
                                     <div class="form-group">
-                                        <label>用户名：</label>
-                                        <input class="form-control input-sm" name="cUsers_Name" placeholder="请输入用户名" />
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <label>登录名：</label>
-                                        <input class="form-control input-sm" name="cUsers_LoginName" placeholder="请输入登录名" />
+                                        <label>角色名：</label>
+                                        <input class="form-control input-sm" name="cRoles_Name" placeholder="请输入角色名" />
                                     </div>
                                 </div>*@
                         </form>
                     </div>
+
+                </div>
+                <div class="panel-footer">
                     <div class="row">
-                        <br />
-                        <div class="form-group col-sm-12">
+                        <div class="col-sm-12">
                             <button type="button" class="btn btn-info btn-sm pull-right" id="btn_search"><i class="fa fa-search"></i>&nbsp;检索</button>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -39,11 +34,7 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="btn-group btn-group-sm">
-                        <button title="" class="btn btn-white btn-sm" onclick="window.location=''" data-toggle="tooltip" data-placement="top"><i class="fa fa-refresh"></i>&nbsp;刷新</button>
-                        <button class="btn btn-white btn-sm" id="Btn_Power_Search" onclick="ShowSearch(this)"><i class="fa fa-chevron-down"></i>&nbsp;检索</button>
-                        <button type="button" id="Btn_Power_Add" class="btn btn-white btn-sm" onclick="Func.OpenInfoPage('add')"><i class="fa fa-plus"></i>&nbsp;添加</button>
-                        <button type="button" id="Btn_Power_Edit" disabled="disabled" class="btn btn-white btn-sm" onclick="Func.OpenInfoPage('edit')"><i class="fa fa-pencil"></i>&nbsp;修改</button>
-                        <button class="btn btn-white btn-sm" disabled="disabled" id="Btn_Power_Del" onclick="$List.Del({url:'@Url.Action("Del")'});"><i class="fa fa-trash"></i>&nbsp;删除</button>
+                        @Html.Raw(ViewData["SysBtn"])
                     </div>
                 </div>
                 <div class="col-sm-6">
@@ -100,8 +91,7 @@
                 $.ModalOpen({
                     id: FormID,
                     parentIframeName: "FrameWork_" + area + controller + action,
-                    url: "@Url.Action("Info")" + (tag == "add" ? "" : "/?ID=" + $KeyValue[0].id),
-                    title: (tag == "add" ? "新增" : "修改"),
+                    url: "@Url.Action("Info")" + (tag == "add" ? "" : "/?ID=" + $KeyValue[0]._ukid),
                     width: "500px",
                     height: "500px",
                     btn: false,

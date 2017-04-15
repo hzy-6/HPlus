@@ -121,3 +121,23 @@ nav.page-tabs {
     padding: 5px 10px;
     height: 30px;
 }
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+    padding: 6px;
+}
+
+.btn-group-sm > .btn, .btn-sm {
+    line-height: 1.41;
+}
+
+/*info 页面的 底部按钮*/
+.my-ButtonBar {
+    width: 100%;
+    height: 50px;
+    background-color: white;
+    position: fixed;
+    bottom: 0px;
+    padding: 10px;
+    z-index: 99999;
+    border-top: 1px solid #cccccc;
+}

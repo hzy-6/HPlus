@@ -88,6 +88,10 @@
       <Project>{eb839cba-ae8f-45b8-88b3-f85a84e8c80f}</Project>
       <Name>Utility</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WebControl\WebControl.csproj">
+      <Project>{5f2df45b-b6e5-4687-afde-bf2f9e5ab0db}</Project>
+      <Name>WebControl</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

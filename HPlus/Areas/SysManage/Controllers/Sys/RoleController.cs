@@ -28,24 +28,6 @@ namespace HPlus.Areas.SysManage.Controllers.Sys
         T_Roles troles = new T_Roles();
         T_RolesBL trolesbl = new T_RolesBL();
 
-        /// <summary>
-        /// 列表页
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        /// <summary>
-        /// 详情页
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult Info()
-        {
-            return View();
-        }
-
         #region  查询数据列表
         /// <summary>
         /// 获取列表数据

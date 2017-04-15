@@ -2,23 +2,19 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     DBContext db = new DBContext();
     T_Roles troles = new T_Roles();
-    var list = db.FINDToList(troles, " cRoles_Number ");
+    var list = db.FindToList(troles, " cRoles_Number ");
 }
 <div class="wrapper wrapper-content">
     <div class="row">
         <div class="col-sm-6">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <div class="col-sm-6">
-                        <h4>
-                            &nbsp;请选择角色
-                        </h4>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="text-right">
-                            <div class="btn-group">
-                                <button title="" class="btn btn-white btn-sm" onclick="window.location=''"><i class="fa fa-refresh"></i>&nbsp;刷新</button>
-                            </div>
+                    <h4 class="text-left">
+                        &nbsp;请选择角色
+                    </h4>
+                    <div class="text-right">
+                        <div class="btn-group">
+                            <button title="" class="btn btn-white btn-sm" onclick="window.location=''"><i class="fa fa-refresh"></i>&nbsp;刷新</button>
                         </div>
                     </div>
                 </div>

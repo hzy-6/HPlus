@@ -28,16 +28,6 @@ namespace HPlus.Areas.SysManage.Controllers.Sys
         T_Function tf = new T_Function();
         T_FunctionBL tfbl = new T_FunctionBL();
 
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        public ActionResult Info()
-        {
-            return View();
-        }
-
         #region  查询数据列表
         /// <summary>
         /// 获取列表数据

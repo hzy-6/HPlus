@@ -186,10 +186,16 @@ function ShowSearch(t) {
 
 //刷新列表
 function Refresh(data) {
-    if (data != undefined) {
+    if (data) {
+        var postdata = $gridList.jqGrid('getGridParam').postData;
+        var datas = ($formsearch.serialize() + data).split("&");
+        for (var i = 0; i < datas.length; i++) {
+            postdata[datas[i].split("=")[0]] = decodeURI(datas[i].split("=")[1]);
+        }
         $gridList.jqGrid('setGridParam', {
-            search: true,
-            postData: data,
+            postData: postdata,
+            datatype: "json",
+            page: 1,
         }).trigger('reloadGrid', { fromServer: true, page: 1 });
     }
     else {

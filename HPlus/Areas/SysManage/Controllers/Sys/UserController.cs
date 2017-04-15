@@ -30,16 +30,6 @@ namespace HPlus.Areas.SysManage.Controllers.Sys
         T_Roles troles = new T_Roles();
         T_UsersBL tuserbl = new T_UsersBL();
 
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        public ActionResult Info()
-        {
-            return View();
-        }
-
         #region  查询数据列表
         /// <summary>
         /// 获取列表数据

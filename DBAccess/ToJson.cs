@@ -85,7 +85,7 @@ namespace DBAccess
                     {
                         mjgcm.label = dc.ColumnName;
                         mjgcm.name = dc.ColumnName;
-                        mjgcm.hidden = dc.ColumnName.Equals("id") ? true : false;
+                        mjgcm.hidden = dc.ColumnName.Equals("_ukid") ? true : false;
                         mjgcm.align = "left";
                     }
                     else

@@ -26,7 +26,7 @@ namespace HPlus.Areas.SysManage.Controllers.Sys
 
         T_Users tuser = new T_Users();
 
-        public ActionResult Index()
+        public override ActionResult Index()
         {
             tuser.uUsers_ID = Tools.getGuid(Tools.getSession("UserID"));
             tuser = db.Find(tuser);
