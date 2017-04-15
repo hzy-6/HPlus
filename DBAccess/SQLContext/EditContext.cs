@@ -15,7 +15,7 @@ namespace DBAccess.SQLContext
     {
         Context.EditSqlString<T> sqlstring;
         CommitContext commit;
-        SelectContext select;
+        DBHelper select;
         private EditContext() { }
 
         private string _ConnectionString { get; set; }
@@ -25,7 +25,7 @@ namespace DBAccess.SQLContext
             _ConnectionString = ConnectionString;
             commit = new CommitContext(_ConnectionString);
             sqlstring = new Context.EditSqlString<T>();
-            select = new SelectContext(_ConnectionString);
+            select = new DBHelper(_ConnectionString);
         }
 
         private SQL_Container GetSql(T entity)

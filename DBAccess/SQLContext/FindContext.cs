@@ -17,7 +17,7 @@ namespace DBAccess.SQLContext
     {
         Context.FindSqlString<T> sqlstring;
         JavaScriptSerializer jss;
-        SelectContext select;
+        DBHelper select;
         private FindContext() { }
 
         private string _ConnectionString { get; set; }
@@ -25,7 +25,7 @@ namespace DBAccess.SQLContext
         public FindContext(string ConnectionString)
         {
             _ConnectionString = ConnectionString;
-            select = new SelectContext(_ConnectionString);
+            select = new DBHelper(_ConnectionString);
             sqlstring = new Context.FindSqlString<T>();
             jss = new JavaScriptSerializer();
         }

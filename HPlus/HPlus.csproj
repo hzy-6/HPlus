@@ -134,6 +134,7 @@
     <Compile Include="Areas\Admin\Controllers\LoginController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Areas\SysManage\Controllers\Sys\CanvasController.cs" />
     <Compile Include="Areas\SysManage\Controllers\Sys\ChangePwdController.cs" />
     <Compile Include="Areas\SysManage\Controllers\Sys\FunctionController.cs" />
     <Compile Include="Areas\SysManage\Controllers\Sys\MenuFunctionController.cs" />
@@ -1613,6 +1614,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\TestPage.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\SysManage\Views\Sys\Canvas\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

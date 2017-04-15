@@ -1,0 +1,33 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div style="width:100%; height:500px; border:1px solid red;">
+    <canvas id="canvas" style="width:100%; height:500px;"></canvas>
+</div>
+@section css{
+}
+@section js{
+    <script type="text/javascript">
+        document.ready = function () {
+            var panel = document.getElementById("canvas");
+            var panel_parent_el = panel.parentNode;
+            console.log(panel_parent_el);
+            var context = panel.getContext("2d");
+            context.fillStyle = '#424242';
+            context.fillRect(0, 0, 1000, 1000);
+
+            var grd = context.createLinearGradient(0, 0, 175, 50);
+            grd.addColorStop(0, "#FF0000");
+            grd.addColorStop(1, "#00FF00");
+            context.fillStyle = grd;
+            context.fillRect(0, 0, 175, 50);
+
+            context.moveTo(10, 10);
+            context.lineTo(150, 50);
+            context.lineTo(10, 50);
+            context.stroke();
+
+
+        }
+    </script>
+}

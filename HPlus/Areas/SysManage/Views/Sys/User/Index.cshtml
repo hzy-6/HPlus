@@ -41,7 +41,7 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="btn-group btn-group-sm">
-                        @Html.Raw(ViewData["SysBtn"])
+                        @Html.Raw(ViewBag.SysBtn)
                     </div>
                 </div>
                 <div class="col-sm-6">
@@ -82,16 +82,9 @@
 
         var Func = {
             TableInit: function () {
-                $.ajax({
-                    type: "post",
+                $List.TableInit({
                     url: "@Url.Action("GetDataSource")",
-                    data: { rows: 1 },
-                    success: function (r) {
-                        $List.TableInit({
-                            url: "@Url.Action("GetDataSource")",
-                            colModel: r.columnModel
-                        });
-                    }
+                    colModel: JSON.parse('@Html.Raw(ViewBag.JqGridColModel)')
                 });
             },
             OpenInfoPage: function (tag) {

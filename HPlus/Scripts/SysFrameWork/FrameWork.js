@@ -55,7 +55,7 @@ $.AjaxFilter = function () {
                         default:
                             $.Tools.Ajax({
                                 type: "post",
-                                url: "/SysMain/ErrorPage/Index",
+                                url: "/Admin/Error/Index",
                                 data: json,
                                 dataType: "html",
                                 success: function (h) {
@@ -254,6 +254,13 @@ $.Tools = {
             return unescape(arr[2]);
         else
             return null;
+    },
+    delCookie: function (name) {
+        var exp = new Date();
+        exp.setTime(exp.getTime() - 1);
+        var cval = getCookie(name);
+        if (cval != null)
+            document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
     },
     isPositiveNum: function (s) {//是否为正整数  
         var re = /^[0-9]*[1-9][0-9]*$/;

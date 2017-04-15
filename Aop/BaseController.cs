@@ -49,16 +49,35 @@ namespace Aop
         /// </summary>
         public string MenuID { get; set; }
 
+        /// <summary>
+        /// index 页面初始加载
+        /// </summary>
+        public void InitIndex()
+        {
+            ViewBag.SysBtn = this.GetBtn();
+            //获取表格列头
+            ViewBag.JqGridColModel = jss.Serialize(this.GetPagingEntity(null, 1, 1).JqGridColModel);
+        }
+
+        /// <summary>
+        /// info 页面初始加载
+        /// </summary>
+        public void InitInfo()
+        {
+
+        }
+
         [HttpGet]
         public virtual ActionResult Index()
         {
-            this.GetBtn();
+            this.InitIndex();
             return View();
         }
 
         [HttpGet]
         public virtual ActionResult Info()
         {
+            this.InitInfo();
             return View();
         }
 
@@ -81,10 +100,18 @@ namespace Aop
             string RoleID = Tools.getSession("RoleID");
             //dynamic model = new ExpandoObject();
             if (string.IsNullOrEmpty(MenuID))
+            {
                 throw new MessageBox("区域(" + Area + "),控制器(" + ControllerName + "):的程序中缺少菜单ID");
+            }
+
             tmenu = new T_Menu();
             tmenu.cMenu_Number = MenuID;
-            MenuID = Tools.getGuidString((db.Find(tmenu)).uMenu_ID);
+            tmenu = db.Find(tmenu);
+            MenuID = Tools.getGuidString(tmenu.uMenu_ID);
+            if (!tmenu.cMenu_Url.StartsWith("/" + Area + "/" + ControllerName + "/"))
+            {
+                throw new MessageBox("区域(" + Area + "),控制器(" + ControllerName + "):的程序中缺少菜单ID与该页面不匹配");
+            }
 
             //这里得判断一下是否是查找带回调用页面
             string fun = Tools.getString(filterContext.HttpContext.Request.QueryString["fun"]);
@@ -166,10 +193,17 @@ namespace Aop
             return File(DBToExcel(pe), Tools.GetFileContentType[".xls"], Guid.NewGuid().ToString() + ".xls");
         }
 
+        /// <summary>
+        /// 获取数据源
+        /// </summary>
+        /// <param name="fc"></param>
+        /// <param name="page"></param>
+        /// <param name="rows"></param>
+        /// <returns></returns>
         [NonAction]
         public virtual PagingEntity GetPagingEntity(FormCollection fc, int page = 1, int rows = 20)
         {
-            throw new NotImplementedException();
+            return new PagingEntity();
         }
 
         /// <summary>
@@ -226,15 +260,16 @@ namespace Aop
         protected System.Collections.Hashtable FormCollectionToHashtable(FormCollection fc)
         {
             System.Collections.Hashtable hashtable = new System.Collections.Hashtable();
-            fc.AllKeys.ToList().ForEach(item =>
-            {
-                hashtable.Add(item, fc[item]);
-            });
+            if (fc != null)
+                fc.AllKeys.ToList().ForEach(item =>
+                {
+                    hashtable.Add(item, fc[item]);
+                });
             return hashtable;
         }
 
         [NonAction]
-        public void GetBtn()
+        public string GetBtn()
         {
             var Refresh = new DoubleTag("button", new
             {
@@ -287,7 +322,7 @@ namespace Aop
                 new DoubleTag("i", new { @class = "fa fa-trash" }).Create() + "&nbsp;删除"
             ).Create();
 
-            ViewData["SysBtn"] = Refresh.ToHtmlString() + Search.ToHtmlString() + Add.ToHtmlString() + Edit.ToHtmlString() + Del.ToHtmlString();
+            return Refresh.ToHtmlString() + Search.ToHtmlString() + Add.ToHtmlString() + Edit.ToHtmlString() + Del.ToHtmlString();
         }
 
     }

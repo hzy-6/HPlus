@@ -106,6 +106,26 @@ $(function () {
         }
     });
 
+    //判断页面是否被加载了
+    function PageIsOpen() {
+        // 获取标识数据
+        var dataUrl = $(this).attr('href'),
+            dataIndex = $(this).data('index'),
+            menuName = $.trim($(this).text()),
+            flag = true;
+        if (dataUrl == undefined || $.trim(dataUrl).length == 0) return false;
+        // 选项卡菜单已存在
+        $('.J_menuTab').each(function () {
+            if ($(this).data('id') == dataUrl) {
+                flag = false;
+            }
+        });
+        if (!flag) {
+            var target = $('.J_iframe[data-id="' + $(this).data('id') + '"]');
+            target.attr('src', target.attr('src')).load();
+        }
+    }
+
     menuItem = function () {
         // 获取标识数据
         var dataUrl = $(this).attr('href'),
@@ -159,8 +179,8 @@ $(function () {
         return false;
     }
 
+    $('.J_menuItem').on('click', PageIsOpen);//绑定刷新函数 refreshTab
     $('.J_menuItem').on('click', menuItem);
-    $('.J_menuItem').on('click', refreshTab);//绑定刷新函数
 
     // 关闭选项卡菜单
     function closeTab() {

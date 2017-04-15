@@ -11,13 +11,13 @@ using DBAccess.Entity;
 
 namespace DBAccess.SQLContext
 {
-    public class SelectContext
+    public class DBHelper
     {
-        private SelectContext() { }
+        private DBHelper() { }
 
         private string _ConnectionString { get; set; }
 
-        public SelectContext(string ConnectionString)
+        public DBHelper(string ConnectionString)
         {
             _ConnectionString = ConnectionString;
         }

@@ -113,7 +113,7 @@ nav.page-tabs {
 }
 
 .wrapper-content {
-    padding: 8px;
+    padding: 5px 8px;
 }
 
 .form-control, .single-line {
@@ -140,4 +140,16 @@ nav.page-tabs {
     padding: 10px;
     z-index: 99999;
     border-top: 1px solid #cccccc;
+}
+
+.nav-header {
+    padding: 17px 25px;
+}
+
+.skin-3 .nav-header {
+    padding: 17px 25px 25px 25px;
+}
+
+.skin-1 .nav-header {
+    padding: 17px 25px 25px 25px;
 }

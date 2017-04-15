@@ -23,7 +23,7 @@ namespace DBAccess.CheckClass
         /// </summary>
         public string ErrorMessage { get; set; }
 
-        SelectContext select;
+        DBHelper select;
 
         private CheckContext() { }
 
@@ -32,7 +32,7 @@ namespace DBAccess.CheckClass
         public CheckContext(string ConnectionString)
         {
             _ConnectionString = ConnectionString;
-            select = new SelectContext(_ConnectionString);
+            select = new DBHelper(_ConnectionString);
         }
 
         public bool Check(T entity)

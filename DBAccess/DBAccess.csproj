@@ -114,7 +114,7 @@
     <Compile Include="SQLContext\EditContext.cs" />
     <Compile Include="SQLContext\FindContext.cs" />
     <Compile Include="SQLContext\ISqlContext.cs" />
-    <Compile Include="SQLContext\SelectContext.cs">
+    <Compile Include="SQLContext\DBHelper.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ToJson.cs" />
