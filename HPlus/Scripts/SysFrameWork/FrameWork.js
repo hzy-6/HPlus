@@ -85,7 +85,7 @@ $.Tools = {
     Loading: {
         ix: 0,
         Open: function () {
-            this.ix = Lay.msg('请稍候...', { icon: 16, shade: [0.5, "#000"], time: 0 });
+            this.ix = Lay.load(1); //Lay.msg('请稍候...', { icon: 16, shade: [0.5, "#000"], time: 0 });
         },
         Close: function () {
             Lay.close(this.ix);
@@ -134,7 +134,7 @@ $.Tools = {
         var defaults = {
             msg: "",
             jumpurl: "",
-            time: 4000,
+            time: 3000,
             offset: 0,
             shift: 0,
             icon: 0
@@ -183,7 +183,7 @@ $.Tools = {
                         $.Tools.Loading.Close();
                 }
             });
-        }, 100);
+        }, 200);
 
     },
     //Ajax上传文件到服务器
@@ -221,7 +221,7 @@ $.Tools = {
                         $.Tools.Loading.Close();
                 }
             });
-        }, 100);
+        }, 200);
     },
     GetQueryString: function (name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
@@ -430,8 +430,6 @@ $.ModalOpen = function (options) {
             //Lay.setTop(layero); //重点2
             top.$(layero).find(".layui-layer-min").remove();
             top.$(layero).find("iframe").attr("data-parentiframename", options.parentIframeName);
-            //checked=\"checked\"
-            //$(layero).find(".layui-layer-btn").append("<div style=\"float: left;padding-top:5px;padding-left:15px;-moz-user-select: none;-webkit-user-select: none;-ms-user-select: none;-khtml-user-select: none;user-select: none;\"><input  type=\"checkbox\" id=\"IsdialogClose\" style=\"vertical-align: middle;margin-bottom:2px;\"><label style=\";padding-left:5px;cursor:pointer\" for=\"IsdialogClose\">确认并关闭窗口</label></div>");
         },
         yes: function () {
             options.callBack(options.id);

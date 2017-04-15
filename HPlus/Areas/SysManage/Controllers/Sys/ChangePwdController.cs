@@ -21,7 +21,7 @@ namespace HPlus.Areas.SysManage.Controllers.Sys
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
             base.Initialize(requestContext);
-            base.MenuID = "Z-150";
+            base.MenuID = "Z-130";
         }
 
         T_Users tuser = new T_Users();
