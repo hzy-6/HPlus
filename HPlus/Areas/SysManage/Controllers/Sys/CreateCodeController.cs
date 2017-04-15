@@ -44,7 +44,7 @@ namespace HPlus.Areas.SysManage.Controllers.Sys
         public ActionResult Save(FormCollection fc)
         {
             var Type = fc["Type"];
-            var Url = (fc["Url"] == null ? Server.MapPath("/Content/CreateFile/") : fc["Url"]);
+            var Url = (fc["Url"] == null ? Server.MapPath("/Content/CreateFile") : fc["Url"]);
             var Str = fc["Str"];
             var Table = fc["Table"];
             var isall = Tools.getBool(fc["isall"]);
@@ -52,64 +52,74 @@ namespace HPlus.Areas.SysManage.Controllers.Sys
 
             if (Type == "Model")
             {
-                Url = Url + "\\Model";
-                template = template + "\\Model\\Model.txt";
-                Str = (Str == null ? "M" : Str);
+                Url = (Url + "\\Model");
+                template = template + "Model\\Model.txt";
+                Str = string.IsNullOrEmpty(Tools.getString(Str)) ? "M" : Tools.getString(Str);
             }
             else if (Type == "BLL")
             {
                 Url = Url + "\\BLL";
-                template = template + "\\Bll\\BLL.txt";
-                Str = (Str == null ? "BL" : Str);
+                template = template + "Bll\\BLL.txt";
+                Str = string.IsNullOrEmpty(Tools.getString(Str)) ? "BL" : Tools.getString(Str);
             }
             else if (Type == "DAL")
             {
                 Url = Url + "\\DAL";
-                template = template + "\\DAL\\DAL.txt";
-                Str = (Str == null ? "DA" : Str);
+                template = template + "DAL\\DAL.txt";
+                Str = string.IsNullOrEmpty(Tools.getString(Str)) ? "DA" : Tools.getString(Str);
             }
 
-            if (System.IO.Directory.Exists(Url))
+            if (System.IO.Directory.Exists(Url + "\\"))
             {
-                System.IO.Directory.Delete(Url);
+                var dir = new System.IO.DirectoryInfo(Url + "\\");
+                var fileinfo = dir.GetFileSystemInfos();  //返回目录中所有文件和子目录
+                foreach (var i in fileinfo)
+                {
+                    if (i is System.IO.DirectoryInfo)            //判断是否文件夹
+                    {
+                        var subdir = new System.IO.DirectoryInfo(i.FullName);
+                        subdir.Delete(true);          //删除子目录和文件
+                    }
+                    else
+                    {
+                        System.IO.File.Delete(i.FullName);      //删除指定文件
+                    }
+                }
+                //System.IO.Directory.Delete(Url + "\\");
             }
-            else
-            {
-                System.IO.Directory.CreateDirectory(Url);
-            }
+            System.IO.Directory.CreateDirectory(Url);
 
-            if (System.IO.File.Exists(template))
+            if (!System.IO.File.Exists(template))
                 throw new MessageBox("模板文件不存在");
 
             var Content = System.IO.File.ReadAllText(template);
 
             if (isall)
             {
-                var list = createcodebl.GetDatabaseAllTable();
-                list = list.FindAll(item => item["pId"] == null);
+                var list = createcodebl.GetAllTable();
                 foreach (var item in list)
                 {
-                    Table = item["name"] == null ? "" : item["name"].ToString();
-                    this.CreateFileLogic(Content, Table, Str, Type);
+                    Table = item["TABLE_NAME"] == null ? "" : item["TABLE_NAME"].ToString();
+                    this.CreateFileLogic(Content, Table, Str, Type, Url);
                 }
             }
             else
             {
                 if (string.IsNullOrEmpty(Table))
                     throw new MessageBox("请选择表");
-                this.CreateFileLogic(Content, Table, Str, Type);
+                this.CreateFileLogic(Content, Table, Str, Type, Url);
             }
 
             return Json(new { status = 1 }, JsonRequestBehavior.DenyGet);
         }
 
         [NonAction]
-        public void CreateFileLogic(string Content, string Table, string Str, string Type)
+        public void CreateFileLogic(string Content, string Table, string Str, string Type, string Url)
         {
             var ClassName = Table + Str;
 
-            Content.Replace("<#ClassName#>", ClassName);
-            Content.Replace("<#TableName#>", Table);
+            Content = Content.Replace("<#ClassName#>", ClassName);
+            Content = Content.Replace("<#TableName#>", Table);
             string filds = string.Empty;
 
             if (Type == "Model")
@@ -149,16 +159,16 @@ namespace HPlus.Areas.SysManage.Controllers.Sys
 
                     if (!string.IsNullOrEmpty(key))
                     {
-                        filds += "[Filed(DisplayName = \"" + colname + "\", IsPrimaryKey = true)]";
-                        filds += "public " + type + " " + colname + " { get; set; }";
+                        filds += "\t\t[Filed(DisplayName = \"" + colname + "\", IsPrimaryKey = true)]" + "\r\n";
+                        filds += "\t\tpublic " + type + " " + colname + " { get; set; }" + "\r\n";
                     }
                     else
                     {
-                        filds += "[Filed(DisplayName = \"" + colname + "\")]";
-                        filds += "public " + type + " " + colname + " { get; set; }";
+                        filds += "\t\t[Filed(DisplayName = \"" + colname + "\")]" + "\r\n";
+                        filds += "\t\tpublic " + type + " " + colname + " { get; set; }" + "\r\n";
                     }
                 }
-                Content.Replace("<#Filds#>", filds);
+                Content = Content.Replace("<#Filds#>", filds);
             }
             System.IO.File.WriteAllText(Url + "\\" + ClassName + ".cs", Content);
         }

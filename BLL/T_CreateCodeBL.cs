@@ -37,6 +37,15 @@ namespace BLL
             return new T_CreateCodeDA().GetColByTable(table);
         }
 
+        /// <summary>
+        /// 获取所有的table
+        /// </summary>
+        /// <returns></returns>
+        public List<Dictionary<string, object>> GetAllTable()
+        {
+            return new T_CreateCodeDA().GetAllTable();
+        }
+
 
     }
 }

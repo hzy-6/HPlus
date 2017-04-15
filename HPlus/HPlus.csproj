@@ -1511,6 +1511,9 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Areas\SysManage\Views\Shared\" />
+    <Folder Include="Content\CreateFile\BLL\" />
+    <Folder Include="Content\CreateFile\DAL\" />
+    <Folder Include="Content\CreateFile\Model\" />
     <Folder Include="Content\UpFile\" />
     <Folder Include="Content\UpImages\" />
     <Folder Include="Models\" />

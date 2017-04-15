@@ -54,7 +54,7 @@ var $Form = {
         $.Tools.Ajax({
             type: "Post",
             url: (SaveUrl ? SaveUrl : options.url),
-            data: (options.data ? options.data : vModel),
+            data: (options.data ? options.data : ko.toJS(vModel)),
             success: function (r) {
                 if (options.success == null) {
                     if (r.status == 1) {

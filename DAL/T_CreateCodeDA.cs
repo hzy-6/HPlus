@@ -44,6 +44,17 @@ left join INFORMATION_SCHEMA.KEY_COLUMN_USAGE b on a.TABLE_NAME=b.TABLE_NAME whe
             return db.GetList(db.Find(sql));
         }
 
+        /// <summary>
+        /// 获取所有的表
+        /// </summary>
+        /// <returns></returns>
+        public List<Dictionary<string, object>> GetAllTable()
+        {
+            string sql = @"SELECT * FROM INFORMATION_SCHEMA.TABLES";
+            return db.GetList(db.Find(sql));
+        }
+
+
 
     }
 }

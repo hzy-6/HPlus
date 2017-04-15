@@ -16,7 +16,6 @@ namespace Model
             this.TableName = "<#TableName#>";
         }
 
-		<#Filds#>
-
+<#Filds#>
     }
 }

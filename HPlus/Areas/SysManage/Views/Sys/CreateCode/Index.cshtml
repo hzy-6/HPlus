@@ -89,7 +89,6 @@
 }
 @section js{
     <script src="~/Scripts/SysFrameWork/FrameWork.js"></script>
-    <script src="~/Scripts/Ko/Knockout-3.4.0.js"></script>
     <script src="~/Scripts/zTree/js/jquery.ztree.all.min.js"></script>
     <script type="text/javascript">
         $(function () {
@@ -145,7 +144,7 @@
                 }
                 $.Tools.Ajax({
                     url: "@Url.Action("Save")",
-                    data: vModel,
+                    data: ko.toJS(vModel),
                     success: function (r) {
                         if (r.status = 1) {
                             $.ModalMsg("创建成功", "成功");
@@ -154,12 +153,12 @@
                 });
             }
         }
-        var d = "@(HttpContext.Current.Server.MapPath("/Content/CreateFile/").Replace("\\","\\\\"))";
+        var d = "@(HttpContext.Current.Server.MapPath("/Content/CreateFile").Replace("\\","\\\\"))";
         var vModel = {
-            Type: ko.observable(),
+            Type: ko.observable("Model"),
             Url: ko.observable(d),
-            Str: ko.observable(),
-            Table: ko.observable(),
+            Str: ko.observable(null),
+            Table: ko.observable(null),
             isall: ko.observable(true),
         }
     </script>
