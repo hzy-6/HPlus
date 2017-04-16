@@ -122,7 +122,11 @@ $(function () {
         });
         if (!flag) {
             var target = $('.J_iframe[data-id="' + $(this).data('id') + '"]');
-            target.attr('src', target.attr('src')).load();
+            var loading = layer.load(1, { shade: [0.5, "#000"] });
+            target.attr('src', target.attr('src')).load(function () {
+                //关闭loading提示
+                layer.close(loading);
+            });
         }
     }
 
@@ -166,12 +170,11 @@ $(function () {
             $('.J_mainContent').find('iframe.J_iframe').hide().parents('.J_mainContent').append(str1);
 
             //显示loading提示
-            //            var loading = layer.load();
-            //
-            //            $('.J_mainContent iframe:visible').load(function () {
-            //                //iframe加载完成后隐藏loading提示
-            //                layer.close(loading);
-            //            });
+            var loading = layer.load(1, { shade: [0.5, "#000"] });
+            $('.J_mainContent iframe:visible').load(function () {
+                //iframe加载完成后隐藏loading提示
+                layer.close(loading);
+            });
             // 添加选项卡
             $('.J_menuTabs .page-tabs-content').append(str);
             scrollToTab($('.J_menuTab.active'));
@@ -303,13 +306,13 @@ $(function () {
     function refreshTab() {
         var target = $('.J_iframe[data-id="' + $(this).data('id') + '"]');
         var url = target.attr('src');
-        target.attr('src', url).load();
+        //target.attr('src', url).load();
         //        //显示loading提示
-        //        var loading = layer.load();
-        //        target.attr('src', url).load(function () {
-        //            //关闭loading提示
-        //            layer.close(loading);
-        //        });
+        var loading = layer.load(1, { shade: [0.5, "#000"] });
+        target.attr('src', url).load(function () {
+            //关闭loading提示
+            layer.close(loading);
+        });
     }
 
     $('.J_menuTabs').on('dblclick', '.J_menuTab', refreshTab);
