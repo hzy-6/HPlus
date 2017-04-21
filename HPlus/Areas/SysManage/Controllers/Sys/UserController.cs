@@ -77,6 +77,8 @@ namespace HPlus.Areas.SysManage.Controllers.Sys
                     this.KeyID = Tools.getGuidString(model.uUsers_ID);
                     if (!string.IsNullOrEmpty(tuser.cUsers_LoginPwd))
                         tuser.cUsers_LoginPwd = Tools.MD5Encrypt(model.cUsers_LoginPwd);
+                    else
+                        tuser.fileds.Remove("cUsers_LoginPwd");
                     if (!db.Edit(tuser, ref li))
                         throw new MessageBox(db.ErrorMessge);
                     //用户角色

@@ -55,6 +55,11 @@ namespace HPlus.Areas.SysManage.Controllers.Sys
             if (Tools.getGuid(roleid).Equals(Guid.Empty))
                 throw new MessageBox("请选择角色");
             var list = ((object[])jss.DeserializeObject(json)).ToList();
+
+            trolemenufunction = new T_RoleMenuFunction();
+            trolemenufunction.uRoleMenuFunction_RoleID = Tools.getGuid(roleid);
+            if (!db.Delete(trolemenufunction, ref li))
+                throw new MessageBox(db.ErrorMessge);
             if (list.Count > 0)
             {
                 var guid_list = new List<Guid>();
@@ -63,15 +68,6 @@ namespace HPlus.Areas.SysManage.Controllers.Sys
                     var func = (Dictionary<string, object>)item;
                     if (Tools.getString(func["tag"]).Equals("fun"))
                     {
-                        var menuid = guid_list.Find(x => x.Equals(Tools.getGuid(func["pId"])));
-                        if (Tools.getGuid(menuid).Equals(Guid.Empty))
-                        {
-                            trolemenufunction = new T_RoleMenuFunction();
-                            trolemenufunction.uRoleMenuFunction_MenuID = Tools.getGuid(func["pId"]);
-                            trolemenufunction.uRoleMenuFunction_RoleID = Tools.getGuid(roleid);
-                            if (!db.Delete(trolemenufunction, ref li))
-                                throw new MessageBox(db.ErrorMessge);
-                        }
                         trolemenufunction = new T_RoleMenuFunction();
                         trolemenufunction.uRoleMenuFunction_MenuID = Tools.getGuid(func["pId"]);
                         trolemenufunction.uRoleMenuFunction_FunctionID = Tools.getGuid(func["id"]);
@@ -82,19 +78,10 @@ namespace HPlus.Areas.SysManage.Controllers.Sys
                     }
                 });
             }
-            else
-            {
-                trolemenufunction = new T_RoleMenuFunction();
-                trolemenufunction.uRoleMenuFunction_RoleID = Tools.getGuid(roleid);
-                if (!db.Delete(trolemenufunction, ref li))
-                    throw new MessageBox(db.ErrorMessge);
-            }
             if (!db.Commit(li))
                 throw new MessageBox(db.ErrorMessge);
             return Json(new { status = 1 }, JsonRequestBehavior.DenyGet);
         }
-
-
         #endregion 基本操作，增删改查
     }
 }
