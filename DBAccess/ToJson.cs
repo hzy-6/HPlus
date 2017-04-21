@@ -33,27 +33,30 @@ namespace DBAccess
             Dictionary<string, object> r = new Dictionary<string, object>();
             foreach (var item in di)
             {
-                if (item.Value.GetType().BaseType.Equals(typeof(BaseModel)))
+                if (item.Value == null)
                 {
-                    Type t = item.Value.GetType();
-                    var list = t.GetProperties(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public).ToList();
-                    foreach (var pi in list)
-                    {
-                        if (pi.GetValue(item.Value) != null)
-                        {
-                            if (pi.PropertyType == typeof(DateTime))
-                                r.Add(pi.Name, Convert.ToDateTime(pi.GetValue(item.Value)).ToString("yyyy-MM-dd HH:mm:ss"));
-                            else
-                                r.Add(pi.Name, pi.GetValue(item.Value));
-                        }
-                        else
-                        {
-                            r.Add(pi.Name, null);
-                        }
-                    }
-                }
-                else
                     r.Add(item.Key, item.Value);
+                    continue;
+                }
+                if (!item.Value.GetType().BaseType.Equals(typeof(BaseModel)))
+                {
+                    r.Add(item.Key, item.Value);
+                    continue;
+                }
+                Type t = item.Value.GetType();
+                var list = t.GetProperties(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public).ToList();
+                list.ForEach(pi =>
+                {
+                    if (pi.GetValue(item.Value) == null)
+                        r.Add(pi.Name, null);
+                    else
+                    {
+                        if (pi.PropertyType == typeof(DateTime))
+                            r.Add(pi.Name, Convert.ToDateTime(pi.GetValue(item.Value)).ToString("yyyy-MM-dd HH:mm:ss"));
+                        else
+                            r.Add(pi.Name, pi.GetValue(item.Value));
+                    }
+                });
             }
             return r;
         }

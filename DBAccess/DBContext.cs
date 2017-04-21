@@ -351,6 +351,17 @@ namespace DBAccess
         }
 
         /// <summary>
+        /// 根据单 表获取 list 实体对象
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="table"></param>
+        /// <returns></returns>
+        public List<T> GetList<T>(DataTable table) where T : BaseModel
+        {
+            return find.ConvertDataTableToList<T>(table);
+        }
+
+        /// <summary>
         /// Json 转换为 List<T>
         /// </summary>
         /// <typeparam name="T"></typeparam>
