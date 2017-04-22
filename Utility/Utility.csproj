@@ -133,15 +133,10 @@
     <Content Include="DLL\NPOI 2.2.1\Release\NPOI\NPOI.OpenXml4Net.dll" />
     <Content Include="DLL\NPOI 2.2.1\Release\NPOI\NPOI.OpenXmlFormats.dll" />
     <Content Include="DLL\NPOI 2.2.1\Release\NPOI\NPOI.XML" />
-    <Content Include="DLL\NPOI 2.2.1\Release\Read Me.txt" />
-    <Content Include="DLL\NPOI 2.2.1\Release\Release Notes.txt" />
     <Content Include="DLL\Senparc.Weixin.dll" />
     <Content Include="DLL\Senparc.Weixin.MP.dll" />
     <Content Include="DLL\Senparc.Weixin.Open.dll" />
     <Content Include="DLL\ThoughtWorks.QRCode.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="DLL\NPOI 2.2.1\Release\LICENSE" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
