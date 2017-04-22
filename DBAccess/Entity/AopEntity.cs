@@ -15,7 +15,7 @@ namespace DBAccess.Entity
     {
         public override MarshalByRefObject CreateInstance(Type serverType)
         {
-            return new AopProxy(serverType).GetTransparentProxy() as MarshalByRefObject;
+            return new AopProxy(serverType, base.CreateInstance(serverType)).GetTransparentProxy() as MarshalByRefObject;
         }
     }
 }

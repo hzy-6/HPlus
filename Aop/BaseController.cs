@@ -146,7 +146,7 @@ namespace Aop
                 {
                     _power_list.Add(item.cFunction_ByName, false);
                 });
-                _power_list["Find"] = true;
+                _power_list["Have"] = true;
                 _power_list["Search"] = true;
                 _power_list["GetExcel"] = true;
             }
@@ -271,55 +271,50 @@ namespace Aop
         [NonAction]
         public string GetBtn()
         {
-            var Refresh = new DoubleTag("button", new
-            {
-                type = "button",
-                @class = "btn btn-white btn-sm",
-                onclick = "window.location=''"
+            var Refresh = new DoubleTag("button", new Dictionary<string, string>(){
+                {"type","button"},
+                {"class","btn btn-white btn-sm"},
+                {"onclick","window.location=''"},
             }).Append(
-                new DoubleTag("i", new { @class = "fa fa-refresh" }).Create() + "&nbsp;刷新"
+                new DoubleTag("i", new Dictionary<string, string>() { { "class", "fa fa-refresh" } }).Create() + "&nbsp;刷新"
             ).Create();
 
-            var Search = new DoubleTag("button", new
-            {
-                type = "button",
-                @class = "btn btn-white btn-sm",
-                id = "Btn_Power_Search",
-                onclick = "ShowSearch(this)"
+            var Search = new DoubleTag("button", new Dictionary<string, string>(){
+                {"type","button"},
+                {"class","btn btn-white btn-sm"},
+                {"onclick","ShowSearch(this)"},
+                {"data-power","Search"},
             }).Append(
-                new DoubleTag("i", new { @class = "fa fa-chevron-down" }).Create() + "&nbsp;检索"
+                new DoubleTag("i", new Dictionary<string, string>() { { "class", "fa fa-chevron-down" } }).Create() + "&nbsp;检索"
             ).Create();
 
-            var Add = new DoubleTag("button", new
-            {
-                type = "button",
-                @class = "btn btn-white btn-sm",
-                id = "Btn_Power_Add",
-                onclick = "Func.OpenInfoPage('add')"
+            var Add = new DoubleTag("button", new Dictionary<string, string>(){
+                {"type","button"},
+                {"class","btn btn-white btn-sm"},
+                {"onclick","Func.OpenInfoPage('add')"},
+                {"data-power","Add"},
             }).Append(
-                new DoubleTag("i", new { @class = "fa fa-plus" }).Create() + "&nbsp;添加"
+                new DoubleTag("i", new Dictionary<string, string>() { { "class", "fa fa-plus" } }).Create() + "&nbsp;添加"
             ).Create();
 
-            var Edit = new DoubleTag("button", new
-            {
-                type = "button",
-                @class = "btn btn-white btn-sm",
-                id = "Btn_Power_Edit",
-                onclick = "Func.OpenInfoPage('edit')",
-                disabled = "disabled"
+            var Edit = new DoubleTag("button", new Dictionary<string, string>(){
+                {"type","button"},
+                {"class","btn btn-white btn-sm"},
+                {"onclick","Func.OpenInfoPage('edit')"},
+                {"data-power","Edit"},
+                {"disabled","disabled"}
             }).Append(
-                new DoubleTag("i", new { @class = "fa fa-pencil" }).Create() + "&nbsp;修改"
+                new DoubleTag("i", new Dictionary<string, string>() { { "class", "fa fa-pencil" } }).Create() + "&nbsp;修改"
             ).Create();
 
-            var Del = new DoubleTag("button", new
-            {
-                type = "button",
-                @class = "btn btn-white btn-sm",
-                id = "Btn_Power_Del",
-                onclick = "$List.Del({url:'" + Url.Action("Del") + "'});",
-                disabled = "disabled"
+            var Del = new DoubleTag("button", new Dictionary<string, string>(){
+                {"type","button"},
+                {"class","btn btn-white btn-sm"},
+                {"onclick","$List.Del({url:'" + Url.Action("Del") + "'});"},
+                {"data-power","Del"},
+                {"disabled","disabled"}
             }).Append(
-                new DoubleTag("i", new { @class = "fa fa-trash" }).Create() + "&nbsp;删除"
+                new DoubleTag("i", new Dictionary<string, string>() { { "class", "fa fa-trash" } }).Create() + "&nbsp;删除"
             ).Create();
 
             return Refresh.ToHtmlString() + Search.ToHtmlString() + Add.ToHtmlString() + Edit.ToHtmlString() + Del.ToHtmlString();

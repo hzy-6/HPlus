@@ -146,7 +146,7 @@ namespace DBAccess.SQLContext
                 foreach (DataColumn dc in table.Columns)
                 {
                     if (dc.DataType.Equals(typeof(DateTime)))
-                        model.Add(dc.ColumnName, dr[dc.ColumnName] == null ? "" : Convert.ToDateTime(dr[dc.ColumnName]).ToString("yyyy-MM-dd HH:mm:ss"));
+                        model.Add(dc.ColumnName, (dr[dc.ColumnName] == DBNull.Value || dr[dc.ColumnName] == null ? "" : Convert.ToDateTime(dr[dc.ColumnName]).ToString("yyyy-MM-dd HH:mm:ss")));
                     else
                         model.Add(dc.ColumnName, dr[dc.ColumnName]);
                 }

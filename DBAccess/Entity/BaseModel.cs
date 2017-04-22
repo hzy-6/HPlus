@@ -18,12 +18,12 @@ namespace DBAccess.Entity
         public string TableName = string.Empty;
 
         /// <summary>
-        /// 验证的字段容器
+        /// 不验证的字段容器
         /// </summary>
         public readonly List<string> NotChecks = new List<string>();
 
         /// <summary>
-        /// 属性set临时容器
+        /// 属性set临时容器 【用来存储要数据操作的属性】
         /// </summary>
         public readonly Dictionary<string, object> fileds = new Dictionary<string, object>();
 
@@ -55,11 +55,6 @@ namespace DBAccess.Entity
             var isYes = NotFiled.Contains(FiledName);
             if (!isYes)
             {
-                if (Value != null && Value is string)
-                {
-                    if (Value.Equals("null"))
-                        Value = null;
-                }
                 if (fileds.ContainsKey(FiledName))
                     fileds[FiledName] = Value;
                 else
@@ -84,11 +79,6 @@ namespace DBAccess.Entity
             var isYes = NotFiled.Contains(FiledName);
             if (!isYes)
             {
-                if (Value != null && Value is string)
-                {
-                    if (Value.Equals("null"))
-                        Value = null;
-                }
                 if (fileds.ContainsKey(FiledName))
                     fileds[FiledName] = Value;
                 else
@@ -123,15 +113,6 @@ namespace DBAccess.Entity
         //        return default(T);
         //    }
         //}
-
-        /// <summary>
-        /// 添加不验证字段
-        /// </summary>
-        public void AddNotChecks(params string[] fileds)
-        {
-            foreach (var item in fileds)
-                NotChecks.Add(item);
-        }
 
     }
 }

@@ -30,7 +30,7 @@ namespace HPlus.Areas.Admin.Controllers
         {
             //MyORM.LambdaORM.DBContext dbc = new MyORM.LambdaORM.DBContext();
             //dbc.Add<T_Users>(user);
-            Session.Clear();
+            //Session.Clear();
             return View();
         }
 
@@ -52,7 +52,7 @@ namespace HPlus.Areas.Admin.Controllers
             user = db.Find<T_Users>(user);
             if (Tools.getGuid(user.uUsers_ID).Equals(Guid.Empty))
                 throw new MessageBox("用户不存在");
-            if (!Tools.getString(user.cUsers_LoginPwd).Trim().Equals(userpwd))//Tools.MD5Encrypt(
+            if (!Tools.getString(user.cUsers_LoginPwd).Trim().Equals(Tools.MD5Encrypt(userpwd)))//
                 throw new MessageBox("密码错误");
             string code = Tools.GetCookie("loginCode");
             if (string.IsNullOrEmpty(code))

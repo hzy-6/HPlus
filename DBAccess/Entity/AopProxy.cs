@@ -8,6 +8,7 @@ using System.Runtime.Remoting.Proxies;
 using System.Runtime.Remoting.Messaging;
 using System.Runtime.Remoting.Activation;
 using System.Reflection;
+using System.Runtime.Remoting;
 
 namespace DBAccess.Entity
 {
@@ -16,48 +17,41 @@ namespace DBAccess.Entity
     /// </summary>
     public class AopProxy : RealProxy
     {
-        Type ServerType { get; set; }
-        public AopProxy(Type serverType)
+        MethodInfo method;
+        MarshalByRefObject _target = null;
+        public AopProxy(Type serverType, MarshalByRefObject target)
             : base(serverType)
         {
-            ServerType = serverType;
+            _target = target;
+            method = serverType.BaseType.GetMethod("Set", BindingFlags.NonPublic | BindingFlags.Instance);
         }
 
         public override IMessage Invoke(IMessage msg)
         {
-            //消息拦截之后，就会执行这里的方法。
-            if (msg is IConstructionCallMessage) // 如果是构造函数，按原来的方式返回即可。
+            if (msg != null)
             {
-                IConstructionCallMessage constructCallMsg = msg as IConstructionCallMessage;
-                IConstructionReturnMessage constructionReturnMessage = this.InitializeServerObject((IConstructionCallMessage)msg);
-                RealProxy.SetStubData(this, constructionReturnMessage.ReturnValue);
-                return constructionReturnMessage;
-            }
-            else if (msg is IMethodCallMessage) //如果是方法调用（属性也是方法调用的一种）
-            {
-                var callMsg = msg as IMethodCallMessage;
-                var args = callMsg.Args;
-                IMessage message;
-                try
+                if (msg is IConstructionCallMessage)
                 {
+                    IConstructionCallMessage constructCallMsg = msg as IConstructionCallMessage;
+                    RealProxy defaultProxy = RemotingServices.GetRealProxy(_target);
+                    //如果不做下面这一步，_target还是一个没有直正实例化被代理对象的透明代理，
+                    //这样的话，会导致没有直正构建对象。
+                    defaultProxy.InitializeServerObject(constructCallMsg);
+                    //本类是一个RealProxy，它可通过GetTransparentProxy函数得到透明代理
+                    return System.Runtime.Remoting.Services.EnterpriseServicesHelper.CreateConstructionReturnMessage(constructCallMsg, (MarshalByRefObject)GetTransparentProxy());
+                }
+                else if (msg is IMethodCallMessage)
+                {
+                    IMethodCallMessage callMsg = msg as IMethodCallMessage;
+                    object[] args = callMsg.Args;
                     if (callMsg.MethodName.StartsWith("set_") && args.Length == 1)
                     {
-                        var method = ServerType.BaseType.GetMethod("Set", BindingFlags.NonPublic | BindingFlags.Instance);
-                        method.Invoke(GetUnwrappedServer(), new object[] { callMsg.MethodName.Substring(4), args[0] });//对属性进行调用
+                        method.Invoke(_target, new object[] { callMsg.MethodName.Substring(4), args[0] });//对属性进行调用
                     }
-                    object o = callMsg.MethodBase.Invoke(GetUnwrappedServer(), args);
-                    message = new ReturnMessage(o, args, args.Length, callMsg.LogicalCallContext, callMsg);
+                    return RemotingServices.ExecuteMessage(_target, callMsg);
                 }
-                catch (Exception e)
-                {
-                    message = new ReturnMessage(e, callMsg);
-                }
-                return message;
             }
             return msg;
         }
-
-
-
     }
 }

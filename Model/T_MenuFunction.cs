@@ -16,6 +16,7 @@ namespace Model
         public T_MenuFunction()
         {
             this.TableName = "T_MenuFunction";
+            this.NotFiled.Add("dMenuFunction_CreateTime");
         }
 
         [Filed(DisplayName = "菜单功能ID", IsPrimaryKey = true)]

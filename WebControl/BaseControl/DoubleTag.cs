@@ -25,7 +25,7 @@ namespace WebControl.BaseControl
         /// 标签参数
         /// </summary>
         /// <param name="attr">属性</param>
-        public DoubleTag(string tag, object attr)
+        public DoubleTag(string tag, Dictionary<string, string> attr)
         {
             this.Tag = tag;
             var json = jss.Serialize(attr);//将匿名对象转换为json

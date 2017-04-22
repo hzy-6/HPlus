@@ -60,7 +60,7 @@ namespace DBAccess.SQLContext.Context
                 var value = item.Value;
                 var key = item.Key;
                 where.Add(" AND " + key + "=@" + key + "");
-                list_sqlpar.Add(new SqlParameter() { ParameterName = key, Value = value });
+                list_sqlpar.Add(new SqlParameter() { ParameterName = key, Value = value == null ? DBNull.Value : value });
             }
             OrderBy = string.IsNullOrEmpty(OrderBy) ? "" : " Order By " + OrderBy;
             string sql = string.Format(" SELECT {0} FROM {1} WHERE 1=1 {2} {3} ", "*", TableName, string.Join(" ", where), OrderBy);

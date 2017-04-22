@@ -15,6 +15,7 @@ namespace Model
         public T_Menu()
         {
             this.TableName = "T_Menu";
+            this.NotFiled.Add("dMenu_CreateTime");
         }
 
         [Filed(DisplayName = "菜单ID", IsPrimaryKey = true)]

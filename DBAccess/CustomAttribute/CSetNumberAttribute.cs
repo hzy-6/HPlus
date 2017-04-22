@@ -28,6 +28,7 @@ namespace DBAccess.CustomAttribute
         public CSetNumberAttribute(int length, char str = '0')
         {
             this.Length = length;
+            this.Str = str;
         }
 
     }

@@ -56,7 +56,10 @@ namespace DBAccess
             {
                 if (IsCheck)
                     this.Check(entity);
-                return add.Add(entity);
+                var key = add.Add(entity);
+                if (string.IsNullOrEmpty(key))
+                    throw new Exception("操作失败");
+                return key;
             }
             catch (Exception ex)
             {
@@ -72,7 +75,10 @@ namespace DBAccess
             {
                 if (IsCheck)
                     this.Check(entity);
-                return add.Add(entity, ref li);
+                var key = add.Add(entity, ref li);
+                if (string.IsNullOrEmpty(key))
+                    throw new Exception("操作失败");
+                return key;
             }
             catch (Exception ex)
             {
@@ -87,7 +93,9 @@ namespace DBAccess
             {
                 if (IsCheck)
                     this.Check(entity);
-                return edit.Edit(entity);
+                if (edit.Edit(entity))
+                    return true;
+                throw new Exception("操作失败");
             }
             catch (Exception ex)
             {
@@ -102,7 +110,9 @@ namespace DBAccess
             {
                 if (IsCheck)
                     this.Check(entity);
-                return edit.Edit(entity, where);
+                if (edit.Edit(entity, where))
+                    return true;
+                throw new Exception("操作失败");
             }
             catch (Exception ex)
             {
@@ -117,7 +127,9 @@ namespace DBAccess
             {
                 if (IsCheck)
                     this.Check(entity);
-                return edit.Edit(entity, where);
+                if (edit.Edit(entity, where))
+                    return true;
+                throw new Exception("操作失败");
             }
             catch (Exception ex)
             {
@@ -132,7 +144,9 @@ namespace DBAccess
             {
                 if (IsCheck)
                     this.Check(entity);
-                return edit.Edit(entity, where);
+                if (edit.Edit(entity, where))
+                    return true;
+                throw new Exception("操作失败");
             }
             catch (Exception ex)
             {
@@ -147,7 +161,9 @@ namespace DBAccess
             {
                 if (IsCheck)
                     this.Check(entity);
-                return edit.Edit(entity, ref li);
+                if (edit.Edit(entity, ref li))
+                    return true;
+                throw new Exception("操作失败");
             }
             catch (Exception ex)
             {
@@ -162,7 +178,9 @@ namespace DBAccess
             {
                 if (IsCheck)
                     this.Check(entity);
-                return edit.Edit(entity, where, ref li);
+                if (edit.Edit(entity, where, ref li))
+                    return true;
+                throw new Exception("操作失败");
             }
             catch (Exception ex)
             {
@@ -177,7 +195,9 @@ namespace DBAccess
             {
                 if (IsCheck)
                     this.Check(entity);
-                return edit.Edit(entity, where, ref li);
+                if (edit.Edit(entity, where, ref li))
+                    return true;
+                throw new Exception("操作失败");
             }
             catch (Exception ex)
             {
@@ -192,7 +212,9 @@ namespace DBAccess
             {
                 if (IsCheck)
                     this.Check(entity);
-                return edit.Edit(entity, where, ref li);
+                if (edit.Edit(entity, where, ref li))
+                    return true;
+                throw new Exception("操作失败");
             }
             catch (Exception ex)
             {
@@ -205,7 +227,9 @@ namespace DBAccess
         {
             try
             {
-                return delete.Delete(entity);
+                if (delete.Delete(entity))
+                    return true;
+                throw new Exception("操作失败");
             }
             catch (Exception ex)
             {
@@ -218,7 +242,9 @@ namespace DBAccess
         {
             try
             {
-                return delete.Delete<M>(where);
+                if (delete.Delete<M>(where))
+                    return true;
+                throw new Exception("操作失败");
             }
             catch (Exception ex)
             {
@@ -231,7 +257,9 @@ namespace DBAccess
         {
             try
             {
-                return delete.Delete(where);
+                if (delete.Delete(where))
+                    return true;
+                throw new Exception("操作失败");
             }
             catch (Exception ex)
             {
@@ -244,7 +272,9 @@ namespace DBAccess
         {
             try
             {
-                return delete.Delete(entity, ref li);
+                if (delete.Delete(entity, ref li))
+                    return true;
+                throw new Exception("操作失败");
             }
             catch (Exception ex)
             {
@@ -257,7 +287,9 @@ namespace DBAccess
         {
             try
             {
-                return delete.Delete<M>(where, ref li);
+                if (delete.Delete<M>(where, ref li))
+                    return true;
+                throw new Exception("操作失败");
             }
             catch (Exception ex)
             {
@@ -270,7 +302,9 @@ namespace DBAccess
         {
             try
             {
-                return delete.Delete(where, ref li);
+                if (delete.Delete(where, ref li))
+                    return true;
+                throw new Exception("操作失败");
             }
             catch (Exception ex)
             {
@@ -383,8 +417,7 @@ namespace DBAccess
             {
                 if (commit.COMMIT(li))
                     return true;
-                SetError("操作失败");
-                return false;
+                throw new Exception("操作失败");
             }
             catch (Exception ex)
             {

@@ -16,6 +16,7 @@ namespace Model
         public T_Function()
         {
             this.TableName = "T_Function";
+            this.NotFiled.Add("dFunction_CreateTime");
         }
 
         [Filed(DisplayName = "功能ID", IsPrimaryKey = true)]

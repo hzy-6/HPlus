@@ -12,6 +12,7 @@ namespace Application
     /// <summary>
     /// 配合Web页面使用纯ajax调用函数，后端弹出提示框的 类
     /// </summary>
+    [Serializable]
     public class MessageBox : Exception
     {
         /// <summary>

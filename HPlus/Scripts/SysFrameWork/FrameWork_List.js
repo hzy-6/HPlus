@@ -4,8 +4,8 @@ var $gridList = $("#jqtable");
 var $PanelSearch = $("#Panel_Search");
 var $btnsearch = $("#btn_search");
 var $formsearch = $("#form_search");
-var $btndel = $("#Btn_Power_Del");
-var $btnedit = $("#Btn_Power_Edit");
+var $btndel = $("button[data-power=Del]");
+var $btnedit = $("button[data-power=Edit]");
 var fun = $.Tools.GetQueryString("fun");
 var $KeyValue = "";
 

@@ -16,6 +16,7 @@ namespace Model
         public T_Roles()
         {
             this.TableName = "T_Roles";
+            this.NotFiled.Add("dRoles_CreateTime");
         }
 
         [Filed(DisplayName = "角色ID", IsPrimaryKey = true)]
