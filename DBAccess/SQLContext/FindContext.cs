@@ -32,16 +32,19 @@ namespace DBAccess.SQLContext
 
         private SQL_Container GetSql<M>(M entity) where M : BaseModel, new()
         {
+            sqlstring = new Context.FindSqlString<T>();
             return sqlstring.GetSqlString(entity);
         }
 
         private SQL_Container GetSql<M>(string where) where M : BaseModel, new()
         {
+            sqlstring = new Context.FindSqlString<T>();
             return sqlstring.GetSqlString<M>(where);
         }
 
         private SQL_Container GetSql<M>(Expression<Func<M, bool>> where) where M : BaseModel, new()
         {
+            sqlstring = new Context.FindSqlString<T>();
             return sqlstring.GetSqlString<M>(where);
         }
 
@@ -127,7 +130,7 @@ namespace DBAccess.SQLContext
         public T ToModel<T>(DataRow r, T entity) where T : BaseModel
         {
             var model = new Dictionary<string, object>();
-            foreach (DataColumn item in r.Table.Columns) model.Add(item.ColumnName, r[item.ColumnName]);
+            foreach (DataColumn item in r.Table.Columns) model.Add(item.ColumnName, r[item.ColumnName] == DBNull.Value ? null : r[item.ColumnName]);
             return jss.Deserialize<T>(jss.Serialize(model));
         }
 
