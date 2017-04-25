@@ -83,24 +83,26 @@ namespace DBAccess.CheckClass
                     SetErrorMessage(tag.ErrorMessage, DisplayName + "不能为空", DisplayName);
                     return false;
                 }
-                if (item.PropertyType.Equals(typeof(string)))
-                {
-                    if (string.IsNullOrEmpty(Value.ToString()))
-                    {
-                        SetErrorMessage(tag.ErrorMessage, DisplayName + "不能为空", DisplayName);
-                        return false;
-                    }
-                }
-                else if (item.PropertyType.Equals(typeof(Guid?)))
-                {
-                    if (Guid.Parse(Value.ToString()).Equals(Guid.Empty))
-                    {
-                        SetErrorMessage(tag.ErrorMessage, DisplayName + "不能为空", DisplayName);
-                        return false;
-                    }
-                }
                 else
-                    throw new AggregateException("类型 " + item.PropertyType + " 不支持验证!");
+                {
+                    if (item.PropertyType.Equals(typeof(string)))
+                    {
+                        if (string.IsNullOrEmpty(Value.ToString()))
+                        {
+                            SetErrorMessage(tag.ErrorMessage, DisplayName + "不能为空", DisplayName);
+                            return false;
+                        }
+                    }
+                    else if (item.PropertyType.Equals(typeof(Guid?)))
+                    {
+                        if (Guid.Parse(Value.ToString()).Equals(Guid.Empty))
+                        {
+                            SetErrorMessage(tag.ErrorMessage, DisplayName + "不能为空", DisplayName);
+                            return false;
+                        }
+                    }
+                    //throw new AggregateException("类型 " + item.PropertyType + " 不支持验证!");
+                }
             }
             return true;
         }
