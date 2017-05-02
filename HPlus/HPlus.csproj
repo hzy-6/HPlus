@@ -163,7 +163,6 @@
     <Content Include="App_Data\data.sql" />
     <Content Include="Content\Css\jquery.bootstrap.css" />
     <Content Include="Content\Css\Login.css" />
-    <Content Include="Content\HPlus\css\.DS_Store" />
     <Content Include="Content\HPlus\css\animate.css" />
     <Content Include="Content\HPlus\css\bootstrap-rtl.css" />
     <Content Include="Content\HPlus\css\bootstrap.min.css" />

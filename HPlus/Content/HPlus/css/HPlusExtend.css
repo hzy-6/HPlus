@@ -153,3 +153,7 @@ nav.page-tabs {
 .skin-1 .nav-header {
     padding: 17px 25px 25px 25px;
 }
+
+.ibox {
+    margin-bottom: 10px;
+}
