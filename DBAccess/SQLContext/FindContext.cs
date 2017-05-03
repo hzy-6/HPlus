@@ -32,19 +32,16 @@ namespace DBAccess.SQLContext
 
         private SQL_Container GetSql<M>(M entity) where M : BaseModel, new()
         {
-            sqlstring = new Context.FindSqlString<T>();
             return sqlstring.GetSqlString(entity);
         }
 
         private SQL_Container GetSql<M>(string where) where M : BaseModel, new()
         {
-            sqlstring = new Context.FindSqlString<T>();
             return sqlstring.GetSqlString<M>(where);
         }
 
         private SQL_Container GetSql<M>(Expression<Func<M, bool>> where) where M : BaseModel, new()
         {
-            sqlstring = new Context.FindSqlString<T>();
             return sqlstring.GetSqlString<M>(where);
         }
 
@@ -79,6 +76,7 @@ namespace DBAccess.SQLContext
 
         public DataTable Find<M>(M entity, string OrderBy) where M : BaseModel, new()
         {
+            sqlstring = new Context.FindSqlString<T>();
             sqlstring.OrderBy = OrderBy;
             var sql = this.GetSql(entity);
             return select.ExecuteDataset(sql);
@@ -86,6 +84,7 @@ namespace DBAccess.SQLContext
 
         public List<M> FindToList<M>(M entity, string OrderBy) where M : BaseModel, new()
         {
+            sqlstring = new Context.FindSqlString<T>();
             sqlstring.OrderBy = OrderBy;
             var sql = this.GetSql(entity);
             var dt = select.ExecuteDataset(sql);
