@@ -117,6 +117,7 @@ namespace Aop
             string fun = Tools.getString(filterContext.HttpContext.Request.QueryString["fun"]);
             var _func_list = db.FindToList(tfunction, " iFunction_Number ");
             var _role_menu_func_list = db.FindToList(trmf);
+            var _menu_func_list = db.FindToList(tmenufunction);
             var _power_list = new Dictionary<string, object>();
 
             if (string.IsNullOrEmpty(fun))
@@ -134,10 +135,16 @@ namespace Aop
                     });
                 }
                 else
+                {
                     _func_list.ForEach(item =>
-                     {
-                         _power_list.Add(item.cFunction_ByName, true);
-                     });
+                    {
+                        var ispower = _menu_func_list.FindAll(x => x.uMenuFunction_MenuID == Tools.getGuid(MenuID) && x.uMenuFunction_FunctionID == item.uFunction_ID);
+                        if (ispower.Count > 0)
+                            _power_list.Add(item.cFunction_ByName, true);
+                        else
+                            _power_list.Add(item.cFunction_ByName, false);
+                    });
+                }
             }
             else
             {
@@ -223,14 +230,15 @@ namespace Aop
             IRow dataRow = sheet.CreateRow(0);
             foreach (DataColumn column in dt.Columns)
             {
+                if (column.ColumnName.Equals("_ukid"))
+                    continue;
                 foreach (var item in list)
                 {
-                    if (!column.ColumnName.Equals("_ukid") && column.ColumnName.Equals(item.name))
+                    if (column.ColumnName.Equals(item.name))
                     {
                         dataRow.CreateCell(column.Ordinal).SetCellValue(item.label);
                     }
                 }
-
             }
 
             //填充内容
@@ -239,8 +247,9 @@ namespace Aop
                 dataRow = sheet.CreateRow(i + 1);
                 for (int j = 0; j < dt.Columns.Count; j++)
                 {
-                    if (!dt.Columns[j].ColumnName.Equals("_ukid"))
-                        dataRow.CreateCell(j).SetCellValue(dt.Rows[i][j].ToString());
+                    if (dt.Columns[j].ColumnName.Equals("_ukid"))
+                        continue;
+                    dataRow.CreateCell(j).SetCellValue(dt.Rows[i][j].ToString());
                 }
             }
 
