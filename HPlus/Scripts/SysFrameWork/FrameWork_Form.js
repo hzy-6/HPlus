@@ -73,6 +73,8 @@ var $Form = {
     },
     //刷新重置URL
     ResetUrl: function (r) {
+        //开启遮罩层
+        $.Tools.Loading.Open();
         var url = window.location.href;
         if (r) {
             if (url.indexOf('?ID') == -1 && url.indexOf('&ID') == -1) {
@@ -89,8 +91,6 @@ var $Form = {
                     url = url.replace("ID=", "ID=" + r.ID);
                 }
             }
-            //top.$("iframe[name=" + $.GetFrameName() + "]").attr("src", url);
-            window.location = url;
         }
         else {
             var obj = GetRequest();
@@ -103,8 +103,10 @@ var $Form = {
                     }
                 }
             }
-            window.location = url;
         }
+        top.$("iframe[name=" + $.GetFrameName() + "]").attr("src", url).load(function () {
+            $.Tools.Loading.Close();
+        });
         return url;
     }
 };
