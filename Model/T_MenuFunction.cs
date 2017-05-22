@@ -20,15 +20,31 @@ namespace Model
         }
 
         [Filed(DisplayName = "菜单功能ID", IsPrimaryKey = true)]
-        public Guid? uMenuFunction_ID { get; set; }
+        public Guid? uMenuFunction_ID
+        {
+            set { SetValue("uMenuFunction_ID", value); }
+            get { return GetValue<Guid?>("uMenuFunction_ID"); }
+        }
 
         [Filed(DisplayName = "菜单ID")]
-        public Guid? uMenuFunction_MenuID { get; set; }
+        public Guid? uMenuFunction_MenuID
+        {
+            set { SetValue("uMenuFunction_MenuID", value); }
+            get { return GetValue<Guid?>("uMenuFunction_MenuID"); }
+        }
 
         [Filed(DisplayName = "功能ID")]
-        public Guid? uMenuFunction_FunctionID { get; set; }
+        public Guid? uMenuFunction_FunctionID
+        {
+            set { SetValue("uMenuFunction_FunctionID", value); }
+            get { return GetValue<Guid?>("uMenuFunction_FunctionID"); }
+        }
 
         [Filed(DisplayName = "创建时间")]
-        public DateTime? dMenuFunction_CreateTime { get; set; }
+        public DateTime? dMenuFunction_CreateTime
+        {
+            set { SetValue("dMenuFunction_CreateTime", value); }
+            get { return GetValue<DateTime?>("dMenuFunction_CreateTime"); }
+        }
     }
 }

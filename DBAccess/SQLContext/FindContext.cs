@@ -7,9 +7,12 @@ using System.Threading.Tasks;
 using System.Linq.Expressions;
 using DBAccess.Reflection;
 using DBAccess.Entity;
+using DBAccess.HelperClass;
+using DBAccess.AdoDotNet;
 using System.Dynamic;
 using System.Data;
 using System.Web.Script.Serialization;
+
 
 namespace DBAccess.SQLContext
 {
@@ -17,15 +20,15 @@ namespace DBAccess.SQLContext
     {
         Context.FindSqlString<T> sqlstring;
         JavaScriptSerializer jss;
-        DBHelper select;
+        DBHelper dbhelper;
         private FindContext() { }
 
         private string _ConnectionString { get; set; }
 
-        public FindContext(string ConnectionString)
+        public FindContext(string ConnectionString, DBType DBType)
         {
             _ConnectionString = ConnectionString;
-            select = new DBHelper(_ConnectionString);
+            dbhelper = new DBHelper(_ConnectionString, DBType);
             sqlstring = new Context.FindSqlString<T>();
             jss = new JavaScriptSerializer();
         }
@@ -50,7 +53,7 @@ namespace DBAccess.SQLContext
         public M Find<M>(M entity) where M : BaseModel, new()
         {
             var sql = this.GetSql(entity);
-            var dt = select.ExecuteDataset(sql);
+            var dt = dbhelper.ExecuteDataset(sql);
             if (dt.Rows.Count == 0)
                 return (M)Activator.CreateInstance(entity.GetType());
             return ToModel(dt.Rows[0], (M)Activator.CreateInstance(entity.GetType()));
@@ -59,7 +62,7 @@ namespace DBAccess.SQLContext
         public M Find<M>(string where) where M : BaseModel, new()
         {
             var sql = this.GetSql<M>(where);
-            var dt = select.ExecuteDataset(sql);
+            var dt = dbhelper.ExecuteDataset(sql);
             if (dt.Rows.Count == 0)
                 return (M)Activator.CreateInstance(typeof(M));
             return ToModel(dt.Rows[0], (M)Activator.CreateInstance(typeof(M)));
@@ -68,7 +71,7 @@ namespace DBAccess.SQLContext
         public M Find<M>(Expression<Func<M, bool>> where) where M : BaseModel, new()
         {
             var sql = this.GetSql<M>(where);
-            var dt = select.ExecuteDataset(sql);
+            var dt = dbhelper.ExecuteDataset(sql);
             if (dt.Rows.Count == 0)
                 return (M)Activator.CreateInstance(typeof(M));
             return ToModel(dt.Rows[0], (M)Activator.CreateInstance(typeof(M)));
@@ -79,7 +82,7 @@ namespace DBAccess.SQLContext
             sqlstring = new Context.FindSqlString<T>();
             sqlstring.OrderBy = OrderBy;
             var sql = this.GetSql(entity);
-            return select.ExecuteDataset(sql);
+            return dbhelper.ExecuteDataset(sql);
         }
 
         public List<M> FindToList<M>(M entity, string OrderBy) where M : BaseModel, new()
@@ -87,38 +90,29 @@ namespace DBAccess.SQLContext
             sqlstring = new Context.FindSqlString<T>();
             sqlstring.OrderBy = OrderBy;
             var sql = this.GetSql(entity);
-            var dt = select.ExecuteDataset(sql);
+            var dt = dbhelper.ExecuteDataset(sql);
             return this.FindToList<M>(dt);
         }
 
         public List<M> FindToList<M>(DataTable dt) where M : BaseModel, new()
         {
-            return this.ConvertDataTableToList<M>(dt);
+            return Tool.ConvertDataTableToList<M>(dt);
         }
 
         public DataTable Find(string SQL)
         {
-            return select.ExecuteDataset(SQL);
+            return dbhelper.ExecuteDataset(SQL);
         }
 
         public object FINDToObj(string SQL)
         {
-            return select.ExecuteScalar(SQL.ToString());
-        }
-
-        public DataTable Find(string SQL, int PageIndex, int PageSize, out int PageCount, out int Counts)
-        {
-            return select.SysPageList(SQL, PageIndex, PageSize, out PageCount, out Counts);
+            return dbhelper.ExecuteScalar(SQL.ToString());
         }
 
         public PagingEntity Find(string SQL, int PageIndex, int PageSize)
         {
-            int PageCount = 0, Counts = 0;
-            var dt = this.Find(SQL, PageIndex, PageSize, out PageCount, out Counts);
-            var list = this.ConvertDataTableToList<Dictionary<string, object>>(dt);
-            return new PagingEntity() { List = list.Count > 0 ? list : new List<Dictionary<string, object>>(), dt = dt, PageCount = PageCount, Counts = Counts };
+            return dbhelper.PagingList(SQL, PageIndex, PageSize);
         }
-
 
         /// <summary>
         /// 转换实体
@@ -130,32 +124,18 @@ namespace DBAccess.SQLContext
         {
             var model = new Dictionary<string, object>();
             foreach (DataColumn item in r.Table.Columns) model.Add(item.ColumnName, r[item.ColumnName] == DBNull.Value ? null : r[item.ColumnName]);
-            return jss.Deserialize<T>(jss.Serialize(model));
+            var json = jss.Serialize(model);
+            json = System.Text.RegularExpressions.Regex.Replace(json, @"\\/Date\((\d+)\)\\/", match =>
+            {
+                DateTime dt = new DateTime(1970, 1, 1);
+                dt = dt.AddMilliseconds(long.Parse(match.Groups[1].Value));
+                dt = dt.ToLocalTime();
+                return dt.ToString("yyyy-MM-dd HH:mm:ss");
+            });
+            return jss.Deserialize<T>(json);
         }
 
-        /// <summary>
-        /// 将datatable转换为list<T>
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="table"></param>
-        /// <returns></returns>
-        public List<T> ConvertDataTableToList<T>(DataTable table)
-        {
-            var list = new List<T>();
-            foreach (DataRow dr in table.Rows)
-            {
-                var model = new Dictionary<string, object>();
-                foreach (DataColumn dc in table.Columns)
-                {
-                    if (dc.DataType.Equals(typeof(DateTime)))
-                        model.Add(dc.ColumnName, (dr[dc.ColumnName] == DBNull.Value || dr[dc.ColumnName] == null ? "" : Convert.ToDateTime(dr[dc.ColumnName]).ToString("yyyy-MM-dd HH:mm:ss")));
-                    else
-                        model.Add(dc.ColumnName, dr[dc.ColumnName]);
-                }
-                list.Add(jss.Deserialize<T>(jss.Serialize(model)));
-            }
-            return list;
-        }
+
 
     }
 }

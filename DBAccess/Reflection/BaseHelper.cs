@@ -40,7 +40,7 @@ namespace DBAccess.Reflection
         /// <param name="value"></param>
         public static void SetValue<T>(T entity, string filed, object value) where T : class,new()
         {
-            BaseHelper.GetPropertyInfo(entity.GetType(), filed).SetValue(entity, value);
+            BaseHelper.GetPropertyInfo(entity.GetType(), filed).SetValue(entity, value, null);
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace DBAccess.Reflection
         /// <param name="filed"></param>
         public static object GetValue<T>(T entity, string filed) where T : class,new()
         {
-            return BaseHelper.GetPropertyInfo(typeof(T), filed).GetValue(entity);
+            return BaseHelper.GetPropertyInfo(typeof(T), filed).GetValue(entity, null);
         }
 
     }

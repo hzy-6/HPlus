@@ -20,18 +20,38 @@ namespace Model
         }
 
         [Filed(DisplayName = "角色菜单功能ID", IsPrimaryKey = true)]
-        public Guid? uRoleMenuFunction_ID { get; set; }
+        public Guid? uRoleMenuFunction_ID
+        {
+            set { SetValue("uRoleMenuFunction_ID", value); }
+            get { return GetValue<Guid?>("uRoleMenuFunction_ID"); }
+        }
 
         [Filed(DisplayName = "角色ID")]
-        public Guid? uRoleMenuFunction_RoleID { get; set; }
+        public Guid? uRoleMenuFunction_RoleID
+        {
+            set { SetValue("uRoleMenuFunction_RoleID", value); }
+            get { return GetValue<Guid?>("uRoleMenuFunction_RoleID"); }
+        }
 
         [Filed(DisplayName = "功能ID")]
-        public Guid? uRoleMenuFunction_FunctionID { get; set; }
+        public Guid? uRoleMenuFunction_FunctionID
+        {
+            set { SetValue("uRoleMenuFunction_FunctionID", value); }
+            get { return GetValue<Guid?>("uRoleMenuFunction_FunctionID"); }
+        }
 
         [Filed(DisplayName = "菜单ID")]
-        public Guid? uRoleMenuFunction_MenuID { get; set; }
+        public Guid? uRoleMenuFunction_MenuID
+        {
+            set { SetValue("uRoleMenuFunction_MenuID", value); }
+            get { return GetValue<Guid?>("uRoleMenuFunction_MenuID"); }
+        }
 
         [Filed(DisplayName = "创建时间")]
-        public DateTime? dRoleMenuFunction_CreateTime { get; set; }
+        public DateTime? dRoleMenuFunction_CreateTime
+        {
+            set { SetValue("dRoleMenuFunction_CreateTime", value); }
+            get { return GetValue<DateTime?>("dRoleMenuFunction_CreateTime"); }
+        }
     }
 }

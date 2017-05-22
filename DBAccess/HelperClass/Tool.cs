@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.Web.Script.Serialization;
 
 namespace DBAccess.HelperClass
 {
@@ -282,5 +284,43 @@ namespace DBAccess.HelperClass
             else
                 return true;
         }
+
+
+        /// <summary>
+        /// 将datatable转换为list<T>
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="table"></param>
+        /// <returns></returns>
+        public static List<T> ConvertDataTableToList<T>(DataTable table)
+        {
+            JavaScriptSerializer jss = new JavaScriptSerializer();
+            var list = new List<T>();
+            foreach (DataRow dr in table.Rows)
+            {
+                var model = new Dictionary<string, object>();
+                foreach (DataColumn dc in table.Columns)
+                {
+                    if (dc.DataType.Equals(typeof(DateTime)))
+                        model.Add(dc.ColumnName, (dr[dc.ColumnName] == DBNull.Value || dr[dc.ColumnName] == null ? "" : Convert.ToDateTime(dr[dc.ColumnName]).ToString("yyyy-MM-dd HH:mm:ss")));
+                    else
+                        model.Add(dc.ColumnName, dr[dc.ColumnName]);
+                }
+                var json = jss.Serialize(model);
+                json = System.Text.RegularExpressions.Regex.Replace(json, @"\\/Date\((\d+)\)\\/", match =>
+                {
+                    DateTime dt = new DateTime(1970, 1, 1);
+                    dt = dt.AddMilliseconds(long.Parse(match.Groups[1].Value));
+                    dt = dt.ToLocalTime();
+                    return dt.ToString("yyyy-MM-dd HH:mm:ss");
+                });
+                list.Add(jss.Deserialize<T>(json));
+            }
+            return list;
+        }
+
+
+
+
     }
 }

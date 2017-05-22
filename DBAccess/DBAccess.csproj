@@ -11,6 +11,7 @@
     <AssemblyName>DBAccess</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>发布\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -23,9 +24,9 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -36,6 +37,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -45,6 +47,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
@@ -77,6 +80,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdoDotNet\DBHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="AdoDotNet\MySqlHelper.cs" />
     <Compile Include="AdoDotNet\SqlHelper.cs" />
     <Compile Include="CheckClass\CheckContext.cs" />
@@ -105,7 +111,6 @@
     <Compile Include="Reflection\EntityHelper.cs" />
     <Compile Include="SQLContext\AbstractSqlContext.cs" />
     <Compile Include="SQLContext\AddContext.cs" />
-    <Compile Include="SQLContext\CommitContext.cs" />
     <Compile Include="SQLContext\Context\AddSqlString.cs" />
     <Compile Include="SQLContext\Context\DeleteSqlString.cs" />
     <Compile Include="SQLContext\Context\EditSqlString.cs" />
@@ -114,9 +119,6 @@
     <Compile Include="SQLContext\EditContext.cs" />
     <Compile Include="SQLContext\FindContext.cs" />
     <Compile Include="SQLContext\ISqlContext.cs" />
-    <Compile Include="SQLContext\DBHelper.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="ToJson.cs" />
   </ItemGroup>
   <ItemGroup>

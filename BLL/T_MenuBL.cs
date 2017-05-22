@@ -20,36 +20,6 @@ namespace BLL
         T_Menu t_menu = new T_Menu();
 
         /// <summary>
-        /// 查询
-        /// </summary>
-        /// <param name="QuickConditions"></param>
-        /// <param name="pageindex"></param>
-        /// <param name="pagesize"></param>
-        /// <param name="pagecount"></param>
-        /// <param name="counts"></param>
-        /// <returns></returns>
-        public List<Dictionary<string, object>> GetDataSource(Hashtable query, int pageindex, int pagesize, out int pagecount, out int counts)
-        {
-            try
-            {
-                List<Dictionary<string, object>> list = new List<Dictionary<string, object>>();
-                DataTable dt = new T_MenuDA().GetDataSource(query, pageindex, pagesize, out pagecount, out counts);
-                foreach (DataRow dr in dt.Rows)
-                {
-                    Dictionary<string, object> di = new Dictionary<string, object>();
-                    foreach (DataColumn dc in dt.Columns)
-                        di.Add(dc.ColumnName, Tools.getString(dr[dc.ColumnName]));
-                    list.Add(di);
-                }
-                return list.Count > 0 ? list : null;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-
-        /// <summary>
         /// 获取所有的菜单
         /// </summary>
         /// <returns></returns>

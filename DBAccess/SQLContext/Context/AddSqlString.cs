@@ -8,6 +8,7 @@ using System.Linq.Expressions;
 using System.Data.SqlClient;
 using DBAccess.Entity;
 using DBAccess.ExpressionTree;
+using System.Dynamic;
 
 namespace DBAccess.SQLContext.Context
 {
@@ -18,11 +19,11 @@ namespace DBAccess.SQLContext.Context
     public class AddSqlString<T> : AbstractSqlContext<T> where T : BaseModel, new()
     {
         //INSERT INTO TAB COL VALUES () 
-        List<SqlParameter> list_sqlpar = new List<SqlParameter>();
+        List<dynamic> list_sqlpar = new List<dynamic>();
 
         public AddSqlString()
         {
-            list_sqlpar = new List<SqlParameter>();
+            list_sqlpar = new List<dynamic>();
         }
 
         /// <summary>
@@ -32,7 +33,7 @@ namespace DBAccess.SQLContext.Context
         /// <returns></returns>
         public override SQL_Container GetSqlString(T entity)
         {
-            list_sqlpar = new List<SqlParameter>();
+            list_sqlpar = new List<dynamic>();
             return this.GetSQL(entity);
         }
 
@@ -47,10 +48,13 @@ namespace DBAccess.SQLContext.Context
                 var value = item.Value;
                 var key = item.Key;
                 col.Add(key); val.Add("@" + key + "");
-                list_sqlpar.Add(new SqlParameter() { ParameterName = key, Value = value == null ? DBNull.Value : value });
+                dynamic dy = new ExpandoObject();
+                dy.Key = key;
+                dy.Value = value;
+                list_sqlpar.Add(dy);
             }
             string sql = string.Format(" INSERT INTO {0} ({1}) VALUES ({2}) ", TableName, string.Join(",", col), string.Join(",", val));
-            return new SQL_Container(sql, list_sqlpar.ToArray());
+            return new SQL_Container(sql, list_sqlpar);
         }
 
     }

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Linq.Expressions;
 using DBAccess.Reflection;
 using DBAccess.Entity;
+using DBAccess.AdoDotNet;
 using System.Dynamic;
 
 namespace DBAccess.SQLContext
@@ -14,18 +15,16 @@ namespace DBAccess.SQLContext
     public class AddContext<T> where T : BaseModel, new()
     {
         Context.AddSqlString<T> add;
-        CommitContext commit;
-        DBHelper select;
+        DBHelper dbhelper;
         private AddContext() { }
 
         private string _ConnectionString { get; set; }
 
-        public AddContext(string ConnectionString)
+        public AddContext(string ConnectionString, DBType DBType)
         {
             _ConnectionString = ConnectionString;
-            commit = new CommitContext(_ConnectionString);
             add = new Context.AddSqlString<T>();
-            select = new DBHelper(_ConnectionString);
+            dbhelper = new DBHelper(_ConnectionString, DBType);
         }
 
         private SQL_Container GetSql(T entity)
@@ -39,7 +38,7 @@ namespace DBAccess.SQLContext
             var pK = entity.EH.GetPropertyInfo(entity, entity.EH.GetKeyName(entity));//获取主键的 PropertyInfo
             if (pK.PropertyType.Equals(typeof(Guid?)))
             {
-                var keyval = Guid.Parse((pK.GetValue(entity) == null ? Guid.Empty : pK.GetValue(entity)).ToString());
+                var keyval = Guid.Parse((pK.GetValue(entity, null) == null ? Guid.Empty : pK.GetValue(entity, null)).ToString());
                 KeyID = keyval == Guid.Empty ? Guid.NewGuid().ToString() : keyval.ToString();
                 entity.EH.SetValue(entity, pK.Name, Guid.Parse(KeyID));
             }
@@ -58,7 +57,7 @@ namespace DBAccess.SQLContext
             var m = this.GetModel(entity);
             var sql = this.GetSql(m.T);
             //if (select.ExecuteNonQuery(sql) > 0)
-            if (commit.COMMIT(new List<SQL_Container>() { sql }))
+            if (dbhelper.Commit(new List<SQL_Container>() { sql }))
                 return m.id;
             return null;
         }

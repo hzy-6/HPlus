@@ -8,16 +8,17 @@ using System.Linq.Expressions;
 using System.Data.SqlClient;
 using DBAccess.Entity;
 using DBAccess.ExpressionTree;
+using System.Dynamic;
 
 namespace DBAccess.SQLContext.Context
 {
     public class FindSqlString<T> : AbstractSqlContext<T> where T : BaseModel, new()
     {
-        List<SqlParameter> list_sqlpar;
+        List<dynamic> list_sqlpar;
 
         public FindSqlString()
         {
-            list_sqlpar = new List<SqlParameter>();
+            list_sqlpar = new List<dynamic>();
         }
 
         public string OrderBy = string.Empty;
@@ -34,19 +35,19 @@ namespace DBAccess.SQLContext.Context
 
         public SQL_Container GetSqlString<M>(M entity) where M : BaseModel, new()
         {
-            list_sqlpar = new List<SqlParameter>();
+            list_sqlpar = new List<dynamic>();
             return this.GetSQL(entity);
         }
 
         public SQL_Container GetSqlString<M>(Expression<Func<M, bool>> where) where M : BaseModel, new()
         {
-            list_sqlpar = new List<SqlParameter>();
+            list_sqlpar = new List<dynamic>();
             return this.GetSQL<M>(" AND " + this.GetWhereString(where, ref list_sqlpar));
         }
 
         public SQL_Container GetSqlString<M>(string where) where M : BaseModel, new()
         {
-            list_sqlpar = new List<SqlParameter>();
+            list_sqlpar = new List<dynamic>();
             return this.GetSQL<M>(where);
         }
 
@@ -60,11 +61,14 @@ namespace DBAccess.SQLContext.Context
                 var value = item.Value;
                 var key = item.Key;
                 where.Add(" AND " + key + "=@" + key + "");
-                list_sqlpar.Add(new SqlParameter() { ParameterName = key, Value = value == null ? DBNull.Value : value });
+                dynamic dy = new ExpandoObject();
+                dy.Key = key;
+                dy.Value = value;
+                list_sqlpar.Add(dy);
             }
             OrderBy = string.IsNullOrEmpty(OrderBy) ? "" : " Order By " + OrderBy;
             string sql = string.Format(" SELECT {0} FROM {1} WHERE 1=1 {2} {3} ", "*", TableName, string.Join(" ", where), OrderBy);
-            return new SQL_Container(sql, list_sqlpar.ToArray());
+            return new SQL_Container(sql, list_sqlpar);
         }
 
 
@@ -74,7 +78,7 @@ namespace DBAccess.SQLContext.Context
             var TableName = m.TableName;
             OrderBy = string.IsNullOrEmpty(OrderBy) ? "" : " Order By " + OrderBy;
             string sql = string.Format(" SELECT {0} FROM {1} WHERE 1=1 {2} {3} ", "*", TableName, where, OrderBy);
-            return new SQL_Container(sql, list_sqlpar.ToArray());
+            return new SQL_Container(sql, list_sqlpar);
         }
 
     }

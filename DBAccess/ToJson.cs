@@ -47,14 +47,14 @@ namespace DBAccess
                 var list = t.GetProperties(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public).ToList();
                 list.ForEach(pi =>
                 {
-                    if (pi.GetValue(item.Value) == null)
+                    if (pi.GetValue(item.Value, null) == null)
                         r.Add(pi.Name, null);
                     else
                     {
                         if (pi.PropertyType == typeof(DateTime))
-                            r.Add(pi.Name, Convert.ToDateTime(pi.GetValue(item.Value)).ToString("yyyy-MM-dd HH:mm:ss"));
+                            r.Add(pi.Name, Convert.ToDateTime(pi.GetValue(item.Value, null)).ToString("yyyy-MM-dd HH:mm:ss"));
                         else
-                            r.Add(pi.Name, pi.GetValue(item.Value));
+                            r.Add(pi.Name, pi.GetValue(item.Value, null));
                     }
                 });
             }

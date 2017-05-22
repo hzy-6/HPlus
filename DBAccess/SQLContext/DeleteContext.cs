@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Linq.Expressions;
 using DBAccess.Reflection;
 using DBAccess.Entity;
+using DBAccess.AdoDotNet;
 using System.Dynamic;
 
 namespace DBAccess.SQLContext
@@ -14,15 +15,15 @@ namespace DBAccess.SQLContext
     public class DeleteContext<T> where T : BaseModel, new()
     {
         Context.DeleteSqlString<T> sqlstring;
-        CommitContext commit;
+        DBHelper dbhelper;
         private DeleteContext() { }
 
         private string _ConnectionString { get; set; }
 
-        public DeleteContext(string ConnectionString)
+        public DeleteContext(string ConnectionString, DBType DBType)
         {
             _ConnectionString = ConnectionString;
-            commit = new CommitContext(_ConnectionString);
+            dbhelper = new DBHelper(_ConnectionString, DBType);
             sqlstring = new Context.DeleteSqlString<T>();
         }
 
@@ -44,7 +45,7 @@ namespace DBAccess.SQLContext
         public bool Delete(T entity)
         {
             var sql = this.GetSql(entity);
-            if (commit.COMMIT(new List<SQL_Container>() { sql }))
+            if (dbhelper.Commit(new List<SQL_Container>() { sql }))
                 return true;
             else
                 return false;
@@ -53,7 +54,7 @@ namespace DBAccess.SQLContext
         public bool Delete<M>(string where) where M : BaseModel, new()
         {
             var sql = this.GetSql<M>(where);
-            if (commit.COMMIT(new List<SQL_Container>() { sql }))
+            if (dbhelper.Commit(new List<SQL_Container>() { sql }))
                 return true;
             else
                 return false;
@@ -63,7 +64,7 @@ namespace DBAccess.SQLContext
         public bool Delete<M>(Expression<Func<M, bool>> where) where M : BaseModel, new()
         {
             var sql = sqlstring.GetSqlString(where);
-            if (commit.COMMIT(new List<SQL_Container>() { sql }))
+            if (dbhelper.Commit(new List<SQL_Container>() { sql }))
                 return true;
             else
                 return false;

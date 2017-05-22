@@ -9,12 +9,14 @@ using System.Runtime.Remoting.Messaging;
 using System.Runtime.Remoting.Activation;
 using System.Reflection;
 using System.Runtime.Remoting;
+using System.Runtime.InteropServices;
 
 namespace DBAccess.Entity
 {
     /// <summary>
     /// 属性拦截器
     /// </summary>
+    [ComVisible(false)]
     public class AopProxy : RealProxy
     {
         MethodInfo method;

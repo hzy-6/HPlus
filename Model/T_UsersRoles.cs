@@ -20,15 +20,31 @@ namespace Model
         }
 
         [Filed(DisplayName = "用户角色ID", IsPrimaryKey = true)]
-        public Guid? uUsersRoles_ID { get; set; }
+        public Guid? uUsersRoles_ID
+        {
+            set { SetValue("uUsersRoles_ID", value); }
+            get { return GetValue<Guid?>("uUsersRoles_ID"); }
+        }
 
         [Filed(DisplayName = "用户ID")]
-        public Guid? uUsersRoles_UsersID { get; set; }
+        public Guid? uUsersRoles_UsersID
+        {
+            set { SetValue("uUsersRoles_UsersID", value); }
+            get { return GetValue<Guid?>("uUsersRoles_UsersID"); }
+        }
 
         [Filed(DisplayName = "角色ID")]
-        public Guid? uUsersRoles_RoleID { get; set; }
+        public Guid? uUsersRoles_RoleID
+        {
+            set { SetValue("uUsersRoles_RoleID", value); }
+            get { return GetValue<Guid?>("uUsersRoles_RoleID"); }
+        }
 
         [Filed(DisplayName = "创建时间")]
-        public DateTime? dUsersRoles_CreateTime { get; set; }
+        public DateTime? dUsersRoles_CreateTime
+        {
+            set { SetValue("dUsersRoles_CreateTime", value); }
+            get { return GetValue<DateTime?>("dUsersRoles_CreateTime"); }
+        }
     }
 }

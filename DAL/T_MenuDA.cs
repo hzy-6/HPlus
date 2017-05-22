@@ -15,11 +15,6 @@ namespace DAL
     public class T_MenuDA
     {
         DBContext db = new DBContext();
-        public DataTable GetDataSource(Hashtable query, int pageindex, int pagesize, out int pagecount, out int counts)
-        {
-            string where = "";
-            return db.Find(@"select * from T_Menu where 1=1 " + where + " ", pageindex, pagesize, out pagecount, out counts);
-        }
 
         public DataTable GetMenuByRoleID()
         {

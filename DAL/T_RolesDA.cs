@@ -24,22 +24,6 @@ namespace DAL
         /// <param name="QuickConditions"></param>
         /// <param name="pageindex"></param>
         /// <param name="pagesize"></param>
-        /// <param name="pagecount"></param>
-        /// <param name="counts"></param>
-        /// <returns></returns>
-        public DataTable GetDataSource(Hashtable query, int pageindex, int pagesize, out int pagecount, out int counts)
-        {
-            string where = "";
-            where += string.IsNullOrEmpty(Tools.getString(query[Tools.getAttrName(() => troles.cRoles_Name)])) ? "" : " and " + Tools.getAttrName(() => troles.cRoles_Name) + " like '%" + Tools.getString(query[Tools.getAttrName(() => troles.cRoles_Name)]) + "%' ";
-            return db.Find(@"select uRoles_ID, cRoles_Number, cRoles_Name, cRoles_Remark, dRoles_CreateTime from T_Roles where 1=1 " + where + " ", pageindex, pagesize, out pagecount, out counts);
-        }
-
-        /// <summary>
-        /// 查询
-        /// </summary>
-        /// <param name="QuickConditions"></param>
-        /// <param name="pageindex"></param>
-        /// <param name="pagesize"></param>
         /// <returns></returns>
         public PagingEntity GetDataSource(Hashtable query, int pageindex, int pagesize)
         {
@@ -65,7 +49,7 @@ namespace DAL
                                     and c.uMenu_ID='" + MenuID + @"' 
                                     and c.uFunction_ID='" + FunID + @"'");
         }
-        
+
         /// <summary>
         /// 获取角色权限根据权限id和菜单id
         /// </summary>

@@ -9,8 +9,8 @@ using DBAccess.HelperClass;
 
 namespace DBAccess.Entity
 {
-    [AopEntity]
-    public class BaseModel : ContextBoundObject
+    // [AopEntity]
+    public class BaseModel //: ContextBoundObject
     {
         /// <summary>
         /// 表名
@@ -50,17 +50,17 @@ namespace DBAccess.Entity
         /// </summary>
         /// <param name="FiledName"></param>
         /// <param name="Value"></param>
-        private void Set(string FiledName, object Value)
-        {
-            var isYes = NotFiled.Contains(FiledName);
-            if (!isYes)
-            {
-                if (fileds.ContainsKey(FiledName))
-                    fileds[FiledName] = Value;
-                else
-                    fileds.Add(FiledName, Value);
-            }
-        }
+        //private void Set(string FiledName, object Value)
+        //{
+        //    var isYes = NotFiled.Contains(FiledName);
+        //    if (!isYes)
+        //    {
+        //        if (fileds.ContainsKey(FiledName))
+        //            fileds[FiledName] = Value;
+        //        else
+        //            fileds.Add(FiledName, Value);
+        //    }
+        //}
 
         /// <summary>
         /// 此函数用在属性set时  如下用法:
@@ -97,22 +97,22 @@ namespace DBAccess.Entity
         /// <typeparam name="T"></typeparam>
         /// <param name="FiledName"></param>
         /// <returns></returns>
-        //public T GetValue<T>(string FiledName)
-        //{
-        //    try
-        //    {
-        //        if (FiledName.StartsWith("get_"))
-        //            FiledName = FiledName.Replace("get_", "");
-        //        if (fileds.ContainsKey(FiledName))
-        //            return (T)fileds[FiledName];
-        //        else
-        //            return default(T);
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return default(T);
-        //    }
-        //}
+        public T GetValue<T>(string FiledName)
+        {
+            try
+            {
+                if (FiledName.StartsWith("get_"))
+                    FiledName = FiledName.Replace("get_", "");
+                if (fileds.ContainsKey(FiledName))
+                    return (T)fileds[FiledName];
+                else
+                    return default(T);
+            }
+            catch (Exception)
+            {
+                return default(T);
+            }
+        }
 
     }
 }

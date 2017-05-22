@@ -8,6 +8,7 @@ using DBAccess.Entity;
 using DBAccess.CustomAttribute;
 using DBAccess.SQLContext;
 using DBAccess.HelperClass;
+using DBAccess.AdoDotNet;
 using System.Reflection;
 
 namespace DBAccess.CheckClass
@@ -23,21 +24,23 @@ namespace DBAccess.CheckClass
         /// </summary>
         public string ErrorMessage { get; set; }
 
-        DBHelper select;
+        DBHelper dbhelper;
 
         private CheckContext() { }
 
         private string _ConnectionString { get; set; }
 
-        public CheckContext(string ConnectionString)
+        public CheckContext(string ConnectionString, DBType DBType)
         {
             _ConnectionString = ConnectionString;
-            select = new DBHelper(_ConnectionString);
+            dbhelper = new DBHelper(_ConnectionString, DBType);
         }
 
         public bool Check(T entity)
         {
-            var list = entity.EH.GetAllPropertyInfo(entity).FindAll(item => !entity.NotChecks.Contains(item.Name));
+            var list = entity.EH.GetAllPropertyInfo(entity);
+            list = list.FindAll(item => entity.fileds.ContainsKey(item.Name));
+            list = list.FindAll(item => !entity.NotChecks.Contains(item.Name));
 
             foreach (var item in list)
             {
@@ -50,7 +53,7 @@ namespace DBAccess.CheckClass
         public bool Main(PropertyInfo item, T entity)
         {
             var DisplayName = entity.EH.GetDisplayName(entity, item.Name);
-            var Value = item.GetValue(entity);
+            var Value = item.GetValue(entity, null);
             if (!CRequired(item, entity, DisplayName, Value))
                 return false;
             if (!CStringLength(item, entity, DisplayName, Value))
@@ -165,7 +168,7 @@ namespace DBAccess.CheckClass
                     foreach (var info in list)
                     {
                         var infoname = entity.EH.GetAttrTag<CCompareAttribute>(entity, fileName);
-                        if (info.Name.Equals(sign.OtherProperty) && !info.GetValue(entity).Equals(Value))
+                        if (info.Name.Equals(sign.OtherProperty) && !info.GetValue(entity, null).Equals(Value))
                         {
                             SetErrorMessage(sign.ErrorMessage, DisplayName + "的值与" + infoname + "不匹配", DisplayName);
                             return false;
@@ -207,13 +210,13 @@ namespace DBAccess.CheckClass
                             if (sign.Where.Contains("{" + pi.Name + "}"))
                             {
                                 where += sign.Where + " ";
-                                where = where.Replace("{" + pi.Name + "}", pi.GetValue(entity) == null ? "" : pi.GetValue(entity).ToString());
+                                where = where.Replace("{" + pi.Name + "}", pi.GetValue(entity, null) == null ? "" : pi.GetValue(entity, null).ToString());
                             }
                         }
                     }
 
                     string sql = "SELECT COUNT(1) FROM " + TableName + " WHERE 1=1 AND " + fileName + "='" + Value + "' " + where;
-                    if (Tool.ToInt(select.ExecuteScalar(sql)) > 0)
+                    if (Tool.ToInt(dbhelper.ExecuteScalar(sql)) > 0)
                     {
                         SetErrorMessage(sign.ErrorMessage, DisplayName + "已存在", DisplayName);
                         return false;
@@ -244,14 +247,14 @@ namespace DBAccess.CheckClass
                 {
                     var sql = " exec getnumber '" + item.Name + "','" + TableName + "'";
                     //my sql 语句 " call getnumber ('" + item.Name + "','" + TableName + "') "
-                    var dt = select.ExecuteDataset(sql);
+                    var dt = dbhelper.ExecuteDataset(sql);
                     var num = dt.Rows[0][0];
                     if (num == null)
                         throw new AggregateException("设置编号错误：数据无法查出！");
                     if (item.PropertyType == typeof(int))
-                        item.SetValue(Model, Tool.ToInt(num.ToString().PadLeft(sign.Length, sign.Str)));
+                        item.SetValue(Model, Tool.ToInt(num.ToString().PadLeft(sign.Length, sign.Str)), null);
                     else
-                        item.SetValue(Model, Tool.ToString(num).PadLeft(sign.Length, sign.Str));
+                        item.SetValue(Model, Tool.ToString(num).PadLeft(sign.Length, sign.Str), null);
                 }
             }
             return true;

@@ -7,6 +7,9 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Data.Common;
 using Microsoft.Practices.EnterpriseLibrary.Data;
+//
+using DBAccess.Entity;
+using System.Dynamic;
 
 namespace DBAccess.AdoDotNet
 {
@@ -106,6 +109,51 @@ namespace DBAccess.AdoDotNet
         }
 
         #endregion  分页查询
+
+        /// <summary>
+        /// 提交事务
+        /// </summary>
+        /// <param name="li"></param>
+        /// <returns></returns>
+        public static bool COMMIT(string connectionString, List<SQL_Container> li)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                var list_sqlpar = new List<SqlParameter>();
+                conn.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = conn;
+                SqlTransaction tx = conn.BeginTransaction();
+                cmd.Transaction = tx;
+                try
+                {
+                    li.ForEach(item =>
+                    {
+                        cmd.Parameters.Clear();
+                        //执行sql
+                        cmd.CommandText = item._SQL;
+                        foreach (var par in item._SQL_Parameter)
+                        {
+                            cmd.Parameters.Add(new SqlParameter() { ParameterName = par.Key, Value = par.Value == null ? DBNull.Value : par.Value });
+                        }
+                        cmd.ExecuteNonQuery();
+                    });
+                    //提交事务
+                    tx.Commit();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    //失败则回滚事务
+                    tx.Rollback();
+                    throw new Exception(ex.Message);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
 
         #region private utility methods & constructors
 

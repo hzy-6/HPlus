@@ -52,7 +52,7 @@ namespace DBAccess.Reflection
                     continue;
                 if (!(attr as FiledAttribute).IsPrimaryKey)
                     continue;
-                result = item.GetValue(model) == null ? "" : item.GetValue(model).ToString();
+                result = item.GetValue(model, null) == null ? "" : item.GetValue(model, null).ToString();
                 break;
             }
             return result;

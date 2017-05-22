@@ -18,19 +18,19 @@ namespace DBAccess.Entity
         /// <summary>
         /// 参数化的 值
         /// </summary>
-        public SqlParameter[] _SQL_Parameter { get; set; }
+        public List<dynamic> _SQL_Parameter { get; set; }
         /// <summary>
         /// 未参数化的 原生sql 语句
         /// </summary>
         public string _Not_SQL_Parameter { get; set; }
 
-        public SQL_Container(string SQL, SqlParameter[] SQL_Parameter)
+        public SQL_Container(string SQL, List<dynamic> SQL_Parameter)
         {
             this._SQL = SQL;
             this._SQL_Parameter = SQL_Parameter;
             SQL_Parameter.ToList().ForEach(item =>
             {
-                SQL = SQL.Replace("@" + item.ParameterName, item.Value == null ? null : "'" + item.Value.ToString() + "' ");
+                SQL = SQL.Replace("@" + item.Key, item.Value == null ? null : "'" + item.Value.ToString() + "' ");
             });
             this._Not_SQL_Parameter = SQL;
         }

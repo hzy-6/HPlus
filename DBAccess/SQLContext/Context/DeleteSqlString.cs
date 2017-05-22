@@ -16,11 +16,11 @@ namespace DBAccess.SQLContext.Context
     /// </summary>
     public class DeleteSqlString<T> : AbstractSqlContext<T> where T : BaseModel, new()
     {
-        List<SqlParameter> list_sqlpar;
+        List<dynamic> list_sqlpar;
 
         public DeleteSqlString()
         {
-            list_sqlpar = new List<SqlParameter>();
+            list_sqlpar = new List<dynamic>();
         }
 
         /// <summary>
@@ -30,13 +30,13 @@ namespace DBAccess.SQLContext.Context
         /// <returns></returns>
         public override SQL_Container GetSqlString(T where)
         {
-            list_sqlpar = new List<SqlParameter>();
+            list_sqlpar = new List<dynamic>();
             return this.GetSQL(where);
         }
 
         public SQL_Container GetSqlString<M>(Expression<Func<M, bool>> where) where M : BaseModel, new()
         {
-            list_sqlpar = new List<SqlParameter>();
+            list_sqlpar = new List<dynamic>();
             return this.GetSQL<M>(" AND " + this.GetWhereString(where, ref list_sqlpar));
         }
 
@@ -47,7 +47,7 @@ namespace DBAccess.SQLContext.Context
 
         public SQL_Container GetSqlString<M>(string where) where M : BaseModel, new()
         {
-            list_sqlpar = new List<SqlParameter>();
+            list_sqlpar = new List<dynamic>();
             return this.GetSQL<M>(where);
         }
 
@@ -65,7 +65,7 @@ namespace DBAccess.SQLContext.Context
                 list_sqlpar.Add(new SqlParameter() { ParameterName = key, Value = value == null ? DBNull.Value : value });
             }
             string sql = string.Format(" DELETE FROM {0} WHERE 1=1 {1} ", TableName, string.Join(" ", where));
-            return new SQL_Container(sql, list_sqlpar.ToArray());
+            return new SQL_Container(sql, list_sqlpar);
         }
 
         private SQL_Container GetSQL<M>(string where) where M : BaseModel, new()
@@ -73,7 +73,7 @@ namespace DBAccess.SQLContext.Context
             M m = default(M);
             var TableName = m.TableName;
             string sql = string.Format(" DELETE FROM {0} WHERE 1=1 {1} ", TableName, where);
-            return new SQL_Container(sql, list_sqlpar.ToArray());
+            return new SQL_Container(sql, list_sqlpar);
         }
 
     }

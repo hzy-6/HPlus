@@ -8,6 +8,8 @@ using System.Linq.Expressions;
 using DBAccess.SQLContext;
 using DBAccess.CheckClass;
 using DBAccess.Entity;
+using DBAccess.HelperClass;
+using DBAccess.AdoDotNet;
 using System.Data;
 using System.Web.Script.Serialization;
 
@@ -21,7 +23,7 @@ namespace DBAccess
         protected EditContext<BaseModel> edit;
         protected DeleteContext<BaseModel> delete;
         protected FindContext<BaseModel> find;
-        protected CommitContext commit;
+        protected DBHelper dbhelper;
         protected CheckContext<BaseModel> check;
 
         private string _ConnectionString { get; set; }
@@ -35,19 +37,20 @@ namespace DBAccess
         /// 数据库操作类
         /// </summary>
         /// <param name="ConnectionString">链接串 不传入默认为 ConnectionString </param>
-        public DBContext(string ConnectionString = null)
+        /// <param name="DBType">数据库类型 默认 sqlserver </param>
+        public DBContext(string ConnectionString = null, DBType DBType = DBType.SqlServer)
         {
             if (string.IsNullOrEmpty(ConnectionString))
                 _ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ToString();
             else
                 _ConnectionString = ConnectionString;
-            add = new AddContext<BaseModel>(_ConnectionString);
-            edit = new EditContext<BaseModel>(_ConnectionString);
-            delete = new DeleteContext<BaseModel>(_ConnectionString);
-            find = new FindContext<BaseModel>(_ConnectionString);
+            add = new AddContext<BaseModel>(_ConnectionString, DBType);
+            edit = new EditContext<BaseModel>(_ConnectionString, DBType);
+            delete = new DeleteContext<BaseModel>(_ConnectionString, DBType);
+            find = new FindContext<BaseModel>(_ConnectionString, DBType);
+            dbhelper = new DBHelper(_ConnectionString, DBType);
+            check = new CheckContext<BaseModel>(_ConnectionString, DBType);
             jss = new JavaScriptSerializer();
-            commit = new CommitContext(_ConnectionString);
-            check = new CheckContext<BaseModel>(_ConnectionString);
         }
 
         public string Add(BaseModel entity, bool IsCheck = true)
@@ -353,11 +356,6 @@ namespace DBAccess
             return find.FINDToObj(SQL);
         }
 
-        public DataTable Find(string SQL, int PageIndex, int PageSize, out int PageCount, out int Counts)
-        {
-            return find.Find(SQL, PageIndex, PageSize, out PageCount, out Counts);
-        }
-
         public PagingEntity Find(string SQL, int PageIndex, int PageSize)
         {
             return find.Find(SQL, PageIndex, PageSize);
@@ -381,7 +379,7 @@ namespace DBAccess
         /// <returns></returns>
         public List<Dictionary<string, object>> GetList(DataTable table)
         {
-            return find.ConvertDataTableToList<Dictionary<string, object>>(table);
+            return Tool.ConvertDataTableToList<Dictionary<string, object>>(table);
         }
 
         /// <summary>
@@ -392,7 +390,7 @@ namespace DBAccess
         /// <returns></returns>
         public List<T> GetList<T>(DataTable table) where T : BaseModel
         {
-            return find.ConvertDataTableToList<T>(table);
+            return Tool.ConvertDataTableToList<T>(table);
         }
 
         /// <summary>
@@ -415,7 +413,7 @@ namespace DBAccess
         {
             try
             {
-                if (commit.COMMIT(li))
+                if (dbhelper.Commit(li))
                     return true;
                 throw new Exception("操作失败");
             }

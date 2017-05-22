@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Linq.Expressions;
 using DBAccess.Entity;
 using DBAccess.ExpressionTree;
+using System.Dynamic;
 
 namespace DBAccess.SQLContext
 {
@@ -20,14 +21,17 @@ namespace DBAccess.SQLContext
         /// </summary>
         /// <param name="model">需要拼接成字符串的实体</param>
         /// <returns></returns>
-        public string GetWhereString<M>(M entity, ref List<SqlParameter> list_sqlpar) where M : BaseModel, new()
+        public string GetWhereString<M>(M entity, ref List<dynamic> list_sqlpar) where M : BaseModel, new()
         {
             var where = string.Empty;
             var list = entity.fileds.ToList();
             foreach (var item in list)
             {
                 where += " AND " + item.Key + "=@" + item.Key + " ";
-                list_sqlpar.Add(new SqlParameter() { ParameterName = item.Key, Value = item.Value });
+                dynamic dy = new ExpandoObject();
+                dy.Key = item.Key;
+                dy.Value = item.Value;
+                list_sqlpar.Add(dy);
             }
             return where;
         }
@@ -46,7 +50,7 @@ namespace DBAccess.SQLContext
         /// </summary>
         /// <param name="where"></param>
         /// <returns></returns>
-        public string GetWhereString<M>(Expression<Func<M, bool>> where, ref List<SqlParameter> list_sqlpar) where M : BaseModel, new()
+        public string GetWhereString<M>(Expression<Func<M, bool>> where, ref List<dynamic> list_sqlpar) where M : BaseModel, new()
         {
             string _where = string.Empty;
             if (where.Body is BinaryExpression)
