@@ -9,8 +9,7 @@ using DBAccess.HelperClass;
 
 namespace DBAccess.Entity
 {
-    // [AopEntity]
-    public class BaseModel //: ContextBoundObject
+    public class BaseModel
     {
         /// <summary>
         /// 表名
@@ -44,23 +43,6 @@ namespace DBAccess.Entity
             EH = new EntityHelper<BaseModel>();
             NotFiled = new List<string>();
         }
-
-        /// <summary>
-        /// set 
-        /// </summary>
-        /// <param name="FiledName"></param>
-        /// <param name="Value"></param>
-        //private void Set(string FiledName, object Value)
-        //{
-        //    var isYes = NotFiled.Contains(FiledName);
-        //    if (!isYes)
-        //    {
-        //        if (fileds.ContainsKey(FiledName))
-        //            fileds[FiledName] = Value;
-        //        else
-        //            fileds.Add(FiledName, Value);
-        //    }
-        //}
 
         /// <summary>
         /// 此函数用在属性set时  如下用法:
