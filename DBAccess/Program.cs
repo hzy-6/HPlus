@@ -20,42 +20,42 @@ namespace DBAccess
             s.Start();
             T_Users user = new T_Users();
             Console.WriteLine(" \r\n :  \r\n ");
-            /*   DBContext db = new DBContext();
-               List<SQL_Container> li = new List<SQL_Container>();
-               for (int i = 0; i < 10000; i++)
-               {
-                   //    T_Users user = new T_Users();//
-                   //    user.cUsers_Email = "1396510655@qq.com";
-                   //    user.cUsers_LoginName = "test";
-                   //    user.cUsers_LoginPwd = "123456";
-                   //    user.cUsers_Name = "haha";
-                   //    user.uUsers_ID = Guid.Parse("306de9a2-920f-43a7-aed4-83e6ad7aca61");
-                   //    user.dUsers_CreateTime = DateTime.Now;
-                   //}
-                   T_Users user = new T_Users();
-                   user.cUsers_Email = "1396510655@qq.com";
-                   user.cUsers_LoginName = "test&" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                   user.cUsers_LoginPwd = "123456";
-                   user.cUsers_Name = "haha";
-                   //user.AddNotChecks("cUsers_Name");
-                   var keyid = db.Add(user);
-                   user = new T_Users();
-                   user.uUsers_ID = Guid.Parse(keyid.ToString());
+            DBContext db = new DBContext();
+            /*  List<SQL_Container> li = new List<SQL_Container>();
+              for (int i = 0; i < 10000; i++)
+              {
+                  //    T_Users user = new T_Users();//
+                  //    user.cUsers_Email = "1396510655@qq.com";
+                  //    user.cUsers_LoginName = "test";
+                  //    user.cUsers_LoginPwd = "123456";
+                  //    user.cUsers_Name = "haha";
+                  //    user.uUsers_ID = Guid.Parse("306de9a2-920f-43a7-aed4-83e6ad7aca61");
+                  //    user.dUsers_CreateTime = DateTime.Now;
+                  //}
+                  T_Users user = new T_Users();
+                  user.cUsers_Email = "1396510655@qq.com";
+                  user.cUsers_LoginName = "test&" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                  user.cUsers_LoginPwd = "123456";
+                  user.cUsers_Name = "haha";
+                  //user.AddNotChecks("cUsers_Name");
+                  var keyid = db.Add(user);
+                  user = new T_Users();
+                  user.uUsers_ID = Guid.Parse(keyid.ToString());
 
-                   var model = db.Find(user);
+                  var model = db.Find(user);
 
 
-                   //user.uUsers_ID = Guid.Parse("306de9a2-920f-43a7-aed4-83e6ad7aca61");
-                   //var di = user.fileds;
-                   /*var keyid = db.Add(user);
-                   if (keyid == null)
-                   {
-                       Console.WriteLine(" \r\n  添加失败:" + db.ErrorMessge + " \r\n ");
-                   }
-                   else
-                   {
-                       Console.WriteLine(" \r\n  添加成功:" + db.ErrorMessge + " \r\n ");
-                   }*/
+                  //user.uUsers_ID = Guid.Parse("306de9a2-920f-43a7-aed4-83e6ad7aca61");
+                  //var di = user.fileds;
+                  /*var keyid = db.Add(user);
+                  if (keyid == null)
+                  {
+                      Console.WriteLine(" \r\n  添加失败:" + db.ErrorMessge + " \r\n ");
+                  }
+                  else
+                  {
+                      Console.WriteLine(" \r\n  添加成功:" + db.ErrorMessge + " \r\n ");
+                  }*/
 
             /*
 
