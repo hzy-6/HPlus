@@ -85,7 +85,7 @@ $.Tools = {
     Loading: {
         ix: 0,
         Open: function () {
-            this.ix = Lay.load(1, { shade: [0.5, "#000"] }); //Lay.msg('请稍候...', { icon: 16, shade: [0.5, "#000"], time: 0 });
+            this.ix = Lay.load(1, { shade: [0.5, "#000"], time: 50 * 1000 }); //Lay.msg('请稍候...', { icon: 16, shade: [0.5, "#000"], time: 0 });
         },
         Close: function () {
             Lay.close(this.ix);
@@ -174,13 +174,14 @@ $.Tools = {
                 data: options.data,
                 async: options.async,
                 success: function (r) {
+                    if (options.NotLoding)
+                        $.Tools.Loading.Close();
                     options.success(r);
                 },
                 beforeSend: function () {
                 },
                 complete: function () {
-                    if (options.NotLoding)
-                        $.Tools.Loading.Close();
+
                 }
             });
         }, 200);
@@ -208,17 +209,18 @@ $.Tools = {
                 fileElementId: options.elid, //文件上传域的ID
                 dataType: options.dataType, //返回值类型 一般设置为json
                 data: options.data, //服务器成功响应处理函数
-                success: options.success, //服务器响应失败处理函数
-                error: function (data, status, e) {
-                    //alert(e);
-                    //$.ModalMsg(e, "error");
+                success: function (data, status) {
                     if (options.NotLoding)
                         $.Tools.Loading.Close();
+                    if (options.success != null) {
+                        options.success(data, status);
+                    }
+                }, //服务器响应失败处理函数
+                error: function (data, status, e) {
                     return false;
                 },
                 complete: function () {
-                    if (options.NotLoding)
-                        $.Tools.Loading.Close();
+
                 }
             });
         }, 200);
@@ -511,7 +513,6 @@ $.ModalClose = function (IsClose) {
         Lay.close($.GetFrameIndex());
     }
     else {
-        location.reload();
     }
 }
 

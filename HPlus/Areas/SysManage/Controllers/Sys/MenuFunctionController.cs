@@ -169,19 +169,15 @@ namespace HPlus.Areas.SysManage.Controllers.Sys
         {
             var json = ((object[])jss.DeserializeObject(nodes)).ToList();
             var list = new List<Guid>();
+            tmenufunction = new T_MenuFunction();
+            if (!db.Delete(tmenufunction, ref li))
+                throw new MessageBox(db.ErrorMessge);
             json.ForEach(item =>
             {
                 var func = (Dictionary<string, object>)item;
                 if (Tools.getString(func["tag"]).Equals("fun"))
                 {
                     var menuid = list.Find(x => x.Equals(Tools.getGuid(func["pId"])));
-                    if (Tools.getGuid(menuid).Equals(Guid.Empty))
-                    {
-                        tmenufunction = new T_MenuFunction();
-                        tmenufunction.uMenuFunction_MenuID = Tools.getGuid(func["pId"]);
-                        if (!db.Delete(tmenufunction, ref li))
-                            throw new MessageBox(db.ErrorMessge);
-                    }
                     tmenufunction = new T_MenuFunction();
                     tmenufunction.uMenuFunction_MenuID = Tools.getGuid(func["pId"]);
                     tmenufunction.uMenuFunction_FunctionID = Tools.getGuid(func["id"]);

@@ -114,7 +114,7 @@ jQuery.extend({
         var form = jQuery('<form  action="' + url + '" method="POST" name="' + formId + '" id="' + formId + '" enctype="multipart/form-data"></form>');
         if (data) {
             for (var i in data) {
-                jQuery('<input type="hidden" name="' + i + '" value="' + (data[i] ? data[i] : '') + '" />').appendTo(form);
+                jQuery('<input type="hidden" name="' + i + '" value=\'' + (data[i] ? data[i] : '') + '\' />').appendTo(form);
             }
         }
 
