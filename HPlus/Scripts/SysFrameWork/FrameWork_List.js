@@ -131,6 +131,21 @@ var $List = {
                 page: 1,
             }).trigger('reloadGrid', { fromServer: true, page: 1 });
             $("#Btn_Power_Search").click();
+
+            $KeyValue = $gridList.jqGridRowValue();
+            if ($KeyValue.length == 1) {
+                $btnedit.removeAttr("disabled");
+            }
+            else {
+                $btnedit.attr("disabled", "disabled");
+            }
+            if ($KeyValue.length > 0) {
+                $btndel.removeAttr("disabled");
+            }
+            else {
+                $btndel.attr("disabled", "disabled");
+            }
+
         });
     },
     //删除数据
@@ -201,4 +216,19 @@ function Refresh(data) {
     else {
         $gridList.trigger("reloadGrid", { fromServer: true, page: 1 });
     }
+
+    $KeyValue = $gridList.jqGridRowValue();
+    if ($KeyValue.length == 1) {
+        $btnedit.removeAttr("disabled");
+    }
+    else {
+        $btnedit.attr("disabled", "disabled");
+    }
+    if ($KeyValue.length > 0) {
+        $btndel.removeAttr("disabled");
+    }
+    else {
+        $btndel.attr("disabled", "disabled");
+    }
+
 }
