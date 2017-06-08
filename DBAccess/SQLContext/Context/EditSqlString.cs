@@ -64,6 +64,7 @@ namespace DBAccess.SQLContext.Context
         {
             var TableName = entity.TableName;
             var list = entity.fileds.ToList();
+            list = list.FindAll(item => !entity.NotFiled.Contains(item.Key));
             var KeyName = entity.EH.GetKeyName(entity);
             var set = new List<string>();
             var where = string.Empty;
@@ -88,6 +89,7 @@ namespace DBAccess.SQLContext.Context
         {
             var TableName = entity.TableName;
             var list = entity.fileds.ToList();
+            list = list.FindAll(item => !entity.NotFiled.Contains(item.Key));
             var set = new List<string>();
             foreach (var item in list)
             {

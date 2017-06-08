@@ -113,9 +113,9 @@ namespace DBAccess.Reflection
         /// </summary>
         /// <param name="filed">字段</param>
         /// <returns></returns>
-        public List<CustomAttributeData> GetAttrTag(T model, string filed)
+        public List<Attribute> GetAttrTag(T model, string filed)
         {
-            return BaseHelper.GetPropertyInfo(model.GetType(), filed).CustomAttributes.ToList();
+            return BaseHelper.GetPropertyInfo(model.GetType(), filed).GetCustomAttributes().ToList();
         }
 
         /// <summary>

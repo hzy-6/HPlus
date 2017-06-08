@@ -8,6 +8,7 @@ using System.Linq.Expressions;
 using System.Data.SqlClient;
 using DBAccess.Entity;
 using DBAccess.ExpressionTree;
+using System.Dynamic;
 
 namespace DBAccess.SQLContext.Context
 {
@@ -61,8 +62,10 @@ namespace DBAccess.SQLContext.Context
                 var value = item.Value;
                 var key = item.Key;
                 where.Add(" AND " + key + "=@" + key + "");
-
-                list_sqlpar.Add(new SqlParameter() { ParameterName = key, Value = value == null ? DBNull.Value : value });
+                dynamic dy = new ExpandoObject();
+                dy.Key = key;
+                dy.Value = value;
+                list_sqlpar.Add(dy);
             }
             string sql = string.Format(" DELETE FROM {0} WHERE 1=1 {1} ", TableName, string.Join(" ", where));
             return new SQL_Container(sql, list_sqlpar);

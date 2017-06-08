@@ -18,121 +18,92 @@ namespace DBAccess
         {
             Stopwatch s = new Stopwatch();
             s.Start();
-            T_Users user = new T_Users();
-            Console.WriteLine(" \r\n :  \r\n ");
+      /*      //申明一个操作实体的对象类
             DBContext db = new DBContext();
-            /*  List<SQL_Container> li = new List<SQL_Container>();
-              for (int i = 0; i < 10000; i++)
-              {
-                  //    T_Users user = new T_Users();//
-                  //    user.cUsers_Email = "1396510655@qq.com";
-                  //    user.cUsers_LoginName = "test";
-                  //    user.cUsers_LoginPwd = "123456";
-                  //    user.cUsers_Name = "haha";
-                  //    user.uUsers_ID = Guid.Parse("306de9a2-920f-43a7-aed4-83e6ad7aca61");
-                  //    user.dUsers_CreateTime = DateTime.Now;
-                  //}
-                  T_Users user = new T_Users();
-                  user.cUsers_Email = "1396510655@qq.com";
-                  user.cUsers_LoginName = "test&" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                  user.cUsers_LoginPwd = "123456";
-                  user.cUsers_Name = "haha";
-                  //user.AddNotChecks("cUsers_Name");
-                  var keyid = db.Add(user);
-                  user = new T_Users();
-                  user.uUsers_ID = Guid.Parse(keyid.ToString());
+            var li = new List<SQL_Container>();
+            //创建一个实体类
+            var user = new T_Users();
 
-                  var model = db.Find(user);
-
-
-                  //user.uUsers_ID = Guid.Parse("306de9a2-920f-43a7-aed4-83e6ad7aca61");
-                  //var di = user.fileds;
-                  /*var keyid = db.Add(user);
-                  if (keyid == null)
-                  {
-                      Console.WriteLine(" \r\n  添加失败:" + db.ErrorMessge + " \r\n ");
-                  }
-                  else
-                  {
-                      Console.WriteLine(" \r\n  添加成功:" + db.ErrorMessge + " \r\n ");
-                  }*/
-
-            /*
-
-            var keyid = db.Add(user, ref li);
-            if (keyid != null)
-            {
-                //if (db.Commit(li))
-                //    Console.WriteLine(" \r\n  添加成功:" + db.ErrorMessge + " \r\n ");
-                //else
-                //    Console.WriteLine(" \r\n  添加失败:" + db.ErrorMessge + " \r\n ");
-            }
-            //user = new T_Users();
-            //user.cUsers_Name = "我添加后被Edit修改了";
-            //user.uUsers_ID = Guid.Parse(keyid.ToString());
-            //var success = db.Edit(user);
-            //if (success)
-            //    Console.WriteLine(" \r\n  修改成功:" + db.ErrorMessge + " \r\n ");
-            //else
-            //    Console.WriteLine(" \r\n  修改失败:" + db.ErrorMessge + " \r\n ");
-
+            //---------------------------新增
+            user.uUsers_ID = Guid.NewGuid();
+            user.cUsers_Email = "xxxxxx@qq.com";
+            user.cUsers_LoginName = "admin_test";
+            user.cUsers_LoginPwd = "123";
+            user.cUsers_Name = "测试管理员";
+            var userid = db.Add(user);
+            userid = db.Add(user, false);//第二个参数表示不验证实体
+            //新增  配合  提交事务
+            userid = db.Add(user, ref li);
+            userid = db.Add(user, ref li, false);//第三个参数表示不验证实体
+            //---------------------------修改
             user = new T_Users();
-            user.cUsers_Name = "我添加后被Edit修改了123";
-            user.uUsers_ID = Guid.Parse(keyid.ToString());
-            var success = db.Edit(user, ref li);
-            if (success)
-            {
-                if (db.Commit(li))
-                    Console.WriteLine(" \r\n  修改成功:" + db.ErrorMessge + " \r\n ");
-                else
-                    Console.WriteLine(" \r\n  修改失败:" + db.ErrorMessge + " \r\n ");
-            }
+            user.uUsers_ID = Guid.NewGuid();
+            user.cUsers_Name = "测试管理员_修改过";
+            //这里会自动找到实体中的主键 作为条件修改
+            if (db.Edit(user))
+                Console.WriteLine("成功！");
             else
-                Console.WriteLine(" \r\n  修改失败:" + db.ErrorMessge + " \r\n ");
+                Console.WriteLine("失败！");
 
-            */
+            if (db.Edit(user, false))
+                Console.WriteLine("成功！");
+            else
+                Console.WriteLine("失败！");
 
-            //var keyid = db.Add(user);
-            //user = new T_Users();
-            //if (keyid == null)
-            //{
-            //    Console.WriteLine(" \r\n  删除失败:" + db.ErrorMessge + " \r\n ");
-            //}
-            //else
-            //{
-            //    user.uUsers_ID = Guid.Parse(keyid.ToString());
-            //    var success = db.Delete(user, ref li);
-            //    if (success)
-            //    {
-            //        if (db.Commit(li))
-            //            Console.WriteLine(" \r\n  删除成功:" + db.ErrorMessge + " \r\n ");
-            //        else
-            //            Console.WriteLine(" \r\n  删除失败:" + db.ErrorMessge + " \r\n ");
-            //    }
-            //    else
-            //        Console.WriteLine(" \r\n  删除失败:" + db.ErrorMessge + " \r\n ");
-            //}
+            if (db.Edit(user, ref li))
+                Console.WriteLine("成功！");
+            else
+                Console.WriteLine("失败！");
 
-            /*
-            var model = db.Find(user, " cUsers_Email ");
-            Console.WriteLine(" \r\n  查询结果:" + db.ErrorMessge + " \r\n ");
-            foreach (DataRow item in model.Rows)
-            {
-                foreach (var c in model.Columns)
-                {
-                    Console.WriteLine(" \r\n  " + c + ":" + item[1] + " \r\n ");
-                }
+            if (db.Edit(user, new T_Users() { cUsers_Name = "测试管理员_修改过" }))//表示  cUsers_Name=测试管理员_修改过 作为条件进行修改
+                Console.WriteLine("成功！");
+            else
+                Console.WriteLine("失败！");
 
-            }
+            if (db.Edit(user, new T_Users() { cUsers_Name = "测试管理员_修改过" }, false))//表示  cUsers_Name=测试管理员_修改过 作为条件进行修改
+                Console.WriteLine("成功！");
+            else
+                Console.WriteLine("失败！");
+
+            if (db.Edit(user, new T_Users() { cUsers_Name = "测试管理员_修改过" }, ref li))//表示  cUsers_Name=测试管理员_修改过 作为条件进行修改
+                Console.WriteLine("成功！");
+            else
+                Console.WriteLine("失败！");
+
+            if (db.Edit(user, new T_Users() { cUsers_Name = "测试管理员_修改过" }, ref li, false))//表示  cUsers_Name=测试管理员_修改过 作为条件进行修改
+                Console.WriteLine("成功！");
+            else
+                Console.WriteLine("失败！");
+
+            if (db.Edit(user, " and cUsers_Name = '测试管理员_修改过' ", ref li))//表示  cUsers_Name=测试管理员_修改过 作为条件进行修改
+                Console.WriteLine("成功！");
+            else
+                Console.WriteLine("失败！");
+
+            if (db.Edit(user, " and cUsers_Name = '测试管理员_修改过' "))//表示  cUsers_Name=测试管理员_修改过 作为条件进行修改
+                Console.WriteLine("成功！");
+            else
+                Console.WriteLine("失败！");
+
+            if (db.Edit(user, " and cUsers_Name = '测试管理员_修改过' ", false))//表示  cUsers_Name=测试管理员_修改过 作为条件进行修改
+                Console.WriteLine("成功！");
+            else
+                Console.WriteLine("失败！");
+
             
-                
 
-            foreach (var item in model.EH.GetAllPropertyInfo(model))
-            {
-                Console.WriteLine(" \r\n  " + item.Name + ":" + item.GetValue(model) + " \r\n ");
-            }
-        } */
-            Console.WriteLine(" 耗时：" + s.ElapsedMilliseconds);
+
+
+
+
+            //提交事务
+            if (db.Commit(li))
+                Console.WriteLine("事务提交成功！");
+            else
+                Console.WriteLine("事务提交失败！");       */
+
+            //1s=1000ms   1ms=0.001m
+            Console.WriteLine(" 耗时：" + (s.ElapsedMilliseconds * 0.001) + " s");
             Console.ReadKey();
         }
     }

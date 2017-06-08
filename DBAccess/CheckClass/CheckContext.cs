@@ -26,6 +26,8 @@ namespace DBAccess.CheckClass
 
         DBHelper dbhelper;
 
+        DBType _DBType;
+
         private CheckContext() { }
 
         private string _ConnectionString { get; set; }
@@ -34,6 +36,7 @@ namespace DBAccess.CheckClass
         {
             _ConnectionString = ConnectionString;
             dbhelper = new DBHelper(_ConnectionString, DBType);
+            _DBType = DBType;
         }
 
         public bool Check(T entity)
@@ -118,15 +121,18 @@ namespace DBAccess.CheckClass
         /// <returns></returns>
         public bool CStringLength(PropertyInfo item, T entity, string DisplayName, object Value)
         {
-            //获取有特性标记的属性【字符串长度验证】
-            var fileName = item.Name;
-            var sign = entity.EH.GetAttrTag<CStringLengthAttribute>(entity, fileName);
             if (Value != null)
+            {
+                //获取有特性标记的属性【字符串长度验证】
+                var fileName = item.Name;
+                var sign = entity.EH.GetAttrTag<CStringLengthAttribute>(entity, fileName);
+
                 if (sign != null && (Value.ToString().Length < sign.MinLength || Value.ToString().Length > sign.MaxLength))
                 {
                     SetErrorMessage(sign.ErrorMessage, DisplayName + "长度介于" + sign.MinLength + "-" + sign.MaxLength + "之间", DisplayName);
                     return false;
                 }
+            }
             return true;
         }
 
@@ -138,15 +144,17 @@ namespace DBAccess.CheckClass
         /// <returns></returns>
         public bool CRegularExpression(PropertyInfo item, T entity, string DisplayName, object Value)
         {
-            //获取有特性标记的属性【正则表达式验证】
-            var fileName = item.Name;
-            var sign = entity.EH.GetAttrTag<CRegularExpressionAttribute>(entity, fileName);
             if (Value != null)
+            {
+                //获取有特性标记的属性【正则表达式验证】
+                var fileName = item.Name;
+                var sign = entity.EH.GetAttrTag<CRegularExpressionAttribute>(entity, fileName);
                 if (sign != null && !System.Text.RegularExpressions.Regex.IsMatch(Value.ToString(), sign.Pattern))
                 {
                     SetErrorMessage(sign.ErrorMessage, DisplayName + "格式不正确", DisplayName);
                     return false;
                 }
+            }
             return true;
         }
 
@@ -158,10 +166,11 @@ namespace DBAccess.CheckClass
         /// <returns></returns>
         public bool CCompare(PropertyInfo item, T entity, string DisplayName, object Value)
         {
-            //获取有特性标记的属性【比较两字段值是否相同】
-            var fileName = item.Name;
-            var sign = entity.EH.GetAttrTag<CCompareAttribute>(entity, fileName);
             if (Value != null)
+            {
+                //获取有特性标记的属性【比较两字段值是否相同】
+                var fileName = item.Name;
+                var sign = entity.EH.GetAttrTag<CCompareAttribute>(entity, fileName);
                 if (sign != null)
                 {
                     var list = entity.EH.GetAllPropertyInfo(entity);
@@ -175,6 +184,7 @@ namespace DBAccess.CheckClass
                         }
                     }
                 }
+            }
             return true;
         }
 
@@ -186,11 +196,12 @@ namespace DBAccess.CheckClass
         /// <returns></returns>
         public bool CRepeat(PropertyInfo item, T entity, string DisplayName, object Value)
         {
-            string TableName = entity.TableName;
-            //获取有特性标记的属性【非空】
-            var fileName = item.Name;
-            var sign = entity.EH.GetAttrTag<CRepeatAttribute>(entity, fileName);
             if (Value != null)
+            {
+                string TableName = entity.TableName;
+                //获取有特性标记的属性【非空】
+                var fileName = item.Name;
+                var sign = entity.EH.GetAttrTag<CRepeatAttribute>(entity, fileName);
                 if (sign != null)
                 {
                     //取ID的值
@@ -222,8 +233,8 @@ namespace DBAccess.CheckClass
                         return false;
                     }
                 }
+            }
             return true;
-
         }
 
         /// <summary>
@@ -245,8 +256,16 @@ namespace DBAccess.CheckClass
                 KeyValue = Model.EH.GetKeyValue(Model);
                 if (string.IsNullOrEmpty(KeyValue) || KeyValue.ToString().Equals(Guid.Empty.ToString()))
                 {
-                    var sql = " exec getnumber '" + item.Name + "','" + TableName + "'";
-                    //my sql 语句 " call getnumber ('" + item.Name + "','" + TableName + "') "
+                    var sql = string.Empty;
+                    switch (_DBType)
+                    {
+                        case DBType.SqlServer: sql = " exec getnumber '" + item.Name + "','" + TableName + "'";
+                            break;
+                        case DBType.MySql: sql = " call getnumber ('" + item.Name + "','" + TableName + "') ";
+                            break;
+                        default: sql = " exec getnumber '" + item.Name + "','" + TableName + "'";
+                            break;
+                    }
                     var dt = dbhelper.ExecuteDataset(sql);
                     var num = dt.Rows[0][0];
                     if (num == null)

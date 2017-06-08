@@ -32,7 +32,7 @@ namespace DBAccess.Entity
         public readonly EntityHelper<BaseModel> EH = new EntityHelper<BaseModel>();
 
         /// <summary>
-        /// 放置不操作数据的字段容器
+        /// 放置不操作数据的字段容器 [用来操作 添加 修改 的字段]
         /// </summary>
         public List<string> NotFiled = new List<string>();
 
@@ -56,16 +56,15 @@ namespace DBAccess.Entity
         /// <param name="Value"></param>
         public void SetValue(string FiledName, object Value)
         {
-            if (FiledName.StartsWith("set_"))
-                FiledName = FiledName.Replace("set_", "");
-            var isYes = NotFiled.Contains(FiledName);
-            if (!isYes)
+            if (FiledName.Contains("set_")) FiledName = FiledName.Replace("set_", "");
+            if (Value is string && Value != null && Value.ToString() == "null")
             {
-                if (fileds.ContainsKey(FiledName))
-                    fileds[FiledName] = Value;
-                else
-                    fileds.Add(FiledName, Value);
+                Value = null;
             }
+            if (fileds.ContainsKey(FiledName))
+                fileds[FiledName] = Value;
+            else
+                fileds.Add(FiledName, Value);
         }
 
         /// <summary>
@@ -83,10 +82,16 @@ namespace DBAccess.Entity
         {
             try
             {
-                if (FiledName.StartsWith("get_"))
-                    FiledName = FiledName.Replace("get_", "");
+                if (FiledName.Contains("get_")) FiledName = FiledName.Replace("get_", "");
                 if (fileds.ContainsKey(FiledName))
-                    return (T)fileds[FiledName];
+                {
+                    object Value = fileds[FiledName];
+                    if (Value is string && Value != null && Value.ToString() == "null")
+                    {
+                        Value = null;
+                    }
+                    return (T)Value;
+                }
                 else
                     return default(T);
             }

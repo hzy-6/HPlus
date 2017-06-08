@@ -43,6 +43,7 @@ namespace DBAccess.SQLContext.Context
             var col = new List<string>();
             var val = new List<string>();
             var list = entity.fileds.ToList();
+            list = list.FindAll(item => !entity.NotFiled.Contains(item.Key));
             foreach (var item in list)
             {
                 var value = item.Value;

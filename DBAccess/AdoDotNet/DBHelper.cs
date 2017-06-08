@@ -24,7 +24,7 @@ namespace DBAccess.AdoDotNet
         /// <param name="DBType">数据库类型[SqlServer，MySql，Oracle]</param>
         public DBHelper(string ConnectionString, DBType DBType)
         {
-            this._ConnectionString = _ConnectionString;// = DBType.SqlServer
+            this._ConnectionString = ConnectionString;// = DBType.SqlServer
             this._DBType = DBType;
         }
 
