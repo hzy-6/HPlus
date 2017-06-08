@@ -167,8 +167,10 @@ namespace HPlus.Areas.SysManage.Controllers.Sys
                     }
                     filds += "\t\tpublic " + type + " " + colname + "\r\n";
                     filds += "\t\t{\r\n";
-                    filds += "\t\t\tset { SetValue(\"" + colname + "\", value); }\r\n";
-                    filds += "\t\t\tget { return GetValue<" + type + ">(\"" + colname + "\"); }\r\n";
+                    //filds += "\t\t\tset { SetValue(\"" + colname + "\", value); }\r\n";
+                    //filds += "\t\t\tget { return GetValue<" + type + ">(\"" + colname + "\"); }\r\n";
+                    filds += "\t\t\tset { SetValue(MethodBase.GetCurrentMethod().Name, value); }\r\n";//MethodBase.GetCurrentMethod().Name
+                    filds += "\t\t\tget { return GetValue<" + type + ">(MethodBase.GetCurrentMethod().Name); }\r\n";
                     filds += "\t\t}\r\n\r\n";
                 }
                 Content = Content.Replace("<#Filds#>", filds);
