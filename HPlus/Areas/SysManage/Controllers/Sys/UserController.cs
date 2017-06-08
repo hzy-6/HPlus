@@ -61,9 +61,9 @@ namespace HPlus.Areas.SysManage.Controllers.Sys
             {
                 case true:
                     if (string.IsNullOrEmpty(tuser.cUsers_LoginPwd))
-                        tuser.cUsers_LoginPwd = Tools.MD5Encrypt("123456");
+                        tuser.cUsers_LoginPwd = "123456"; //Tools.MD5Encrypt("123456");
                     else
-                        tuser.cUsers_LoginPwd = Tools.MD5Encrypt(model.cUsers_LoginPwd);
+                        tuser.cUsers_LoginPwd = model.cUsers_LoginPwd;//Tools.MD5Encrypt(model.cUsers_LoginPwd);
                     this.KeyID = db.Add(tuser, ref li);
                     if (Tools.getGuid(KeyID).Equals(Guid.Empty))
                         throw new MessageBox(db.ErrorMessge);
@@ -76,7 +76,7 @@ namespace HPlus.Areas.SysManage.Controllers.Sys
                 case false:
                     this.KeyID = Tools.getGuidString(model.uUsers_ID);
                     if (!string.IsNullOrEmpty(tuser.cUsers_LoginPwd))
-                        tuser.cUsers_LoginPwd = Tools.MD5Encrypt(model.cUsers_LoginPwd);
+                        tuser.cUsers_LoginPwd = model.cUsers_LoginPwd;//Tools.MD5Encrypt(model.cUsers_LoginPwd);
                     else
                         tuser.fileds.Remove("cUsers_LoginPwd");
                     if (!db.Edit(tuser, ref li))

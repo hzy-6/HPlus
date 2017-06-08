@@ -12,17 +12,35 @@ $.ajaxSetup({
 });
 
 var Lay;
+var To;
 $(function () {
     SetPower();
     setInterval("SetPower()", 1000);
     //判断当前文档是否是子集
     if (window.top !== window.self) {
         Lay = window.top.layer;
+        To = window.top.toastr;
     }
     else {
         Lay = layer;
+        To = toastr;        
     }
     $.AjaxFilter();
+    To.options = {
+        "closeButton": true,
+        "debug": true,
+        "progressBar": true,
+        "preventDuplicates": true,
+        "positionClass": "toast-top-center",
+        "showDuration": "400",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
 });
 
 //AJAX过滤器
@@ -30,7 +48,6 @@ $.AjaxFilter = function () {
     //ajax请求全局设置
     $(document).ready(function () {
     }).ajaxStart(function () {
-        //$.Tools.Loading.Open();
     }).ajaxSend(function () {
         //发送请求
     }).ajaxSuccess(function (event, xhr, settings) {
@@ -44,16 +61,18 @@ $.AjaxFilter = function () {
                     switch (json.ErrorCode) {
                         //消息提醒
                         case "01":
-                            $.Tools.Alert({ msg: json.ErrorMessage, jumpurl: json.JumpUrl });
+                            //$.Tools.Alert({ msg: json.ErrorMessage, jumpurl: json.JumpUrl });
+                            FW.MsgBox(json.ErrorMessage, "警告");
                             break;
                             //登陆超时或违禁操作
                         case "02":
-                            $.Tools.OutLogin(json.ErrorMessage, json.JumpUrl);
+                            FW.OutLogin(json.ErrorMessage, json.JumpUrl);
+                            //$.Tools.OutLogin(json.ErrorMessage, json.JumpUrl);
                             return false;
                             break;
                             //系统错误显示错误页面
                         default:
-                            $.Tools.Ajax({
+                            FW.Ajax({
                                 type: "post",
                                 url: "/Admin/Error/Index",
                                 data: json,
@@ -62,6 +81,15 @@ $.AjaxFilter = function () {
                                     $("html").html(h);
                                 }
                             });
+                            //$.Tools.Ajax({
+                            //    type: "post",
+                            //    url: "/Admin/Error/Index",
+                            //    data: json,
+                            //    dataType: "html",
+                            //    success: function (h) {
+                            //        $("html").html(h);
+                            //    }
+                            //});
                             break;
                     }
                 }
@@ -74,12 +102,195 @@ $.AjaxFilter = function () {
         //if (xhr.status != 200)
         //    $.ModalMsg("系统错误,请联系管理员！[" + xhr.status + " " + xhr.statusText + "]", "error");
     }).ajaxStop(function () {
-        //$.Tools.Loading.Close();
     });
 
 
 }
 
+var FW = {
+    MsgBox: function (content, type) {
+        if (type) {
+            switch (type) {
+                case "成功":
+                    //成功消息提示，默认背景为浅绿色
+                    To.success(content);
+                    break;
+                case "警告":
+                    //警告消息提示，默认背景为橘黄色 
+                    To.warning(content);
+                    break;
+                case "错误":
+                    //错误消息提示，默认背景为浅红色 
+                    To.error(content);
+                    break;
+            }
+        } else {
+            //常规消息提示，默认背景为浅蓝色
+            To.info(content);
+        }
+        //另一种调用方法
+        //toastr["info"]("你有新消息了!", "消息提示");
+    },
+    ConfirmBox: function (content, callback) {
+        Lay.confirm(content, {
+            icon: "fa-exclamation-circle",
+            title: "消息提醒",
+            btn: ['确认', '取消'],
+            btnclass: ['btn btn-primary', 'btn btn-danger'],
+        }, function (index) {
+            callBack(true, index);
+        }, function (index) {
+            callBack(false, index);
+        });
+    },
+    Loading: {
+        ix: 0,
+        Open: function () {
+            this.ix = Lay.load(1, { shade: [0.5, "#000"], time: 50 * 1000 }); //Lay.msg('请稍候...', { icon: 16, shade: [0.5, "#000"], time: 0 });
+        },
+        Close: function () {
+            Lay.close(this.ix);
+        }
+    },
+    OutLogin: function (Msg, JumpUrl) {
+        Lay.msg("消息提醒：" + Msg + "! [ 3s ]", {
+            time: 3 * 1000,
+            shade: [0.3, "#393D49"],
+            success: function (layero, index) { //提示框成功弹出
+                var i = 3;
+                setInterval(function () {//动态时间
+                    i--;
+                    $(layero).find(".layui-layer-content").text("消息提醒：" + Msg + "! [ " + i + "s ]");
+                }, 1000);
+            }
+        }, function () {
+            //提示框关闭后
+            window.top.location = JumpUrl;
+        });
+    },
+    //Ajax请求
+    Ajax: function (options) {
+        var defaults = {
+            type: "post",
+            url: "",
+            dataType: "json",
+            data: {},
+            success: null,
+            async: true,
+            NotLoding: true
+        };
+        var options = $.extend(defaults, options);
+        if (options.url == "")
+            return false;
+        if (options.NotLoding)
+            $.Tools.Loading.Open();
+        window.setTimeout(function () {
+            $.ajax({
+                type: options.type,
+                url: options.url,
+                dataType: options.dataType,
+                data: options.data,
+                async: options.async,
+                success: function (r) {
+                    if (options.NotLoding)
+                        $.Tools.Loading.Close();
+                    options.success(r);
+                },
+                beforeSend: function () {
+                },
+                complete: function () {
+
+                }
+            });
+        }, 200);
+
+    },
+    //Ajax上传文件到服务器
+    AjaxUpFile: function (options) {
+        var defaults = {
+            elid: "",
+            url: "",
+            dataType: "json",
+            data: null,
+            success: null,
+            NotLoding: true
+        };
+        var options = $.extend(defaults, options);
+        if (options.url == "")
+            return false;
+        if (options.NotLoding)
+            $.Tools.Loading.Open();
+        window.setTimeout(function () {
+            $.ajaxFileUpload({
+                url: options.url, //用于文件上传的服务器端请求地址
+                secureuri: false, //是否需要安全协议，一般设置为false
+                fileElementId: options.elid, //文件上传域的ID
+                dataType: options.dataType, //返回值类型 一般设置为json
+                data: options.data, //服务器成功响应处理函数
+                success: function (data, status) {
+                    if (options.NotLoding)
+                        $.Tools.Loading.Close();
+                    if (options.success != null) {
+                        options.success(data, status);
+                    }
+                }, //服务器响应失败处理函数
+                error: function (data, status, e) {
+                    return false;
+                },
+                complete: function () {
+
+                }
+            });
+        }, 200);
+    },
+    GetQueryString: function (name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return "";
+    },
+    //建立一個可存取到該file的url  用于上传图片，，可通过该地址浏览图片
+    GetObjectURL: function (file) {
+        var url = "";
+        if (window.createObjectURL != undefined) { // basic
+            url = window.createObjectURL(file);
+        } else if (window.URL != undefined) { // mozilla(firefox)
+            url = window.URL.createObjectURL(file);
+        } else if (window.webkitURL != undefined) { // webkit or chrome
+            url = window.webkitURL.createObjectURL(file);
+        }
+        return url;
+    },
+    //设置cookie
+    setCookie: function (name, value) {
+        var Days = 30;
+        var exp = new Date();
+        exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
+        document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString();
+    },
+    //获取cookie值
+    getCookie: function (name) {
+        var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+        if (arr = document.cookie.match(reg))
+            return unescape(arr[2]);
+        else
+            return null;
+    },
+    delCookie: function (name) {
+        var exp = new Date();
+        exp.setTime(exp.getTime() - 1);
+        var cval = getCookie(name);
+        if (cval != null)
+            document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
+    },
+    isPositiveNum: function (s) {//是否为正整数  
+        var re = /^[0-9]*[1-9][0-9]*$/;
+        return re.test(s);
+    },
+    jdmoney: function (money) {//判断是否为正实数。
+        var t = /^\d+(\.\d+)?$/;
+        return t.test(money);
+    }
+}
 
 $.Tools = {
     Loading: {
@@ -488,7 +699,7 @@ $.ModalMsg = function (content, type) {
             icon = "2";
         }
         if (type == 'warning' || type == '警告') {
-            icon = "0"
+            icon = "0";
         }
         Lay.msg(content, { icon: icon, time: 3500, shift: 0 });
     } else {
@@ -601,33 +812,6 @@ function SetPower() {
     }
 }
 
-//$.fn.dataGrid = function (options) {
-//    var defaults = {
-//        datatype: "json",
-//        autowidth: true,
-//        rownumbers: true,
-//        shrinkToFit: false,
-//        gridview: true
-//    };
-//    var options = $.extend(defaults, options);
-//    var $element = $(this);
-//    options["onSelectRow"] = function (rowid) {
-//        var length = $(this).jqGrid("getGridParam", "selrow").length;
-//        var $operate = $(".operate");
-//        if (length > 0) {
-//            $operate.animate({ "left": 0 }, 200);
-//        } else {
-//            $operate.animate({ "left": '-100.1%' }, 200);
-//        }
-//        $operate.find('.close').click(function () {
-//            $operate.animate({ "left": '-100.1%' }, 200);
-//        })
-//    };
-//    $element.jqGrid(options);
-//};
-
-
-
 function Arabia_to_Chinese(Num) {
     for (i = Num.length - 1; i >= 0; i--) {
         Num = Num.replace(",", "")//替换tomoney()中的“,”
@@ -714,3 +898,70 @@ function Arabia_to_Chinese(Num) {
     return newchar;
 
 }
+
+//h+扩展js
+var App = function () {
+    var isFullScreen = false;
+    var requestFullScreen = function () {//全屏
+        var de = document.documentElement;
+        if (de.requestFullscreen) {
+            de.requestFullscreen();
+        } else if (de.mozRequestFullScreen) {
+            de.mozRequestFullScreen();
+        } else if (de.webkitRequestFullScreen) {
+            de.webkitRequestFullScreen();
+        }
+        else {
+            alert("该浏览器不支持全屏");
+        }
+    };
+
+    //var requestFullScreen2 = function (element) {
+    //    // 判断各种浏览器，找到正确的方法
+    //    var requestMethod = element.requestFullScreen || //W3C
+    //        element.webkitRequestFullScreen ||    //Chrome等
+    //        element.mozRequestFullScreen || //FireFox
+    //        element.msRequestFullScreen; //IE11
+    //    if (requestMethod) {
+    //        requestMethod.call(element);
+    //    }
+    //    else if (typeof window.ActiveXObject !== "undefined") {//for Internet Explorer
+    //        var wscript = new ActiveXObject("WScript.Shell");
+    //        if (wscript !== null) {
+    //            wscript.SendKeys("{F11}");
+    //        }
+    //    }
+    //};
+
+    //退出全屏 判断浏览器种类
+    var exitFull = function () {
+        // 判断各种浏览器，找到正确的方法
+        var exitMethod = document.exitFullscreen || //W3C
+            document.mozCancelFullScreen ||    //Chrome等
+            document.webkitExitFullscreen || //FireFox
+            document.webkitExitFullscreen; //IE11
+        if (exitMethod) {
+            exitMethod.call(document);
+        }
+        else if (typeof window.ActiveXObject !== "undefined") {//for Internet Explorer
+            var wscript = new ActiveXObject("WScript.Shell");
+            if (wscript !== null) {
+                wscript.SendKeys("{F11}");
+            }
+        }
+    };
+
+    return {
+        handleFullScreen: function () {
+            if (isFullScreen) {
+                exitFull();
+                isFullScreen = false;
+            } else {
+                requestFullScreen();
+                isFullScreen = true;
+            }
+        },
+    };
+
+}();
+

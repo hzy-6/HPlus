@@ -696,6 +696,11 @@
     <Content Include="Scripts\ECharts\theme\vintage.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\Jquery\jquery-2.1.4.min.js" />
     <Content Include="Scripts\Jquery\jquery.pin.min.js" />
     <Content Include="Scripts\Jquery\JqueryPrint.js" />
@@ -721,7 +726,8 @@
     <Content Include="Scripts\SysFrameWork\FrameWork.js" />
     <Content Include="Scripts\SysFrameWork\FrameWork_Form.js" />
     <Content Include="Scripts\SysFrameWork\FrameWork_List.js" />
-    <Content Include="Scripts\Tools\Tools.js" />
+    <Content Include="Scripts\Toastr\toastr.min.css" />
+    <Content Include="Scripts\Toastr\toastr.min.js" />
     <Content Include="Scripts\UEditor\ueditor1.4.3.3\utf8-net\dialogs\anchor\anchor.html" />
     <Content Include="Scripts\UEditor\ueditor1.4.3.3\utf8-net\dialogs\attachment\attachment.css" />
     <Content Include="Scripts\UEditor\ueditor1.4.3.3\utf8-net\dialogs\attachment\attachment.html" />
@@ -1493,7 +1499,7 @@
     <Content Include="Scripts\zTree\js\jquery.ztree.exedit.min.js" />
     <Content Include="Scripts\zTree\js\jquery.ztree.exhide.js" />
     <Content Include="Scripts\zTree\js\jquery.ztree.exhide.min.js" />
-    <Content Include="Scripts\zTree\log v3.x.txt" />
+    <None Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1515,7 +1521,6 @@
     <Folder Include="Content\CreateFile\Model\" />
     <Folder Include="Content\UpFile\" />
     <Folder Include="Content\UpImages\" />
-    <Folder Include="Models\" />
     <Folder Include="Scripts\UEditor\ueditor1.4.3.3\utf8-net\net\upload\image\" />
   </ItemGroup>
   <ItemGroup>
@@ -1535,15 +1540,12 @@
     <Content Include="Scripts\UEditor\ueditor1.4.3.3\utf8-net\third-party\video-js\font\vjs.eot" />
     <Content Include="Scripts\UEditor\ueditor1.4.3.3\utf8-net\third-party\video-js\font\vjs.ttf" />
     <Content Include="Scripts\UEditor\ueditor1.4.3.3\utf8-net\third-party\video-js\font\vjs.woff" />
-    <Content Include="Scripts\zTree\.gitattributes" />
-    <Content Include="Scripts\zTree\.gitignore" />
     <Content Include="Scripts\zTree\css\awesomeStyle\awesome.less" />
     <Content Include="Scripts\zTree\css\awesomeStyle\fa.less" />
     <Content Include="Scripts\zTree\demo\cn\asyncData\getNodes.php" />
     <Content Include="Scripts\zTree\demo\cn\asyncData\getNodesForBigData.php" />
     <Content Include="Scripts\zTree\demo\en\asyncData\getNodes.php" />
     <Content Include="Scripts\zTree\demo\en\asyncData\getNodesForBigData.php" />
-    <Content Include="Scripts\zTree\README.md" />
     <Content Include="Scripts\zTree\zTree.v3.jquery.json" />
   </ItemGroup>
   <ItemGroup>

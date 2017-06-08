@@ -13,6 +13,7 @@
     <link href="~/Content/HPlus/css/style.css" rel="stylesheet" />
     <link href="~/Content/HPlus/css/plugins/jqgrid/ui.jqgrid.css" rel="stylesheet" />
     <link href="~/Content/HPlus/css/HPlusExtend.css" rel="stylesheet" />
+    <link href="~/Scripts/Toastr/toastr.min.css" rel="stylesheet" />
     @RenderSection("css", required: false)
     <!--外部样式-->
 </head>
@@ -29,7 +30,7 @@
     <script src="~/Content/HPlus/js/plugins/jqgrid/jquery.jqGrid.min.js"></script>
     <script src="~/Content/HPlus/js/plugins/jqgrid/i18n/grid.locale-cn.js"></script>
     <script src="~/Scripts/AjaxFileUpload/ajaxfileupload.js"></script>
-    <script src="~/Content/HPlus/js/HPlusExtend.js"></script>
+    <script src="~/Scripts/Toastr/toastr.min.js"></script>
     @{Html.RenderPartial("~/Areas/SysManage/Views/Sys/PowerControl/Index.cshtml");}
     @RenderSection("js", required: false)
 </body>

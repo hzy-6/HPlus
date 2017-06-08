@@ -28,9 +28,6 @@ namespace HPlus.Areas.Admin.Controllers
 
         public ActionResult Index()
         {
-            //MyORM.LambdaORM.DBContext dbc = new MyORM.LambdaORM.DBContext();
-            //dbc.Add<T_Users>(user);
-            //Session.Clear();
             return View();
         }
 
@@ -45,20 +42,20 @@ namespace HPlus.Areas.Admin.Controllers
                 throw new MessageBox("请输入用户名");
             if (string.IsNullOrEmpty(userpwd))
                 throw new MessageBox("请输入密码");
-            if (string.IsNullOrEmpty(loginCode))
-                throw new MessageBox("请输入验证码");
+            //if (string.IsNullOrEmpty(loginCode))
+            //    throw new MessageBox("请输入验证码");
             user = new T_Users();
             user.cUsers_LoginName = username;
             user = db.Find<T_Users>(user);
             if (Tools.getGuid(user.uUsers_ID).Equals(Guid.Empty))
                 throw new MessageBox("用户不存在");
-            if (!Tools.getString(user.cUsers_LoginPwd).Trim().Equals(Tools.MD5Encrypt(userpwd)))//
+            if (!Tools.getString(user.cUsers_LoginPwd).Trim().Equals(userpwd))//Tools.MD5Encrypt(userpwd)))//
                 throw new MessageBox("密码错误");
-            string code = Tools.GetCookie("loginCode");
-            if (string.IsNullOrEmpty(code))
-                throw new MessageBox("验证码失效");
-            if (!code.ToLower().Equals(loginCode))
-                throw new MessageBox("验证码不正确");
+            //string code = Tools.GetCookie("loginCode");
+            //if (string.IsNullOrEmpty(code))
+            //    throw new MessageBox("验证码失效");
+            //if (!code.ToLower().Equals(loginCode))
+            //    throw new MessageBox("验证码不正确");
             tuserroles = new T_UsersRoles();
             tuserroles.uUsersRoles_UsersID = user.uUsers_ID;
             tuserroles = db.Find<T_UsersRoles>(tuserroles);
