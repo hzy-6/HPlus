@@ -48,11 +48,11 @@ namespace HPlus.Areas.SysManage.Controllers.Sys
             tuser = new T_Users();
             tuser.uUsers_ID = Tools.getGuid(Tools.getSession("UserID"));
             tuser = db.Find(tuser) as T_Users;
-            if (!tuser.cUsers_LoginPwd.Equals(Tools.MD5Encrypt(oldpwd.Trim())))
+            if (!tuser.cUsers_LoginPwd.Equals(oldpwd.Trim()))//Tools.MD5Encrypt(oldpwd.Trim())))
                 throw new MessageBox("旧密码不正确");
             tuser = new T_Users();
             tuser.uUsers_ID = Tools.getGuid(Tools.getSession("UserID"));
-            tuser.cUsers_LoginPwd = Tools.MD5Encrypt(newlypwd.Trim());
+            tuser.cUsers_LoginPwd = newlypwd.Trim();//Tools.MD5Encrypt(newlypwd.Trim());
             if (!db.Edit(tuser, ref li))
                 throw new MessageBox(db.ErrorMessge);
             if (!db.Commit(li))

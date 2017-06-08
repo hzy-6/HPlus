@@ -45,7 +45,7 @@
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
                     <li class="hidden-xs">
-                        <a href="https://www.baidu.com" class="J_menuItem" data-index="qp">百度一下</a>
+                        <a href="@Url.Action("Index", "ChangePwd", new { area = "SysManage" })" class="J_menuItem" data-index="qp">修改密码</a>
                     </li>
                     <li class="hidden-xs">
                         <a href="javascript:void(0);" onclick="App.handleFullScreen()"><i class="fa fa-arrows-alt"></i>全屏</a>
@@ -203,7 +203,6 @@
 @section css{
 }
 @section js{
-    <script src="~/Scripts/SysFrameWork/FrameWork.js"></script>
     <!-- H+ -->
     <script src="/Content/HPlus/js/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="/Content/HPlus/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
@@ -212,7 +211,7 @@
     <script type="text/javascript" src="/Content/HPlus/js/contabs.js"></script>
     <script type="text/javascript">
         $(function () {
-            $('.s-' + $.Tools.getCookie("skin")).click();
+            $('.s-' + FW.getCookie("skin")).click();
             $("body").addClass(" animated fadeInDown").css("overflow", "hidden");
         });
     </script>

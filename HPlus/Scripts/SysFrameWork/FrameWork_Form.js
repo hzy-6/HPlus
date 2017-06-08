@@ -11,16 +11,17 @@ var $Form = {
             success: null,
             callBack: null,
             async: true,
+            title: null,
         };
         var options = $.extend({}, defaults, options);
         KeyId = options.id;
         var index = $.GetFrameIndex();
         if (KeyId == null || KeyId == "")
-            top.$("#layui-layer" + index + ">.layui-layer-title").text("新增");
+            top.$("#layui-layer" + index + ">.layui-layer-title").text(options.title == null ? "新增" : options.title);
         else
-            top.$("#layui-layer" + index + ">.layui-layer-title").text("修改");
+            top.$("#layui-layer" + index + ">.layui-layer-title").text(options.title == null ? "修改" : options.title);
         //初始化表单
-        $.Tools.Ajax({
+        FW.Ajax({
             url: options.url,
             data: options.data == null ? { ID: KeyId } : options.data,
             //NotLoding: false,
@@ -51,14 +52,14 @@ var $Form = {
             msg: null,
         };
         var options = $.extend({}, defaults, options);
-        $.Tools.Ajax({
+        FW.Ajax({
             type: "Post",
             url: (SaveUrl ? SaveUrl : options.url),
             data: (options.data ? options.data : ko.toJS(vModel)),
             success: function (r) {
                 if (options.success == null) {
                     if (r.status == 1) {
-                        $.ModalMsg((options.msg == null ? "保存成功!" : options.msg), "success");
+                        FW.MsgBox((options.msg == null ? "保存成功!" : options.msg), "成功");
                         $.ModalClose(options.isClose);
                         $Form.ResetUrl(r);
                     }
@@ -74,7 +75,7 @@ var $Form = {
     //刷新重置URL
     ResetUrl: function (r) {
         //开启遮罩层
-        $.Tools.Loading.Open();
+        FW.Loading.Open();
         var url = window.location.href;
         if (r) {
             if (url.indexOf('?ID') == -1 && url.indexOf('&ID') == -1) {
@@ -105,7 +106,7 @@ var $Form = {
             }
         }
         top.$("iframe[name=" + $.GetFrameName() + "]").attr("src", url).load(function () {
-            $.Tools.Loading.Close();
+            FW.Loading.Close();
         });
         return url;
     }

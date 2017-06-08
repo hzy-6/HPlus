@@ -6,44 +6,24 @@
         <div class="ibox">
             <div class="ibox-content" id="form">
                 <form class="row">
-                    <!--选项卡开始-->
                     <div class="col-sm-12">
-                        <div class="tabs-container">
-                            <ul class="nav nav-tabs">
-                                <li class="active">
-                                    <a data-toggle="tab" href="#tab-1" aria-expanded="true">基本信息</a>
-                                </li>
-                            </ul>
-                            <div class="tab-content">
-                                <div id="tab-1" class="tab-pane active">
-                                    <div class="panel-body">
-
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label class="control-label">编号：</label>
-                                                <input type="text" class="form-control input-sm" name="cRoles_Number" data-bind="value:cRoles_Number" placeholder="请输入编号" />
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label class="control-label">角色名称：</label>
-                                                <input type="text" class="form-control input-sm" name="cRoles_Name" data-bind="value:cRoles_Name" placeholder="请输入角色名称" />
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <label class="control-label">备注：</label>
-                                                <textarea class="form-control input-sm" name="cRoles_Remark" data-bind="value:cRoles_Remark" placeholder="请输入备注"></textarea>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
+                        <div class="form-group">
+                            <label class="control-label">编号：</label>
+                            <input type="text" class="form-control input-sm" name="cRoles_Number" data-bind="value:cRoles_Number" placeholder="请输入编号" />
                         </div>
                     </div>
-                    <!--选项卡结束-->
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label class="control-label">角色名称：</label>
+                            <input type="text" class="form-control input-sm" name="cRoles_Name" data-bind="value:cRoles_Name" placeholder="请输入角色名称" />
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label class="control-label">备注：</label>
+                            <textarea class="form-control input-sm" name="cRoles_Remark" data-bind="value:cRoles_Remark" placeholder="请输入备注"></textarea>
+                        </div>
+                    </div>
                 </form>
 
             </div>
@@ -63,10 +43,9 @@
 
 }
 @section js{
-    <script src="~/Scripts/SysFrameWork/FrameWork.js"></script>
     <script src="~/Scripts/SysFrameWork/FrameWork_Form.js"></script>
     <script type="text/javascript">
-        var KeyId = $.Tools.GetQueryString("ID");
+        var KeyId = FW.GetQueryString("ID");
         $(function () {
             ko.applyBindings(vModel);//注册vModel
             Func.Load(KeyId);

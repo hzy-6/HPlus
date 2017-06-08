@@ -90,7 +90,6 @@
     <link href="~/Scripts/zTree/css/metroStyle/metroStyle.css" rel="stylesheet" />
 }
 @section js{
-    <script src="~/Scripts/SysFrameWork/FrameWork.js"></script>
     <script src="~/Scripts/zTree/js/jquery.ztree.all.min.js"></script>
     <script type="text/javascript">
         $(function () {
@@ -181,7 +180,7 @@
                 else
                     msg = "您是否要在该菜单下添加子菜单？";
 
-                $.ModalConfirm(msg, function (b, i) {
+                FW.ConfirmBox(msg, function (b, i) {
                     if (b) {
                         $(".ibox-title h4").text("新增");
                         vModel.uMenu_ID("");
@@ -194,14 +193,14 @@
                         else
                             vModel.pname("一级菜单");
 
-                        $.ModalMsg("请在右边填写内容!", "warning");
+                        FW.MsgBox("请在右边填写内容!", "警告");
                         Lay.close(i);
                     }
                     Lay.close(i);
                 });
             },
             Save: function () {
-                $.Tools.Ajax({
+                FW.Ajax({
                     type: "post",
                     url: "@Url.Action("Save")",
                     data: vModel,
@@ -210,10 +209,10 @@
                             vModel.uMenu_ID(r.ID);
                             Func.LoadForm();
                             Func.GetMenuAndFunctionTree();
-                            $.ModalMsg("提交成功!", "success");
+                            FW.MsgBox("提交成功!", "成功");
                         }
                         else {
-                            $.ModalMsg("提交失败!", "error");
+                            FW.MsgBox("提交失败!", "警告");
                         }
                     }
                 });
@@ -222,7 +221,7 @@
                 var treeObj = $.fn.zTree.getZTreeObj("tree");
                 var nodes = treeObj.getCheckedNodes(true);
                 //保存功能
-                $.Tools.Ajax({
+                FW.Ajax({
                     type: "post",
                     url: "@Url.Action("SaveMenuFunction")",
                     data: { nodes: JSON.stringify(nodes) },
@@ -231,7 +230,7 @@
                             vModel.uMenu_ID("");
                             Func.LoadForm();
                             Func.GetMenuAndFunctionTree();
-                            $.ModalMsg("保存成功!", "success");
+                            FW.MsgBox("保存成功!", "成功");
                         }
                     }
                 });
@@ -241,13 +240,13 @@
                 var nodes = treeObj.getSelectedNodes();
                 if (nodes.length > 0) {
                     if (nodes[0].tag == "fun") {
-                        $.ModalMsg("功能不能删除!", "warning");
+                        FW.MsgBox("功能不能删除!", "警告");
                         return false;
                     }
 
-                    $.ModalConfirm("是否要删除该栏目【删除该栏目将会删除该栏目下所有的资讯】？", function (b, i) {
+                    FW.ConfirmBox("是否要删除该栏目【删除该栏目将会删除该栏目下所有的资讯】？", function (b, i) {
                         if (b) {
-                            $.Tools.Ajax({
+                            FW.Ajax({
                                 type: "post",
                                 url: "@Url.Action("Del")",
                                 data: { ID: vModel.uMenu_ID() },
@@ -256,10 +255,10 @@
                                         vModel.uMenu_ID("");
                                         Func.LoadForm();
                                         Func.GetMenuAndFunctionTree();
-                                        $.ModalMsg("删除成功!", "success");
+                                        FW.MsgBox("删除成功!", "成功");
                                     }
                                     else {
-                                        $.ModalMsg("删除失败!", "error");
+                                        FW.MsgBox("删除失败!", "警告");
                                     }
                                 }
                             });
@@ -268,7 +267,7 @@
                         Lay.close(i);
                     });
                 } else {
-                    $.ModalMsg("请选择要删除的菜单!", "warning");
+                    FW.MsgBox("请选择要删除的菜单!", "警告");
                 }
             }
         };

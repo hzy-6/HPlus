@@ -88,7 +88,6 @@
     <link href="~/Scripts/zTree/css/metroStyle/metroStyle.css" rel="stylesheet" />
 }
 @section js{
-    <script src="~/Scripts/SysFrameWork/FrameWork.js"></script>
     <script src="~/Scripts/zTree/js/jquery.ztree.all.min.js"></script>
     <script type="text/javascript">
         $(function () {
@@ -138,7 +137,7 @@
                 if (!tag) {
                     vModel.isall(false);
                     if (!vModel.Table()) {
-                        $.ModalMsg("要创建单个类请在左边选则要创建的表", "警告");
+                        FW.MsgBox("要创建单个类请在左边选则要创建的表!", "警告");
                         return false;
                     }
                 }
@@ -147,7 +146,7 @@
                     data: ko.toJS(vModel),
                     success: function (r) {
                         if (r.status = 1) {
-                            $.ModalMsg("创建成功", "成功");
+                            FW.MsgBox("创建成功!", "成功");
                         }
                     }
                 });

@@ -6,7 +6,7 @@ var $btnsearch = $("#btn_search");
 var $formsearch = $("#form_search");
 var $btndel = $("button[data-power=Del]");
 var $btnedit = $("button[data-power=Edit]");
-var fun = $.Tools.GetQueryString("fun");
+var fun = FW.GetQueryString("fun");
 var $KeyValue = "";
 
 var $List = {
@@ -17,12 +17,13 @@ var $List = {
             url: "",
             pager: "#pager",
             datatype: "json",
-            rowNum: 10,
+            rowNum: 20,
             rowList: [5, 10, 20, 50, 100, 1000, 2000],
             width: $('.jqGrid_wrapper').width(),
             height: $(window).height() - 186,//-150
             colNames: [],
             colModel: [],
+            postData: null,
             sortname: "_ukid",
             multiselect: null,
             sortorder: "desc",
@@ -33,7 +34,7 @@ var $List = {
         };
         var options = $.extend({}, defaults, options);
         $gridList = $('#' + options.id);
-        $gridList.jqGrid({
+        var jsonConfig = {
             url: options.url,
             rowNum: options.rowNum,
             rowList: options.rowList,
@@ -108,7 +109,12 @@ var $List = {
                     options.onSelectAll(aRowids);
                 }
             }
-        });
+        };
+        if (options.postData != null) {
+            jsonConfig.postData = options.postData;
+        }
+
+        $gridList.jqGrid(jsonConfig);
 
         // Add responsive to jqGrid  表格自适应
         $(window).bind('resize', function () {
@@ -156,16 +162,16 @@ var $List = {
         var options = $.extend({}, defaults, options);
         var KeyValue = $gridList.jqGridRowValue();
         if (KeyValue.length < 1) {
-            $.ModalMsg("请选择要移除的数据!", "warning");
+            FW.MsgBox("请选择要移除的数据!", "警告");
             return false;
         }
-        $.ModalConfirm("确认删除吗?", function (r, i) {
+        FW.ConfirmBox("确认删除吗?", function (r, i) {
             if (r) {
                 var arr = Array();
                 for (var i = 0; i < KeyValue.length; i++) {
                     arr.push(KeyValue[i]._ukid);
                 }
-                $.Tools.Ajax({
+                FW.Ajax({
                     type: "post",
                     url: options.url,
                     data: { ID: JSON.stringify(arr) },
@@ -173,16 +179,16 @@ var $List = {
                         if (r.status == 1) {
                             Lay.close(i);
                             Refresh();
-                            $.ModalMsg("操作成功!", "success");
+                            FW.MsgBox("操作成功!", "成功");
                         }
                     }
                 });
             }
         });
     },
-    ExportExcel: function (url) {
-        $(event.srcElement).attr("href", url + "?" + $formsearch.serialize());
-    }
+    ExportExcel: function (url, data) {
+        $(event.srcElement).attr("href", url + "?" + $formsearch.serialize() + (data ? data : ""));
+    },
 }
 
 //检索隐藏、显示

@@ -23,7 +23,7 @@ $(function () {
     }
     else {
         Lay = layer;
-        To = toastr;        
+        To = toastr;
     }
     $.AjaxFilter();
     To.options = {
@@ -61,13 +61,11 @@ $.AjaxFilter = function () {
                     switch (json.ErrorCode) {
                         //消息提醒
                         case "01":
-                            //$.Tools.Alert({ msg: json.ErrorMessage, jumpurl: json.JumpUrl });
                             FW.MsgBox(json.ErrorMessage, "警告");
                             break;
                             //登陆超时或违禁操作
                         case "02":
                             FW.OutLogin(json.ErrorMessage, json.JumpUrl);
-                            //$.Tools.OutLogin(json.ErrorMessage, json.JumpUrl);
                             return false;
                             break;
                             //系统错误显示错误页面
@@ -81,15 +79,6 @@ $.AjaxFilter = function () {
                                     $("html").html(h);
                                 }
                             });
-                            //$.Tools.Ajax({
-                            //    type: "post",
-                            //    url: "/Admin/Error/Index",
-                            //    data: json,
-                            //    dataType: "html",
-                            //    success: function (h) {
-                            //        $("html").html(h);
-                            //    }
-                            //});
                             break;
                     }
                 }
@@ -166,199 +155,6 @@ var FW = {
         }, function () {
             //提示框关闭后
             window.top.location = JumpUrl;
-        });
-    },
-    //Ajax请求
-    Ajax: function (options) {
-        var defaults = {
-            type: "post",
-            url: "",
-            dataType: "json",
-            data: {},
-            success: null,
-            async: true,
-            NotLoding: true
-        };
-        var options = $.extend(defaults, options);
-        if (options.url == "")
-            return false;
-        if (options.NotLoding)
-            $.Tools.Loading.Open();
-        window.setTimeout(function () {
-            $.ajax({
-                type: options.type,
-                url: options.url,
-                dataType: options.dataType,
-                data: options.data,
-                async: options.async,
-                success: function (r) {
-                    if (options.NotLoding)
-                        $.Tools.Loading.Close();
-                    options.success(r);
-                },
-                beforeSend: function () {
-                },
-                complete: function () {
-
-                }
-            });
-        }, 200);
-
-    },
-    //Ajax上传文件到服务器
-    AjaxUpFile: function (options) {
-        var defaults = {
-            elid: "",
-            url: "",
-            dataType: "json",
-            data: null,
-            success: null,
-            NotLoding: true
-        };
-        var options = $.extend(defaults, options);
-        if (options.url == "")
-            return false;
-        if (options.NotLoding)
-            $.Tools.Loading.Open();
-        window.setTimeout(function () {
-            $.ajaxFileUpload({
-                url: options.url, //用于文件上传的服务器端请求地址
-                secureuri: false, //是否需要安全协议，一般设置为false
-                fileElementId: options.elid, //文件上传域的ID
-                dataType: options.dataType, //返回值类型 一般设置为json
-                data: options.data, //服务器成功响应处理函数
-                success: function (data, status) {
-                    if (options.NotLoding)
-                        $.Tools.Loading.Close();
-                    if (options.success != null) {
-                        options.success(data, status);
-                    }
-                }, //服务器响应失败处理函数
-                error: function (data, status, e) {
-                    return false;
-                },
-                complete: function () {
-
-                }
-            });
-        }, 200);
-    },
-    GetQueryString: function (name) {
-        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-        var r = window.location.search.substr(1).match(reg);
-        if (r != null) return unescape(r[2]); return "";
-    },
-    //建立一個可存取到該file的url  用于上传图片，，可通过该地址浏览图片
-    GetObjectURL: function (file) {
-        var url = "";
-        if (window.createObjectURL != undefined) { // basic
-            url = window.createObjectURL(file);
-        } else if (window.URL != undefined) { // mozilla(firefox)
-            url = window.URL.createObjectURL(file);
-        } else if (window.webkitURL != undefined) { // webkit or chrome
-            url = window.webkitURL.createObjectURL(file);
-        }
-        return url;
-    },
-    //设置cookie
-    setCookie: function (name, value) {
-        var Days = 30;
-        var exp = new Date();
-        exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
-        document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString();
-    },
-    //获取cookie值
-    getCookie: function (name) {
-        var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
-        if (arr = document.cookie.match(reg))
-            return unescape(arr[2]);
-        else
-            return null;
-    },
-    delCookie: function (name) {
-        var exp = new Date();
-        exp.setTime(exp.getTime() - 1);
-        var cval = getCookie(name);
-        if (cval != null)
-            document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
-    },
-    isPositiveNum: function (s) {//是否为正整数  
-        var re = /^[0-9]*[1-9][0-9]*$/;
-        return re.test(s);
-    },
-    jdmoney: function (money) {//判断是否为正实数。
-        var t = /^\d+(\.\d+)?$/;
-        return t.test(money);
-    }
-}
-
-$.Tools = {
-    Loading: {
-        ix: 0,
-        Open: function () {
-            this.ix = Lay.load(1, { shade: [0.5, "#000"], time: 50 * 1000 }); //Lay.msg('请稍候...', { icon: 16, shade: [0.5, "#000"], time: 0 });
-        },
-        Close: function () {
-            Lay.close(this.ix);
-        }
-    },
-    OutLogin: function (Msg, JumpUrl) {
-        Lay.msg("消息提醒：" + Msg + "! [ 3s ]", {
-            time: 3 * 1000,
-            shade: [0.3, "#393D49"],
-            success: function (layero, index) { //提示框成功弹出
-                var i = 3;
-                setInterval(function () {//动态时间
-                    i--;
-                    $(layero).find(".layui-layer-content").text("消息提醒：" + Msg + "! [ " + i + "s ]");
-                }, 1000);
-            }
-        }, function () {
-            //提示框关闭后
-            window.top.location = JumpUrl;
-        });
-    },
-    MessageBox: function (options) {
-        var defaults = {
-            Msg: "",
-            JumpUrl: null,
-            Title: "消息提醒",
-            Skin: "layui-layer-molv"
-        };
-        var options = $.extend(defaults, options);
-        if (options.JumpUrl == null) {
-            Lay.alert(options.Msg, {
-                title: options.Title,
-                skin: options.Skin
-            });
-        }
-        else {
-            Lay.alert(options.Msg, {
-                title: options.Title,
-                skin: options.Skin
-            }, function () {
-                window.location = options.JumpUrl;
-            });
-        }
-    },
-    Alert: function (options) {
-        var defaults = {
-            msg: "",
-            jumpurl: "",
-            time: 3000,
-            offset: 0,
-            shift: 0,
-            icon: 0
-        };
-        var options = $.extend(defaults, options);
-        Lay.msg(options.msg, {
-            icon: options.icon,
-            time: options.time,
-            //offset: options.offset
-            shift: options.shift
-        }, function () {
-            if (options.jumpurl != "")
-                window.location = options.jumpurl;
         });
     },
     //Ajax请求

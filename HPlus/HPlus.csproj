@@ -1513,7 +1513,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Areas\SysManage\Views\Shared\" />
     <Folder Include="Content\CreateFile\BLL\" />

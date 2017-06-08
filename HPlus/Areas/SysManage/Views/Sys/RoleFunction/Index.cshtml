@@ -22,11 +22,11 @@
                     <table class="table table-mail">
                         <thead>
                             <tr>
-                                <th class="text-center">
+                                <th class="text-center" style="width:50%;">
                                     编号
                                 </th>
-                                <th class="text-center">
-                                    请选择角色
+                                <th class="">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请选择角色
                                 </th>
                             </tr>
                         </thead>
@@ -37,7 +37,7 @@
                                     <td class="text-center">
                                         @item.cRoles_Number
                                     </td>
-                                    <td class="text-center">
+                                    <td class="">
                                         <div class="radio i-checks">
                                             <label onclick="Func.GetRoleMenuFunctionTree('@item.uRoles_ID')">
                                                 <input type="radio" value="@item.uRoles_ID" name="role" />
@@ -81,7 +81,6 @@
     <link href="~/Scripts/zTree/css/metroStyle/metroStyle.css" rel="stylesheet" />
 }
 @section js{
-    <script src="~/Scripts/SysFrameWork/FrameWork.js"></script>
     <script src="~/Content/HPlus/JS/plugins/nestable/jquery.nestable.js" type="text/javascript"></script>
     <script src="~/Content/HPlus/JS/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
     <script src="~/Scripts/zTree/js/jquery.ztree.all.min.js"></script>
@@ -152,7 +151,7 @@
                     success: function (r) {
                         if (r.status == 1) {
                             Func.GetRoleMenuFunctionTree(_roleid);
-                            $.ModalMsg("保存成功!", "success");
+                            FW.MsgBox("保存成功!", "成功");
                         }
                     }
                 });

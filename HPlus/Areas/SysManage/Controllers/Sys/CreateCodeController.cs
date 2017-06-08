@@ -13,7 +13,7 @@ using BLL;
 using Model;
 using System.Collections;
 
-namespace HPlus.Areas.SysManage.Controllers.Sys
+namespace TelRecording.Areas.SysManage.Controllers.Sys
 {
     public class CreateCodeController : BaseController
     {
@@ -160,13 +160,16 @@ namespace HPlus.Areas.SysManage.Controllers.Sys
                     if (!string.IsNullOrEmpty(key))
                     {
                         filds += "\t\t[Filed(DisplayName = \"" + colname + "\", IsPrimaryKey = true)]" + "\r\n";
-                        filds += "\t\tpublic " + type + " " + colname + " { get; set; }" + "\r\n";
                     }
                     else
                     {
                         filds += "\t\t[Filed(DisplayName = \"" + colname + "\")]" + "\r\n";
-                        filds += "\t\tpublic " + type + " " + colname + " { get; set; }" + "\r\n";
                     }
+                    filds += "\t\tpublic " + type + " " + colname + "\r\n";
+                    filds += "\t\t{\r\n";
+                    filds += "\t\t\tset { SetValue(\"" + colname + "\", value); }\r\n";
+                    filds += "\t\t\tget { return GetValue<" + type + ">(\"" + colname + "\"); }\r\n";
+                    filds += "\t\t}\r\n\r\n";
                 }
                 Content = Content.Replace("<#Filds#>", filds);
             }

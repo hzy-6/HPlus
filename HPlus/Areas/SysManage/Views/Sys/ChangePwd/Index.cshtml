@@ -33,7 +33,6 @@
 @section css{
 }
 @section js{
-    <script src="~/Scripts/Tools/Tools.js"></script>
     <!--表单验证js-->
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     <script src="/Content/HPlus/js/plugins/validate/jquery.validate.min.js"></script>
@@ -87,7 +86,7 @@
         //提交完成后成功回掉函数
         function Success(r) {
             if (r.status == 1)
-                Tools.Alert("操作成功", "");
+                FW.MsgBox("操作成功!", "成功");
         }
     </script>
 }
