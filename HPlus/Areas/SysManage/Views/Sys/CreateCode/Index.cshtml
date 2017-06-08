@@ -90,14 +90,15 @@
 @section js{
     <script src="~/Scripts/zTree/js/jquery.ztree.all.min.js"></script>
     <script type="text/javascript">
+        model = new vModel();
         $(function () {
-            ko.applyBindings(vModel);
+            ko.applyBindings(model);
             Func.GetTree();
         });
 
         var Func = {
             GetTree: function () {
-                $.Tools.Ajax({
+                FW.Ajax({
                     url: "@Url.Action("GetDatabaseAllTable")",
                     success: function (r) {
                         var setting = {
@@ -124,7 +125,7 @@
                                     if (string.indexOf('$~') != -1) {
                                         string = string.split('$~')[0];
                                     }
-                                    vModel.Table(string);
+                                    model.Table(string);
                                 },
                             }
                         };
@@ -135,15 +136,15 @@
             },
             Save: function (tag) {
                 if (!tag) {
-                    vModel.isall(false);
-                    if (!vModel.Table()) {
+                    model.isall(false);
+                    if (!model.Table()) {
                         FW.MsgBox("要创建单个类请在左边选则要创建的表!", "警告");
                         return false;
                     }
                 }
-                $.Tools.Ajax({
+                FW.Ajax({
                     url: "@Url.Action("Save")",
-                    data: ko.toJS(vModel),
+                    data: ko.toJS(model),
                     success: function (r) {
                         if (r.status = 1) {
                             FW.MsgBox("创建成功!", "成功");
@@ -153,12 +154,12 @@
             }
         }
         var d = "@(HttpContext.Current.Server.MapPath("/Content/CreateFile").Replace("\\","\\\\"))";
-        var vModel = {
-            Type: ko.observable("Model"),
-            Url: ko.observable(d),
-            Str: ko.observable(null),
-            Table: ko.observable(null),
-            isall: ko.observable(true),
+        function vModel() {
+            this.Type = ko.observable("Model");
+            this.Url = ko.observable(d);
+            this.Str = ko.observable(null);
+            this.Table = ko.observable(null);
+            this.isall = ko.observable(null);
         }
     </script>
 }

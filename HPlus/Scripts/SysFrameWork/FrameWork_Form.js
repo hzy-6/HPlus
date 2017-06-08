@@ -29,9 +29,8 @@ var $Form = {
             success: function (r) {
                 if (r.status == 1) {
                     if (options.success == null) {
-                        ko.cleanNode(document.getElementById("form"));
-                        ko.utils.extend(vModel, ko.mapping.fromJS(r));//更新vModel
-                        ko.applyBindings(vModel, document.getElementById("form"));//注册vModel
+                        //映射  将 json 映射到 ko 实体中
+                        FW.Mapping(r, model, "model");
                     }
                     else {
                         options.success(r);
@@ -55,11 +54,11 @@ var $Form = {
         FW.Ajax({
             type: "Post",
             url: (SaveUrl ? SaveUrl : options.url),
-            data: (options.data ? options.data : ko.toJS(vModel)),
+            data: (options.data ? options.data : ko.toJS(model)),
             success: function (r) {
                 if (options.success == null) {
                     if (r.status == 1) {
-                        FW.MsgBox((options.msg == null ? "保存成功!" : options.msg), "成功");
+                        FW.MsgBox((options.msg == null ? "操作成功!" : options.msg), "成功");
                         $.ModalClose(options.isClose);
                         $Form.ResetUrl(r);
                     }

@@ -92,15 +92,16 @@
 @section js{
     <script src="~/Scripts/zTree/js/jquery.ztree.all.min.js"></script>
     <script type="text/javascript">
+        model = new vModel();
         $(function () {
-            ko.applyBindings(vModel);
+            ko.applyBindings(model);
             Func.GetMenuAndFunctionTree();
             Func.LoadForm();
         });
 
         var Func = {
             GetMenuAndFunctionTree: function () {
-                $.Tools.Ajax({
+                FW.Ajax({
                     type: "post",
                     url: "@Url.Action("GetMenuAndFunctionTree")",
                     data: {},
@@ -131,7 +132,7 @@
                                         //$("#Btn_Power_Del").attr("disabled", false);
                                         $("#Btn_Power_Del").removeAttr("disabled");
                                         $(".ibox-title h4").text("修改");
-                                        vModel.uMenu_ID(treeNode.id);
+                                        model.uMenu_ID(treeNode.id);
                                         Func.LoadForm();
                                     } else {
                                         $("#Btn_Power_Del").attr("disabled", true);
@@ -145,28 +146,26 @@
                 });
             },
             LoadForm: function () {
-                if (vModel.uMenu_ID() == "" || vModel.uMenu_ID() == null || vModel.uMenu_ID() == "@Guid.Empty")
+                if (model.uMenu_ID() == "" || model.uMenu_ID() == null || model.uMenu_ID() == "@Guid.Empty")
                     $(".ibox-title h4").text("新增");
                 else
                     $(".ibox-title h4").text("修改");
-                $.Tools.Ajax({
+                FW.Ajax({
                     type: "post",
                     url: "@Url.Action("Find")",
-                    data: { ID: vModel.uMenu_ID() },
+                    data: { ID: model.uMenu_ID() },
                     async: false,
                     success: function (r) {
-                        ko.cleanNode(document.getElementById("form"));
-                        ko.utils.extend(vModel, ko.mapping.fromJS(r));//更新vModel
-                        ko.applyBindings(vModel, document.getElementById("form"));//注册vModel
-                        if (vModel.uMenu_ID() == "" || vModel.uMenu_ID() == null || vModel.uMenu_ID() == "@Guid.Empty") {
+                        FW.Mapping(r, model, "model");
+                        if (model.uMenu_ID() == "" || model.uMenu_ID() == null || model.uMenu_ID() == "@Guid.Empty") {
                             var treeObj = $.fn.zTree.getZTreeObj("tree");
                             var nodes = treeObj.getSelectedNodes();
                             if (nodes.length > 0) {
-                                vModel.uMenu_ParentID(nodes[0].id);
-                                vModel.pname(nodes[0].name);
+                                model.uMenu_ParentID(nodes[0].id);
+                                model.pname(nodes[0].name);
                             }
                             else
-                                vModel.pname("一级菜单");
+                                model.pname("一级菜单");
                         }
                     }
                 });
@@ -183,15 +182,15 @@
                 FW.ConfirmBox(msg, function (b, i) {
                     if (b) {
                         $(".ibox-title h4").text("新增");
-                        vModel.uMenu_ID("");
+                        model.uMenu_ID("");
                         Func.LoadForm();
 
                         if (nodes.length > 0) {
-                            vModel.uMenu_ParentID(nodes[0].id);
-                            vModel.pname(nodes[0].name);
+                            model.uMenu_ParentID(nodes[0].id);
+                            model.pname(nodes[0].name);
                         }
                         else
-                            vModel.pname("一级菜单");
+                            model.pname("一级菜单");
 
                         FW.MsgBox("请在右边填写内容!", "警告");
                         Lay.close(i);
@@ -203,10 +202,10 @@
                 FW.Ajax({
                     type: "post",
                     url: "@Url.Action("Save")",
-                    data: vModel,
+                    data: ko.toJS(model),
                     success: function (r) {
                         if (r.status == 1) {
-                            vModel.uMenu_ID(r.ID);
+                            model.uMenu_ID(r.ID);
                             Func.LoadForm();
                             Func.GetMenuAndFunctionTree();
                             FW.MsgBox("提交成功!", "成功");
@@ -227,7 +226,7 @@
                     data: { nodes: JSON.stringify(nodes) },
                     success: function (r) {
                         if (r.status == 1) {
-                            vModel.uMenu_ID("");
+                            model.uMenu_ID("");
                             Func.LoadForm();
                             Func.GetMenuAndFunctionTree();
                             FW.MsgBox("保存成功!", "成功");
@@ -249,10 +248,10 @@
                             FW.Ajax({
                                 type: "post",
                                 url: "@Url.Action("Del")",
-                                data: { ID: vModel.uMenu_ID() },
+                                data: { ID: model.uMenu_ID() },
                                 success: function (r) {
                                     if (r.status == 1) {
-                                        vModel.uMenu_ID("");
+                                        model.uMenu_ID("");
                                         Func.LoadForm();
                                         Func.GetMenuAndFunctionTree();
                                         FW.MsgBox("删除成功!", "成功");
@@ -273,15 +272,15 @@
         };
 
         //uMenu_ID, cMenu_Name, cMenu_Url, uMenu_ParentID, cMenu_Number, cMenu_ICON, dMenu_CreateTime
-        var vModel = {
-            uMenu_ID: ko.observable(""),
-            cMenu_Name: ko.observable(""),
-            cMenu_Url: ko.observable(""),
-            uMenu_ParentID: ko.observable(""),
-            cMenu_Number: ko.observable(""),
-            cMenu_ICON: ko.observable(""),
-            dMenu_CreateTime: ko.observable(""),
-            pname: ko.observable(""),
-        };
+        function vModel() {
+            this.uMenu_ID = ko.observable("");
+            this.cMenu_Name = ko.observable("");
+            this.cMenu_Url = ko.observable("");
+            this.uMenu_ParentID = ko.observable("");
+            this.cMenu_Number = ko.observable("");
+            this.cMenu_ICON = ko.observable("");
+            this.dMenu_CreateTime = ko.observable("");
+            this.pname = ko.observable("");
+        }
     </script>
 }

@@ -165,7 +165,7 @@ var $List = {
             FW.MsgBox("请选择要移除的数据!", "警告");
             return false;
         }
-        FW.ConfirmBox("确认删除吗?", function (r, i) {
+        FW.ConfirmBox("确认删除吗?", function (r, ix) {
             if (r) {
                 var arr = Array();
                 for (var i = 0; i < KeyValue.length; i++) {
@@ -177,7 +177,7 @@ var $List = {
                     data: { ID: JSON.stringify(arr) },
                     success: function (r) {
                         if (r.status == 1) {
-                            Lay.close(i);
+                            Lay.close(ix);
                             Refresh();
                             FW.MsgBox("操作成功!", "成功");
                         }

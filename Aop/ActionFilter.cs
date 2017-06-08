@@ -90,12 +90,13 @@ namespace Aop
                         sb.Append("<head>");
                         sb.Append("<script src=\"/Scripts/Jquery/jquery-2.1.4.min.js\"></script>");
                         //sb.Append("<script src=\"/Scripts/Bootstrap/bootstrap.min.js\"></script>");
+                        sb.Append("<script src=\"/Scripts/Toastr/toastr.min.js\"></script>");
                         sb.Append("<script src=\"/Scripts/Layer/layer-v3.0.1/layer/layer.js\"></script>");
                         sb.Append("<script src=\"/Scripts/SysFrameWork/FrameWork.js\"></script>");
                         sb.Append("<script type='text/javascript'>");
-                        sb.Append("$(function(){ $.Tools.OutLogin('登陆超时,计时后退出','/Home/Index/'); });");
+                        sb.Append("$(function(){ FW.OutLogin('登陆超时,计时后退出','/Home/Index/'); });");
                         sb.Append("</script>");
-                        sb.Append("</head>");
+                        sb.Append("</head><body></body>");
                         sb.Append("</html>");
                         filterContext.Result = new ContentResult() { Content = sb.ToString(), ContentType = "text/html", ContentEncoding = System.Text.Encoding.UTF8 };
                     }

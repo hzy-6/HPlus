@@ -46,9 +46,10 @@
 @section js{
     <script src="~/Scripts/SysFrameWork/FrameWork_Form.js"></script>
     <script type="text/javascript">
-        var KeyId = $.Tools.GetQueryString("ID");
+        var KeyId = FW.GetQueryString("ID");
+        model = new vModel();
         $(function () {
-            ko.applyBindings(vModel);//注册vModel
+            ko.applyBindings(model);//注册vModel
             Func.Load(KeyId);
         });
 
@@ -64,25 +65,15 @@
                     url: "@Url.Action("Find")"
                 });
             },
-            FindBack: {
-                Role: {
-                    @*CallBack: function (id) {
-                        $.post('@Url.Action("Find", "Role")', { id: id }, function (r) {
-                            vModel.uRoles_ID((id == "" || id == undefined) ? '@Guid.Empty' : id);
-                            vModel.cRoles_Name(r.cRoles_Name == "" ? "请选择角色" : r.cRoles_Name);
-                        });
-                    }*@
-                }
-            }
         };
 
         //uFunction_ID, iFunction_Number, cFunction_Name, cFunction_ByName, dFunction_CreateTime
-        var vModel = {
-            uFunction_ID: ko.observable(""),
-            iFunction_Number: ko.observable(""),
-            cFunction_Name: ko.observable(""),
-            cFunction_ByName: ko.observable(""),
-            dFunction_CreateTime: ko.observable(""),
-        };
+        function vModel() {
+            this.uFunction_ID = ko.observable("");
+            this.iFunction_Number = ko.observable("");
+            this.cFunction_Name = ko.observable("");
+            this.cFunction_ByName = ko.observable("");
+            this.dFunction_CreateTime = ko.observable("");
+        }
     </script>
 }

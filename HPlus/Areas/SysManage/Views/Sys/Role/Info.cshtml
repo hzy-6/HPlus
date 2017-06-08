@@ -46,8 +46,9 @@
     <script src="~/Scripts/SysFrameWork/FrameWork_Form.js"></script>
     <script type="text/javascript">
         var KeyId = FW.GetQueryString("ID");
+        model = new vModel();
         $(function () {
-            ko.applyBindings(vModel);//注册vModel
+            ko.applyBindings(model);//注册vModel
             Func.Load(KeyId);
         });
 
@@ -68,32 +69,21 @@
                                 url: "@Url.Action("Num")",
                                 success: function (r) {
                                     if (r.status == 1)
-                                        vModel.cRoles_Number(r.num);
+                                        model.cRoles_Number(r.num);
                                 }
                             });
                         }
                     }
                 });
             },
-            FindBack: {
-                Role: {
-                    @*CallBack: function (id) {
-                        $.post('@Url.Action("Find", "Role")', { id: id }, function (r) {
-                            vModel.uRoles_ID((id == "" || id == undefined) ? '@Guid.Empty' : id);
-                            vModel.cRoles_Name(r.cRoles_Name == "" ? "请选择角色" : r.cRoles_Name);
-                        });
-                    }*@
-                }
-            }
         };
 
-        var vModel = {
-            List: ko.observableArray(""),
-            uRoles_ID: ko.observable(""),
-            cRoles_Number: ko.observable(""),
-            cRoles_Name: ko.observable(""),
-            cRoles_Remark: ko.observable(""),
-            dRoles_CreateTime: ko.observable("")
-        };
+        function vModel() {
+            this.uRoles_ID = ko.observable("");
+            this.cRoles_Number = ko.observable("");
+            this.cRoles_Name = ko.observable("");
+            this.cRoles_Remark = ko.observable("");
+            this.dRoles_CreateTime = ko.observable("");
+        }
     </script>
 }

@@ -97,7 +97,7 @@
         var Func = {
             GetRoleMenuFunctionTree: function (id) {
                 _roleid = id;
-                $.Tools.Ajax({
+                FW.Ajax({
                     type: "post",
                     url: "@Url.Action("GetRoleMenuFunctionTree")",
                     data: {
@@ -141,7 +141,7 @@
                 var treeObj = $.fn.zTree.getZTreeObj("tree");
                 var nodes = treeObj.getCheckedNodes(true);
                 //保存功能
-                $.Tools.Ajax({
+                FW.Ajax({
                     type: "post",
                     url: "@Url.Action("Save")",
                     data: {

@@ -120,7 +120,7 @@ var FW = {
         //另一种调用方法
         //toastr["info"]("你有新消息了!", "消息提示");
     },
-    ConfirmBox: function (content, callback) {
+    ConfirmBox: function (content, callBack) {
         Lay.confirm(content, {
             icon: "fa-exclamation-circle",
             title: "消息提醒",
@@ -172,7 +172,7 @@ var FW = {
         if (options.url == "")
             return false;
         if (options.NotLoding)
-            $.Tools.Loading.Open();
+            FW.Loading.Open();
         window.setTimeout(function () {
             $.ajax({
                 type: options.type,
@@ -182,7 +182,7 @@ var FW = {
                 async: options.async,
                 success: function (r) {
                     if (options.NotLoding)
-                        $.Tools.Loading.Close();
+                        FW.Loading.Close();
                     options.success(r);
                 },
                 beforeSend: function () {
@@ -208,7 +208,7 @@ var FW = {
         if (options.url == "")
             return false;
         if (options.NotLoding)
-            $.Tools.Loading.Open();
+            FW.Loading.Open();
         window.setTimeout(function () {
             $.ajaxFileUpload({
                 url: options.url, //用于文件上传的服务器端请求地址
@@ -218,7 +218,7 @@ var FW = {
                 data: options.data, //服务器成功响应处理函数
                 success: function (data, status) {
                     if (options.NotLoding)
-                        $.Tools.Loading.Close();
+                        FW.Loading.Close();
                     if (options.success != null) {
                         options.success(data, status);
                     }
@@ -278,6 +278,12 @@ var FW = {
     jdmoney: function (money) {//判断是否为正实数。
         var t = /^\d+(\.\d+)?$/;
         return t.test(money);
+    },
+    Mapping: function (json, obj, objName) {
+        for (var prop in json) {
+            if (obj.hasOwnProperty(prop))
+                eval(objName + "." + prop + "('" + (json[prop] ? json[prop] : "") + "')");
+        }
     }
 }
 
@@ -346,9 +352,9 @@ $.ExFun = function (funName, iframeName) {
 //查找带回
 $.FindBack = {
     JqGridBindDbClick: function (id) {
-        var fun = $.Tools.GetQueryString("fun");
+        var fun = FW.GetQueryString("fun");
         if (fun != null) {
-            top.$.Tools.setCookie("FindBack_Json", id);
+            top.FW.setCookie("FindBack_Json", id);
             Lay.close($.GetFrameIndex());
         }
     },
@@ -389,13 +395,13 @@ $.FindBack = {
                 $(layero).find("iframe").attr("data-parentiframename", options.parentIframeName == "" ? $.GetFrameName() : options.parentIframeName);
             },
             end: function () {
-                var FindBack_Json = top.$.Tools.getCookie("FindBack_Json");
+                var FindBack_Json = top.FW.getCookie("FindBack_Json");
                 if (options.callBack != null) {
                     if (FindBack_Json != null && FindBack_Json != "") {
                         options.callBack(FindBack_Json);
                     }
                 }
-                top.$.Tools.setCookie("FindBack_Json", "");
+                top.FW.setCookie("FindBack_Json", "");
             }
         });
         if (options.IsFull) {

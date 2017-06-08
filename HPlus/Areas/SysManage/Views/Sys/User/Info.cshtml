@@ -6,36 +6,34 @@
         <div class="ibox">
             <div class="ibox-content" id="form">
                 <form class="row">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>用户名：</label>
-                                <input type="text" class="form-control input-sm" name="cUsers_Name" data-bind="value:cUsers_Name" placeholder="请输入用户名" />
-                            </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>用户名：</label>
+                            <input type="text" class="form-control input-sm" name="cUsers_Name" data-bind="value:cUsers_Name" placeholder="请输入用户名" />
                         </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>登录名：</label>
-                                <input type="text" class="form-control input-sm" name="cUsers_LoginName" data-bind="value:cUsers_LoginName" placeholder="请输入登录名" />
-                            </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>登录名：</label>
+                            <input type="text" class="form-control input-sm" name="cUsers_LoginName" data-bind="value:cUsers_LoginName" placeholder="请输入登录名" />
                         </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>登录密码：</label>
-                                <input type="text" class="form-control input-sm" name="cUsers_LoginPwd" data-bind="value:cUsers_LoginPwd" placeholder="请输入登录密码" />
-                            </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>登录密码：</label>
+                            <input type="text" class="form-control input-sm" name="cUsers_LoginPwd" data-bind="value:cUsers_LoginPwd" placeholder="请输入登录密码" />
                         </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label class="control-label">邮箱地址：</label>
-                                <input type="text" class="form-control input-sm" name="cUsers_Email" data-bind="value:cUsers_Email" placeholder="请输入邮件" />
-                            </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label">邮箱地址：</label>
+                            <input type="text" class="form-control input-sm" name="cUsers_Email" data-bind="value:cUsers_Email" placeholder="请输入邮件" />
                         </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label class="control-label">角色：</label>
-                                @WebHtml.FindBackControl("cRoles_Name", "uRoles_ID", "$.FindBack.OpenPage({title: '请选择角色',content: '" + Url.Action("Index", "Role", new { fun = "findback" }) + "',width:'1000px',callBack:function(id){ Func.FindBack.Role.CallBack(id) } });", "Func.FindBack.Role.CallBack();")
-                            </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label">角色：</label>
+                            @WebHtml.FindBackControl("cRoles_Name", "uRoles_ID", "$.FindBack.OpenPage({title: '请选择角色',content: '" + Url.Action("Index", "Role", new { fun = "findback" }) + "',width:'1000px',callBack:function(id){ Func.FindBack.Role.CallBack(id) } });", "Func.FindBack.Role.CallBack();")
                         </div>
                     </div>
                 </form>
@@ -60,8 +58,9 @@
     <script src="~/Scripts/SysFrameWork/FrameWork_Form.js"></script>
     <script type="text/javascript">
         var KeyId = FW.GetQueryString("ID");
+        model = new vModel();
         $(function () {
-            ko.applyBindings(vModel);//注册vModel
+            ko.applyBindings(model);//注册vModel
             Func.Load(KeyId);
         });
 
@@ -74,29 +73,29 @@
             Load: function (ID) {
                 $Form.Load({
                     id: ID,
-                    url: "@Url.Action("Find")"
+                    url: "@Url.Action("Find")",
                 });
             },
             FindBack: {
                 Role: {
                     CallBack: function (id) {
                         $.post('@Url.Action("Find", "Role")', { id: id }, function (r) {
-                            vModel.uRoles_ID((id == "" || id == undefined) ? '@Guid.Empty' : id);
-                            vModel.cRoles_Name(r.cRoles_Name == "" ? "请选择角色" : r.cRoles_Name);
+                            model.uRoles_ID((id == "" || id == undefined) ? '@Guid.Empty' : id);
+                            model.cRoles_Name(r.cRoles_Name == "" ? "请选择角色" : r.cRoles_Name);
                         });
                     }
                 }
             }
         };
 
-        var vModel = {
-            uUsers_ID: ko.observable(""),
-            cUsers_Name: ko.observable(""),
-            cUsers_LoginName: ko.observable(""),
-            cUsers_LoginPwd: ko.observable(""),
-            uRoles_ID: ko.observable(""),
-            cUsers_Email: ko.observable(""),
-            cRoles_Name: ko.observable("")
-        };
+        function vModel() {
+            this.uUsers_ID = ko.observable("");
+            this.cUsers_Name = ko.observable("");
+            this.cUsers_LoginName = ko.observable("");
+            this.cUsers_LoginPwd = ko.observable("");
+            this.uRoles_ID = ko.observable("");
+            this.cUsers_Email = ko.observable("");
+            this.cRoles_Name = ko.observable("");
+        }
     </script>
 }
