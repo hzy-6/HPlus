@@ -13,7 +13,7 @@ using BLL;
 using Model;
 using System.Collections;
 
-namespace TelRecording.Areas.SysManage.Controllers.Sys
+namespace HPlus.Areas.SysManage.Controllers.Sys
 {
     public class CreateCodeController : BaseController
     {

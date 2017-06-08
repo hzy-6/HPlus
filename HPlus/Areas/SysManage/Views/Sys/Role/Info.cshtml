@@ -64,7 +64,7 @@
                     url: "@Url.Action("Find")",
                     callBack: function (r) {
                         if (Func.IsAdd()) {
-                            $.Tools.Ajax({
+                            FW.Ajax({
                                 type: "post",
                                 url: "@Url.Action("Num")",
                                 success: function (r) {
