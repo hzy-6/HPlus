@@ -723,6 +723,7 @@
     <Content Include="Scripts\Layer\laypage\laypage.js" />
     <Content Include="Scripts\Layer\laypage\skin\laypage.css" />
     <Content Include="Scripts\Moment\Moment.js" />
+    <Content Include="Scripts\Suggest\bootstrap-suggest.min.js" />
     <Content Include="Scripts\SysFrameWork\FrameWork.js" />
     <Content Include="Scripts\SysFrameWork\FrameWork_Form.js" />
     <Content Include="Scripts\SysFrameWork\FrameWork_List.js" />

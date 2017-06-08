@@ -280,10 +280,45 @@ var FW = {
         return t.test(money);
     },
     Mapping: function (json, obj, objName) {
+        //json 映射到 ko 实体中去
         for (var prop in json) {
             if (obj.hasOwnProperty(prop))
                 eval(objName + "." + prop + "('" + (json[prop] ? json[prop] : "") + "')");
         }
+    },
+    vModelEmpty: function (obj, objName) {
+        //重置ko 的 实体
+        for (item in obj) {
+            eval(objName + "." + item + "('')");
+        }
+    },
+    Select: function (options) {
+        var defaults = {
+            domid: "",
+            indexId: null,
+            indexKey: null,
+            data: null,
+            findFields: null,
+            callBack: null,
+            filedsDisplayName: null,
+            showHeader: true,
+        };
+        var options = $.extend(defaults, options);
+        $("#" + options.domid).bsSuggest({
+            indexId: options.indexId,  //data.value 的第几个数据，作为input输入框的内容
+            indexKey: options.indexKey, //data.value 的第几个数据，作为input输入框的内容
+            data: options.data,
+            searchFields: options.findFields,//有效搜索字段，从前端搜索过滤数据时使用，但不一定显示在列表中。effectiveFields 配置字段也会用于搜索过滤
+            filedsDisplayName: options.filedsDisplayName,
+            showHeader: options.showHeader,
+        }).on('onDataRequestSuccess', function (e, result) {
+            console.log('从 json.data 参数中获取，不会触发 onDataRequestSuccess 事件', result);
+        }).on('onSetSelectValue', function (e, keyword, data) {
+            callBack(keyword);
+            console.log('onSetSelectValue: ', keyword, data);
+        }).on('onUnsetSelectValue', function () {
+            console.log("onUnsetSelectValue");
+        });
     }
 }
 

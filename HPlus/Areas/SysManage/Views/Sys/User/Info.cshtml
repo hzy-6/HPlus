@@ -1,5 +1,9 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    DBContext db = new DBContext();
+    T_Roles roles = new T_Roles();
+    var list = db.GetList(db.Find(roles, ""));
+    var json = db.jss.Serialize(list);
 }
 <div class="row">
     <div class="col-sm-12">
@@ -36,6 +40,22 @@
                             @WebHtml.FindBackControl("cRoles_Name", "uRoles_ID", "$.FindBack.OpenPage({title: '请选择角色',content: '" + Url.Action("Index", "Role", new { fun = "findback" }) + "',width:'1000px',callBack:function(id){ Func.FindBack.Role.CallBack(id) } });", "Func.FindBack.Role.CallBack();")
                         </div>
                     </div>
+                    @*<div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label">角色：</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="uRoles_ID" autocomplete="off">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-white dropdown-toggle" data-toggle="" style="padding: 4px 12px;">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-right" role="menu" style="padding-top: 0px; max-height: 375px; max-width: 800px; overflow: auto; width: auto; transition: 0.3s;"></ul>
+                                </div>
+                                 /btn-group 
+                            </div>
+
+                        </div>
+                    </div>*@
                 </form>
 
             </div>
@@ -43,7 +63,7 @@
     </div>
 </div>
 <!--按钮-->
-<div style="height:50px; width:100%;"></div>
+<div style="height:100px; width:100%;"></div>
 <div class="my-ButtonBar text-right">
     <div class="btn-group btn-group-sm">
         <button type="button" class="btn btn-success btn-sm" data-bind="visible:!Func.IsAdd()" onclick="$Form.ResetUrl(null)">新增</button>
@@ -57,35 +77,59 @@
 @section js{
     <script src="~/Scripts/SysFrameWork/FrameWork_Form.js"></script>
     <script type="text/javascript">
-        var KeyId = FW.GetQueryString("ID");
-        model = new vModel();
-        $(function () {
-            ko.applyBindings(model);//注册vModel
-            Func.Load(KeyId);
-        });
+    var KeyId = FW.GetQueryString("ID");
+    model = new vModel();
+    $(function () {
+        ko.applyBindings(model);//注册vModel
+        Func.Load(KeyId);
+        //Func.Select_Roles();
+    });
 
-        var Func = {
-            IsAdd: function () {
-                if (KeyId == null || KeyId == "" || KeyId == undefined || KeyId == "@Guid.Empty")
-                    return true;
-                return false;
-            },
-            Load: function (ID) {
-                $Form.Load({
-                    id: ID,
-                    url: "@Url.Action("Find")",
-                });
-            },
-            FindBack: {
-                Role: {
-                    CallBack: function (id) {
-                        $.post('@Url.Action("Find", "Role")', { id: id }, function (r) {
-                            model.uRoles_ID((id == "" || id == undefined) ? '@Guid.Empty' : id);
+    var Func = {
+        IsAdd: function () {
+            if (KeyId == null || KeyId == "" || KeyId == undefined || KeyId == "@Guid.Empty")
+                return true;
+            return false;
+        },
+        Load: function (ID) {
+            $Form.Load({
+                id: ID,
+                url: "@Url.Action("Find")",
+                callBack: function (r) {
+                }
+            });
+        },
+        FindBack: {
+            Role: {
+                CallBack: function (id) {
+                    $.post('@Url.Action("Find", "Role")', { id: id }, function (r) {
+                        model.uRoles_ID((id == "" || id == undefined) ? '@Guid.Empty' : id);
                             model.cRoles_Name(r.cRoles_Name == "" ? "请选择角色" : r.cRoles_Name);
                         });
                     }
                 }
-            }
+            },
+            @*Select_Roles: function () {
+                var data = JSON.parse('@Html.Raw(json)');
+                var arr = new Array();
+                for (item in data) {
+                    arr.push({
+
+                    });
+                }
+                var data = { value: data };
+                console.log(data);
+                FW.Select({
+                    domid: "uRoles_ID",
+                    indexId: "uRoles_ID",
+                    keyField: "cRoles_Name",
+                    data: data,
+                    findFields: "cRoles_Name",
+                    callBack: function (json) {
+                        console.log("json:" + json);
+                    }
+                });
+            }*@
         };
 
         function vModel() {
