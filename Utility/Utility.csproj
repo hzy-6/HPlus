@@ -117,10 +117,6 @@
     <Content Include="DLL\Microsoft.Practices.EnterpriseLibrary.Common.dll" />
     <Content Include="DLL\Microsoft.Practices.EnterpriseLibrary.Data.dll" />
     <Content Include="DLL\Microsoft.Practices.ObjectBuilder.dll" />
-    <Content Include="DLL\NPOI 2.2.1\Release\logo\120_120.jpg" />
-    <Content Include="DLL\NPOI 2.2.1\Release\logo\240_240.png" />
-    <Content Include="DLL\NPOI 2.2.1\Release\logo\32_32.jpg" />
-    <Content Include="DLL\NPOI 2.2.1\Release\logo\60_60.jpg" />
     <Content Include="DLL\NPOI 2.2.1\Release\Net20\ICSharpCode.SharpZipLib.dll" />
     <Content Include="DLL\NPOI 2.2.1\Release\Net20\NPOI.dll" />
     <Content Include="DLL\NPOI 2.2.1\Release\Net20\NPOI.OOXML.dll" />
