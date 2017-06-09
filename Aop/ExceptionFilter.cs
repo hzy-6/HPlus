@@ -50,10 +50,11 @@ namespace Aop
                     System.Text.StringBuilder sb = new System.Text.StringBuilder();
                     sb.Append("<script src=\"/Scripts/Jquery/jquery-2.1.4.min.js\"></script>");
                     //sb.Append("<script src=\"/Scripts/Bootstrap/bootstrap.min.js\"></script>");
+                    sb.Append("<script src=\"/Scripts/Toastr/toastr.min.js\"></script>");
                     sb.Append("<script src=\"/Scripts/Layer/layer-v3.0.1/layer/layer.js\"></script>");
                     sb.Append("<script src=\"/Scripts/SysFrameWork/FrameWork.js\"></script>");
                     sb.Append("<script type='text/javascript'>");
-                    sb.Append("$(function(){ $.ModalMsg('" + cem.ErrorMessage.Trim().Replace("'", "“").Replace("\"", "”") + "','" + (string.IsNullOrEmpty(cem.JumpUrl) ? "" : cem.JumpUrl) + "','warning'); });");
+                    sb.Append("$(function(){ FW.MsgBox('" + cem.ErrorMessage.Trim().Replace("'", "“").Replace("\"", "”") + "','" + (string.IsNullOrEmpty(cem.JumpUrl) ? "" : cem.JumpUrl) + "','警告'); });");
                     sb.Append("</script>");
                     filterContext.Result = new ContentResult() { Content = sb.ToString(), ContentType = "text/html", ContentEncoding = System.Text.Encoding.UTF8 };
                 }
