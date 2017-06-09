@@ -43,7 +43,7 @@ namespace HPlus.Areas.SysManage.Controllers.Sys
         [HttpPost]
         public ActionResult Save(FormCollection fc)
         {
-            var Type = fc["Type"];
+            var Type = fc["ClassType"];
             var Url = (fc["Url"] == null ? Server.MapPath("/Content/CreateFile") : fc["Url"]);
             var Str = fc["Str"];
             var Table = fc["Table"];

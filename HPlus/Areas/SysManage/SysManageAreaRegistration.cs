@@ -19,7 +19,8 @@ namespace HPlus.Areas.SysManage
                 "SysManage/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional },
                 namespaces: new string[] { 
-                "HPlus.Areas."+AreaName+".Controllers.Sys"
+                "HPlus.Areas."+AreaName+".Controllers.Sys",
+                "HPlus.Areas."+AreaName+".Controllers.Base"
                 }
             );
         }

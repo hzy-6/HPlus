@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MemberM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="T_Function.cs" />
     <Compile Include="T_Menu.cs" />

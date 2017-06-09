@@ -157,3 +157,17 @@ nav.page-tabs {
 .ibox {
     margin-bottom: 10px;
 }
+
+.mail-box-header {
+    padding: 20px 20px 20px 20px;
+}
+
+.fixed-table-container tbody .selected td {
+    background-color: #d0e9c6;
+}
+.ibox-content {
+    padding: 10px 10px 10px 10px;
+}
+.btn {
+    padding: 4px 10px;
+}

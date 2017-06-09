@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MemberDA.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="T_CreateCodeDA.cs" />
     <Compile Include="T_FunctionDA.cs" />

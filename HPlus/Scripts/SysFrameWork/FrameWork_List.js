@@ -1,5 +1,6 @@
 ﻿//初始值
 $.jgrid.defaults.styleUI = "Bootstrap";
+var $btList = $("#btable");//bootstraptable对象
 var $gridList = $("#jqtable");
 var $PanelSearch = $("#Panel_Search");
 var $btnsearch = $("#btn_search");
@@ -8,7 +9,15 @@ var $btndel = $("button[data-power=Del]");
 var $btnedit = $("button[data-power=Edit]");
 var fun = FW.GetQueryString("fun");
 var $KeyValue = "";
-
+$(function () {
+    // Add responsive to jqGrid  表格自适应
+    $(window).bind('resize', function () {
+        var width = $('.jqGrid_wrapper').width();
+        var height = $('.jqGrid_wrapper').height();
+        $gridList.setGridWidth(width);
+        $gridList.setGridHeight($(window).height() - 180);
+    });
+});
 var $List = {
     //表格初始化
     TableInit: function (options) {
@@ -116,14 +125,6 @@ var $List = {
 
         $gridList.jqGrid(jsonConfig);
 
-        // Add responsive to jqGrid  表格自适应
-        $(window).bind('resize', function () {
-            var width = $('.jqGrid_wrapper').width();
-            var height = $('.jqGrid_wrapper').height();
-            $gridList.setGridWidth(width);
-            $gridList.setGridHeight($(window).height() - 180);
-        });
-
         //检索
         $btnsearch.click(function () {
             var postdata = $gridList.jqGrid('getGridParam').postData;
@@ -153,6 +154,48 @@ var $List = {
             }
 
         });
+    },
+    BTable: function (options) {
+        var defaults = {
+            domid: "btable",
+            height: $(window).height() - 74,
+            striped: false,
+            method: "post",
+            url: "",
+            pageSize: 20,
+            pageNumber: 1,
+            pageList: [10, 25, 50, 100, 1000],
+            pagination: true,
+            showColumns: false,
+            detailView: false,
+            clickToSelect: true,
+            columns: [],
+            data: [],
+            onClickRow: null,
+        };
+        var options = $.extend({}, defaults, options);
+        $btList = $('#' + options.domid);
+        var jsonConfig = {
+            height: options.height,
+            striped: options.striped,
+            method: options.method,
+            url: options.url,
+            pageSize: options.pageSize,
+            pageNumber: options.pageNumber,
+            pageList: options.pageList,
+            pagination: options.pagination,
+            showColumns: options.showColumns,
+            detailView: options.detailView,
+            clickToSelect: options.clickToSelect,
+            onClickRow: function (row, dom, field) {
+                $btList.bootstrapTable('uncheckAll');
+                if (options.onClickRow != null)
+                    options.onClickRow(row, dom, field);
+            },
+            columns: options.columns,
+            data: options.data,
+        };
+        $btList.bootstrapTable(jsonConfig);
     },
     //删除数据
     Del: function (options) {

@@ -36,7 +36,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">类型：</label>
                             <div class="col-sm-8">
-                                <select class="form-control" data-bind="value:Type">
+                                <select class="form-control" data-bind="value:ClassType">
                                     <option value="Model">Model</option>
                                     <option value="BLL">BLL</option>
                                     <option value="DAL">DAL</option>
@@ -95,6 +95,7 @@
             ko.applyBindings(model);
             Func.GetTree();
             model.Url(d);
+            model.ClassType("Model");
         });
 
         var Func = {
@@ -145,9 +146,9 @@
                 }
                 FW.Ajax({
                     url: "@Url.Action("Save")",
-                    data: ko.toJS(model),
+                    data: model,
                     success: function (r) {
-                        if (r.status = 1) {
+                        if (r.status == 1) {
                             FW.MsgBox("创建成功!", "成功");
                         }
                     }
@@ -156,11 +157,11 @@
         }
         var d = "@(HttpContext.Current.Server.MapPath("/Content/CreateFile").Replace("\\","\\\\"))";
         function vModel() {
-            this.Type = ko.observable("Model");
+            this.ClassType = ko.observable("Model");
             this.Url = ko.observable(d);
-            this.Str = ko.observable(null);
-            this.Table = ko.observable(null);
-            this.isall = ko.observable(null);
+            this.Str = ko.observable("");
+            this.Table = ko.observable("");
+            this.isall = ko.observable(true);
         }
     </script>
 }

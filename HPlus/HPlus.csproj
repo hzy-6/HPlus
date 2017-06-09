@@ -134,6 +134,7 @@
     <Compile Include="Areas\Admin\Controllers\LoginController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Areas\SysManage\Controllers\Base\MemberController.cs" />
     <Compile Include="Areas\SysManage\Controllers\Sys\ChangePwdController.cs" />
     <Compile Include="Areas\SysManage\Controllers\Sys\CreateCodeController.cs">
       <SubType>Code</SubType>
@@ -1282,6 +1283,8 @@
     <Content Include="Scripts\Bootstrap\bootstrap-table-master\src\locale\bootstrap-table-en-US.js.template" />
     <Content Include="Scripts\Bootstrap\bootstrap-table-master\src\locale\README.md" />
     <Content Include="Scripts\Bootstrap\bootstrap-table-master\_config.yml" />
+    <Content Include="Areas\SysManage\Views\Base\Member\Index.cshtml" />
+    <Content Include="Areas\SysManage\Views\Base\Member\Info.cshtml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -1290,9 +1293,9 @@
     <Content Include="Scripts\Jquery\jquery-2.1.4.min.js" />
     <Content Include="Scripts\Jquery\jquery.pin.min.js" />
     <Content Include="Scripts\Jquery\JqueryPrint.js" />
-    <Content Include="Scripts\Ko\knockout-3.4.0.debug.js" />
-    <Content Include="Scripts\Ko\Knockout-3.4.0.js" />
-    <Content Include="Scripts\Ko\knockout.mapping-latest.js" />
+    <Content Include="Scripts\Ko\Knockout-3.4.2.debug.js" />
+    <Content Include="Scripts\Ko\Knockout-3.4.2.js" />
+    <Content Include="Scripts\Ko\Knockout.mapping-latest.js" />
     <Content Include="Scripts\Layer\layer-v3.0.1\demo.html" />
     <Content Include="Scripts\Layer\layer-v3.0.1\layer\layer.js" />
     <Content Include="Scripts\Layer\layer-v3.0.1\layer\mobile\layer.js" />
