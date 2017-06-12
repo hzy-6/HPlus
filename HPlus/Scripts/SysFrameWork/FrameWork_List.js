@@ -155,13 +155,15 @@ var $List = {
 
         });
     },
-    BTable: function (options) {
+    BTable: function (options) {//文档地址： http://bootstrap-table.wenzhixin.net.cn/zh-cn/documentation/
         var defaults = {
             domid: "btable",
-            height: $(window).height() - 74,
-            striped: false,
+            height: $(window).height() - 80,
+            striped: true,
             method: "post",
+            classes: "table table-hover",
             url: "",
+            idField: "_ukid",
             pageSize: 20,
             pageNumber: 1,
             pageList: [10, 25, 50, 100, 1000],
@@ -169,9 +171,15 @@ var $List = {
             showColumns: false,
             detailView: false,
             clickToSelect: true,
+            sortable: true,
+            sortName: "_ukid",//定义排序列,通过url方式获取数据填写字段名，否则填写下标 
+            sortOrder: "asc",//定义排序方式 'asc' 或者 'desc'
             columns: [],
             data: [],
             onClickRow: null,
+            onDblClickRow: null,
+            onCheck: null,
+            onCheckAll: null,
         };
         var options = $.extend({}, defaults, options);
         $btList = $('#' + options.domid);
@@ -179,7 +187,11 @@ var $List = {
             height: options.height,
             striped: options.striped,
             method: options.method,
+            classes: options.classes,
             url: options.url,
+            columns: options.columns,
+            data: options.data,
+            idField: options.idField,
             pageSize: options.pageSize,
             pageNumber: options.pageNumber,
             pageList: options.pageList,
@@ -187,15 +199,63 @@ var $List = {
             showColumns: options.showColumns,
             detailView: options.detailView,
             clickToSelect: options.clickToSelect,
+            sortable: options.sortable,
+            sortName: options.sortName,
+            sortOrder: options.sortOrder,
             onClickRow: function (row, dom, field) {
                 $btList.bootstrapTable('uncheckAll');
-                if (options.onClickRow != null)
+                if (options.onClickRow != null) {
                     options.onClickRow(row, dom, field);
+                } else {
+
+                }
             },
-            columns: options.columns,
-            data: options.data,
+            onDblClickRow: function (row, dom, field) {
+                if (options.onDblClickRow != null) {
+                    if (fun != null && fun != "")
+                        options.onDblClickRow(row, dom, field);
+                } else {
+                    if (fun != null && fun != "")
+                        $.FindBack.JqGridBindDbClick(row._ukid);
+                }
+            },
+            onCheck: function (row, dom) {
+                if (options.onCheck != null) {
+                    options.onCheck(row, dom);
+                } else {
+
+                    $List.ChekeBtnState();
+                }
+            },
+            onUncheck: function () {
+
+                $List.ChekeBtnState();
+            },
+            onCheckAll: function (row) {
+                if (options.onCheckAll != null) {
+                    options.onCheckAll(row);
+                } else {
+                    $List.ChekeBtnState();
+                }
+            }
         };
         $btList.bootstrapTable(jsonConfig);
+        $(window).resize(function () {
+            $btList.bootstrapTable('resetView');
+        });
+    },
+    ChekeBtnState: function () {//检查button 状态
+        //下面是控制 修改和删除的按钮状态
+        $KeyValue = $btList.BTRowValue();
+        if ($KeyValue.length > 0) {
+            if ($KeyValue.length == 1) {
+                $btnedit.removeAttr("disabled");
+                $btndel.removeAttr("disabled");
+            } else {
+                $btndel.removeAttr("disabled");
+                $btnedit.attr("disabled", "disabled");
+            }
+        }
     },
     //删除数据
     Del: function (options) {
@@ -203,7 +263,7 @@ var $List = {
             url: ""
         };
         var options = $.extend({}, defaults, options);
-        var KeyValue = $gridList.jqGridRowValue();
+        var KeyValue = $btList.BTRowValue();
         if (KeyValue.length < 1) {
             FW.MsgBox("请选择要移除的数据!", "警告");
             return false;
@@ -229,7 +289,7 @@ var $List = {
             }
         });
     },
-    ExportExcel: function (url, data) {
+    ExportExcel: function (url, data) {//到处excel
         $(event.srcElement).attr("href", url + "?" + $formsearch.serialize() + (data ? data : ""));
     },
 }
@@ -238,7 +298,7 @@ var $List = {
 function ShowSearch(t) {
     $PanelSearch.stop().animate({
         height: "toggle"
-    }, 300);
+    }, 200);
     if ($PanelSearch.height() < 2) {
         $(t).find("i").removeClass("fa fa-chevron-down").addClass("fa fa-chevron-up");
         //fa fa-chevron-down
@@ -280,4 +340,22 @@ function Refresh(data) {
         $btndel.attr("disabled", "disabled");
     }
 
+}
+
+//bootstraptable 的 扩展类  用来获取用户选中的信息  返回值： 如果是选中的多条 则返回的是一个数组里面包含了每行的信息  如果是选中的单条则返回的是一行的信息
+$.fn.BTRowValue = function () {
+    var $BTable = $(this);
+    var rows = $BTable.bootstrapTable('getSelections');
+    if (rows.length > 0) {
+        var json = [];
+        for (var i = 0; i < rows.length ; i++) {
+            var row = {};
+            for (item in rows[i]) {
+                row[item] = rows[i][item];
+            }
+            json.push(row);
+        }
+        return json;
+    }
+    return [];
 }

@@ -6,6 +6,10 @@ body {
         width: 180px;
     }
 
+#wrapper {
+    overflow-x: visible;
+}
+
 #page-wrapper {
     margin: 0 0 0 180px;
 }
@@ -165,9 +169,11 @@ nav.page-tabs {
 .fixed-table-container tbody .selected td {
     background-color: #d0e9c6;
 }
+
 .ibox-content {
     padding: 10px 10px 10px 10px;
 }
+
 .btn {
     padding: 4px 10px;
 }
