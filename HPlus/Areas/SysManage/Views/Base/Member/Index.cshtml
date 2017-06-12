@@ -1,0 +1,203 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="wrapper wrapper-content">
+    <!--检索区域-->
+    <div class="ibox" id="Panel_Search" style="display:none;">
+        <div class="ibox-content">
+            <div class="row">
+                <div class="col-sm-12" style="margin-bottom:5px;">
+
+                    <div class="form-group">
+                        <form id="form_search">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>用户名：</label>
+                                    <input class="form-control input-sm" name="cUsers_Name" placeholder="请输入用户名" />
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>登录名：</label>
+                                    <input class="form-control input-sm" name="cUsers_LoginName" placeholder="请输入登录名" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+                <div class="col-sm-12">
+                    <button type="button" class="btn btn-info btn-sm pull-right" id="btn_search"><i class="fa fa-search"></i>&nbsp;检索</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--列表区域-->
+    <div class="ibox">
+        <div class="ibox-content">
+            <div class="row">
+                <div class="col-sm-12" style="margin-bottom:5px;">
+                    <div class="btn-group btn-group-sm">
+                        @Html.Raw(ViewBag.SysBtn)
+                        <a class="btn btn-white btn-sm" onclick="$List.ExportExcel('@Url.Action("ExportExcel")')" href="javascript:void(0)" id="Btn_Power_GetExcel"><i class="fa fa-file-excel-o"></i>&nbsp;导出 Excel</a>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="jqGrid_wrapper">
+                        <table id="btable"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+@section css{
+
+}
+@section js{
+    <script src="~/Scripts/Bootstrap/bootstrap-table.min.js"></script>
+    <script src="~/Scripts/Bootstrap/bootstrap-table-zh-CN.min.js"></script>
+    <script src="~/Scripts/SysFrameWork/FrameWork_List.js"></script>
+    <script type="text/javascript">
+        var area = "@(ViewContext.RouteData.DataTokens["area"])";
+        var controller = "@(ViewContext.RouteData.Values["controller"])";
+        var action = "@(ViewContext.RouteData.Values["action"])";
+        var FormID = "Form_" + area + controller + action;
+        var thisWindowName = "FrameWork_" + area + controller + action;
+        $(function () {
+            Func.TableInit();
+        });
+
+        var Func = {
+            TableInit: function () {
+                $List.BTable({
+                    columns: [{
+                        field: 'number',
+                        title: '行号',
+                        width: '40px',
+                        align: 'center',
+                        formatter: function (value, row, index) {
+                            return index + 1;
+                        }
+                    }, {
+                        checkbox: true,
+                        field: 'ck',
+                    }, {
+                        field: 'id',
+                        title: '编号',
+                        visible: true,
+                    }, {
+                        field: 'name',
+                        title: '名称',
+                        visible: true,
+                    }, {
+                        field: 'price',
+                        title: '价格',
+                        visible: true,
+                    }],
+                    data: [{
+                        id: 1,
+                        name: 'Item 1',
+                        price: '$1'
+                    }, {
+                        id: 2,
+                        name: 'Item 2',
+                        price: '$2'
+                    }, {
+                        id: 2,
+                        name: 'Item 2',
+                        price: '$2'
+                    }, {
+                        id: 2,
+                        name: 'Item 2',
+                        price: '$2'
+                    }, {
+                        id: 2,
+                        name: 'Item 2',
+                        price: '$2'
+                    }, {
+                        id: 2,
+                        name: 'Item 2',
+                        price: '$2'
+                    }, {
+                        id: 2,
+                        name: 'Item 2',
+                        price: '$2'
+                    }, {
+                        id: 2,
+                        name: 'Item 2',
+                        price: '$2'
+                    }, {
+                        id: 2,
+                        name: 'Item 2',
+                        price: '$2'
+                    }, {
+                        id: 2,
+                        name: 'Item 2',
+                        price: '$2'
+                    }, {
+                        id: 2,
+                        name: 'Item 2',
+                        price: '$2'
+                    }, {
+                        id: 2,
+                        name: 'Item 2',
+                        price: '$2'
+                    }, {
+                        id: 2,
+                        name: 'Item 2',
+                        price: '$2'
+                    }, {
+                        id: 2,
+                        name: 'Item 2',
+                        price: '$2'
+                    }, {
+                        id: 2,
+                        name: 'Item 2',
+                        price: '$2'
+                    }, {
+                        id: 2,
+                        name: 'Item 2',
+                        price: '$2'
+                    }, {
+                        id: 2,
+                        name: 'Item 2',
+                        price: '$2'
+                    }, {
+                        id: 2,
+                        name: 'Item 2',
+                        price: '$2'
+                    }, {
+                        id: 2,
+                        name: 'Item 2',
+                        price: '$2'
+                    }, {
+                        id: 2,
+                        name: 'Item 2',
+                        price: '$2'
+                    }, {
+                        id: 2,
+                        name: 'Item 2',
+                        price: '$2'
+                    }, {
+                        id: 2,
+                        name: 'Item 2',
+                        price: '$2'
+                    }]
+                });
+            },
+            OpenInfoPage: function (tag) {
+                $.ModalOpen({
+                    id: FormID,
+                    parentIframeName: "FrameWork_" + area + controller + action,
+                    url: "@Url.Action("Info")" + (tag == "add" ? "" : "/?ID=" + $KeyValue[0]._ukid),
+                    width: "500px",
+                    height: "500px",
+                    btn: false,
+                });
+            }
+        };
+
+    </script>
+}
