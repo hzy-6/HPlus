@@ -96,8 +96,10 @@
     <Compile Include="CustomAttribute\CStringLengthAttribute.cs" />
     <Compile Include="CustomAttribute\FiledAttribute.cs" />
     <Compile Include="DBContext.cs" />
+    <Compile Include="Entity\AopEntity.cs" />
+    <Compile Include="Entity\AopProxy.cs" />
     <Compile Include="Entity\BaseModel.cs" />
-    <Compile Include="Entity\M_JqGridColModel.cs" />
+    <Compile Include="Entity\BootStrapTableColModel.cs" />
     <Compile Include="Entity\PagingEntity.cs" />
     <Compile Include="Entity\SQL_Container.cs" />
     <Compile Include="ExpressionTree\ExpressionHelper.cs" />

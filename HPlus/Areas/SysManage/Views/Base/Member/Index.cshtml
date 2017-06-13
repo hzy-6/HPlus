@@ -13,13 +13,7 @@
                             <div class="col-sm-3">
                                 <div class="form-group">
                                     <label>用户名：</label>
-                                    <input class="form-control input-sm" name="cUsers_Name" placeholder="请输入用户名" />
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="form-group">
-                                    <label>登录名：</label>
-                                    <input class="form-control input-sm" name="cUsers_LoginName" placeholder="请输入登录名" />
+                                    <input class="form-control input-sm" name="Member_Name" placeholder="请输入用户名" />
                                 </div>
                             </div>
                         </form>
@@ -43,9 +37,7 @@
                     </div>
                 </div>
                 <div class="col-sm-12">
-                    <div class="jqGrid_wrapper">
-                        <table id="btable"></table>
-                    </div>
+                    <table id="btable"></table>
                 </div>
             </div>
         </div>
@@ -56,8 +48,6 @@
 
 }
 @section js{
-    <script src="~/Scripts/Bootstrap/bootstrap-table.min.js"></script>
-    <script src="~/Scripts/Bootstrap/bootstrap-table-zh-CN.min.js"></script>
     <script src="~/Scripts/SysFrameWork/FrameWork_List.js"></script>
     <script type="text/javascript">
         var area = "@(ViewContext.RouteData.DataTokens["area"])";
@@ -72,119 +62,8 @@
         var Func = {
             TableInit: function () {
                 $List.BTable({
-                    columns: [{
-                        field: 'number',
-                        title: '行号',
-                        width: '40px',
-                        align: 'center',
-                        formatter: function (value, row, index) {
-                            return index + 1;
-                        }
-                    }, {
-                        checkbox: true,
-                        field: 'ck',
-                    }, {
-                        field: 'id',
-                        title: '编号',
-                        visible: true,
-                    }, {
-                        field: 'name',
-                        title: '名称',
-                        visible: true,
-                    }, {
-                        field: 'price',
-                        title: '价格',
-                        visible: true,
-                    }],
-                    data: [{
-                        id: 1,
-                        name: 'Item 1',
-                        price: '$1'
-                    }, {
-                        id: 2,
-                        name: 'Item 2',
-                        price: '$2'
-                    }, {
-                        id: 2,
-                        name: 'Item 2',
-                        price: '$2'
-                    }, {
-                        id: 2,
-                        name: 'Item 2',
-                        price: '$2'
-                    }, {
-                        id: 2,
-                        name: 'Item 2',
-                        price: '$2'
-                    }, {
-                        id: 2,
-                        name: 'Item 2',
-                        price: '$2'
-                    }, {
-                        id: 2,
-                        name: 'Item 2',
-                        price: '$2'
-                    }, {
-                        id: 2,
-                        name: 'Item 2',
-                        price: '$2'
-                    }, {
-                        id: 2,
-                        name: 'Item 2',
-                        price: '$2'
-                    }, {
-                        id: 2,
-                        name: 'Item 2',
-                        price: '$2'
-                    }, {
-                        id: 2,
-                        name: 'Item 2',
-                        price: '$2'
-                    }, {
-                        id: 2,
-                        name: 'Item 2',
-                        price: '$2'
-                    }, {
-                        id: 2,
-                        name: 'Item 2',
-                        price: '$2'
-                    }, {
-                        id: 2,
-                        name: 'Item 2',
-                        price: '$2'
-                    }, {
-                        id: 2,
-                        name: 'Item 2',
-                        price: '$2'
-                    }, {
-                        id: 2,
-                        name: 'Item 2',
-                        price: '$2'
-                    }, {
-                        id: 2,
-                        name: 'Item 2',
-                        price: '$2'
-                    }, {
-                        id: 2,
-                        name: 'Item 2',
-                        price: '$2'
-                    }, {
-                        id: 2,
-                        name: 'Item 2',
-                        price: '$2'
-                    }, {
-                        id: 2,
-                        name: 'Item 2',
-                        price: '$2'
-                    }, {
-                        id: 2,
-                        name: 'Item 2',
-                        price: '$2'
-                    }, {
-                        id: 2,
-                        name: 'Item 2',
-                        price: '$2'
-                    }]
+                    url: "@Url.Action("GetDataSource")",
+                    columns: JSON.parse('@Html.Raw(ViewBag.ColModel)'),
                 });
             },
             OpenInfoPage: function (tag) {

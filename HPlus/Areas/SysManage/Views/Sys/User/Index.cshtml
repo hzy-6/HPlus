@@ -2,10 +2,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="wrapper wrapper-content">
-    <div class="row" id="Panel_Search" style="display:none;">
-        <div class="col-sm-12">
-            <div class="panel panel-primary">
-                <div class="panel-body">
+    <!--检索区域-->
+    <div class="ibox" id="Panel_Search" style="display:none;">
+        <div class="ibox-content">
+            <div class="row">
+                <div class="col-sm-12" style="margin-bottom:5px;">
 
                     <div class="form-group">
                         <form id="form_search">
@@ -25,47 +26,32 @@
                     </div>
 
                 </div>
-                <div class="panel-footer">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <button type="button" class="btn btn-info btn-sm pull-right" id="btn_search"><i class="fa fa-search"></i>&nbsp;检索</button>
-                        </div>
-                    </div>
+                <div class="col-sm-12">
+                    <button type="button" class="btn btn-info btn-sm pull-right" id="btn_search"><i class="fa fa-search"></i>&nbsp;检索</button>
                 </div>
-
             </div>
         </div>
     </div>
+    <!--列表区域-->
     <div class="ibox">
-        <div class="ibox-title">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="btn-group btn-group-sm">
-                        @Html.Raw(ViewBag.SysBtn)
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class=" pull-right">
-                        <div class="btn-group btn-group-sm">
-                            <a class="btn btn-white btn-sm" onclick="$List.ExportExcel('@Url.Action("ExportExcel")')" href="javascript:void(0)" id="Btn_Power_GetExcel"><i class="fa fa-file-excel-o"></i>&nbsp;导出 Excel</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="ibox-content">
             <div class="row">
-
-                <div class="jqGrid_wrapper">
-                    <table id="jqtable"></table>
-                    <div id="pager"></div>
+                <div class="col-sm-12" style="margin-bottom:10px;">
+                    <div class="btn-group btn-group-sm">
+                        @Html.Raw(ViewBag.SysBtn)
+                        <a class="btn btn-white btn-sm" onclick="$List.ExportExcel('@Url.Action("ExportExcel")')" href="javascript:void(0)" id="Btn_Power_GetExcel"><i class="fa fa-file-excel-o"></i>&nbsp;导出 Excel</a>
+                    </div>
                 </div>
-
+                <div class="col-sm-12">
+                    <table id="btable"></table>
+                </div>
             </div>
         </div>
     </div>
+
 </div>
 @section css{
+
 }
 @section js{
     <script src="~/Scripts/SysFrameWork/FrameWork_List.js"></script>
@@ -81,9 +67,9 @@
 
         var Func = {
             TableInit: function () {
-                $List.TableInit({
+                $List.BTable({
                     url: "@Url.Action("GetDataSource")",
-                    colModel: JSON.parse('@Html.Raw(ViewBag.JqGridColModel)')
+                    columns: JSON.parse('@Html.Raw(ViewBag.ColModel)'),
                 });
             },
             OpenInfoPage: function (tag) {

@@ -56,7 +56,7 @@ namespace Aop
         {
             ViewBag.SysBtn = this.GetBtn();
             //获取表格列头
-            ViewBag.JqGridColModel = jss.Serialize(this.GetPagingEntity(null, 1, 1).JqGridColModel);
+            ViewBag.ColModel = jss.Serialize(this.GetPagingEntity(null, 1, 1).ColModel);
         }
 
         /// <summary>
@@ -178,7 +178,7 @@ namespace Aop
                     fc.Add(item.ToString(), Tools.getString(hs[item.ToString()]));
             }
             PagingEntity pe = GetPagingEntity(fc, page, rows);
-            return Json(new { status = 1, columnModel = pe.JqGridColModel, rows = pe.List, page = page, records = pe.Counts, total = pe.PageCount }, JsonRequestBehavior.DenyGet);
+            return Json(new { status = 1, columnModel = pe.ColModel, rows = pe.List, page = page, records = pe.Counts, total = pe.PageCount }, JsonRequestBehavior.DenyGet);
         }
 
         /// <summary>
@@ -222,7 +222,7 @@ namespace Aop
         public virtual byte[] DBToExcel(PagingEntity pe)
         {
             DataTable dt = pe.dt;
-            var list = pe.JqGridColModel;
+            var list = pe.ColModel;
             HSSFWorkbook workbook = new HSSFWorkbook();
             ISheet sheet = workbook.CreateSheet();
 
@@ -234,9 +234,9 @@ namespace Aop
                     continue;
                 foreach (var item in list)
                 {
-                    if (column.ColumnName.Equals(item.name))
+                    if (column.ColumnName.Equals(item.field))
                     {
-                        dataRow.CreateCell(column.Ordinal).SetCellValue(item.label);
+                        dataRow.CreateCell(column.Ordinal).SetCellValue(item.title);
                     }
                 }
             }

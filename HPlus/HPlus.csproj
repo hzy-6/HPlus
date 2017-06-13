@@ -1142,6 +1142,7 @@
     <Content Include="Scripts\Bootstrap\bootstrap-table-master\src\locale\bootstrap-table-zh-CN.js" />
     <Content Include="Scripts\Bootstrap\bootstrap-table-master\src\locale\bootstrap-table-zh-TW.js" />
     <Content Include="Scripts\Bootstrap\bootstrap-table-zh-CN.min.js" />
+    <Content Include="Scripts\Bootstrap\bootstrap-table.js" />
     <Content Include="Scripts\Bootstrap\bootstrap-table.min.css" />
     <Content Include="Scripts\Bootstrap\bootstrap-table.min.js" />
     <Content Include="Scripts\Bootstrap\bootstrap.min.js" />

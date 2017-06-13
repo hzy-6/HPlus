@@ -1,7 +1,5 @@
 ﻿//初始值
-$.jgrid.defaults.styleUI = "Bootstrap";
 var $btList = $("#btable");//bootstraptable对象
-var $gridList = $("#jqtable");
 var $PanelSearch = $("#Panel_Search");
 var $btnsearch = $("#btn_search");
 var $formsearch = $("#form_search");
@@ -10,151 +8,10 @@ var $btnedit = $("button[data-power=Edit]");
 var fun = FW.GetQueryString("fun");
 var $KeyValue = "";
 $(function () {
-    // Add responsive to jqGrid  表格自适应
-    $(window).bind('resize', function () {
-        var width = $('.jqGrid_wrapper').width();
-        var height = $('.jqGrid_wrapper').height();
-        $gridList.setGridWidth(width);
-        $gridList.setGridHeight($(window).height() - 180);
-    });
+
 });
 var $List = {
-    //表格初始化
-    TableInit: function (options) {
-        var defaults = {
-            id: "jqtable",
-            url: "",
-            pager: "#pager",
-            datatype: "json",
-            rowNum: 20,
-            rowList: [5, 10, 20, 50, 100, 1000, 2000],
-            width: $('.jqGrid_wrapper').width(),
-            height: $(window).height() - 186,//-150
-            colNames: [],
-            colModel: [],
-            postData: null,
-            sortname: "_ukid",
-            multiselect: null,
-            sortorder: "desc",
-            jsonReader: null,
-            ondblClickRow: null,
-            onSelectRow: null,
-            onSelectAll: null,
-        };
-        var options = $.extend({}, defaults, options);
-        $gridList = $('#' + options.id);
-        var jsonConfig = {
-            url: options.url,
-            rowNum: options.rowNum,
-            rowList: options.rowList,
-            pager: options.pager,
-            datatype: options.datatype,
-            width: options.width,
-            height: options.height,//-150
-            colNames: options.colNames,
-            colModel: options.colModel,
-            sortname: options.sortname,//排序名称
-            mtype: "post",
-            loadComplete: function (r) {
-                $KeyValue = $gridList.jqGridRowValue();
-            },
-            viewrecords: true,
-            reloadAfterSubmit: true,//提交完重新加载
-            sortorder: options.sortorder,
-            rownumbers: true,
-            multiselect: ((options.multiselect == null) ? ((fun == null || fun == "") ? true : false) : options.multiselect),//如果是查找带回，去除复选框
-            multiboxonly: true,
-            jsonReader: options.jsonReader,
-            gridComplete: function () {
-                //$(".J_menuItem").on("click", top.menuItem);
-            },
-            onSelectRow: function (rowid, e) {
-                if (options.onSelectRow == null) {
-                    $KeyValue = $gridList.jqGridRowValue();
-                    if ($KeyValue.length == 1) {
-                        $btnedit.removeAttr("disabled");
-                    }
-                    else {
-                        $btnedit.attr("disabled", "disabled");
-                    }
-                    if ($KeyValue.length > 0) {
-                        $btndel.removeAttr("disabled");
-                    }
-                    else {
-                        $btndel.attr("disabled", "disabled");
-                    }
-                }
-                else {
-                    options.onSelectRow(rowid);
-                }
-            },
-            ondblClickRow: function (rowid, iRow, iCol, e) {
-                if (options.ondblClickRow == null) {
-                    if (fun != null && fun != "")
-                        $.FindBack.JqGridBindDbClick($gridList.jqGrid('getRowData', rowid)._ukid);
-                }
-                else {
-                    if (fun != null && fun != "")
-                        options.ondblClickRow(rowid, iRow, iCol, e);
-                }
-            },
-            onSelectAll: function (aRowids, status) {
-                if (options.onSelectAll == null) {
-                    $KeyValue = $gridList.jqGridRowValue();
-                    if ($KeyValue.length == 1) {
-                        $btnedit.removeAttr("disabled");
-                    }
-                    else {
-                        $btnedit.attr("disabled", "disabled");
-                    }
-                    if ($KeyValue.length > 0) {
-                        $btndel.removeAttr("disabled");
-                    }
-                    else {
-                        $btndel.attr("disabled", "disabled");
-                    }
-                }
-                else {
-                    options.onSelectAll(aRowids);
-                }
-            }
-        };
-        if (options.postData != null) {
-            jsonConfig.postData = options.postData;
-        }
-
-        $gridList.jqGrid(jsonConfig);
-
-        //检索
-        $btnsearch.click(function () {
-            var postdata = $gridList.jqGrid('getGridParam').postData;
-            var datas = $formsearch.serialize().split("&");
-            for (var i = 0; i < datas.length; i++) {
-                postdata[datas[i].split("=")[0]] = decodeURI(datas[i].split("=")[1]);
-            }
-            $gridList.jqGrid('setGridParam', {
-                postData: postdata,
-                datatype: "json",
-                page: 1,
-            }).trigger('reloadGrid', { fromServer: true, page: 1 });
-            $("#Btn_Power_Search").click();
-
-            $KeyValue = $gridList.jqGridRowValue();
-            if ($KeyValue.length == 1) {
-                $btnedit.removeAttr("disabled");
-            }
-            else {
-                $btnedit.attr("disabled", "disabled");
-            }
-            if ($KeyValue.length > 0) {
-                $btndel.removeAttr("disabled");
-            }
-            else {
-                $btndel.attr("disabled", "disabled");
-            }
-
-        });
-    },
+    $index: null,
     BTable: function (options) {//文档地址： http://bootstrap-table.wenzhixin.net.cn/zh-cn/documentation/
         var defaults = {
             domid: "btable",
@@ -164,33 +21,64 @@ var $List = {
             classes: "table table-hover",
             url: "",
             idField: "_ukid",
+            contentType: "application/x-www-form-urlencoded", //"multipart/form-data",//"application/json",
+            dataType: "json",
             pageSize: 20,
             pageNumber: 1,
-            pageList: [10, 25, 50, 100, 1000],
+            pageList: [10, 20, 50, 100, 1000],
+            sidePagination: "server",
             pagination: true,
             showColumns: false,
             detailView: false,
             clickToSelect: true,
             sortable: true,
+            silentSort: true,
             sortName: "_ukid",//定义排序列,通过url方式获取数据填写字段名，否则填写下标 
             sortOrder: "asc",//定义排序方式 'asc' 或者 'desc'
+            maintainSelected: true,
             columns: [],
             data: [],
+            queryParams: null,
             onClickRow: null,
             onDblClickRow: null,
             onCheck: null,
             onCheckAll: null,
         };
         var options = $.extend({}, defaults, options);
+        //拼接 一下表格的默认 列
+        var columns_def = [{
+            field: 'number',
+            title: '行号',
+            width: '40px',
+            align: 'center',
+            formatter: function (value, row, index) {
+                var page = $btList.bootstrapTable("getPage");
+                return page.pageSize * (page.pageNumber - 1) + index + 1;
+                //return index + 1;
+            }
+        }, {
+            checkbox: true,
+            field: 'ck',
+        }];
+        for (var i = 0; i < options.columns.length; i++) {
+            columns_def.push(options.columns[i]);
+        }
+        options.columns = columns_def;
+
         $btList = $('#' + options.domid);
         var jsonConfig = {
             height: options.height,
             striped: options.striped,
             method: options.method,
+            contentType: options.contentType,
+            dataType: options.dataType,
             classes: options.classes,
             url: options.url,
             columns: options.columns,
+            sidePagination: options.sidePagination,
             data: options.data,
+            queryParamsType: 'limit_123',
+            undefinedText: '',
             idField: options.idField,
             pageSize: options.pageSize,
             pageNumber: options.pageNumber,
@@ -200,14 +88,52 @@ var $List = {
             detailView: options.detailView,
             clickToSelect: options.clickToSelect,
             sortable: options.sortable,
+            silentSort: options.silentSort,
             sortName: options.sortName,
             sortOrder: options.sortOrder,
+            maintainSelected: options.maintainSelected,
+            responseHandler: function (res) {
+                res.total = res.records;//这里为了兼容以前的 表格插件  
+                return res;
+            },
+            queryParams: function (params) {
+                params = {
+                    rows: params.pageSize,   //页面大小
+                    page: params.pageNumber,  //页码
+                    sortName: params.sortName,  //排序列名
+                    sortOrder: params.sortOrder//排位命令（desc，asc）
+                };
+                //将检索的信息放入进去
+                var datas = $formsearch.serialize().split("&");
+                for (var i = 0; i < datas.length; i++) {
+                    params[datas[i].split("=")[0]] = decodeURI(datas[i].split("=")[1]);
+                }
+                console.log(params);
+                if (options.queryParams != null) {
+                    return options.queryParams(params);
+                    //var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                    //    pageSize: params.limit,   //页面大小
+                    //    pageNumber: params.pageNumber,  //页码
+                    //    minSize: $("#leftLabel").val(),
+                    //    maxSize: $("#rightLabel").val(),
+                    //    minPrice: $("#priceleftLabel").val(),
+                    //    maxPrice: $("#pricerightLabel").val(),
+                    //    Cut: Cut,
+                    //    Color: Color,
+                    //    Clarity: Clarity,
+                    //    sort: params.sort,  //排序列名
+                    //    sortOrder: params.order//排位命令（desc，asc）
+                    //};
+                }
+                return params;
+            },
             onClickRow: function (row, dom, field) {
                 $btList.bootstrapTable('uncheckAll');
                 if (options.onClickRow != null) {
                     options.onClickRow(row, dom, field);
                 } else {
-
+                    //$List.$index = dom.data('index');
+                    $List.$index = row._ukid;
                 }
             },
             onDblClickRow: function (row, dom, field) {
@@ -216,10 +142,10 @@ var $List = {
                         options.onDblClickRow(row, dom, field);
                 } else {
                     if (fun != null && fun != "")
-                        $.FindBack.JqGridBindDbClick(row._ukid);
+                        $.FindBack.BindDbClick(row._ukid);
                 }
             },
-            onCheck: function (row, dom) {
+            onCheck: function (row, dom) {//选中复选框
                 if (options.onCheck != null) {
                     options.onCheck(row, dom);
                 } else {
@@ -227,21 +153,35 @@ var $List = {
                     $List.ChekeBtnState();
                 }
             },
-            onUncheck: function () {
+            onUncheck: function () {//取消复选框
 
                 $List.ChekeBtnState();
             },
-            onCheckAll: function (row) {
+            onCheckAll: function (row) {//选中所有复选框
                 if (options.onCheckAll != null) {
                     options.onCheckAll(row);
                 } else {
                     $List.ChekeBtnState();
+                }
+            },
+            onUncheckAll: function () {
+                $List.ChekeBtnState();
+            },
+            onLoadSuccess: function () {
+                //加载完成 检测一下是否有选中的行id 如果有将行 设置为选中状态
+                if ($List.$index) {
+                    $btList.bootstrapTable("checkBy", { field: "_ukid", values: [$List.$index] });
                 }
             }
         };
         $btList.bootstrapTable(jsonConfig);
         $(window).resize(function () {
             $btList.bootstrapTable('resetView');
+        });
+
+        //检索
+        $btnsearch.click(function () {
+            $List.Refresh();
         });
     },
     ChekeBtnState: function () {//检查button 状态
@@ -255,6 +195,9 @@ var $List = {
                 $btndel.removeAttr("disabled");
                 $btnedit.attr("disabled", "disabled");
             }
+        } else {
+            $btnedit.attr("disabled", "disabled");
+            $btndel.attr("disabled", "disabled");
         }
     },
     //删除数据
@@ -281,7 +224,7 @@ var $List = {
                     success: function (r) {
                         if (r.status == 1) {
                             Lay.close(ix);
-                            Refresh();
+                            $List.Refresh();
                             FW.MsgBox("操作成功!", "成功");
                         }
                     }
@@ -292,7 +235,10 @@ var $List = {
     ExportExcel: function (url, data) {//到处excel
         $(event.srcElement).attr("href", url + "?" + $formsearch.serialize() + (data ? data : ""));
     },
-}
+    Refresh: function () {
+        $btList.bootstrapTable('refresh');  //refresh 刷新表格
+    }
+};
 
 //检索隐藏、显示
 function ShowSearch(t) {
@@ -308,41 +254,7 @@ function ShowSearch(t) {
     }
 }
 
-//刷新列表
-function Refresh(data) {
-    if (data) {
-        var postdata = $gridList.jqGrid('getGridParam').postData;
-        var datas = ($formsearch.serialize() + data).split("&");
-        for (var i = 0; i < datas.length; i++) {
-            postdata[datas[i].split("=")[0]] = decodeURI(datas[i].split("=")[1]);
-        }
-        $gridList.jqGrid('setGridParam', {
-            postData: postdata,
-            datatype: "json",
-            page: 1,
-        }).trigger('reloadGrid', { fromServer: true, page: 1 });
-    }
-    else {
-        $gridList.trigger("reloadGrid", { fromServer: true, page: 1 });
-    }
-
-    $KeyValue = $gridList.jqGridRowValue();
-    if ($KeyValue.length == 1) {
-        $btnedit.removeAttr("disabled");
-    }
-    else {
-        $btnedit.attr("disabled", "disabled");
-    }
-    if ($KeyValue.length > 0) {
-        $btndel.removeAttr("disabled");
-    }
-    else {
-        $btndel.attr("disabled", "disabled");
-    }
-
-}
-
-//bootstraptable 的 扩展类  用来获取用户选中的信息  返回值： 如果是选中的多条 则返回的是一个数组里面包含了每行的信息  如果是选中的单条则返回的是一行的信息
+//bootstraptable 的 扩展方法  用来获取用户选中的信息  返回值： 如果是选中的多条 则返回的是一个数组里面包含了每行的信息  如果是选中的单条则返回的是一行的信息
 $.fn.BTRowValue = function () {
     var $BTable = $(this);
     var rows = $BTable.bootstrapTable('getSelections');

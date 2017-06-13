@@ -12,7 +12,7 @@ namespace DBAccess.Entity
         /// <summary>
         /// JqGird  ColModel 页面表头
         /// </summary>
-        public List<M_JqGridColModel> JqGridColModel = new List<M_JqGridColModel>();
+        public List<BootStrapTableColModel> ColModel = new List<BootStrapTableColModel>();
 
         /// <summary>
         /// DataTable

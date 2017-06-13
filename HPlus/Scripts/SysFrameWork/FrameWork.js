@@ -386,7 +386,7 @@ $.ExFun = function (funName, iframeName) {
 
 //查找带回
 $.FindBack = {
-    JqGridBindDbClick: function (id) {
+    BindDbClick: function (id) {
         var fun = FW.GetQueryString("fun");
         if (fun != null) {
             top.FW.setCookie("FindBack_Json", id);
@@ -552,7 +552,7 @@ $.ModalClose = function (IsClose) {
     }
     try {
         if (parentName) {
-            top.window.frames[parentName].Refresh();
+            top.window.frames[parentName].$List.Refresh();
         }
     } catch (e) {
 
@@ -561,25 +561,6 @@ $.ModalClose = function (IsClose) {
         Lay.close($.GetFrameIndex());
     }
     else {
-    }
-}
-
-$.fn.jqGridRowValue = function () {
-    var $grid = $(this);
-    var selectedRowIds = $grid.jqGrid("getGridParam", "selarrrow");
-    if (selectedRowIds != "") {
-        var json = [];
-        var len = selectedRowIds.length;
-        for (var i = 0; i < len ; i++) {
-            var rowData = $grid.jqGrid('getRowData', selectedRowIds[i]);
-            json.push(rowData);
-        }
-        return json;
-    } else {
-        if (!$grid.jqGrid('getGridParam', 'multiselect'))
-            return $grid.jqGrid('getRowData', $grid.jqGrid('getGridParam', 'selrow'));
-        else
-            return new Array();
     }
 }
 

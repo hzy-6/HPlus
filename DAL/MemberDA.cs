@@ -27,7 +27,9 @@ namespace DAL
         public PagingEntity GetDataSource(Hashtable query, int pageindex, int pagesize)
         {
             string where = "";
-            var pe = db.Find(@"select * from member", pageindex, pagesize);
+            where += string.IsNullOrEmpty(Tools.getString(query["Member_Name"])) ? "" : " and Member_Name like '%" + Tools.getString(query["Member_Name"]) + "%'";
+
+            var pe = db.Find(@"select Member_Name,Member_Sex,Member_CreateTime,Member_ID _ukid from member where 1=1 " + where + " ", pageindex, pagesize);
             return new ToJson().GetPagingEntity(pe, new List<BaseModel>()
             { new MemberM()
             });

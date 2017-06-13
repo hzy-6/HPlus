@@ -16,7 +16,7 @@ namespace DBAccess
     /// </summary>
     public class ToJson
     {
-        M_JqGridColModel mjgcm = new M_JqGridColModel();
+        BootStrapTableColModel mjgcm = new BootStrapTableColModel();
 
         public ToJson()
         {
@@ -82,26 +82,26 @@ namespace DBAccess
                 });
                 foreach (DataColumn dc in pe.dt.Columns)
                 {
-                    mjgcm = new M_JqGridColModel();
+                    mjgcm = new BootStrapTableColModel();
                     var pro = list.Find(item => item.Name.Equals(dc.ColumnName));
                     if (pro == null)
                     {
-                        mjgcm.label = dc.ColumnName;
-                        mjgcm.name = dc.ColumnName;
-                        mjgcm.hidden = dc.ColumnName.Equals("_ukid") ? true : false;
+                        mjgcm.title = dc.ColumnName;
+                        mjgcm.field = dc.ColumnName;
+                        mjgcm.visible = dc.ColumnName.Equals("_ukid") ? false : true;
                         mjgcm.align = "left";
                     }
                     else
                     {
                         //获取有特性标记的属性【获取字段别名（中文名称）】
                         var FiledConfig = pro.GetCustomAttribute(typeof(FiledAttribute)) as FiledAttribute;
-                        mjgcm = new M_JqGridColModel();
-                        mjgcm.label = (FiledConfig.DisplayName == "" ? dc.ColumnName : FiledConfig.DisplayName);
-                        mjgcm.name = dc.ColumnName;
-                        mjgcm.hidden = !FiledConfig.IsShowColumn;
+                        mjgcm = new BootStrapTableColModel();
+                        mjgcm.title = (FiledConfig.DisplayName == "" ? dc.ColumnName : FiledConfig.DisplayName);
+                        mjgcm.field = dc.ColumnName;
+                        mjgcm.visible = FiledConfig.IsShowColumn;
                         mjgcm.align = "left";
                     }
-                    pe.JqGridColModel.Add(mjgcm);
+                    pe.ColModel.Add(mjgcm);
                 }
             }
             return pe;

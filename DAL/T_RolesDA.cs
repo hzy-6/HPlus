@@ -30,7 +30,11 @@ namespace DAL
             string where = "";
             where += string.IsNullOrEmpty(Tools.getString(query[Tools.getAttrName(() => troles.cRoles_Name)])) ? "" : " and " + Tools.getAttrName(() => troles.cRoles_Name) + " like '%" + Tools.getString(query[Tools.getAttrName(() => troles.cRoles_Name)]) + "%' ";
 
-            return db.Find(@"select uRoles_ID _ukid, cRoles_Number, cRoles_Name, cRoles_Remark, dRoles_CreateTime from T_Roles where 1=1 " + where + " order by cRoles_Number ", pageindex, pagesize);
+            var pe = db.Find(@"select uRoles_ID _ukid, cRoles_Number, cRoles_Name, cRoles_Remark, dRoles_CreateTime from T_Roles where 1=1 " + where + " order by cRoles_Number ", pageindex, pagesize);
+            return new ToJson().GetPagingEntity(pe, new List<BaseModel>()
+            {
+                new T_Roles()
+            });
         }
 
         /// <summary>

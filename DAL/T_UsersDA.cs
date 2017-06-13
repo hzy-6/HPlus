@@ -32,7 +32,7 @@ namespace DAL
             where += string.IsNullOrEmpty(Tools.getString(query[Tools.getAttrName(() => tusers.cUsers_Name)])) ? "" : " and " + Tools.getAttrName(() => tusers.cUsers_Name) + " like '%" + Tools.getString(query[Tools.getAttrName(() => tusers.cUsers_Name)]) + "%' ";
             where += string.IsNullOrEmpty(Tools.getString(query[Tools.getAttrName(() => tusers.cUsers_LoginName)])) ? "" : " and " + Tools.getAttrName(() => tusers.cUsers_LoginName) + " like '%" + Tools.getString(query[Tools.getAttrName(() => tusers.cUsers_LoginName)]) + "%' ";
 
-            PagingEntity pe = db.Find(@"select uUsers_ID _ukid, cUsers_Name, cUsers_LoginName,cRoles_Name ,dUsers_CreateTime
+            PagingEntity pe = db.Find(@"select cUsers_Name, cUsers_LoginName,cRoles_Name ,dUsers_CreateTime,uUsers_ID _ukid
 				            from T_Users a
 				            left join dbo.T_UsersRoles b on a.uUsers_ID=b.uUsersRoles_UsersID
 				            left join dbo.T_Roles c on b.uUsersRoles_RoleID=c.uRoles_ID
