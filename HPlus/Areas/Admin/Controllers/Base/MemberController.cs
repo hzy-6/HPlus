@@ -13,7 +13,7 @@ using BLL;
 using Model;
 using System.Collections;
 
-namespace HPlus.Areas.SysManage.Controllers.Base
+namespace HPlus.Areas.Admin.Controllers.Base
 {
     public class MemberController : BaseController
     {

@@ -127,6 +127,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\Base\MemberController.cs" />
     <Compile Include="Areas\Admin\Controllers\ErrorController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs">
       <SubType>Code</SubType>
@@ -134,18 +135,14 @@
     <Compile Include="Areas\Admin\Controllers\LoginController.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Areas\SysManage\Controllers\Base\MemberController.cs" />
-    <Compile Include="Areas\SysManage\Controllers\Sys\ChangePwdController.cs" />
-    <Compile Include="Areas\SysManage\Controllers\Sys\CreateCodeController.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Areas\SysManage\Controllers\Sys\FunctionController.cs" />
-    <Compile Include="Areas\SysManage\Controllers\Sys\MenuFunctionController.cs" />
-    <Compile Include="Areas\SysManage\Controllers\Sys\PowerControlController.cs" />
-    <Compile Include="Areas\SysManage\Controllers\Sys\RoleController.cs" />
-    <Compile Include="Areas\SysManage\Controllers\Sys\RoleFunctionController.cs" />
-    <Compile Include="Areas\SysManage\Controllers\Sys\UserController.cs" />
-    <Compile Include="Areas\SysManage\SysManageAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\Sys\ChangePwdController.cs" />
+    <Compile Include="Areas\Admin\Controllers\Sys\CreateCodeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\Sys\FunctionController.cs" />
+    <Compile Include="Areas\Admin\Controllers\Sys\MenuFunctionController.cs" />
+    <Compile Include="Areas\Admin\Controllers\Sys\PowerControlController.cs" />
+    <Compile Include="Areas\Admin\Controllers\Sys\RoleController.cs" />
+    <Compile Include="Areas\Admin\Controllers\Sys\RoleFunctionController.cs" />
+    <Compile Include="Areas\Admin\Controllers\Sys\UserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -162,7 +159,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\data.sql" />
-    <Content Include="Areas\SysManage\Views\Base\Member\Index.cshtml" />
     <Content Include="Content\Css\jquery.bootstrap.css" />
     <Content Include="Content\Css\Login.css" />
     <Content Include="Content\HPlus\css\animate.css" />
@@ -1285,7 +1281,19 @@
     <Content Include="Scripts\Bootstrap\bootstrap-table-master\src\locale\bootstrap-table-en-US.js.template" />
     <Content Include="Scripts\Bootstrap\bootstrap-table-master\src\locale\README.md" />
     <Content Include="Scripts\Bootstrap\bootstrap-table-master\_config.yml" />
-    <Content Include="Areas\SysManage\Views\Base\Member\Info.cshtml" />
+    <Content Include="Areas\Admin\Views\Base\Member\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Base\Member\Info.cshtml" />
+    <Content Include="Areas\Admin\Views\Sys\ChangePwd\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Sys\CreateCode\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Sys\Function\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Sys\Function\Info.cshtml" />
+    <Content Include="Areas\Admin\Views\Sys\MenuFunction\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Sys\PowerControl\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Sys\Role\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Sys\Role\Info.cshtml" />
+    <Content Include="Areas\Admin\Views\Sys\RoleFunction\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Sys\User\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Sys\User\Info.cshtml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -2105,7 +2113,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Views\Shared\" />
-    <Folder Include="Areas\SysManage\Views\Shared\" />
     <Folder Include="Content\CreateFile\BLL\" />
     <Folder Include="Content\CreateFile\DAL\" />
     <Folder Include="Content\CreateFile\Model\" />
@@ -2172,39 +2179,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\SysManage\Views\Web.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\SysManage\Views\Sys\ChangePwd\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\SysManage\Views\Sys\Function\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\SysManage\Views\Sys\Function\Info.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\SysManage\Views\Sys\MenuFunction\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\SysManage\Views\Sys\PowerControl\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\SysManage\Views\Sys\Role\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\SysManage\Views\Sys\Role\Info.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\SysManage\Views\Sys\RoleFunction\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\SysManage\Views\Sys\User\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\SysManage\Views\Sys\User\Info.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Areas\Admin\Views\Error\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Home\HomePage.cshtml" />
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
@@ -2212,9 +2186,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\TestPage.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\SysManage\Views\Sys\CreateCode\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

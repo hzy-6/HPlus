@@ -13,7 +13,7 @@ using BLL;
 using Model;
 using System.Collections;
 
-namespace HPlus.Areas.SysManage.Controllers.Sys
+namespace HPlus.Areas.Admin.Controllers.Sys
 {
     public class RoleController : BaseController
     {

@@ -12,7 +12,7 @@ using Utility;
 using BLL;
 using Model;
 
-namespace HPlus.Areas.SysManage.Controllers.Sys
+namespace HPlus.Areas.Admin.Controllers.Sys
 {
     public class ChangePwdController : BaseController
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace HPlus.Areas.SysManage.Controllers.Sys
+namespace HPlus.Areas.Admin.Controllers.Sys
 {
     public class PowerControlController : Controller
     {
