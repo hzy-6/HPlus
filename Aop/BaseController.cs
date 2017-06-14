@@ -138,11 +138,12 @@ namespace Aop
                 {
                     _func_list.ForEach(item =>
                     {
-                        var ispower = _menu_func_list.FindAll(x => x.uMenuFunction_MenuID == Tools.getGuid(MenuID) && x.uMenuFunction_FunctionID == item.uFunction_ID);
-                        if (ispower.Count > 0)
-                            _power_list.Add(item.cFunction_ByName, true);
-                        else
-                            _power_list.Add(item.cFunction_ByName, false);
+                        _power_list.Add(item.cFunction_ByName, true);
+                        //var ispower = _menu_func_list.FindAll(x => x.uMenuFunction_MenuID == Tools.getGuid(MenuID) && x.uMenuFunction_FunctionID == item.uFunction_ID);
+                        //if (ispower.Count > 0)
+                        //    _power_list.Add(item.cFunction_ByName, true);
+                        //else
+                        //    _power_list.Add(item.cFunction_ByName, false);
                     });
                 }
             }

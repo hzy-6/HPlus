@@ -170,20 +170,21 @@ namespace BLL
             T_Function tf = new T_Function();
             T_MenuFunction tmf = new T_MenuFunction();
             T_RoleMenuFunction trmf = new T_RoleMenuFunction();
-            var menu_list = db.FindToList<T_Menu>(db.Find(@"select a.uMenu_ID,a.cMenu_Name,a.cMenu_Url,a.cMenu_Icon,a.uMenu_ParentId,a.cMenu_Number  from (select * from T_Menu 
-                             where (cMenu_Url is  null or cMenu_Url='') )a
-                             join                                    
-     (select cMenu_Number,uMenu_ParentId
-                     from T_RoleMenuFunction join T_Menu on uMenu_ID=uRoleMenuFunction_MenuID
-                group by uRoleMenuFunction_MenuID,uRoleMenuFunction_RoleID,cMenu_Number
-                       ) b on instr(b.cMenu_Number,a.cMenu_Number)>0 and b.uMenu_ParentId=a.uMenu_ID
-                   union select uMenu_ID,cMenu_Name,cMenu_Url,cMenu_Icon,uMenu_ParentId,cMenu_Number 
-                    from T_Menu
-               join (select uRoleMenuFunction_MenuID,uRoleMenuFunction_RoleID 
-               from T_RoleMenuFunction 
-               group by uRoleMenuFunction_MenuID,uRoleMenuFunction_RoleID) a
-                on uMenu_ID=a.uRoleMenuFunction_MenuID
-                  order by cMenu_Number asc"));//this.GetMenuByRoleID()
+//            var menu_list = db.FindToList<T_Menu>(db.Find(@" select a.uMenu_ID,a.cMenu_Name,a.cMenu_Url,a.cMenu_Icon,a.uMenu_ParentID,a.cMenu_Number  from (select * from T_Menu 
+//                             where (cMenu_Url is  null or cMenu_Url='') )a
+//                             join                                    
+//     (select cMenu_Number,uMenu_ParentID
+//                     from dbo.T_RoleMenuFunction join T_Menu on uMenu_ID=uRoleMenuFunction_MenuID
+//                group by uRoleMenuFunction_MenuID,uRoleMenuFunction_RoleID,cMenu_Number,uMenu_ParentID
+//                       ) b on charindex(a.cMenu_Number,b.cMenu_Number)>0 or b.uMenu_ParentID=a.uMenu_ID
+//                   union select uMenu_ID,cMenu_Name,cMenu_Url,cMenu_Icon,uMenu_ParentID,cMenu_Number 
+//                    from T_Menu
+//              left join (select uRoleMenuFunction_MenuID,uRoleMenuFunction_RoleID 
+//               from dbo.T_RoleMenuFunction 
+//               group by uRoleMenuFunction_MenuID,uRoleMenuFunction_RoleID)a
+//                on uMenu_ID=a.uRoleMenuFunction_MenuID
+//                  order by cMenu_Number asc"));//this.GetMenuByRoleID()
+            var menu_list = db.FindToList<T_Menu>(t_menu, " cMenu_Number ");
             trmf.uRoleMenuFunction_RoleID = Tools.getGuid(roleid);
             var trmf_list = db.FindToList(trmf);//角色菜单功能
             var tf_list = db.FindToList(tf, " [iFunction_Number] asc");//功能
