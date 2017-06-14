@@ -26,6 +26,8 @@ var $List = {
             pageNumber: 1,
             pageList: [10, 20, 50, 100, 1000],
             sidePagination: "server",
+            paginationPreText: "上一页",
+            paginationNextText: "下一页",
             pagination: true,
             showColumns: false,
             detailView: false,
@@ -75,6 +77,8 @@ var $List = {
             url: options.url,
             columns: options.columns,
             sidePagination: options.sidePagination,
+            paginationPreText: options.paginationPreText,
+            paginationNextText: options.paginationNextText,
             data: options.data,
             queryParamsType: 'limit_123',
             undefinedText: '',
@@ -131,7 +135,7 @@ var $List = {
                 if (options.onClickRow != null) {
                     options.onClickRow(row, dom, field);
                 } else {
-                    //$List.$index = dom.data('index');
+                    //$List.$index = dom.data('index'); //记录选中的id 用来 防止 info页保存后 列表刷新不能记住选中的数据
                     $List.$index = row._ukid;
                 }
             },

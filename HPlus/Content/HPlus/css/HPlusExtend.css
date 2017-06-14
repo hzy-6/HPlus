@@ -175,5 +175,9 @@ nav.page-tabs {
 }
 
 .btn {
-    padding: 2px 10px;
+    padding: 4px 10px;
+}
+
+#toast-container > div {
+    opacity: 1;
 }

@@ -28,13 +28,13 @@ $(function () {
     $.AjaxFilter();
     To.options = {
         "closeButton": true,
-        "debug": true,
+        "debug": false,
         "progressBar": true,
-        "preventDuplicates": true,
-        "positionClass": "toast-top-center",
+        "preventDuplicates": false,
+        "positionClass": "toast-top-right",
         "showDuration": "400",
         "hideDuration": "1000",
-        "timeOut": "7000",
+        "timeOut": "6000",
         "extendedTimeOut": "1000",
         "showEasing": "swing",
         "hideEasing": "linear",

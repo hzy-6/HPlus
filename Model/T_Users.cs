@@ -34,7 +34,7 @@ namespace Model
             get { return GetValue<string>(MethodBase.GetCurrentMethod().Name); }
         }
 
-        [CRequired(ErrorMessage = "用户登陆名不能为空")]
+        [CRequired(ErrorMessage = "{name}不能为空")]
         [Filed(DisplayName = "登陆名称")]
         public string cUsers_LoginName
         {

@@ -33,6 +33,7 @@ namespace Model
             get { return GetValue<string>("cRoles_Number"); }
         }
 
+        [CRequired(ErrorMessage = "{name}不能为空")]
         [Filed(DisplayName = "角色名称")]
         public string cRoles_Name
         {
