@@ -108,9 +108,8 @@ var $List = {
                 for (var i = 0; i < datas.length; i++) {
                     params[datas[i].split("=")[0]] = decodeURI(datas[i].split("=")[1]);
                 }
-                console.log(params);
                 if (options.queryParams != null) {
-                    return options.queryParams(params);
+                    params = options.queryParams(params);
                     //var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
                     //    pageSize: params.limit,   //页面大小
                     //    pageNumber: params.pageNumber,  //页码
@@ -125,6 +124,7 @@ var $List = {
                     //    sortOrder: params.order//排位命令（desc，asc）
                     //};
                 }
+                console.log(params);
                 return params;
             },
             onClickRow: function (row, dom, field) {
