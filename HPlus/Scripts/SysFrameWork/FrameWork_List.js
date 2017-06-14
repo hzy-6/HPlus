@@ -6,9 +6,8 @@ var $formsearch = $("#form_search");
 var $btndel = $("button[data-power=Del]");
 var $btnedit = $("button[data-power=Edit]");
 var fun = FW.GetQueryString("fun");
-var $KeyValue = "";
+var $KeyValue = [];
 $(function () {
-
 });
 var $List = {
     $index: null,
@@ -149,12 +148,10 @@ var $List = {
                 if (options.onCheck != null) {
                     options.onCheck(row, dom);
                 } else {
-
                     $List.ChekeBtnState();
                 }
             },
             onUncheck: function () {//取消复选框
-
                 $List.ChekeBtnState();
             },
             onCheckAll: function (row) {//选中所有复选框
@@ -164,7 +161,7 @@ var $List = {
                     $List.ChekeBtnState();
                 }
             },
-            onUncheckAll: function () {
+            onUncheckAll: function () {//取消选中所有复选框
                 $List.ChekeBtnState();
             },
             onLoadSuccess: function () {
@@ -174,11 +171,12 @@ var $List = {
                 }
             }
         };
+        //生成表格
         $btList.bootstrapTable(jsonConfig);
+        //表格自适应
         $(window).resize(function () {
-            $btList.bootstrapTable('resetView');
+            $btList.bootstrapTable('resetView', { height: $(window).height() - 80 });
         });
-
         //检索
         $btnsearch.click(function () {
             $List.Refresh();
@@ -206,16 +204,15 @@ var $List = {
             url: ""
         };
         var options = $.extend({}, defaults, options);
-        var KeyValue = $btList.BTRowValue();
-        if (KeyValue.length < 1) {
+        if ($KeyValue.length < 1) {
             FW.MsgBox("请选择要移除的数据!", "警告");
             return false;
         }
         FW.ConfirmBox("确认删除吗?", function (r, ix) {
             if (r) {
                 var arr = Array();
-                for (var i = 0; i < KeyValue.length; i++) {
-                    arr.push(KeyValue[i]._ukid);
+                for (var i = 0; i < $KeyValue.length; i++) {
+                    arr.push($KeyValue[i]._ukid);
                 }
                 FW.Ajax({
                     type: "post",
