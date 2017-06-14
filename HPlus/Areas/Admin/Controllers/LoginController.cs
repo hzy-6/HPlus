@@ -28,6 +28,7 @@ namespace HPlus.Areas.Admin.Controllers
 
         public ActionResult Index()
         {
+            Session.Clear();
             return View();
         }
 
