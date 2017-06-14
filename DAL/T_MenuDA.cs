@@ -20,18 +20,7 @@ namespace DAL
         {
             if (Tools.getSession("RoleID").Equals("admin"))
             {
-                return db.Find(@"with
-                        menu as 
-                        (
-                            select uMenu_ID,cMenu_Name,cMenu_Url,cMenu_Icon,uMenu_ParentId,cMenu_Number 
-		                        from dbo.T_Menu 
-		                        where (uMenu_ParentId is null or uMenu_ParentId='00000000-0000-0000-0000-000000000000') 
-		                        union all
-                            select a.uMenu_ID,a.cMenu_Name,a.cMenu_Url,a.cMenu_Icon,a.uMenu_ParentId,a.cMenu_Number  
-		                        from dbo.T_Menu a, menu b
-                                where a.uMenu_ParentId = b.uMenu_ID
-                        )
-                        select * from menu order by  cMenu_Number asc");
+                return db.Find(@"select uMenu_ID,cMenu_Name,cMenu_Url,cMenu_Icon,uMenu_ParentId,cMenu_Number from T_Menu");
             }
             else
             {
@@ -42,7 +31,7 @@ namespace DAL
                      from dbo.T_RoleMenuFunction join T_Menu on uMenu_ID=uRoleMenuFunction_MenuID
                         and uRoleMenuFunction_RoleID='" + Tools.getGuid(Tools.getSession("RoleID")) + @"'
                 group by uRoleMenuFunction_MenuID,uRoleMenuFunction_RoleID,cMenu_Number
-                       ) b on charindex(a.cMenu_Number,b.cMenu_Number)>0
+                       ) b on charindex(a.cMenu_Number,b.cMenu_Number)>0 and b.uMenu_ParentId=a.uMenu_ID
                    union select uMenu_ID,cMenu_Name,cMenu_Url,cMenu_Icon,uMenu_ParentId,cMenu_Number 
                     from T_Menu
                join (select uRoleMenuFunction_MenuID,uRoleMenuFunction_RoleID 
