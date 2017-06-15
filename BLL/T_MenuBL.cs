@@ -170,55 +170,45 @@ namespace BLL
             T_Function tf = new T_Function();
             T_MenuFunction tmf = new T_MenuFunction();
             T_RoleMenuFunction trmf = new T_RoleMenuFunction();
-//            var menu_list = db.FindToList<T_Menu>(db.Find(@" select a.uMenu_ID,a.cMenu_Name,a.cMenu_Url,a.cMenu_Icon,a.uMenu_ParentID,a.cMenu_Number  from (select * from T_Menu 
-//                             where (cMenu_Url is  null or cMenu_Url='') )a
-//                             join                                    
-//     (select cMenu_Number,uMenu_ParentID
-//                     from dbo.T_RoleMenuFunction join T_Menu on uMenu_ID=uRoleMenuFunction_MenuID
-//                group by uRoleMenuFunction_MenuID,uRoleMenuFunction_RoleID,cMenu_Number,uMenu_ParentID
-//                       ) b on charindex(a.cMenu_Number,b.cMenu_Number)>0 or b.uMenu_ParentID=a.uMenu_ID
-//                   union select uMenu_ID,cMenu_Name,cMenu_Url,cMenu_Icon,uMenu_ParentID,cMenu_Number 
-//                    from T_Menu
-//              left join (select uRoleMenuFunction_MenuID,uRoleMenuFunction_RoleID 
-//               from dbo.T_RoleMenuFunction 
-//               group by uRoleMenuFunction_MenuID,uRoleMenuFunction_RoleID)a
-//                on uMenu_ID=a.uRoleMenuFunction_MenuID
-//                  order by cMenu_Number asc"));//this.GetMenuByRoleID()
-            var menu_list = db.FindToList<T_Menu>(t_menu, " cMenu_Number ");
+            var menu_list = db.FindToList<T_Menu>(t_menu, " cMenu_Number desc ");
             trmf.uRoleMenuFunction_RoleID = Tools.getGuid(roleid);
             var trmf_list = db.FindToList(trmf);//角色菜单功能
             var tf_list = db.FindToList(tf, " [iFunction_Number] asc");//功能
             var tmf_list = db.FindToList(tmf);//菜单功能
 
             var list = new List<Dictionary<string, object>>();
-
             var _paret_menu_list = menu_list.FindAll(item => item.uMenu_ParentID == null || item.uMenu_ParentID.Equals(Guid.Empty));
-
-            _paret_menu_list.ForEach(item =>
+            for (int i = _paret_menu_list.Count - 1; i >= 0; i--)
             {
-                var _child_menu_list = menu_list.FindAll(x => x.uMenu_ParentID != null && x.uMenu_ParentID.Equals(item.uMenu_ID));
+                var _child_menu_list = menu_list.FindAll(x => x.uMenu_ParentID != null && x.uMenu_ParentID.Equals(_paret_menu_list[i].uMenu_ID));
                 //判断是否有子集
                 if (_child_menu_list.Count() > 0)
                 {
                     dic = new Dictionary<string, object>();
-                    dic.Add("name", item.cMenu_Name + "(" + item.cMenu_Number + ")");
-                    dic.Add("id", item.uMenu_ID);
-                    dic.Add("pId", item.uMenu_ParentID);
-                    dic.Add("num", item.cMenu_Number);
-                    dic.Add("ur", item.cMenu_Url);
+                    dic.Add("name", _paret_menu_list[i].cMenu_Name + "(" + _paret_menu_list[i].cMenu_Number + ")");
+                    dic.Add("id", _paret_menu_list[i].uMenu_ID);
+                    dic.Add("pId", _paret_menu_list[i].uMenu_ParentID);
+                    dic.Add("num", _paret_menu_list[i].cMenu_Number);
+                    dic.Add("ur", _paret_menu_list[i].cMenu_Url);
                     dic.Add("tag", null);
                     dic.Add("checked", false);
                     list.Add(dic);
-                    this.FindChildMenu(menu_list, trmf_list, tf_list, tmf_list, item, Tools.getGuid(roleid), list);
+                    this.FindChildMenu(menu_list, trmf_list, tf_list, tmf_list, _paret_menu_list[i], Tools.getGuid(roleid), list);
                 }
                 else
                 {
+                    if (tmf_list.FindAll(val => val.uMenuFunction_MenuID.Equals(_paret_menu_list[i].uMenu_ID)).Count() == 0)//判断该菜单是否有 勾选了功能 如果没有则删除
+                    {
+                        _paret_menu_list.RemoveAt(i);
+                        continue;
+                    }
+
                     dic = new Dictionary<string, object>();
-                    dic.Add("name", item.cMenu_Name + "(" + item.cMenu_Number + ")");
-                    dic.Add("id", item.uMenu_ID);
-                    dic.Add("pId", item.uMenu_ParentID);
-                    dic.Add("num", item.cMenu_Number);
-                    dic.Add("ur", item.cMenu_Url);
+                    dic.Add("name", _paret_menu_list[i].cMenu_Name + "(" + _paret_menu_list[i].cMenu_Number + ")");
+                    dic.Add("id", _paret_menu_list[i].uMenu_ID);
+                    dic.Add("pId", _paret_menu_list[i].uMenu_ParentID);
+                    dic.Add("num", _paret_menu_list[i].cMenu_Number);
+                    dic.Add("ur", _paret_menu_list[i].cMenu_Url);
                     dic.Add("tag", null);
                     dic.Add("checked", false);
                     list.Add(dic);
@@ -227,17 +217,17 @@ namespace BLL
                     tf_list.ForEach(a =>
                     {
                         if (tmf_list.FindAll(val => val.uMenuFunction_FunctionID.Equals(a.uFunction_ID)
-                            && val.uMenuFunction_MenuID.Equals(item.uMenu_ID)).Count() > 0)
+                            && val.uMenuFunction_MenuID.Equals(_paret_menu_list[i].uMenu_ID)).Count() > 0)
                         {
                             dic = new Dictionary<string, object>();
                             dic.Add("name", a.cFunction_Name);
                             dic.Add("id", a.uFunction_ID);
-                            dic.Add("pId", item.uMenu_ID);
+                            dic.Add("pId", _paret_menu_list[i].uMenu_ID);
                             dic.Add("num", a.iFunction_Number);
                             dic.Add("ur", null);
                             dic.Add("tag", "fun");
                             //判断该功能是否选中
-                            var ischecked = trmf_list.FindAll(x => x.uRoleMenuFunction_FunctionID.Equals(a.uFunction_ID) && x.uRoleMenuFunction_MenuID.Equals(item.uMenu_ID) && x.uRoleMenuFunction_RoleID.Equals(Tools.getGuid(roleid))).FirstOrDefault();
+                            var ischecked = trmf_list.FindAll(x => x.uRoleMenuFunction_FunctionID.Equals(a.uFunction_ID) && x.uRoleMenuFunction_MenuID.Equals(_paret_menu_list[i].uMenu_ID) && x.uRoleMenuFunction_RoleID.Equals(Tools.getGuid(roleid))).FirstOrDefault();
                             if (ischecked == null)
                                 dic.Add("checked", false);
                             else
@@ -246,7 +236,7 @@ namespace BLL
                         }
                     });
                 }
-            });
+            }
             return list;
         }
 
@@ -256,31 +246,37 @@ namespace BLL
 
             var _paret_menu_list = menu_list.FindAll(item => item.uMenu_ParentID != null && item.uMenu_ParentID.Equals(menu.uMenu_ID));
 
-            _paret_menu_list.ForEach(item =>
+            for (int i = _paret_menu_list.Count - 1; i >= 0; i--)
             {
-                var _child_menu_list = menu_list.FindAll(x => x.uMenu_ParentID != null && x.uMenu_ParentID.Equals(item.uMenu_ID));
+                var _child_menu_list = menu_list.FindAll(x => x.uMenu_ParentID != null && x.uMenu_ParentID.Equals(_paret_menu_list[i].uMenu_ID));
                 //判断是否有子集
                 if (_child_menu_list.Count() > 0)
                 {
                     dic = new Dictionary<string, object>();
-                    dic.Add("name", item.cMenu_Name + "(" + item.cMenu_Number + ")");
-                    dic.Add("id", item.uMenu_ID);
-                    dic.Add("pId", item.uMenu_ParentID);
-                    dic.Add("num", item.cMenu_Number);
-                    dic.Add("ur", item.cMenu_Url);
+                    dic.Add("name", _paret_menu_list[i].cMenu_Name + "(" + _paret_menu_list[i].cMenu_Number + ")");
+                    dic.Add("id", _paret_menu_list[i].uMenu_ID);
+                    dic.Add("pId", _paret_menu_list[i].uMenu_ParentID);
+                    dic.Add("num", _paret_menu_list[i].cMenu_Number);
+                    dic.Add("ur", _paret_menu_list[i].cMenu_Url);
                     dic.Add("tag", null);
                     dic.Add("checked", false);
                     list.Add(dic);
-                    this.FindChildMenu(menu_list, trmf_list, tf_list, tmf_list, item, Tools.getGuid(roleid), list);
+                    this.FindChildMenu(menu_list, trmf_list, tf_list, tmf_list, _paret_menu_list[i], Tools.getGuid(roleid), list);
                 }
                 else
                 {
+                    if (tmf_list.FindAll(val => val.uMenuFunction_MenuID.Equals(_paret_menu_list[i].uMenu_ID)).Count() == 0)//判断该菜单是否有 勾选了功能 如果没有则删除
+                    {
+                        _paret_menu_list.RemoveAt(i);
+                        continue;
+                    }
+
                     dic = new Dictionary<string, object>();
-                    dic.Add("name", item.cMenu_Name + "(" + item.cMenu_Number + ")");
-                    dic.Add("id", item.uMenu_ID);
-                    dic.Add("pId", item.uMenu_ParentID);
-                    dic.Add("num", item.cMenu_Number);
-                    dic.Add("ur", item.cMenu_Url);
+                    dic.Add("name", _paret_menu_list[i].cMenu_Name + "(" + _paret_menu_list[i].cMenu_Number + ")");
+                    dic.Add("id", _paret_menu_list[i].uMenu_ID);
+                    dic.Add("pId", _paret_menu_list[i].uMenu_ParentID);
+                    dic.Add("num", _paret_menu_list[i].cMenu_Number);
+                    dic.Add("ur", _paret_menu_list[i].cMenu_Url);
                     dic.Add("tag", null);
                     dic.Add("checked", false);
                     list.Add(dic);
@@ -290,17 +286,17 @@ namespace BLL
                     tf_list.ForEach(a =>
                     {
                         if (tmf_list.FindAll(val => val.uMenuFunction_FunctionID.Equals(a.uFunction_ID)
-                            && val.uMenuFunction_MenuID.Equals(item.uMenu_ID)).Count() > 0)
+                            && val.uMenuFunction_MenuID.Equals(_paret_menu_list[i].uMenu_ID)).Count() > 0)
                         {
                             dic = new Dictionary<string, object>();
                             dic.Add("name", a.cFunction_Name);
                             dic.Add("id", a.uFunction_ID);
-                            dic.Add("pId", item.uMenu_ID);
+                            dic.Add("pId", _paret_menu_list[i].uMenu_ID);
                             dic.Add("num", a.iFunction_Number);
                             dic.Add("ur", null);
                             dic.Add("tag", "fun");
                             //判断该功能是否选中
-                            var ischecked = trmf_list.FindAll(x => x.uRoleMenuFunction_FunctionID.Equals(a.uFunction_ID) && x.uRoleMenuFunction_MenuID.Equals(item.uMenu_ID) && x.uRoleMenuFunction_RoleID.Equals(Tools.getGuid(roleid))).FirstOrDefault();
+                            var ischecked = trmf_list.FindAll(x => x.uRoleMenuFunction_FunctionID.Equals(a.uFunction_ID) && x.uRoleMenuFunction_MenuID.Equals(_paret_menu_list[i].uMenu_ID) && x.uRoleMenuFunction_RoleID.Equals(Tools.getGuid(roleid))).FirstOrDefault();
                             if (ischecked == null)
                                 dic.Add("checked", false);
                             else
@@ -309,7 +305,7 @@ namespace BLL
                         }
                     });
                 }
-            });
+            }
         }
 
         #endregion 系统管理》菜单功能，角色功能  树的json处理

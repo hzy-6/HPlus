@@ -14,7 +14,7 @@ var $List = {
     BTable: function (options) {//文档地址： http://bootstrap-table.wenzhixin.net.cn/zh-cn/documentation/
         var defaults = {
             domid: "btable",
-            height: $(window).height() - 80,
+            height: $(window).height() - 74,
             striped: true,
             method: "post",
             classes: "table table-hover",

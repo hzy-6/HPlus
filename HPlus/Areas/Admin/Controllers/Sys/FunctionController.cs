@@ -22,7 +22,7 @@ namespace HPlus.Areas.Admin.Controllers.Sys
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
             base.Initialize(requestContext);
-            this.MenuID = "Z-150";
+            this.MenuID = "Z-120";
         }
 
         T_Function tf = new T_Function();
