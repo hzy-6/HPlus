@@ -23,7 +23,7 @@ namespace DBAccess
         protected EditContext<BaseModel> edit;
         protected DeleteContext<BaseModel> delete;
         protected FindContext<BaseModel> find;
-        protected DBHelper dbhelper;
+        public DBHelper dbhelper;
         protected CheckContext<BaseModel> check;
 
         private string _ConnectionString { get; set; }
