@@ -8,7 +8,7 @@
     <link rel="shortcut icon" href="favicon.ico">
     <!--基础样式-->
     <link href="~/Content/HPlus/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Scripts/Bootstrap/bootstrap-table.min.css" rel="stylesheet" />    
+    <link href="~/Scripts/Bootstrap/bootstrap-table.min.css" rel="stylesheet" />
     <link href="~/Content/HPlus/css/font-awesome.css" rel="stylesheet">
     <link href="~/Content/HPlus/css/animate.css" rel="stylesheet" />
     <link href="~/Content/HPlus/css/style.css" rel="stylesheet" />
@@ -20,20 +20,21 @@
 </head>
 <body class="fixed-sidebar full-height-layout gray-bg" data-power="Have">
     @RenderBody()
-    <!--基础js-->
-    <script src="~/Scripts/Jquery/jquery-2.1.4.min.js"></script>
-    <script src="~/Scripts/Bootstrap/bootstrap.min.js"></script>
-    <script src="~/Scripts/Bootstrap/jquery.bootstrap.js"></script>
-    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
-    <script src="~/Scripts/Layer/layer-v3.0.1/layer/layer.js"></script>
-    <script src="~/Scripts/Ko/Knockout-3.4.2.debug.js"></script>
-    <script src="~/Scripts/Bootstrap/bootstrap-table.js"></script>
-    <script src="~/Scripts/Bootstrap/bootstrap-table-zh-CN.min.js"></script>
-    <script src="~/Scripts/AjaxFileUpload/ajaxfileupload.js"></script>
-    <script src="~/Scripts/Toastr/toastr.min.js"></script>
-    <script src="~/Scripts/Suggest/bootstrap-suggest.min.js"></script>
-    <script src="~/Scripts/SysFrameWork/FrameWork.js"></script>
-    @{Html.RenderPartial("~/Areas/Admin/Views/Sys/PowerControl/Index.cshtml");}
-    @RenderSection("js", required: false)
+
 </body>
 </html>
+<!--基础js-->
+<script src="~/Scripts/Jquery/jquery-2.1.4.min.js"></script>
+<script src="~/Scripts/Bootstrap/bootstrap.min.js"></script>
+<script src="~/Scripts/Bootstrap/jquery.bootstrap.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script src="~/Scripts/Layer/layer-v3.0.1/layer/layer.js"></script>
+<script src="~/Scripts/Ko/Knockout-3.4.2.debug.js"></script>
+<script src="~/Scripts/Bootstrap/bootstrap-table.js"></script>
+<script src="~/Scripts/Bootstrap/bootstrap-table-zh-CN.min.js"></script>
+<script src="~/Scripts/AjaxFileUpload/ajaxfileupload.js"></script>
+<script src="~/Scripts/Toastr/toastr.min.js"></script>
+<script src="~/Scripts/Suggest/bootstrap-suggest.min.js"></script>
+<script src="~/Scripts/SysFrameWork/FrameWork.js"></script>
+@{Html.RenderPartial("~/Areas/Admin/Views/Sys/PowerControl/Index.cshtml");}
+@RenderSection("js", required: false)

@@ -2,5 +2,11 @@
 {
     <script type="text/javascript">
         var PowerModel=@Html.Raw(ViewData["PowerModel"]);
+        var entity=PowerModel;
+        $(function(){
+            if(!entity.Have){
+                FW.MsgBox("缺少【是否拥有该菜单的权限】！","警告");
+            }
+        });
     </script>
 }

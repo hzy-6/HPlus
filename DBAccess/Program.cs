@@ -18,11 +18,11 @@ namespace DBAccess
         {
             Stopwatch s = new Stopwatch();
             s.Start();
-      /*      //申明一个操作实体的对象类
+            //申明一个操作实体的对象类
             DBContext db = new DBContext();
             var li = new List<SQL_Container>();
             //创建一个实体类
-            var user = new T_Users();
+     /*       var user = new T_Users();
 
             //---------------------------新增
             user.uUsers_ID = Guid.NewGuid();
@@ -90,7 +90,12 @@ namespace DBAccess
             else
                 Console.WriteLine("失败！");
 
-            
+            if (db.Edit<T_Users>(user, x => x.cUsers_Name == "测试管理员_修改过"))//表示  cUsers_Name=测试管理员_修改过 作为条件进行修改
+                Console.WriteLine("成功！");
+            else
+                Console.WriteLine("失败！");
+
+
 
 
 
@@ -100,7 +105,7 @@ namespace DBAccess
             if (db.Commit(li))
                 Console.WriteLine("事务提交成功！");
             else
-                Console.WriteLine("事务提交失败！");       */
+                Console.WriteLine("事务提交失败！");*/
 
             //1s=1000ms   1ms=0.001m
             Console.WriteLine(" 耗时：" + (s.ElapsedMilliseconds * 0.001) + " s");
