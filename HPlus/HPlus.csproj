@@ -129,6 +129,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\Base\MemberController.cs" />
     <Compile Include="Areas\Admin\Controllers\ErrorController.cs" />
+    <Compile Include="Areas\Admin\Controllers\FlowControl\GetFlowController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -1294,6 +1295,7 @@
     <Content Include="Areas\Admin\Views\Sys\RoleFunction\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Sys\User\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Sys\User\Info.cshtml" />
+    <Content Include="Areas\Admin\Views\GetFlow\Index.cshtml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />

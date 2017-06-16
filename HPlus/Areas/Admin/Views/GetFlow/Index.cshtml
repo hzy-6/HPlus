@@ -1,0 +1,91 @@
+﻿@model string
+<div class="myFlow">
+    <div>@Model
+        <button type="button" class="btn btn-primary" style="border-radius: 0px;" data-toggle="collapse" href="#Flow_IsHide" aria-expanded="true" aria-controls="Flow_IsHide"><i class="fa fa-chevron-up"></i>&nbsp;&nbsp;审批流程/记录</button>
+       
+    </div>
+    <div class="collapse in" id="Flow_IsHide" style="margin: 0 auto; border: 1px solid; min-height: 100px;">
+        <div style="margin-top:15px;">
+            <a style="background-color:#ed5565; color:white;">领导1审批&nbsp;&nbsp;[未通过]</a><i class="fa fa-arrow-right"></i>
+            <a>领导2审批</a><i class="fa fa-arrow-right"></i>
+            <a style="background-color:#f8ac59; color:white;">领导3审批&nbsp;&nbsp;[未审核]</a><i class="fa fa-arrow-right"></i>
+            <a style="background-color:#ed5565; color:white;">领导1审批&nbsp;&nbsp;[未通过]</a><i class="fa fa-arrow-right"></i>
+            <a style="background-color:#18a689; color:white;">完成</a>
+        </div>
+        <div style="margin: 10px;margin-top: 15px;">
+            <table class="table table-bordered table-hover" id="Tab_Audit">
+                <thead>
+                    <tr>
+                        <th class="text-center">编号</th>
+                        <th class="text-center">审批人</th>
+                        <th class="text-center">审批状态</th>
+                        <th class="text-center">审批时间</th>
+                        <th class="text-center">备注</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-center">0001</td>
+                        <td class="text-center">领导1审批</td>
+                        <td class="text-center">通过</td>
+                        <td class="text-center">2017-05-12 10:50</td>
+                        <td class="text-center"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">0001</td>
+                        <td class="text-center">领导1审批</td>
+                        <td class="text-center">通过</td>
+                        <td class="text-center">2017-05-12 10:50</td>
+                        <td class="text-center"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">0001</td>
+                        <td class="text-center">领导1审批</td>
+                        <td class="text-center">通过</td>
+                        <td class="text-center">2017-05-12 10:50</td>
+                        <td class="text-center"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">0001</td>
+                        <td class="text-center">领导1审批</td>
+                        <td class="text-center">通过</td>
+                        <td class="text-center">2017-05-12 10:50</td>
+                        <td class="text-center"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">0001</td>
+                        <td class="text-center">领导1审批</td>
+                        <td class="text-center">通过</td>
+                        <td class="text-center">2017-05-12 10:50</td>
+                        <td class="text-center"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<style type="text/css">
+    .myFlow {
+        margin: 0 auto;
+        /*border: 1px solid;
+        min-height: 100px;*/
+    }
+
+        .myFlow a {
+            font-size: 13px;
+            background-color: #f3f3f4;
+            padding: 8px 20px;
+            color: inherit;
+            border-radius: 5px;
+            border: 1px solid #e7eaec;
+            margin-right: 5px;
+            margin-top: 5px;
+            margin-left: 10px;
+            display: inline-block;
+        }
+
+        .myFlow i {
+            margin-left: 8px;
+        }
+</style>

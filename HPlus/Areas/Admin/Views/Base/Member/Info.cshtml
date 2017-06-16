@@ -1,5 +1,100 @@
 ﻿@{
-    ViewBag.Title = "Info";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox">
+            <div class="ibox-content" id="form">
+                <form class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>用户名：</label>
+                            <input type="text" class="form-control input-sm" name="cUsers_Name" data-bind="value:cUsers_Name" placeholder="请输入用户名" />
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>登录名：</label>
+                            <input type="text" class="form-control input-sm" name="cUsers_LoginName" data-bind="value:cUsers_LoginName" placeholder="请输入登录名" />
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>登录密码：</label>
+                            <input type="text" class="form-control input-sm" name="cUsers_LoginPwd" data-bind="value:cUsers_LoginPwd" placeholder="请输入登录密码" />
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label">邮箱地址：</label>
+                            <input type="text" class="form-control input-sm" name="cUsers_Email" data-bind="value:cUsers_Email" placeholder="请输入邮件" />
+                        </div>
+                    </div>
 
-<h2>Info</h2>
+                </form>
+                <div class="row">
+                    @{Html.RenderAction("Index", "GetFlow", new { Form_ID = "我是要审批的主表ID" });}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--按钮-->
+<div style="height:100px; width:100%;"></div>
+<div class="my-ButtonBar text-right">
+    <div class="btn-group btn-group-sm">
+        <button type="button" class="btn btn-success btn-sm" data-bind="visible:!Func.IsAdd()" onclick="$Form.ResetUrl(null)">新增</button>
+        <button class="btn btn-primary btn-sm" onclick="$Form.Save({ url:'@Url.Action("Save")' })">提交</button>
+        <button class="btn btn-danger btn-sm" onclick="Lay.close($.GetFrameIndex())">关闭</button>
+    </div>
+</div>
+@section css{
+}
+@section js{
+    <script src="~/Scripts/SysFrameWork/FrameWork_Form.js"></script>
+    <script type="text/javascript">
+        var KeyId = FW.GetQueryString("ID");
+        model = new vModel();
+        $(function () {
+            ko.applyBindings(model);//注册vModel
+            Func.Load(KeyId);
+        });
+
+        var Func = {
+            IsAdd: function () {
+                if (KeyId == null || KeyId == "" || KeyId == undefined || KeyId == "@Guid.Empty")
+                    return true;
+                return false;
+            },
+            Load: function (ID) {
+                $Form.Load({
+                    id: ID,
+                    url: "@Url.Action("Find")",
+                    callBack: function (r) {
+                    }
+                });
+            },
+            FindBack: {
+                Role: {
+                    CallBack: function (id) {
+                        $.post('@Url.Action("Find", "Role")', { id: id }, function (r) {
+                            model.uRoles_ID((id == "" || id == undefined) ? '@Guid.Empty' : id);
+                            model.cRoles_Name(r.cRoles_Name == "" ? "请选择角色" : r.cRoles_Name);
+                        });
+                    }
+                }
+            },
+        };
+
+        function vModel() {
+            this.uUsers_ID = ko.observable("");
+            this.cUsers_Name = ko.observable("");
+            this.cUsers_LoginName = ko.observable("");
+            this.cUsers_LoginPwd = ko.observable("");
+            this.uRoles_ID = ko.observable("");
+            this.cUsers_Email = ko.observable("");
+            this.cRoles_Name = ko.observable("");
+        }
+    </script>
+}

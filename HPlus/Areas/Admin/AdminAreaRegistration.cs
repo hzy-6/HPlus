@@ -22,6 +22,7 @@ namespace HPlus.Areas.Admin
                 "HPlus.Areas."+AreaName+".Controllers",
                 "HPlus.Areas."+AreaName+".Controllers.Sys",
                 "HPlus.Areas."+AreaName+".Controllers.Base",
+                "HPlus.Areas."+AreaName+".Controllers.FlowControl"
                 }
             );
         }
