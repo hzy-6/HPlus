@@ -319,6 +319,14 @@ var FW = {
         }).on('onUnsetSelectValue', function () {
             console.log("onUnsetSelectValue");
         });
+    },
+    CheckForm: function (DomID) {//验证表单
+        var inputs = $(DomID + ">input");
+        $.each(inputs, function (i, e) {
+            
+        });
+
+
     }
 }
 
