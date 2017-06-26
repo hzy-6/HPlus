@@ -81,7 +81,7 @@ namespace DBAccess.SQLContext.Context
                 dy.Value = value;
                 list_sqlpar.Add(dy);
             }
-            string sql = string.Format(" UPDATE {0} SET {1} WHERE 1=1 {2} ", TableName, string.Join(",", set), " AND " + where);
+            string sql = string.Format(" UPDATE {0} SET {1} WHERE 1=1 {2} ", TableName, string.Join(",", set), where);
             return new SQL_Container(sql, list_sqlpar);
         }
 
@@ -101,7 +101,7 @@ namespace DBAccess.SQLContext.Context
                 dy.Value = value;
                 list_sqlpar.Add(dy);
             }
-            string sql = string.Format(" UPDATE {0} SET {1} WHERE 1=1 {2} ", TableName, string.Join(",", set), string.IsNullOrEmpty(where) ? where : " AND " + where);
+            string sql = string.Format(" UPDATE {0} SET {1} WHERE 1=1 {2} ", TableName, string.Join(",", set), string.IsNullOrEmpty(where) ? where : where);
             return new SQL_Container(sql, list_sqlpar);
         }
 
