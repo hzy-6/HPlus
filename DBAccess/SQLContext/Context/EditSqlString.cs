@@ -40,7 +40,7 @@ namespace DBAccess.SQLContext.Context
         public SQL_Container GetSqlString<M>(T entity, Expression<Func<M, bool>> where) where M : BaseModel, new()
         {
             list_sqlpar = new List<dynamic>();
-            return this.GetSQL(entity, " AND " + base.GetWhereString(where, ref list_sqlpar));
+            return this.GetSQL(entity, base.GetWhereString(where, ref list_sqlpar));
         }
 
         public SQL_Container GetSqlString<M>(T entity, M where) where M : BaseModel, new()
