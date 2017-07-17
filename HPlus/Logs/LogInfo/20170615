@@ -1,0 +1,222 @@
+
+日志时间：2017-06-15 10:03:10,746 [1172] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-15 10:03:31,457 [9616] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+-----------------------------------------------------
+::1
+异常信息: 集合已修改；可能无法执行枚举操作。
+错误源:mscorlib
+堆栈信息:   在 System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   在 System.Collections.Generic.List`1.ForEach(Action`1 action)
+   在 BLL.T_MenuBL.GetRoleMenuFunctionTree(String roleid) 位置 c:\Users\Admin\Source\Repos\HPlus\BLL\T_MenuBL.cs:行号 197
+   在 HPlus.Areas.Admin.Controllers.Sys.RoleFunctionController.GetRoleMenuFunctionTree(String roleid) 位置 c:\Users\Admin\Source\Repos\HPlus\HPlus\Areas\Admin\Controllers\Sys\RoleFunctionController.cs:行号 44
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass42.<BeginInvokeSynchronousActionMethod>b__41()
+   在 System.Web.Mvc.Async.AsyncResultWrapper.<>c__DisplayClass8`1.<BeginSynchronous>b__7(IAsyncResult _)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass37.<>c__DisplayClass39.<BeginInvokeActionMethodWithFilters>b__33()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass4f.<InvokeActionMethodFilterAsynchronously>b__49()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass4f.<InvokeActionMethodFilterAsynchronously>b__49()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass37.<BeginInvokeActionMethodWithFilters>b__36(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass25.<>c__DisplayClass2a.<BeginInvokeAction>b__20()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass25.<BeginInvokeAction>b__22(IAsyncResult asyncResult)
+ 
+
+日志时间：2017-06-15 10:03:31,502 [9616] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序错误 
+
+日志时间：2017-06-15 10:07:20,280 [11340] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序已结束 
+
+日志时间：2017-06-15 10:07:33,135 [7184] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-15 10:11:52,429 [7544] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序已结束 
+
+日志时间：2017-06-15 10:12:11,041 [7184] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-15 10:12:53,760 [7424] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序已结束 
+
+日志时间：2017-06-15 10:13:04,290 [1172] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-15 10:15:34,402 [8632] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-15 10:17:41,509 [11612] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-15 10:19:44,310 [9864] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-15 10:27:46,530 [6484] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-15 10:28:07,545 [9840] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+-----------------------------------------------------
+::1
+异常信息: 索引超出范围。必须为非负值并小于集合大小。
+参数名: index
+错误源:mscorlib
+堆栈信息:   在 System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)
+   在 System.Collections.Generic.List`1.get_Item(Int32 index)
+   在 BLL.T_MenuBL.<>c__DisplayClass23.<GetRoleMenuFunctionTree>b__18(T_Menu x) 位置 c:\Users\Admin\Source\Repos\HPlus\BLL\T_MenuBL.cs:行号 198
+   在 System.Collections.Generic.List`1.FindAll(Predicate`1 match)
+   在 BLL.T_MenuBL.GetRoleMenuFunctionTree(String roleid) 位置 c:\Users\Admin\Source\Repos\HPlus\BLL\T_MenuBL.cs:行号 198
+   在 HPlus.Areas.Admin.Controllers.Sys.RoleFunctionController.GetRoleMenuFunctionTree(String roleid) 位置 c:\Users\Admin\Source\Repos\HPlus\HPlus\Areas\Admin\Controllers\Sys\RoleFunctionController.cs:行号 44
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass42.<BeginInvokeSynchronousActionMethod>b__41()
+   在 System.Web.Mvc.Async.AsyncResultWrapper.<>c__DisplayClass8`1.<BeginSynchronous>b__7(IAsyncResult _)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass37.<>c__DisplayClass39.<BeginInvokeActionMethodWithFilters>b__33()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass4f.<InvokeActionMethodFilterAsynchronously>b__49()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass4f.<InvokeActionMethodFilterAsynchronously>b__49()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass37.<BeginInvokeActionMethodWithFilters>b__36(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass25.<>c__DisplayClass2a.<BeginInvokeAction>b__20()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass25.<BeginInvokeAction>b__22(IAsyncResult asyncResult)
+ 
+
+日志时间：2017-06-15 10:28:07,582 [9840] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序错误 
+
+日志时间：2017-06-15 10:28:51,929 [12272] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序已结束 
+
+日志时间：2017-06-15 10:29:37,030 [11836] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-15 10:32:42,084 [12272] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序已结束 
+
+日志时间：2017-06-15 10:32:51,928 [11836] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-15 10:33:03,405 [3060] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+-----------------------------------------------------
+::1
+异常信息: 对象的类型必须是 Int32。
+错误源:mscorlib
+堆栈信息:   在 System.Int32.CompareTo(Object value)
+   在 System.Collections.Comparer.Compare(Object a, Object b)
+   在 System.Collections.Generic.ObjectComparer`1.Compare(T x, T y)
+   在 System.Linq.EnumerableSorter`2.CompareKeys(Int32 index1, Int32 index2)
+   在 System.Linq.EnumerableSorter`1.QuickSort(Int32[] map, Int32 left, Int32 right)
+   在 System.Linq.EnumerableSorter`1.Sort(TElement[] elements, Int32 count)
+   在 System.Linq.OrderedEnumerable`1.<GetEnumerator>d__1.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 BLL.T_MenuBL.GetRoleMenuFunctionTree(String roleid) 位置 c:\Users\Admin\Source\Repos\HPlus\BLL\T_MenuBL.cs:行号 255
+   在 HPlus.Areas.Admin.Controllers.Sys.RoleFunctionController.GetRoleMenuFunctionTree(String roleid) 位置 c:\Users\Admin\Source\Repos\HPlus\HPlus\Areas\Admin\Controllers\Sys\RoleFunctionController.cs:行号 44
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass42.<BeginInvokeSynchronousActionMethod>b__41()
+   在 System.Web.Mvc.Async.AsyncResultWrapper.<>c__DisplayClass8`1.<BeginSynchronous>b__7(IAsyncResult _)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass37.<>c__DisplayClass39.<BeginInvokeActionMethodWithFilters>b__33()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass4f.<InvokeActionMethodFilterAsynchronously>b__49()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass4f.<InvokeActionMethodFilterAsynchronously>b__49()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass37.<BeginInvokeActionMethodWithFilters>b__36(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass25.<>c__DisplayClass2a.<BeginInvokeAction>b__20()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass25.<BeginInvokeAction>b__22(IAsyncResult asyncResult)
+ 
+
+日志时间：2017-06-15 10:33:03,436 [3060] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序错误 
+
+日志时间：2017-06-15 10:35:41,861 [3764] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序已结束 
+
+日志时间：2017-06-15 10:35:50,299 [11836] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-15 10:44:56,139 [3060] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序已结束 
+
+日志时间：2017-06-15 10:45:08,699 [11836] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-15 11:07:14,151 [11012] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序已结束 
+
+日志时间：2017-06-15 11:10:07,227 [11836] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-15 15:48:35,507 [2064] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序已结束 

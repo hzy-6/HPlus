@@ -1,0 +1,150 @@
+
+日志时间：2017-06-13 11:13:58,639 [2324] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-13 14:25:03,594 [12776] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序已结束 
+
+日志时间：2017-06-13 14:25:55,096 [9040] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-13 14:48:31,607 [4892] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序已结束 
+
+日志时间：2017-06-13 14:55:58,019 [14728] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-13 15:26:57,294 [13952] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-13 15:34:54,013 [8768] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-13 16:12:02,819 [7276] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+-----------------------------------------------------
+::1
+异常信息: 在控制器“HPlus.Areas.SysManage.Controllers.Base.MemberController”上未找到公共操作方法“GetDataSource”。
+错误源:System.Web.Mvc
+堆栈信息:   在 System.Web.Mvc.Controller.HandleUnknownAction(String actionName)
+   在 System.Web.Mvc.Controller.<>c__DisplayClass1d.<BeginExecuteCore>b__18(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.<>c__DisplayClass4.<MakeVoidDelegate>b__3(IAsyncResult ar)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.End()
+   在 System.Web.Mvc.Controller.EndExecuteCore(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.<>c__DisplayClass4.<MakeVoidDelegate>b__3(IAsyncResult ar)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.End()
+   在 System.Web.Mvc.Controller.EndExecute(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Controller.System.Web.Mvc.Async.IAsyncController.EndExecute(IAsyncResult asyncResult)
+   在 System.Web.Mvc.MvcHandler.<>c__DisplayClass8.<BeginProcessRequest>b__3(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.<>c__DisplayClass4.<MakeVoidDelegate>b__3(IAsyncResult ar)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.End()
+   在 System.Web.Mvc.MvcHandler.EndProcessRequest(IAsyncResult asyncResult)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.EndProcessRequest(IAsyncResult result)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+ 
+
+日志时间：2017-06-13 16:12:02,952 [7276] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序错误 
+
+日志时间：2017-06-13 16:16:40,798 [14036] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-13 16:38:08,796 [12404] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-13 17:08:09,806 [14096] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序已结束 
+
+日志时间：2017-06-13 17:11:39,464 [12404] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-13 17:44:07,504 [13480] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序已结束 
+
+日志时间：2017-06-13 17:47:58,972 [6348] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-13 17:53:20,904 [11712] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序已结束 
+
+日志时间：2017-06-13 17:53:35,456 [2440] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-13 17:58:49,260 [5008] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序已结束 
+
+日志时间：2017-06-13 17:59:03,468 [15352] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-13 18:12:00,136 [1824] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序已结束 
+
+日志时间：2017-06-13 18:16:01,056 [2440] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-13 18:27:53,350 [4120] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序已结束 
+
+日志时间：2017-06-13 18:28:12,996 [10916] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-13 18:46:33,640 [8868] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序已结束 
+
+日志时间：2017-06-13 18:52:51,144 [6348] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-13 19:29:10,782 [15296] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序已结束 

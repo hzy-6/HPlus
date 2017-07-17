@@ -1,0 +1,418 @@
+
+日志时间：2017-06-08 12:51:43,769 [5744] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-08 12:51:44,452 [6704] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+-----------------------------------------------------
+::1
+异常信息: 找不到方法:“Void DBAccess.DBContext..ctor(System.String, DBAccess.AdoDotNet.DBType)”。
+错误源:HPlus
+堆栈信息:   在 HPlus.Areas.Admin.Controllers.LoginController..ctor()
+ 
+
+日志时间：2017-06-08 12:51:44,580 [6704] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序错误 
+
+日志时间：2017-06-08 12:52:48,841 [6704] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+-----------------------------------------------------
+::1
+异常信息: 找不到方法:“Void DBAccess.DBContext..ctor(System.String, DBAccess.AdoDotNet.DBType)”。
+错误源:HPlus
+堆栈信息:   在 HPlus.Areas.Admin.Controllers.LoginController..ctor()
+ 
+
+日志时间：2017-06-08 12:52:48,854 [6704] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序错误 
+
+日志时间：2017-06-08 12:53:40,142 [10700] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-08 12:53:41,096 [3228] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+-----------------------------------------------------
+::1
+异常信息: 找不到方法:“Void DBAccess.DBContext..ctor(System.String, DBAccess.AdoDotNet.DBType)”。
+错误源:HPlus
+堆栈信息:   在 HPlus.Areas.Admin.Controllers.LoginController..ctor()
+ 
+
+日志时间：2017-06-08 12:53:41,103 [3228] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序错误 
+
+日志时间：2017-06-08 12:55:54,234 [968] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-08 13:00:50,361 [8876] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-08 13:23:01,805 [6704] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序已结束 
+
+日志时间：2017-06-08 13:27:40,382 [4152] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-08 13:27:53,574 [8508] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序已结束 
+
+日志时间：2017-06-08 13:28:05,661 [10228] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-08 14:05:23,965 [11512] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序已结束 
+
+日志时间：2017-06-08 14:06:20,254 [8876] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-08 14:12:24,119 [2000] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序已结束 
+
+日志时间：2017-06-08 14:12:44,216 [10160] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-08 14:13:03,136 [12248] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序已结束 
+
+日志时间：2017-06-08 14:13:13,134 [10160] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-08 14:13:45,662 [13800] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序已结束 
+
+日志时间：2017-06-08 14:13:56,382 [10228] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-08 15:03:25,175 [5504] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序已结束 
+
+日志时间：2017-06-08 15:03:53,095 [4152] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-08 15:23:11,444 [9896] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序已结束 
+
+日志时间：2017-06-08 15:23:33,552 [10468] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-08 15:34:58,182 [6756] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序已结束 
+
+日志时间：2017-06-08 15:35:12,951 [8876] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-08 16:26:17,246 [7576] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序已结束 
+
+日志时间：2017-06-08 16:26:36,753 [3756] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-08 16:27:40,248 [7576] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+-----------------------------------------------------
+::1
+异常信息: 未找到路径“/SysManage/CreateCode/Index”的控制器或该控制器未实现 IController。
+错误源:System.Web.Mvc
+堆栈信息:   在 System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   在 System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   在 System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+ 
+
+日志时间：2017-06-08 16:27:40,297 [7576] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序错误 
+
+日志时间：2017-06-08 16:27:44,189 [13912] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+-----------------------------------------------------
+::1
+异常信息: 未找到路径“/SysManage/CreateCode/Index”的控制器或该控制器未实现 IController。
+错误源:System.Web.Mvc
+堆栈信息:   在 System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   在 System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   在 System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+ 
+
+日志时间：2017-06-08 16:27:44,228 [13912] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序错误 
+
+日志时间：2017-06-08 16:27:44,942 [13912] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+-----------------------------------------------------
+::1
+异常信息: 未找到路径“/SysManage/CreateCode/Index”的控制器或该控制器未实现 IController。
+错误源:System.Web.Mvc
+堆栈信息:   在 System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   在 System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   在 System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+ 
+
+日志时间：2017-06-08 16:27:44,970 [13912] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序错误 
+
+日志时间：2017-06-08 16:27:54,127 [13912] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+-----------------------------------------------------
+::1
+异常信息: 未找到路径“/SysManage/CreateCode/Index”的控制器或该控制器未实现 IController。
+错误源:System.Web.Mvc
+堆栈信息:   在 System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   在 System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   在 System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+ 
+
+日志时间：2017-06-08 16:27:54,169 [13912] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序错误 
+
+日志时间：2017-06-08 16:27:56,092 [13912] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+-----------------------------------------------------
+::1
+异常信息: 未找到路径“/SysManage/CreateCode/Index”的控制器或该控制器未实现 IController。
+错误源:System.Web.Mvc
+堆栈信息:   在 System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   在 System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   在 System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+ 
+
+日志时间：2017-06-08 16:27:56,118 [13912] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序错误 
+
+日志时间：2017-06-08 16:27:58,753 [13912] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+-----------------------------------------------------
+::1
+异常信息: 未找到路径“/SysManage/CreateCode/Index”的控制器或该控制器未实现 IController。
+错误源:System.Web.Mvc
+堆栈信息:   在 System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   在 System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   在 System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+ 
+
+日志时间：2017-06-08 16:27:58,779 [13912] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序错误 
+
+日志时间：2017-06-08 16:28:30,237 [4732] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+-----------------------------------------------------
+::1
+异常信息: 未找到路径“/SysManage/CreateCode/Index”的控制器或该控制器未实现 IController。
+错误源:System.Web.Mvc
+堆栈信息:   在 System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   在 System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   在 System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+ 
+
+日志时间：2017-06-08 16:28:30,266 [4732] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序错误 
+
+日志时间：2017-06-08 16:29:39,719 [68] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+-----------------------------------------------------
+::1
+异常信息: 未找到路径“/SysManage/CreateCode/Index”的控制器或该控制器未实现 IController。
+错误源:System.Web.Mvc
+堆栈信息:   在 System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   在 System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   在 System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+ 
+
+日志时间：2017-06-08 16:29:39,882 [68] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序错误 
+
+日志时间：2017-06-08 16:30:19,636 [6344] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-08 16:30:32,451 [14808] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+-----------------------------------------------------
+::1
+异常信息: 未找到路径“/SysManage/CreateCode/Index”的控制器或该控制器未实现 IController。
+错误源:System.Web.Mvc
+堆栈信息:   在 System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   在 System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   在 System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+ 
+
+日志时间：2017-06-08 16:30:32,475 [14808] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序错误 
+
+日志时间：2017-06-08 16:31:22,169 [9412] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-08 16:41:10,085 [5172] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序已结束 
+
+日志时间：2017-06-08 16:41:26,091 [8696] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-08 17:06:31,148 [8620] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序已结束 
+
+日志时间：2017-06-08 17:06:55,417 [4060] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-08 17:18:27,794 [4764] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序已结束 
+
+日志时间：2017-06-08 17:30:48,194 [4060] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-08 18:21:16,486 [15160] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序已结束 
+
+日志时间：2017-06-08 18:21:42,173 [12488] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-06-08 18:39:19,083 [15160] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序已结束 
