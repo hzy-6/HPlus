@@ -213,7 +213,11 @@ namespace DBAccess.ExpressionTree
 
         public static string DealUnaryExpression(UnaryExpression exp)
         {
-            return DealExpress(exp.Operand);
+            var member = exp as UnaryExpression;
+            UnaryExpression cast = Expression.Convert(member, typeof(object));
+            object obj = Expression.Lambda<Func<object>>(cast).Compile().Invoke();
+            return obj == null ? "NULL" : string.Format("'{0}'", obj.ToString());
+            //return DealExpress(exp.Operand);
         }
         public static string DealConstantExpression(ConstantExpression exp)
         {

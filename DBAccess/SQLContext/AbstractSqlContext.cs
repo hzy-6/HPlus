@@ -53,12 +53,13 @@ namespace DBAccess.SQLContext
         public string GetWhereString<M>(Expression<Func<M, bool>> where, ref List<dynamic> list_sqlpar) where M : BaseModel, new()
         {
             string _where = string.Empty;
-            if (where.Body is BinaryExpression)
-            {
-                _where = ExpressionHelper.DealExpress(where.Body);
-            }
-            else
-                throw new Exception(" where 条件语法错误! ");
+            _where = ExpressionHelper.DealExpress(where.Body);
+            //if (where.Body is BinaryExpression)
+            //{
+            //    _where = ExpressionHelper.DealExpress(where.Body);
+            //}
+            //else
+            //    throw new Exception(" where 条件语法错误! ");
             return _where;
         }
 
