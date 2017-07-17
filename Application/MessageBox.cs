@@ -39,6 +39,16 @@ namespace Application
         }
 
         /// <summary>
+        /// 使用指定错误消息和对作为此异常原因的内部异常的引用来初始化 WebException 类的新实例。页面中用于手动处理服务端错误
+        /// </summary>
+        /// <param name="Messager">解释异常原因的错误消息。</param>
+        public MessageBox(string Messager, int ErrorCode)
+            : base(Messager)
+        {
+            cem = new CustomErrorModel(this, ErrorCode);
+        }
+
+        /// <summary>
         /// 使用指定错误消息和对作为此异常原因的内部异常的引用来初始化 WebException 类的新实例。
         /// </summary>
         /// <param name="Messager">解释异常原因的错误消息。</param>

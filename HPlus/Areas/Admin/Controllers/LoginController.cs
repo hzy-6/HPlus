@@ -40,23 +40,23 @@ namespace HPlus.Areas.Admin.Controllers
         public ActionResult Checked(string username, string userpwd, string loginCode)
         {
             if (string.IsNullOrEmpty(username))
-                throw new MessageBox("请输入用户名");
+                throw new MessageBox("请输入用户名", 500);
             if (string.IsNullOrEmpty(userpwd))
-                throw new MessageBox("请输入密码");
+                throw new MessageBox("请输入密码", 500);
             //if (string.IsNullOrEmpty(loginCode))
-            //    throw new MessageBox("请输入验证码");
+            //    throw new MessageBox("请输入验证码", 500);
             user = new T_Users();
             user.cUsers_LoginName = username;
             user = db.Find<T_Users>(user);
             if (Tools.getGuid(user.uUsers_ID).Equals(Guid.Empty))
-                throw new MessageBox("用户不存在");
+                throw new MessageBox("用户不存在", 500);
             if (!Tools.getString(user.cUsers_LoginPwd).Trim().Equals(userpwd))//Tools.MD5Encrypt(userpwd)))//
-                throw new MessageBox("密码错误");
+                throw new MessageBox("密码错误", 500);
             //string code = Tools.GetCookie("loginCode");
             //if (string.IsNullOrEmpty(code))
-            //    throw new MessageBox("验证码失效");
+            //    throw new MessageBox("验证码失效", 500);
             //if (!code.ToLower().Equals(loginCode))
-            //    throw new MessageBox("验证码不正确");
+            //    throw new MessageBox("验证码不正确", 500);
             tuserroles = new T_UsersRoles();
             tuserroles.uUsersRoles_UsersID = user.uUsers_ID;
             tuserroles = db.Find<T_UsersRoles>(tuserroles);

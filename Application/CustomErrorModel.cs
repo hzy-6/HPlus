@@ -23,7 +23,23 @@ namespace Application
         {
             Success = true;
             ErrorMessage = ex.Message;
-            ErrorCode = "01";
+            status = "01";
+            ErrorData = ex.Data;
+            ErrorSource = ex.Source;
+            ErrorStackTrace = ex.StackTrace;
+            ErrorTargetSite = ex.TargetSite != null ? ex.TargetSite.Name : null;
+            this.JumpUrl = string.Empty;
+        }
+
+        /// <summary>
+        /// 异常模型
+        /// </summary>
+        /// <param name="ex">异常</param>
+        public CustomErrorModel(Exception ex, int errorCode)
+        {
+            Success = true;
+            ErrorMessage = ex.Message;
+            status = errorCode.ToString();
             ErrorData = ex.Data;
             ErrorSource = ex.Source;
             ErrorStackTrace = ex.StackTrace;
@@ -42,7 +58,7 @@ namespace Application
                 throw new Exception("缺少JumpUrl参数");
             Success = true;
             ErrorMessage = ex.Message;
-            ErrorCode = "01";
+            status = "01";
             ErrorData = ex.Data;
             ErrorSource = ex.Source;
             ErrorStackTrace = ex.StackTrace;
@@ -60,7 +76,7 @@ namespace Application
                 throw new Exception("缺少JumpUrl参数");
             Success = true;
             ErrorMessage = errorMessage;
-            ErrorCode = errorCode;
+            status = errorCode;
             ErrorData = "";
             ErrorSource = "";
             ErrorStackTrace = "";
@@ -76,7 +92,7 @@ namespace Application
         {
             Success = true;
             ErrorMessage = ex.Exception.Message;
-            ErrorCode = ex.HttpContext.Response.StatusCode.ToString();
+            status = ex.HttpContext.Response.StatusCode.ToString();
             ErrorData = ex.Exception.Data;
             ErrorSource = ex.Exception.Source;
             ErrorStackTrace = ex.Exception.StackTrace;
@@ -97,7 +113,7 @@ namespace Application
         /// <summary>
         /// 错误状态码[01:消息提示][02:登陆超时][03:打开窗口]
         /// </summary>
-        public string ErrorCode { set; get; }
+        public string status { set; get; }
 
         /// <summary>
         /// 异常信息键值对集合

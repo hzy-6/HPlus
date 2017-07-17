@@ -57,31 +57,34 @@ $.AjaxFilter = function () {
         if (text) {
             try {
                 var json = $.parseJSON(text);
-                if (json.Success) {
-                    switch (json.ErrorCode) {
-                        //消息提醒
-                        case "01":
-                            FW.MsgBox(json.ErrorMessage, "警告");
-                            break;
-                            //登陆超时或违禁操作
-                        case "02":
-                            FW.OutLogin(json.ErrorMessage, json.JumpUrl);
-                            return false;
-                            break;
-                            //系统错误显示错误页面
-                        default:
-                            FW.Ajax({
-                                type: "post",
-                                url: "/Admin/Error/Index",
-                                data: json,
-                                dataType: "html",
-                                success: function (h) {
-                                    $("html").html(h);
-                                }
-                            });
-                            break;
-                    }
+                //if (json.Success) {
+                switch (json.status) {
+                    //消息提醒
+                    case "01":
+                        FW.MsgBox(json.ErrorMessage, "警告");
+                        break;
+                        //登陆超时或违禁操作
+                    case "02":
+                        FW.OutLogin(json.ErrorMessage, json.JumpUrl);
+                        return false;
+                        break;
+                    case "500":
+                        //这种状态不操作。
+                        break;
+                        //系统错误显示错误页面
+                    default:
+                        FW.Ajax({
+                            type: "post",
+                            url: "/Admin/Error/Index",
+                            data: json,
+                            dataType: "html",
+                            success: function (h) {
+                                $("html").html(h);
+                            }
+                        });
+                        break;
                 }
+                //}
             } catch (e) {
                 console.log(e);
             }
@@ -323,7 +326,7 @@ var FW = {
     CheckForm: function (DomID) {//验证表单
         var inputs = $(DomID + ">input");
         $.each(inputs, function (i, e) {
-            
+
         });
 
 
