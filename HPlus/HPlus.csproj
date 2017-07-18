@@ -1148,8 +1148,6 @@
     <Content Include="Scripts\ECharts\echarts.js" />
     <Content Include="Scripts\ECharts\theme\dark.js" />
     <Content Include="Scripts\ECharts\theme\vintage.js" />
-    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
-    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\Bootstrap\bootstrap-table-master\.github\ISSUE_TEMPLATE.md" />
     <Content Include="Scripts\Bootstrap\bootstrap-table-master\.gitignore" />
     <Content Include="Scripts\Bootstrap\bootstrap-table-master\.travis.yml" />
@@ -1296,11 +1294,6 @@
     <Content Include="Areas\Admin\Views\Sys\User\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Sys\User\Info.cshtml" />
     <Content Include="Areas\Admin\Views\GetFlow\Index.cshtml" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\Jquery\jquery-2.1.4.min.js" />
     <Content Include="Scripts\Jquery\jquery.pin.min.js" />
     <Content Include="Scripts\Jquery\JqueryPrint.js" />

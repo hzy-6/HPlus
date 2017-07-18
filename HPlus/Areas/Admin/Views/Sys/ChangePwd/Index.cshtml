@@ -3,28 +3,25 @@
 }
 <div class="container-fluid">
     <div class="row">
-        <div style="margin-top:150px;" class="col-sm-4 col-sm-offset-4">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h4>修改密码</h4>
+        <div style="margin-top:100px;" class="col-sm-4 col-sm-offset-4">
+            <div class="panel">
+                <div class="panel-heading text-center">
+                    <h2>修改密码</h2>
                 </div>
                 <div class="panel-body">
-                    @using (Ajax.BeginForm("ChangePwd", new AjaxOptions() { HttpMethod = "post", OnSuccess = "Success" }))
-                    {
-                        <div class="form-group">
-                            <input type="text" class="form-control" disabled="disabled" value="@ViewData["userName"]">
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="form-control" name="oldpwd" placeholder="请输入旧密码">
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="form-control" name="newpwd" placeholder="请输入新密码">
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="form-control" name="newlypwd" placeholder="请重新输入新密码">
-                        </div>
-                        <button type="submit" class="btn btn-primary block full-width m-b">登 录</button>
-                    }
+                    <div class="form-group">
+                        <input type="text" class="form-control" disabled="disabled" value="@ViewData["userName"]">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" name="oldpwd" placeholder="请输入旧密码">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" name="newpwd" placeholder="请输入新密码">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" name="newlypwd" placeholder="请重新输入新密码">
+                    </div>
+                    <button type="button" class="btn btn-primary block full-width m-b" onclick="admin.edit_pwd()">登 录</button>
                 </div>
             </div>
         </div>
@@ -33,60 +30,43 @@
 @section css{
 }
 @section js{
-    <!--表单验证js-->
-    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
-    <script src="/Content/HPlus/js/plugins/validate/jquery.validate.min.js"></script>
-    <script src="/Content/HPlus/js/plugins/validate/messages_zh.min.js"></script>
     <script type="text/javascript">
-        $(function () {
-            FormYz();
-        });
-
-        //表单验证
-        function FormYz() {
-            var icon = "<i class='fa fa-times-circle'></i> ";
-            $("#form0").validate({
-                debug: true,
-                rules: {
-                    oldpwd: "required",
-                    newpwd: "required",
-                    newlypwd: "required",
-                    oldpwd: {
-                        required: true,
-                        minlength: 3
-                    },
-                    newpwd: {
-                        required: true,
-                        minlength: 3
-                    },
-                    newlypwd: {
-                        required: true,
-                        minlength: 3
-                    }
-                },
-                messages: {
-                    oldpwd: icon + "请输入旧密码",
-                    newpwd: icon + "请输入新密码",
-                    newlypwd: icon + "请重新输入新密码",
-                    oldpwd: {
-                        required: icon + "请输入旧密码",
-                        minlength: icon + "用户名必须3个字符以上"
-                    },
-                    newpwd: {
-                        required: icon + "请输入新密码",
-                        minlength: icon + "密码必须3个字符以上"
-                    }, newlypwd: {
-                        required: icon + "请重新输入新密码",
-                        minlength: icon + "密码必须3个字符以上"
-                    }
+        var admin = {
+            edit_pwd: function () {
+                var oldpwd = $(".panel-body input[name=oldpwd]").val();
+                var newpwd = $(".panel-body input[name=newpwd]").val();
+                var newlypwd = $(".panel-body input[name=newlypwd]").val();
+                if (!oldpwd) {
+                    FW.MsgBox("请输入旧密码!", "警告");
+                    return false;
                 }
-            });
-        }
+                if (!newpwd) {
+                    FW.MsgBox("请输入新密码!", "警告");
+                    return false;
+                }
+                if (!newlypwd) {
+                    FW.MsgBox("请输入确认密码!", "警告");
+                    return false;
+                }
+                if (newpwd != newlypwd) {
+                    FW.MsgBox("两次密码不一致!", "警告");
+                    return false;
+                }
+                FW.Ajax({
+                    url: "@Url.Action("ChangePwd")",
+                    data: {
+                        oldpwd: oldpwd,
+                        newpwd: newpwd,
+                        newlypwd: newlypwd
+                    },
+                    success: function (r) {
+                        if (r.status == 1) {
+                            FW.MsgBox("操作成功!", "成功");
+                        }
+                    }
+                });
 
-        //提交完成后成功回掉函数
-        function Success(r) {
-            if (r.status == 1)
-                FW.MsgBox("操作成功!", "成功");
-        }
+            }
+        };
     </script>
 }

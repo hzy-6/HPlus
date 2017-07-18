@@ -37,36 +37,6 @@ namespace DAL
             });
         }
 
-        /// <summary>
-        /// 根据菜单ID 和功能ID 获取 菜单权限
-        /// </summary>
-        /// <param name="MenuID"></param>
-        /// <param name="FunID"></param>
-        /// <returns></returns>
-        public DataTable GetMenuPowerByMenuIDAndFunID(Guid MenuID, Guid FunID)
-        {
-            return db.Find(@"select distinct * 
-                                    from dbo.T_MenuFunction a
-                                    left join dbo.T_Function b on a.uMenuFunction_FunctionID=b.uFunction_ID
-                                    left join dbo.T_Menu c on a.uMenuFunction_MenuID=c.uMenu_ID
-                                    where 1=1 
-                                    and c.uMenu_ID='" + MenuID + @"' 
-                                    and c.uFunction_ID='" + FunID + @"'");
-        }
-
-        /// <summary>
-        /// 获取角色权限根据权限id和菜单id
-        /// </summary>
-        /// <returns></returns>
-        public DataTable GetRolePowerByRoleIDAndMenuID(Guid RoleID, Guid MenuID, Guid FunID)
-        {
-            return db.Find(@"select distinct uFunction_ID,uRoleMenuFunction_ID,cFunction_Name,iFunction_Number,uRoleMenuFunction_RoleID 
-                                                    from dbo.T_RoleMenuFunction a
-                                                    left join dbo.T_MenuFunction b on a.uRoleMenuFunction_FunctionID=b.uMenuFunction_FunctionID
-                                                    left join dbo.T_Function c on b.uMenuFunction_FunctionID=c.uFunction_ID
-                                                    where uFunction_ID ='" + FunID + @"'
-                                                    and uRoleMenuFunction_RoleID='" + RoleID + @"' and uRoleMenuFunction_MenuID='" + MenuID + @"'");
-        }
 
     }
 }

@@ -25,7 +25,6 @@ namespace HPlus.Areas.Admin.Controllers.Sys
             this.MenuID = "Z-120";
         }
 
-        T_Function tf = new T_Function();
         T_FunctionBL tfbl = new T_FunctionBL();
 
         #region  查询数据列表
@@ -51,24 +50,10 @@ namespace HPlus.Areas.Admin.Controllers.Sys
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Save(T_Function model, string uRoles_ID)
+        public ActionResult Save(T_Function model)
         {
-            tf = new T_Function();
-            tf = model;
-            switch (Tools.getGuid(model.uFunction_ID).Equals(Guid.Empty))
-            {
-                case true:
-                    this.KeyID = db.Add(tf, ref li);
-                    if (Tools.getGuid(KeyID).Equals(Guid.Empty))
-                        throw new MessageBox(db.ErrorMessge);
-                    break;
-                case false:
-                    if (!db.Edit(tf, ref li))
-                        throw new MessageBox(db.ErrorMessge);
-                    break;
-                default:
-                    break;
-            }
+            li = tfbl.Save(model);
+            this.KeyID = Tools.getGuidString(model.uFunction_ID);
             if (!db.Commit(li))
                 throw new MessageBox(db.ErrorMessge);
             return Json(new { status = 1, ID = KeyID }, JsonRequestBehavior.DenyGet);
@@ -82,28 +67,7 @@ namespace HPlus.Areas.Admin.Controllers.Sys
         [HttpPost]
         public ActionResult Del(string ID)
         {
-            switch (!Tools.getGuid(ID).Equals(Guid.Empty))
-            {
-                case true://单个删除
-                    tf.uFunction_ID = Tools.getGuid(ID);
-                    if (!db.Delete(tf, ref li))
-                        throw new MessageBox(db.ErrorMessge);
-                    break;
-                case false://多个删除
-                    if (ID.Contains("[]") || ID.Contains("[null]"))
-                        throw new MessageBox("删除失败");
-                    var list = db.JsonToList<string>(ID);
-                    foreach (var item in list)
-                    {
-                        tf.uFunction_ID = Tools.getGuid(item);
-                        if (!db.Delete(tf, ref li))
-                            throw new MessageBox(db.ErrorMessge);
-                    }
-                    break;
-                default:
-                    break;
-            }
-            if (!db.Commit(li))
+            if (!db.Commit(tfbl.Delete(ID)))
                 throw new MessageBox(db.ErrorMessge);
             return Json(new { status = 1 }, JsonRequestBehavior.DenyGet);
         }
@@ -116,15 +80,7 @@ namespace HPlus.Areas.Admin.Controllers.Sys
         [HttpPost]
         public ActionResult Find(string ID)
         {
-            tf = new T_Function();
-            tf.uFunction_ID = Tools.getGuid(ID);
-            tf = db.Find(tf);
-
-            return Json(new ToJson().GetDictionary(new Dictionary<string, object>()
-            {
-                {"tf",tf},
-                {"status",1}
-            }), JsonRequestBehavior.DenyGet);
+            return Json(tfbl.Find(Tools.getGuid(ID)), JsonRequestBehavior.DenyGet);
         }
 
         #endregion  基本操作，增删改查

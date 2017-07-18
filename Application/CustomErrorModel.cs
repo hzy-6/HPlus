@@ -23,7 +23,7 @@ namespace Application
         {
             Success = true;
             ErrorMessage = ex.Message;
-            status = "01";
+            status = "501";
             ErrorData = ex.Data;
             ErrorSource = ex.Source;
             ErrorStackTrace = ex.StackTrace;
@@ -58,7 +58,7 @@ namespace Application
                 throw new Exception("缺少JumpUrl参数");
             Success = true;
             ErrorMessage = ex.Message;
-            status = "01";
+            status = "501";
             ErrorData = ex.Data;
             ErrorSource = ex.Source;
             ErrorStackTrace = ex.StackTrace;
@@ -70,7 +70,7 @@ namespace Application
         /// 违禁操作
         /// </summary>
         /// <param name="ex">异常(上下文)</param>
-        public CustomErrorModel(string JumpUrl, string errorCode = "02", string errorMessage = "系统监测到违法操作,系统将计时后退出")
+        public CustomErrorModel(string JumpUrl, string errorCode = "502", string errorMessage = "系统监测到违法操作,系统将计时后退出")
         {
             if (string.IsNullOrEmpty(JumpUrl))
                 throw new Exception("缺少JumpUrl参数");

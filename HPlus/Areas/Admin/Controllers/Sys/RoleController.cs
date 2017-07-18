@@ -53,20 +53,8 @@ namespace HPlus.Areas.Admin.Controllers.Sys
         [HttpPost]
         public ActionResult Save(T_Roles model)
         {
-            troles = model;
-            if (Tools.getGuid(model.uRoles_ID).Equals(Guid.Empty))
-            {
-                KeyID = db.Add(troles, ref li);
-                if (Tools.getGuid(KeyID).Equals(Guid.Empty))
-                    throw new MessageBox(db.ErrorMessge);
-            }
-            else
-            {
-                KeyID = Tools.getGuidString(model.uRoles_ID);
-                if (!db.Edit(troles, ref li))
-                    throw new MessageBox(db.ErrorMessge);
-            }
-
+            li = trolesbl.Save(model);
+            this.KeyID = Tools.getGuidString(model.uRoles_ID);
             if (!db.Commit(li))
                 throw new MessageBox(db.ErrorMessge);
             return Json(new { status = 1, ID = KeyID }, JsonRequestBehavior.DenyGet);
@@ -80,25 +68,7 @@ namespace HPlus.Areas.Admin.Controllers.Sys
         [HttpPost]
         public ActionResult Del(string ID)
         {
-            if (!Tools.getGuid(ID).Equals(Guid.Empty))
-            {
-                troles.uRoles_ID = Tools.getGuid(ID);
-                if (!db.Delete(troles, ref li))
-                    throw new MessageBox(db.ErrorMessge);
-            }
-            else
-            {
-                if (ID.Contains("[]") || ID.Contains("[null]"))
-                    throw new MessageBox("删除失败");
-                var list = db.JsonToList<string>(ID);
-                foreach (var item in list)
-                {
-                    troles.uRoles_ID = Tools.getGuid(item);
-                    if (!db.Delete(troles, ref li))
-                        throw new MessageBox(db.ErrorMessge);
-                }
-            }
-            if (!db.Commit(li))
+            if (!db.Commit(trolesbl.Delete(ID)))
                 throw new MessageBox(db.ErrorMessge);
             return Json(new { status = 1 }, JsonRequestBehavior.DenyGet);
         }
@@ -111,14 +81,9 @@ namespace HPlus.Areas.Admin.Controllers.Sys
         [HttpPost]
         public ActionResult Find(string ID)
         {
-            troles.uRoles_ID = Tools.getGuid(ID);
-            troles = db.Find(troles);
-            return Json(new ToJson().GetDictionary(new Dictionary<string, object>()
-            {
-                {"troles",troles},
-                {"status",1}
-            }), JsonRequestBehavior.DenyGet);
+            return Json(trolesbl.Find(Tools.getGuid(ID)), JsonRequestBehavior.DenyGet);
         }
+
 
         /// <summary>
         /// 获取编号

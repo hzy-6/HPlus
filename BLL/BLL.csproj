@@ -50,6 +50,10 @@
     <Compile Include="T_UsersBL.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Application\Application.csproj">
+      <Project>{33cac359-f4b4-4b82-84cc-5e7bade0fd8d}</Project>
+      <Name>Application</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DAL\DAL.csproj">
       <Project>{81a5962b-761f-4b31-9ab0-b8e17a639315}</Project>
       <Name>DAL</Name>

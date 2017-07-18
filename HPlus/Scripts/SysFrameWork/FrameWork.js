@@ -31,7 +31,7 @@ $(function () {
             "closeButton": true,
             "debug": false,
             "progressBar": true,
-            "preventDuplicates": false,
+            "preventDuplicates": true,
             "positionClass": "toast-top-right",
             "showDuration": "400",
             "hideDuration": "1000",
@@ -42,7 +42,7 @@ $(function () {
             "showMethod": "fadeIn",
             "hideMethod": "fadeOut"
         }
-    }, 100);
+    }, 400);
 });
 
 //AJAX过滤器
@@ -62,11 +62,11 @@ $.AjaxFilter = function () {
                 if (json.Success) {
                     switch (json.status) {
                         //消息提醒
-                        case "01":
+                        case "501":
                             FW.MsgBox(json.ErrorMessage, "警告");
                             break;
                             //登陆超时或违禁操作
-                        case "02":
+                        case "502":
                             FW.OutLogin(json.ErrorMessage, json.JumpUrl);
                             return false;
                             break;
