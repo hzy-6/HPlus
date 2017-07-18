@@ -1,50 +1,21 @@
 ﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
+    ViewBag.Title = "CRM.管理系统";
 }
-<div class="container-fluid">
-    <div class="row">
-        <div class="l-panel animated fadeInDown">
-            <div class="panel" style=" border-radius: 0px;">
-                <div style="width:100%; height: 22%;">
-                    <div id="error-msg"></div>
-                </div>
-                <div class="panel-heading text-center">
-                    <h2>CRM.管理系统</h2>
-                </div>
-                <div class="panel-body">
-                    <div class="col-sm-10 col-sm-offset-1" id="form1">
-                        <div class="form-group">
-                            <div class="input-group m-b">
-                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                <input type="text" class="form-control" name="username" placeholder="请输入用户名">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="input-group m-b">
-                                <span class="input-group-addon"><i class="fa fa-terminal"></i></span>
-                                <input type="password" class="form-control" name="userpwd" placeholder="请输入密码">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="input-group m-b">
-                                <span class="input-group-addon"><i class="fa fa-keyboard-o"></i></span>
-                                <input type="text" class="form-control" name="loginCode" placeholder="请输入验证码">
-                                <span class="input-group-btn">
-                                    <img class="yzm" src='@Url.Action("yzm")' onclick="$(this).attr('src','@Url.Action("yzm")'+'/'+new Date().getTime());" width="100" height="30" style="height:34px;" />
-                                </span>
-                            </div>
-                        </div>
-                        <br />
-                        <button type="button" class="btn btn-w-m btn-info btn-block" onclick="admin.login()">&nbsp;登 录</button>
-                    </div>
 
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@*</div>*@
-@section css{
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <!--基础样式-->
+    <link href="~/Content/HPlus/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/HPlus/css/font-awesome.css" rel="stylesheet">
+    <link href="~/Content/HPlus/css/animate.css" rel="stylesheet" />
+    <link href="~/Content/HPlus/css/style.css" rel="stylesheet" />
+    <link href="~/Scripts/Toastr/toastr.min.css" rel="stylesheet" />
     <style type="text/css">
         html, body {
             overflow: hidden;
@@ -86,10 +57,58 @@
         }
     </style>
     <link href="~/Content/Css/Login.css" rel="stylesheet" />
-}
-@section js{
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="l-panel animated fadeInDown">
+                <div class="panel" style=" border-radius: 0px;">
+                    <div style="width:100%; height: 22%;">
+                        <div id="error-msg"></div>
+                    </div>
+                    <div class="panel-heading text-center">
+                        <h2>@ViewBag.Title</h2>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-sm-10 col-sm-offset-1" id="form1">
+                            <div class="form-group">
+                                <div class="input-group m-b">
+                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    <input type="text" class="form-control" name="username" placeholder="请输入用户名">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group m-b">
+                                    <span class="input-group-addon"><i class="fa fa-terminal"></i></span>
+                                    <input type="password" class="form-control" name="userpwd" placeholder="请输入密码">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group m-b">
+                                    <span class="input-group-addon"><i class="fa fa-keyboard-o"></i></span>
+                                    <input type="text" class="form-control" name="loginCode" placeholder="请输入验证码">
+                                    <span class="input-group-btn">
+                                        <img class="yzm" src='@Url.Action("yzm")' onclick="$(this).attr('src','@Url.Action("yzm")'+'/'+new Date().getTime());" width="100" height="30" style="height:34px;" />
+                                    </span>
+                                </div>
+                            </div>
+                            <br />
+                            <button type="button" class="btn btn-w-m btn-info btn-block" onclick="admin.login()">&nbsp;登 录</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--基础js-->
+    <script src="~/Scripts/Jquery/jquery-2.1.4.min.js"></script>
+    <script src="~/Scripts/Bootstrap/bootstrap.min.js"></script>
+    <script src="~/Scripts/Layer/layer-v3.0.1/layer/layer.js"></script>
+    <script src="~/Scripts/Toastr/toastr.min.js"></script>
+    <script src="~/Scripts/SysFrameWork/FrameWork.js"></script>
     <script type="text/javascript">
-        $("#admin-class").remove();
         if (window.top !== window.self)
             window.top.location = window.location;
         $(function () {
@@ -136,4 +155,7 @@
         }
 
     </script>
-}
+
+</body>
+</html>
+
