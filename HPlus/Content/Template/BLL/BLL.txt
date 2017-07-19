@@ -11,12 +11,14 @@ using DBAccess;
 using DBAccess.Entity;
 using DAL;
 using Model;
+using Application;
 
 namespace BLL
 {
     public class <#ClassName#>
     {
-        DBContext db = new DBContext();
+		DBContext db = new DBContext();
+        List<SQL_Container> li = new List<SQL_Container>();
 
         /// <summary>
         /// 查询
@@ -30,6 +32,77 @@ namespace BLL
             return new <#TableName#>DA().GetDataSource(query, pageindex, pagesize);
         }
 
+		/// <summary>
+        /// 保存
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public List<SQL_Container> Save(BaseModel model)
+        {
+            /*troles = model;
+            if (Tools.getGuid(model.uRoles_ID).Equals(Guid.Empty))
+            {
+                model.uRoles_ID = Tools.getGuid(db.Add(troles, ref li));
+                if (model.uRoles_ID.Equals(Guid.Empty))
+                    throw new MessageBox(db.ErrorMessge);
+            }
+            else
+            {
+                if (!db.Edit(troles, ref li))
+                    throw new MessageBox(db.ErrorMessge);
+            }*/
+            return li;
+        }
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        public List<SQL_Container> Delete(string ID)
+        {
+           /* db.JsonToList<string>(ID).ForEach(item =>
+            {
+                tuserrole = new T_UsersRoles();
+                tuserrole.uUsersRoles_UsersID = tuser.uUsers_ID;
+                if (!db.Delete(tuserrole, ref li))
+                    throw new MessageBox(db.ErrorMessge);
+                tuser = new T_Users();
+                tuser.uUsers_ID = Tools.getGuid(item);
+                if (!db.Delete(tuser, ref li))
+                    throw new MessageBox(db.ErrorMessge);
+            });*/
+            return li;
+        }
+
+        /// <summary>
+        /// 获取实体
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        public Dictionary<string, object> Find(Guid ID)
+        {
+           /* tuser = new T_Users();
+            tuser.uUsers_ID = ID;
+            tuser = db.Find(tuser);
+            tuserrole = new T_UsersRoles();
+            tuserrole.uUsersRoles_UsersID = tuser.uUsers_ID;
+            tuserrole = db.Find(tuserrole);
+            troles = new T_Roles();
+            troles.uRoles_ID = tuserrole.uUsersRoles_RoleID;
+            troles = db.Find(troles);
+
+            tuser.cUsers_LoginPwd = "";
+            var di = new ToJson().GetDictionary(new Dictionary<string, object>()
+            {
+                {"tuser",tuser},
+                {"troles",troles},
+                {"status",1}
+            });
+            di["dUsers_CreateTime"] = Tools.getDateTimeString(di["dUsers_CreateTime"], "yyyy-MM-dd");
+            return di;*/
+			return null;
+        }
 
     }
 }

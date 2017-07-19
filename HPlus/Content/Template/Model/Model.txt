@@ -15,6 +15,7 @@ namespace Model
         public <#ClassName#>()
         {
             this.TableName = "<#TableName#>";
+			//this.NotFiled.Add("dUsers_CreateTime");
         }
 
 <#Filds#>
