@@ -9,6 +9,7 @@ using DBAccess;
 using DBAccess.Entity;
 using DBAccess.Model;
 using System.Data;
+using System.Linq.Expressions;
 
 namespace DBAccess
 {
@@ -20,23 +21,25 @@ namespace DBAccess
             s.Start();
             //申明一个操作实体的对象类
             DBContext db = new DBContext();
-            var li = new List<SQL_Container>();
-            var id = Guid.NewGuid();
-            var user = new T_Users();
-            user.uUsers_ID = id;
-            user.cUsers_Email = "xxxxxx@qq.com";
-            user.cUsers_LoginName = "admin_test";
-            user.cUsers_LoginPwd = "123";
-            user.cUsers_Name = "测试管理员";
-            var userid = db.Add(user);
-            if (id == Guid.Parse(userid))
-            {
-                var res = db.Edit<T_Users>(user, item => item.cUsers_Name == "123123");
-                if (res)
-                {
-                    Console.WriteLine("修改成功！");
-                }
-            }
+            var model = new T_Users { uUsers_ID = Guid.NewGuid(), cUsers_Email = "1396510655@qq.com" };
+            var aa = Insert(item => item == model);
+            //var li = new List<SQL_Container>();
+            //var id = Guid.NewGuid();
+            //var user = new T_Users();
+            //user.uUsers_ID = id;
+            //user.cUsers_Email = "xxxxxx@qq.com";
+            //user.cUsers_LoginName = "admin_test";
+            //user.cUsers_LoginPwd = "123";
+            //user.cUsers_Name = "测试管理员";
+            //var userid = db.Add(user);
+            //if (id == Guid.Parse(userid))
+            //{
+            //    var res = db.Edit<T_Users>(user, item => item.cUsers_Name == "123123");
+            //    if (res)
+            //    {
+            //        Console.WriteLine("修改成功！");
+            //    }
+            //}
             //创建一个实体类
             /*       var user = new T_Users();
 
@@ -127,5 +130,19 @@ namespace DBAccess
             Console.WriteLine(" 耗时：" + (s.ElapsedMilliseconds * 0.001) + " s");
             Console.ReadKey();
         }
+
+        public static string Insert(Expression<Func<BaseModel, BaseModel>> model)
+        {
+            var body = model.Body;
+            return ExpressionTree.ExpressionHelper.DealExpress(body);
+        }
+
+        public static string Insert(Expression<Func<BaseModel, bool>> model)
+        {
+            var body = model.Body;
+            return ExpressionTree.ExpressionHelper.DealExpress(body);
+        }
+
+
     }
 }

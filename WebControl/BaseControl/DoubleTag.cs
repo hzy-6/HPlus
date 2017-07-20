@@ -22,7 +22,7 @@ namespace WebControl.BaseControl
         private DoubleTag() { }
 
         /// <summary>
-        /// 标签参数
+        /// 成对标签 标签参数
         /// </summary>
         /// <param name="attr">属性</param>
         public DoubleTag(string tag, Dictionary<string, string> attr)

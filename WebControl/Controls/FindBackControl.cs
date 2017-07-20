@@ -5,191 +5,101 @@ using System.Web;
 //
 using System.Text;
 using System.Web.Mvc;
+using WebControl.BaseControl;
 
 namespace WebControl.Controls
 {
     public class FindBackControl
     {
         /// <summary>
-        /// 查找带回控件
+        /// 查找带回
         /// </summary>
-        /// <param name="Name"> 如 ： cRoles_Name</param>
-        /// <param name="ID"> 如 ： uRoles_ID</param>
-        /// <param name="BtnFindClick">
-        /// Tools.FindBack.OpenFindBackPage('请选择角色','@Url.Action("Index", "Role", new { isUse = 1, fun = "BackFindRole" })')
-        /// </param>
-        /// <param name="BtnRemoveClick">RemoveFindRole();</param>
+        /// <param name="options"> new { Text="",ID="",FindClick="",RemoveClick="" } </param>
+        /// <param name="Readonly">【是否设置 文本框为 非只读】</param>
+        /// <param name="KO">是否采用 KO 双向绑定值</param>
         /// <returns></returns>
-        public MvcHtmlString Html(string Name, string ID, string BtnFindClick, string BtnRemoveClick)
+        public MvcHtmlString Html(object Options, bool Readonly = true, bool KO = true)
         {
-            /*if (!BtnRemoveClick.Contains("(") && !BtnRemoveClick.Contains(")"))
-                BtnRemoveClick += "()";
-            StringBuilder sb = new StringBuilder();
-            sb.Append("<input type=\"text\" readonly=\"readonly\" class=\"form-control input-sm\" data-bind=\"value:" + Name + "\" style=\"width:74%;\" />");
-            sb.Append("<input type=\"text\" name=\"" + ID + "\" class=\"form-control\" data-bind=\"value:" + ID + "\" style=\"display:none\" />");
-            sb.Append("<div style=\"position: relative;margin-top: -30px;left: 75%;\">");
-            sb.Append("<a href=\"javascript:void(0);\" onclick=\"" + BtnFindClick + "\" class=\"btn btn-outline btn-default btn-sm\" style=\"margin-left: 1px;\"><i class=\"fa fa-search\"></i></a>");
-            sb.Append("<a href=\"javascript:void(0);\" onclick=\"" + BtnRemoveClick + "\" class=\"btn btn-outline btn-default btn-sm\" style=\"margin-left: 1px;\"><i class=\"fa fa-close\"></i></a>");
-            sb.Append("</div>");*/
+            var di = new Dictionary<string, object>();
 
-            return Html(Name, ID, BtnFindClick, BtnRemoveClick, "");
-        }
-        public MvcHtmlString Html(string Name, string ID, string BtnFindClick, string BtnRemoveClick, string Group = "")
-        {
-            if (Group == "")
+            Type ty = Options.GetType();
+
+            var fields = ty.GetProperties().ToList();
+
+            foreach (var item in fields)
             {
-                Group = Name + "," + ID;
+                di.Add(item.Name, item.GetValue(Options));
             }
-            if (BtnRemoveClick == "")
+
+            if (!di.ContainsKey("Text"))
+                throw new Exception("查找带回控件缺少 Text 属性");
+            if (!di.ContainsKey("ID"))
+                throw new Exception("查找带回控件缺少 ID 属性");
+            if (!di.ContainsKey("FindClick"))
+                throw new Exception("查找带回控件缺少 FindClick 属性");
+            if (!di.ContainsKey("RemoveClick"))
+                throw new Exception("查找带回控件缺少 RemoveClick 属性");
+
+            /*     var Html = "<div class=\"input-group\">" +
+                                 "<input type=\"text\" class=\"form-control\">" +
+                                 "<span class=\"input-group-btn\">" +
+                                     "<button type=\"button\" class=\"btn btn-outline btn-default\">" +
+                                         "<i class=\"fa fa-search\"></i>" +
+                                     "</button>" +
+                                     "<button type=\"button\" class=\"btn btn-outline btn-default\">" +
+                                         "<i class=\"fa fa-close\"></i>" +
+                                     "</button>" +
+                                 "</span>" +
+                             "</div>";
+             * */
+
+            var input_attr = new Dictionary<string, string>() { 
+                {"type","text"},{ "class", "form-control" },{ "name", di["Text"].ToString() },{ "data-bind", "value:"+di["Text"].ToString() }
+            };
+
+            //判断是否要设置 文本框的 readonly 属性
+            if (Readonly)
             {
-                BtnRemoveClick = "$.FindBack.Clear()";
+                input_attr.Add("readonly", "readonly");
             }
-            else if (!BtnRemoveClick.Contains("(") && !BtnRemoveClick.Contains(")"))
-                BtnRemoveClick += "()";
-            StringBuilder sb = new StringBuilder();
-            sb.Append("<input type=\"text\" lookGroup=\"" + Group + "\" readonly=\"readonly\" class=\"form-control input-sm\" data-bind=\"value:" + Name + "\" style=\"width:74%;\" />");
-            sb.Append("<input type=\"text\" lookGroup=\"" + Group + "\" name=\"" + ID + "\" class=\"form-control\" data-bind=\"value:" + ID + "\" style=\"display:none\" />");
-            sb.Append("<div style=\"position: relative;margin-top: -28px;left: 75%;\">");
-            sb.Append("<a href=\"javascript:void(0);\" lookGroup=\"" + Group + "\" onclick=\"" + BtnFindClick + "\" class=\"btn btn-outline btn-default btn-sm\" style=\"margin-left: 1px;\"><i lookGroup=\"" + Group + "\" class=\"fa fa-search\"></i></a>");
-            sb.Append("<a href=\"javascript:void(0);\" lookGroup=\"" + Group + "\" onclick=\"" + BtnRemoveClick + "\" class=\"btn btn-outline btn-default btn-sm\" style=\"margin-left: 1px;\"><i lookGroup=\"" + Group + "\" class=\"fa fa-close\"></i></a>");
-            sb.Append("</div>");
-            //sb.Append("<div class=\"row\">");
-            //sb.Append("<div class=\"col-xs-9\">");
-            //sb.Append("<input type=\"text\" readonly=\"readonly\" class=\"form-control input-sm\" data-bind=\"value:" + Name + "\" />");
-            //sb.Append("<input type=\"text\" name=\"" + ID + "\" class=\"form-control\" data-bind=\"value:" + ID + "\" style=\"display:none\" />");
-            //sb.Append("</div>");
-            //sb.Append("<div class=\"pull-left\">");
-            //sb.Append("<a href=\"javascript:void(0);\" onclick=\"" + BtnFindClick + "\" class=\"btn btn-outline btn-default btn-sm\"><i class=\"fa fa-search\"></i></a>&nbsp;");
-            //sb.Append("<a href=\"javascript:void(0);\" onclick=\"" + BtnRemoveClick + "\" class=\"btn btn-outline btn-default btn-sm\"><i class=\"fa fa-close\"></i></a>");
-            //sb.Append("</div>");
-            //sb.Append("</div>");
-            return MvcHtmlString.Create(sb.ToString());
-        }
-        /// <summary>
-        /// 查找带回控件
-        /// </summary>
-        /// <param name="Name"> 如 ： cRoles_Name</param>
-        /// <param name="ID"> 如 ： uRoles_ID</param>
-        /// <param name="BtnFindClick">
-        /// Tools.FindBack.OpenFindBackPage('请选择角色','@Url.Action("Index", "Role", new { isUse = 1, fun = "BackFindRole" })')
-        /// </param>
-        /// <param name="BtnRemoveClick">RemoveFindRole();</param>
-        /// <param name="IsReadonlyInput">是否关闭文本框的输入状态</param>
-        /// <returns></returns>
-        public MvcHtmlString Html(string Name, string ID, string BtnFindClick, string BtnRemoveClick, bool IsReadonlyInput)
-        {
-            if (!BtnRemoveClick.Contains("(") && !BtnRemoveClick.Contains(")"))
-                BtnRemoveClick += "()";
-            StringBuilder sb = new StringBuilder();
-            sb.Append("<div class=\"row\">");
-            sb.Append("<div class=\"col-xs-9\">");
-            if (IsReadonlyInput)
+
+            //Text 属性文本框
+            var input = new NoDoubleTag("input", input_attr).Create().ToHtmlString();
+            //ID 属性文本框
+            var input_attr_id = new Dictionary<string, string>() { 
+                {"type","text"},{ "class", "form-control" },{ "style", "display:none" },{ "name", di["ID"].ToString() },{ "data-bind", "value:"+di["ID"].ToString() }
+            };
+            var input_id = new NoDoubleTag("input", input_attr_id).Create().ToHtmlString();
+
+            //判断绑定值是否使用 KO 插件
+            if (!KO)
             {
-                sb.Append("<input type=\"text\" class=\"form-control input-sm\" data-bind=\"value:" + Name + "\" />");
-                //sb.Append("<input type=\"text\" name=\"" + ID + "\" class=\"form-control\" data-bind=\"value:" + ID + "\" disabled=\"disabled\" />");
+                input_attr.Remove("data-bind");
+                input_attr.Add("value", "");
+                input_attr_id.Remove("data-bind");
+                input_attr_id.Add("value", "");
             }
-            else
-                sb.Append("<input type=\"text\" readonly=\"readonly\" class=\"form-control input-sm\" data-bind=\"value:" + Name + "\" />");
-            sb.Append("<input type=\"text\" name=\"" + ID + "\" class=\"form-control\" data-bind=\"value:" + ID + "\" style=\"display:none\" />");
-            sb.Append("</div>");
-            //sb.Append("<div class=\"col-xs-4\">");
-            sb.Append("<div class=\"pull-left\">");
-            sb.Append("<a href=\"javascript:void(0);\" onclick=\"" + BtnFindClick + "\" class=\"btn btn-success btn-sm\"><i class=\"fa fa-search\"></i></a>");
-            sb.Append("<a href=\"javascript:void(0);\" onclick=\"" + BtnRemoveClick + "\" class=\"btn btn-danger btn-sm\"><i class=\"fa fa-close\"></i></a>");
-            //sb.Append("</div>");
-            sb.Append("</div>");
-            sb.Append("</div>");
-            return MvcHtmlString.Create(sb.ToString());
+
+            //打开窗口按钮
+            var find = new DoubleTag("button", new Dictionary<string, string>() { 
+                {"type","button"},{"class","btn btn-outline btn-default"},{"onclick",di["FindClick"].ToString()}
+            }).Append(new DoubleTag("i", new Dictionary<string, string>() { { "class", "fa fa-search" } }).Create().ToHtmlString()).Create().ToHtmlString();
+            //清空信息按钮
+            var close = new DoubleTag("button", new Dictionary<string, string>() { 
+                {"type","button"},{"class","btn btn-outline btn-default"},{"onclick",di["RemoveClick"].ToString()}
+            }).Append(new DoubleTag("i", new Dictionary<string, string>() { { "class", "fa fa-close" } }).Create().ToHtmlString()).Create().ToHtmlString();
+            //按钮组div
+            var span = new DoubleTag("span", new Dictionary<string, string>() { 
+                {"class","input-group-btn"}
+            }).Append(find + close).Create().ToHtmlString();
+
+            //创建 查找带回Html
+            var CreateHtml = new DoubleTag("div", new Dictionary<string, string>(){
+                {"class","input-group"},
+            }).Append(input + input_id + span).Create();
+
+            return CreateHtml;
         }
 
-        /// <summary>
-        /// 查找带回控件
-        /// </summary>
-        /// <param name="Name"> 如 ： cRoles_Name</param>
-        /// <param name="ID"> 如 ： uRoles_ID</param>
-        /// <param name="BtnFindClick">
-        /// Tools.FindBack.OpenFindBackPage('请选择角色','@Url.Action("Index", "Role", new { isUse = 1, fun = "BackFindRole" })')
-        /// </param>
-        /// <param name="BtnRemoveClick">RemoveFindRole();</param>
-        /// <param name="databind">给打卡窗口按钮绑定自己定义的ko事件</param>
-        /// <returns></returns>
-        public MvcHtmlString Html1(string Name, string ID, string BtnFindClick, string BtnRemoveClick, string databind)
-        {
-            if (!BtnRemoveClick.Contains("(") && !BtnRemoveClick.Contains(")"))
-                BtnRemoveClick += "()";
-            StringBuilder sb = new StringBuilder();
-            sb.Append("<div class=\"row\">");
-            sb.Append("<div class=\"col-xs-9\">");
-            sb.Append("<input type=\"text\" readonly=\"readonly\" class=\"form-control input-sm\" data-bind=\"value:" + Name + "\" />");
-            sb.Append("<input type=\"text\" name=\"" + ID + "\" class=\"form-control\" data-bind=\"value:" + ID + "\" style=\"display:none\" />");
-            sb.Append("</div>");
-            //sb.Append("<div class=\"col-xs-4\">");
-            sb.Append("<div class=\"pull-left\">");
-            if (string.IsNullOrEmpty(databind))
-                sb.Append("<a href=\"javascript:void(0);\" onclick=\"" + BtnFindClick + "\" class=\"btn btn-success btn-sm\"><i class=\"fa fa-search\"></i></a>");
-            else
-                sb.Append("<a href=\"javascript:void(0);\" data-bind=" + databind + " class=\"btn btn-success btn-sm\"><i class=\"fa fa-search\"></i></a>");
-            sb.Append("<a href=\"javascript:void(0);\" onclick=\"" + BtnRemoveClick + "\" class=\"btn btn-danger btn-sm\"><i class=\"fa fa-close\"></i></a>");
-            //sb.Append("</div>");
-            sb.Append("</div>");
-            sb.Append("</div>");
-            return MvcHtmlString.Create(sb.ToString());
-        }
-
-        /// <summary>
-        /// 查找带回控件
-        /// </summary>
-        /// <param name="Name"> 如 ： cRoles_Name</param>
-        /// <param name="ID"> 如 ： uRoles_ID</param>
-        /// <param name="BtnFindClick">
-        /// Tools.FindBack.OpenFindBackPage('请选择角色','@Url.Action("Index", "Role", new { isUse = 1, fun = "BackFindRole" })')
-        /// </param>
-        /// <param name="BtnRemoveClick">RemoveFindRole();</param>
-        /// <param name="IsReadonlyInput">是否关闭文本框的输入状态</param>
-        /// <param name="databind">给打卡窗口按钮绑定自己定义的ko事件</param>
-        /// <returns></returns>
-        public MvcHtmlString Html(string Name, string ID, string BtnFindClick, string BtnRemoveClick, bool IsReadonlyInput, string databind)
-        {
-            if (!BtnRemoveClick.Contains("(") && !BtnRemoveClick.Contains(")"))
-                BtnRemoveClick += "()";
-            StringBuilder sb = new StringBuilder();
-            sb.Append("<div class=\"row\">");
-            sb.Append("<div class=\"col-xs-9\">");
-            if (IsReadonlyInput)
-            {
-                sb.Append("<input type=\"text\" class=\"form-control input-sm\" data-bind=\"value:" + Name + "\" />");
-                //sb.Append("<input type=\"text\" name=\"" + ID + "\" class=\"form-control\" data-bind=\"value:" + ID + "\" disabled=\"disabled\" />");
-            }
-            else
-                sb.Append("<input type=\"text\" readonly=\"readonly\" class=\"form-control input-sm\" data-bind=\"value:" + Name + "\" />");
-            sb.Append("<input type=\"text\" name=\"" + ID + "\" class=\"form-control\" data-bind=\"value:" + ID + "\" style=\"display:none\" />");
-            sb.Append("</div>");
-            //sb.Append("<div class=\"col-xs-4\">");
-            sb.Append("<div class=\"pull-left\">");
-            if (string.IsNullOrEmpty(databind))
-                sb.Append("<a href=\"javascript:void(0);\" onclick=\"" + BtnFindClick + "\" class=\"btn btn-success btn-sm\"><i class=\"fa fa-search\"></i></a>");
-            else
-                sb.Append("<a href=\"javascript:void(0);\" data-bind=" + databind + " class=\"btn btn-success btn-sm\"><i class=\"fa fa-search\"></i></a>");
-            sb.Append("<a href=\"javascript:void(0);\" onclick=\"" + BtnRemoveClick + "\" class=\"btn btn-danger btn-sm\"><i class=\"fa fa-close\"></i></a>");
-            //sb.Append("</div>");
-            sb.Append("</div>");
-            sb.Append("</div>");
-            return MvcHtmlString.Create(sb.ToString());
-        }
-
-
-
-        //<div class="row">
-        //                            <div class="col-sm-9">
-        //                                <input type="text" readonly="readonly" class="form-control" data-bind="value:cRoles_Name" />
-        //                                <input type="text" name="uRoles_ID" class="form-control" data-bind="value:uRoles_ID" style="display:none;" />
-        //                            </div>
-        //                            <div class="col-sm-3">
-        //                                <div class="btn-group btn-group-sm pull-left">
-        //                                    <a href="javascript:void(0)" onclick="Tools.FindBack.OpenFindBackPage('请选择角色','@Url.Action("Index", "Role", new { isUse = 1, fun = "BackFindRole" })')" class="btn btn-primary"><i class="fa fa-search"></i></a>
-        //                                    <a href="javascript:void(0)" onclick="RemoveFindRole()" class="btn btn-danger"><i class="fa fa-close"></i></a>
-        //                                </div>
-        //                            </div>
-        //                        </div>
     }
 }

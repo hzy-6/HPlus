@@ -37,25 +37,31 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label class="control-label">角色：</label>
-                            @WebHtml.FindBackControl("cRoles_Name", "uRoles_ID", "$.FindBack.OpenPage({title: '请选择角色',content: '" + Url.Action("Index", "Role", new { fun = "findback" }) + "',width:'1000px',callBack:function(id){ Func.FindBack.Role.CallBack(id) } });", "Func.FindBack.Role.CallBack();")
+                            @WebHtml.FindBackControl(new
+                       {
+                           Text = "cRoles_Name",
+                           ID = "uRoles_ID",
+                           FindClick = "$.FindBack.OpenPage({title: '请选择角色',content: '" + Url.Action("Index", "Role", new { fun = "findback" }) + "',width:'1000px',callBack:function(id){ Func.FindBack.Role.CallBack(id) } });",
+                           RemoveClick = "Func.FindBack.Role.CallBack();"
+                       })
                         </div>
                     </div>
                     @*<div class="col-sm-6">
-                        <div class="form-group">
-                            <label class="control-label">角色：</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="uRoles_ID" autocomplete="off">
-                                <div class="input-group-btn">
-                                    <button type="button" class="btn btn-white dropdown-toggle" data-toggle="" style="padding: 4px 12px;">
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-right" role="menu" style="padding-top: 0px; max-height: 375px; max-width: 800px; overflow: auto; width: auto; transition: 0.3s;"></ul>
+                            <div class="form-group">
+                                <label class="control-label">角色：</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="uRoles_ID" autocomplete="off">
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-white dropdown-toggle" data-toggle="" style="padding: 4px 12px;">
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-right" role="menu" style="padding-top: 0px; max-height: 375px; max-width: 800px; overflow: auto; width: auto; transition: 0.3s;"></ul>
+                                    </div>
+                                     /btn-group
                                 </div>
-                                 /btn-group 
-                            </div>
 
-                        </div>
-                    </div>*@
+                            </div>
+                        </div>*@
                 </form>
 
             </div>
@@ -77,35 +83,40 @@
 @section js{
     <script src="~/Scripts/SysFrameWork/FrameWork_Form.js"></script>
     <script type="text/javascript">
-    var KeyId = FW.GetQueryString("ID");
-    model = new vModel();
-    $(function () {
-        ko.applyBindings(model);//注册vModel
-        Func.Load(KeyId);
-        //Func.Select_Roles();
-    });
+        var KeyId = FW.GetQueryString("ID");
+        model = new vModel();
+        $(function () {
+            ko.applyBindings(model);//注册vModel
+            Func.Load(KeyId);
+            //Func.Select_Roles();
+        });
 
-    var Func = {
-        IsAdd: function () {
-            if (KeyId == null || KeyId == "" || KeyId == undefined || KeyId == "@Guid.Empty")
-                return true;
-            return false;
-        },
-        Load: function (ID) {
-            $Form.Load({
-                id: ID,
-                url: "@Url.Action("Find")",
-                callBack: function (r) {
-                }
-            });
-        },
-        FindBack: {
-            Role: {
-                CallBack: function (id) {
-                    $.post('@Url.Action("Find", "Role")', { id: id }, function (r) {
-                        model.uRoles_ID((id == "" || id == undefined) ? '@Guid.Empty' : id);
-                            model.cRoles_Name(r.cRoles_Name == "" ? "请选择角色" : r.cRoles_Name);
-                        });
+        var Func = {
+            IsAdd: function () {
+                if (KeyId == null || KeyId == "" || KeyId == undefined || KeyId == "@Guid.Empty")
+                    return true;
+                return false;
+            },
+            Load: function (ID) {
+                $Form.Load({
+                    id: ID,
+                    url: "@Url.Action("Find")",
+                    callBack: function (r) {
+                    }
+                });
+            },
+            FindBack: {
+                Role: {
+                    CallBack: function (id) {
+                        if (id) {
+                            $.post('@Url.Action("Find", "Role")', { id: id }, function (r) {
+                                model.uRoles_ID((id == "" || id == undefined) ? '@Guid.Empty' : id);
+                                model.cRoles_Name(r.cRoles_Name == "" ? "请选择角色" : r.cRoles_Name);
+                            });
+                        } else {
+                            model.uRoles_ID("");
+                            model.cRoles_Name("");
+                        }
                     }
                 }
             },
