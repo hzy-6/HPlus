@@ -11,7 +11,7 @@ using DBAccess.Entity;
 using Utility;
 using BLL;
 using Model;
-using System.Collections;
+using WebControl.PageCode;
 
 namespace HPlus.Areas.Admin.Controllers.Sys
 {
@@ -27,6 +27,16 @@ namespace HPlus.Areas.Admin.Controllers.Sys
 
         T_Roles troles = new T_Roles();
         T_RolesBL trolesbl = new T_RolesBL();
+
+        /// <summary>
+        /// 页面绘制
+        /// </summary>
+        /// <param name="indexpage"></param>
+        public override void DrawIndex(WebControl.PageCode.PageIndex page)
+        {
+            base.DrawIndex(page);
+            page.AddSearch(PageControl.AddInput("角色名称：", "cRoles_Name", "请输入角色名称"));
+        }
 
         #region  查询数据列表
         /// <summary>

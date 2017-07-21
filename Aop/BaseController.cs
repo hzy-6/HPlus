@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 //
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Script.Serialization;
 using Utility;
 using Application;
 using Model;
@@ -27,7 +26,7 @@ using System.IO;
 
 namespace Aop
 {
-    public class BaseController : Controller
+    public class BaseController : HtmlController
     {
         T_RoleMenuFunction trmf = new T_RoleMenuFunction();
         T_MenuFunction tmenufunction = new T_MenuFunction();
@@ -35,7 +34,6 @@ namespace Aop
         T_Roles troles = new T_Roles();
         T_RolesBL trolesbl = new T_RolesBL();
         T_Menu tmenu = new T_Menu();
-        protected JavaScriptSerializer jss = new JavaScriptSerializer();
         protected DBContext db = new DBContext();
         protected List<SQL_Container> li = new List<SQL_Container>();
 
@@ -48,38 +46,6 @@ namespace Aop
         /// 菜单ID
         /// </summary>
         public string MenuID { get; set; }
-
-        /// <summary>
-        /// index 页面初始加载
-        /// </summary>
-        public void InitIndex()
-        {
-            ViewBag.SysBtn = this.GetBtn();
-            //获取表格列头
-            ViewBag.ColModel = jss.Serialize(this.GetPagingEntity(null, 1, 1).ColModel);
-        }
-
-        /// <summary>
-        /// info 页面初始加载
-        /// </summary>
-        public void InitInfo()
-        {
-
-        }
-
-        [HttpGet]
-        public virtual ActionResult Index()
-        {
-            this.InitIndex();
-            return View();
-        }
-
-        [HttpGet]
-        public virtual ActionResult Info()
-        {
-            this.InitInfo();
-            return View();
-        }
 
         /// <summary>
         /// 在行为方法执行后执行
@@ -202,19 +168,6 @@ namespace Aop
         }
 
         /// <summary>
-        /// 获取数据源
-        /// </summary>
-        /// <param name="fc"></param>
-        /// <param name="page"></param>
-        /// <param name="rows"></param>
-        /// <returns></returns>
-        [NonAction]
-        public virtual PagingEntity GetPagingEntity(FormCollection fc, int page = 1, int rows = 20)
-        {
-            return new PagingEntity();
-        }
-
-        /// <summary>
         /// 表数据转换为EXCEL
         /// </summary>
         /// <param name="dt"></param>
@@ -276,58 +229,6 @@ namespace Aop
                     hashtable.Add(item, fc[item]);
                 });
             return hashtable;
-        }
-
-        [NonAction]
-        public string GetBtn()
-        {
-            var Refresh = new DoubleTag("button", new Dictionary<string, string>(){
-                {"type","button"},
-                {"class","btn btn-white btn-sm"},
-                {"onclick","window.location=''"},
-            }).Append(
-                new DoubleTag("i", new Dictionary<string, string>() { { "class", "fa fa-refresh" } }).Create() + "&nbsp;刷新"
-            ).Create();
-
-            var Search = new DoubleTag("button", new Dictionary<string, string>(){
-                {"type","button"},
-                {"class","btn btn-white btn-sm"},
-                {"onclick","ShowSearch(this)"},
-                {"data-power","Search"},
-            }).Append(
-                new DoubleTag("i", new Dictionary<string, string>() { { "class", "fa fa-chevron-down" } }).Create() + "&nbsp;检索"
-            ).Create();
-
-            var Add = new DoubleTag("button", new Dictionary<string, string>(){
-                {"type","button"},
-                {"class","btn btn-white btn-sm"},
-                {"onclick","Func.OpenInfoPage('add')"},
-                {"data-power","Add"},
-            }).Append(
-                new DoubleTag("i", new Dictionary<string, string>() { { "class", "fa fa-plus" } }).Create() + "&nbsp;添加"
-            ).Create();
-
-            var Edit = new DoubleTag("button", new Dictionary<string, string>(){
-                {"type","button"},
-                {"class","btn btn-white btn-sm"},
-                {"onclick","Func.OpenInfoPage('edit')"},
-                {"data-power","Edit"},
-                {"disabled","disabled"}
-            }).Append(
-                new DoubleTag("i", new Dictionary<string, string>() { { "class", "fa fa-pencil" } }).Create() + "&nbsp;修改"
-            ).Create();
-
-            var Del = new DoubleTag("button", new Dictionary<string, string>(){
-                {"type","button"},
-                {"class","btn btn-white btn-sm"},
-                {"onclick","$List.Del({url:'" + Url.Action("Del") + "'});"},
-                {"data-power","Del"},
-                {"disabled","disabled"}
-            }).Append(
-                new DoubleTag("i", new Dictionary<string, string>() { { "class", "fa fa-trash" } }).Create() + "&nbsp;删除"
-            ).Create();
-
-            return Refresh.ToHtmlString() + Search.ToHtmlString() + Add.ToHtmlString() + Edit.ToHtmlString() + Del.ToHtmlString();
         }
 
     }

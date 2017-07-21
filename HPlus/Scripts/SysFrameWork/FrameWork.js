@@ -42,7 +42,7 @@ $(function () {
             "showMethod": "fadeIn",
             "hideMethod": "fadeOut"
         }
-    }, 400);
+    }, 500);
 });
 
 //AJAX过滤器

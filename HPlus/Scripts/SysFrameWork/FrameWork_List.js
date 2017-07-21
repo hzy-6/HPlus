@@ -17,7 +17,7 @@ var $List = {
             height: $(window).height() - 74,
             striped: true,
             method: "post",
-            classes: "table table-hover",
+            classes: "table table-hover  table-condensed",
             url: "",
             idField: "_ukid",
             contentType: "application/x-www-form-urlencoded", //"multipart/form-data",//"application/json",

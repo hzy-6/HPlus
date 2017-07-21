@@ -11,7 +11,8 @@ using DBAccess.Entity;
 using Utility;
 using BLL;
 using Model;
-using System.Collections;
+using WebControl.PageCode;
+
 
 namespace HPlus.Areas.Admin.Controllers.Sys
 {
@@ -26,6 +27,17 @@ namespace HPlus.Areas.Admin.Controllers.Sys
         }
 
         T_UsersBL tuserbl = new T_UsersBL();
+
+        /// <summary>
+        /// 页面绘制
+        /// </summary>
+        /// <param name="indexpage"></param>
+        public override void DrawIndex(WebControl.PageCode.PageIndex page)
+        {
+            base.DrawIndex(page);
+            page.AddSearch(PageControl.AddInput("用户名：", "cUsers_Name", "请输入用户名"));
+            page.AddSearch(PageControl.AddInput("登录名：", "cUsers_LoginName", "请输入登录名"));
+        }
 
         #region  查询数据列表
         /// <summary>

@@ -64,6 +64,7 @@
     <Compile Include="BaseController.cs" />
     <Compile Include="CustomViewEngine.cs" />
     <Compile Include="ExceptionFilter.cs" />
+    <Compile Include="HtmlController.cs" />
     <Compile Include="ModelDataAnnotationsModelMetadataProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

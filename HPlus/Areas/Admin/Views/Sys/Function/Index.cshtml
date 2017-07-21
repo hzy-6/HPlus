@@ -12,14 +12,8 @@
                         <form id="form_search">
                             <div class="col-sm-3">
                                 <div class="form-group">
-                                    <label>用户名：</label>
-                                    <input class="form-control input-sm" name="cUsers_Name" placeholder="请输入用户名" />
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="form-group">
-                                    <label>登录名：</label>
-                                    <input class="form-control input-sm" name="cUsers_LoginName" placeholder="请输入登录名" />
+                                    <label>功能名称：</label>
+                                    <input class="form-control input-sm" name="cFunction_Name" placeholder="请输入功能名称" />
                                 </div>
                             </div>
                         </form>
@@ -38,7 +32,11 @@
             <div class="row">
                 <div class="col-sm-12" style="margin-bottom:5px;">
                     <div class="btn-group btn-group-sm">
-                        @Html.Raw(ViewBag.SysBtn)
+                        <button type="button" class="btn btn-white btn-sm" onclick="window.location=''"><i class="fa fa-refresh"></i>&nbsp;刷新</button>
+                        <button type="button" class="btn btn-white btn-sm" onclick="ShowSearch(this)" data-power="Search"><i class="fa fa-chevron-down"></i>&nbsp;检索</button>
+                        <button type="button" class="btn btn-white btn-sm" onclick="Func.OpenInfoPage('add')" data-power="Add"><i class="fa fa-plus"></i>&nbsp;添加</button>
+                        <button type="button" class="btn btn-white btn-sm" onclick="Func.OpenInfoPage('edit')" data-power="Edit" disabled="disabled"><i class="fa fa-pencil"></i>&nbsp;修改</button>
+                        <button type="button" class="btn btn-white btn-sm" onclick="$List.Del({ url: '@Url.Action("Del")' });" data-power="Del" disabled="disabled"><i class="fa fa-trash"></i>&nbsp;删除</button>
                         <a class="btn btn-white btn-sm" onclick="$List.ExportExcel('@Url.Action("ExportExcel")')" href="javascript:void(0)" id="Btn_Power_GetExcel"><i class="fa fa-file-excel-o"></i>&nbsp;导出 Excel</a>
                     </div>
                 </div>
