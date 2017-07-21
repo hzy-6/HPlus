@@ -27,7 +27,7 @@ namespace Aop
             pageIndex.Btn_ExportExcel_ApiUrl = Url.Action("ExportExcel");
             this.DrawIndex(pageIndex);
             ViewBag.ColModel = jss.Serialize(this.GetPagingEntity(null, 1, 1).ColModel);
-            ViewBag.Html_List = MvcHtmlString.Create(pageIndex.GetHtml.Trim());
+            ViewBag.Html_List = MvcHtmlString.Create(pageIndex.GetHtml);
             return View();
         }
 

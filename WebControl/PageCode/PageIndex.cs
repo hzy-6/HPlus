@@ -55,7 +55,13 @@ namespace WebControl.PageCode
                 {
                     throw new Exception("导出Excel按钮未设置 接口地址！");
                 }
-                return Framework.Replace("<#=ToolBar=#>", this.ToolBar).Replace("<#=Search=#>", this.Search);
+
+                Framework = Framework.Replace("<#=ToolBar=#>", this.ToolBar);
+                Framework = Framework.Replace("<#=Search=#>", this.Search);
+                Framework = Framework.Replace("<#=Btn_Update_Text=#>", (string.IsNullOrEmpty(this.Btn_Update_Text) ? "修改" : this.Btn_Update_Text));
+                Framework = Framework.Replace("<#=Btn_Delete_ApiUrl=#>", this.Btn_Delete_ApiUrl);
+                Framework = Framework.Replace("<#=Btn_ExportExcel_ApiUrl=#>", this.Btn_ExportExcel_ApiUrl);
+                return Framework;
             }
         }
 
@@ -160,11 +166,11 @@ namespace WebControl.PageCode
 
             this.ToolBar += "<button type=\"button\" class=\"btn btn-white btn-sm\" onclick=\"Func.OpenInfoPage('add')\" data-power=\"Add\"><i class=\"fa fa-plus\"></i>&nbsp;添加</button>";
 
-            this.ToolBar += "<button type=\"button\" class=\"btn btn-white btn-sm\" onclick=\"Func.OpenInfoPage('edit')\" data-power=\"Edit\" disabled=\"disabled\"><i class=\"fa fa-pencil\"></i>&nbsp;" + (string.IsNullOrEmpty(this.Btn_Update_Text) ? "修改" : this.Btn_Update_Text) + "</button>";
+            this.ToolBar += "<button type=\"button\" class=\"btn btn-white btn-sm\" onclick=\"Func.OpenInfoPage('edit')\" data-power=\"Edit\" disabled=\"disabled\"><i class=\"fa fa-pencil\"></i>&nbsp;<#=Btn_Update_Text=#></button>";
 
-            this.ToolBar += "<button type=\"button\" class=\"btn btn-white btn-sm\" onclick=\"$List.Del({url:'" + this.Btn_Delete_ApiUrl + "'});\" data-power=\"Del\" disabled=\"disabled\"><i class=\"fa fa-trash\"></i>&nbsp;删除</button>";
+            this.ToolBar += "<button type=\"button\" class=\"btn btn-white btn-sm\" onclick=\"$List.Del({url:'<#=Btn_Delete_ApiUrl=#>'});\" data-power=\"Del\" disabled=\"disabled\"><i class=\"fa fa-trash\"></i>&nbsp;删除</button>";
 
-            this.ToolBar += "<a class=\"btn btn-white btn-sm\" onclick=\"$List.ExportExcel('" + this.Btn_ExportExcel_ApiUrl + "')\" href=\"javascript:void(0)\"id=\"Btn_Power_GetExcel\"><i class=\"fa fa-file-excel-o\"></i>&nbsp;导出 Excel</a>";
+            this.ToolBar += "<a class=\"btn btn-white btn-sm\" onclick=\"$List.ExportExcel('<#=Btn_ExportExcel_ApiUrl=#>')\" href=\"javascript:void(0)\"id=\"Btn_Power_GetExcel\"><i class=\"fa fa-file-excel-o\"></i>&nbsp;导出 Excel</a>";
         }
 
         /// <summary>
