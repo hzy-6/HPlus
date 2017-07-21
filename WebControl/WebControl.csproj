@@ -50,7 +50,9 @@
     </Compile>
     <Compile Include="Controls\FindBackControl.cs" />
     <Compile Include="PageCode\PageControl.cs" />
-    <Compile Include="PageCode\PageIndex.cs" />
+    <Compile Include="PageCode\PageIndex.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebHtml.cs" />
   </ItemGroup>
