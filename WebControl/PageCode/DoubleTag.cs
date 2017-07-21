@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 //
 using System.Web.Mvc;
 
-namespace WebControl.BaseControl
+namespace WebControl.PageCode
 {
     /// <summary>
     /// 成对标签类
     /// </summary>
-    public class DoubleTag : AbstractBaseClass
+    public class DoubleTag
     {
         private string Tag;
 
-        private Dictionary<string, object> Attr;
+        private Dictionary<string, string> Attr;
 
         private StringBuilder sb = new StringBuilder();
 
@@ -28,8 +28,7 @@ namespace WebControl.BaseControl
         public DoubleTag(string tag, Dictionary<string, string> attr)
         {
             this.Tag = tag;
-            var json = jss.Serialize(attr);//将匿名对象转换为json
-            this.Attr = jss.Deserialize<Dictionary<string, object>>(json);//将json转换为字典
+            this.Attr = attr;
             this.GetHTML();
         }
 

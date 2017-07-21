@@ -42,10 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseControl\AbstractBaseClass.cs" />
-    <Compile Include="BaseControl\DoubleTag.cs" />
-    <Compile Include="BaseControl\IBaseClass.cs" />
-    <Compile Include="BaseControl\NoDoubleTag.cs">
+    <Compile Include="PageCode\DoubleTag.cs" />
+    <Compile Include="PageCode\NoDoubleTag.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controls\FindBackControl.cs" />
