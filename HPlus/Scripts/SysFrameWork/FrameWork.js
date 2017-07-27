@@ -399,10 +399,10 @@ $.ExFun = function (funName, iframeName) {
 
 //查找带回
 $.FindBack = {
-    BindDbClick: function (id) {
+    BindDbClick: function (row) {
         var fun = FW.GetQueryString("fun");
         if (fun != null) {
-            top.FW.setCookie("FindBack_Json", id);
+            top.FW.setCookie("FindBack_Json", JSON.stringify(row));
             Lay.close($.GetFrameIndex());
         }
     },
@@ -444,9 +444,9 @@ $.FindBack = {
             },
             end: function () {
                 var FindBack_Json = top.FW.getCookie("FindBack_Json");
-                if (options.callBack != null) {
-                    if (FindBack_Json != null && FindBack_Json != "") {
-                        options.callBack(FindBack_Json);
+                if (options.callBack) {
+                    if (FindBack_Json) {
+                        options.callBack(JSON.parse(FindBack_Json));
                     }
                 }
                 top.FW.setCookie("FindBack_Json", "");

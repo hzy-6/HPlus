@@ -41,8 +41,13 @@
                        {
                            Text = "cRoles_Name",
                            ID = "uRoles_ID",
-                           FindClick = "$.FindBack.OpenPage({title: '请选择角色',content: '" + Url.Action("Index", "Role", new { fun = "findback" }) + "',width:'1000px',callBack:function(id){ Func.FindBack.Role.CallBack(id) } });",
-                           RemoveClick = "Func.FindBack.Role.CallBack();"
+                           Placeholder = "请选择角色",
+                           FindClick = @"$.FindBack.OpenPage({
+                                    title: '请选择角色',
+                                    content: '" + Url.Action("Index", "Role", new { fun = "findback" }) + @"',
+                                    callBack:function(id){ Func.FindBack.CallBack(id,'Role') }
+                                });",
+                           RemoveClick = "Func.FindBack.CallBack(null,'Role');"
                        })
                         </div>
                     </div>
@@ -106,18 +111,13 @@
                 });
             },
             FindBack: {
-                Role: {
-                    CallBack: function (id) {
-                        if (id) {
-                            $.post('@Url.Action("Find", "Role")', { id: id }, function (r) {
-                                model.uRoles_ID((id == "" || id == undefined) ? '@Guid.Empty' : id);
-                                model.cRoles_Name(r.cRoles_Name == "" ? "请选择角色" : r.cRoles_Name);
-                            });
-                        } else {
-                            model.uRoles_ID("");
-                            model.cRoles_Name("");
-                        }
+                CallBack: function (row, tag) {
+                    console.log(row);
+                    if (tag == "Role") {
+                        model.uRoles_ID((row ? row._ukid : ""));
+                        model.cRoles_Name((row ? row.cRoles_Name : ""));
                     }
+
                 }
             },
             @*Select_Roles: function () {

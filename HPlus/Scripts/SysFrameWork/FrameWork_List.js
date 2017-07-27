@@ -145,7 +145,8 @@ var $List = {
                         options.onDblClickRow(row, dom, field);
                 } else {
                     if (fun != null && fun != "")
-                        $.FindBack.BindDbClick(row._ukid);
+                        //$.FindBack.BindDbClick(row._ukid);
+                        $.FindBack.BindDbClick(row);
                 }
             },
             onCheck: function (row, dom) {//选中复选框

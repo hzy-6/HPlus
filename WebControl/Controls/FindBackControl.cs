@@ -39,6 +39,8 @@ namespace WebControl.Controls
                 throw new Exception("查找带回控件缺少 FindClick 属性");
             if (!di.ContainsKey("RemoveClick"))
                 throw new Exception("查找带回控件缺少 RemoveClick 属性");
+            if (!di.ContainsKey("Placeholder"))
+                throw new Exception("查找带回控件缺少 Placeholder 属性");
 
             /*     var Html = "<div class=\"input-group\">" +
                                  "<input type=\"text\" class=\"form-control\">" +
@@ -51,11 +53,17 @@ namespace WebControl.Controls
                                      "</button>" +
                                  "</span>" +
                              "</div>";
-             * */
+             */
 
             var input_attr = new Dictionary<string, string>() { 
                 {"type","text"},{ "class", "form-control" },{ "name", di["Text"].ToString() },{ "data-bind", "value:"+di["Text"].ToString() }
             };
+
+            //判断是否有 placeholder 属性
+            if (di.ContainsKey("Placeholder"))
+            {
+                input_attr.Add("placeholder", di["Placeholder"].ToString());
+            }
 
             //判断是否要设置 文本框的 readonly 属性
             if (Readonly)
