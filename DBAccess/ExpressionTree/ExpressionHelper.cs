@@ -198,7 +198,10 @@ namespace DBAccess.ExpressionTree
                     }
                     else
                     {
-                        return "'" + val.Value + "' ";
+                        UnaryExpression cast = Expression.Convert(member, typeof(object));
+                        object obj = Expression.Lambda<Func<object>>(cast).Compile().Invoke();
+                        return obj == null ? "NULL" : string.Format("'{0}'", obj.ToString());
+                        //return "'" + val.Value + "' ";
                     }
                 }
                 else

@@ -60,7 +60,7 @@ namespace DBAccess.SQLContext
             //}
             //else
             //    throw new Exception(" where 条件语法错误! ");
-            return _where;
+            return " AND "+_where;
         }
 
 
