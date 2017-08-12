@@ -63,7 +63,7 @@ namespace BLL
             {
                 //如果 密码字段为空，则设置忽略字段
                 if (string.IsNullOrEmpty(tuser.cUsers_LoginPwd))
-                    tuser.AddNoDbField(f => f.cUsers_LoginPwd);
+                    tuser.AddNoDbField(f => new { f.cUsers_LoginPwd });
                 if (!db.Edit<T_Users>(tuser, w => w.uUsers_ID == tuser.uUsers_ID, ref li))
                     throw new MessageBox(db.ErrorMessge);
 

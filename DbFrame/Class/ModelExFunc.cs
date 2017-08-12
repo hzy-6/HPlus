@@ -30,6 +30,7 @@ C#扩展方法第一个参数指定该方法作用于哪个类型，并且该参
         public static void AddNoDbField<T>(this T Model, Expression<Func<T, object>> func) where T : BaseEntity, new()
         {
             var body = (func.Body as NewExpression);
+            if (body == null) throw new Exception("语法错误 这里用过使用 new {  } 匿名实例化语法！");
             if (body.Arguments.Count > 0)
             {
                 var list = new List<string>();

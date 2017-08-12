@@ -33,7 +33,8 @@ namespace DbFrame.SQLContext.ExpressionTree
             }
             if (exp is MemberExpression)
             {
-                return (exp as MemberExpression).Member.Name;
+                var val = GetValue((exp as MemberExpression));
+                return val == null ? null : val.ToString();//(exp as MemberExpression).Member.Name;
             }
             if (exp is ConstantExpression)
             {
@@ -85,12 +86,12 @@ namespace DbFrame.SQLContext.ExpressionTree
                     }
                     else
                     {
-                        return Eval(member);
+                        return Eval_1(member).ToString();
                     }
                 }
                 else
                 {
-                    return Eval(member);
+                    return Eval_1(member).ToString();
                 }
             }
             return "";
@@ -98,12 +99,12 @@ namespace DbFrame.SQLContext.ExpressionTree
 
         public static string DealUnaryExpression(UnaryExpression exp)
         {
-            return Eval(exp);
+            return Eval_1(exp).ToString();
         }
 
         public static string DealBinaryExpression(BinaryExpression exp)
         {
-            string left = DealExpress(exp.Left);
+            string left = (exp.Left as MemberExpression).Member.Name;//DealExpress(exp.Left);
             string oper = GetOperStr(exp.NodeType);
             string right = DealExpress(exp.Right);
             if (right == null)
@@ -113,7 +114,7 @@ namespace DbFrame.SQLContext.ExpressionTree
                 else
                     oper = " IS NOT ";
             }
-            return left + oper + right;
+            return left + oper + (right == null ? " NULL " : "'" + right + "'");
         }
 
         public static string DealConstantExpression(ConstantExpression exp)
@@ -179,6 +180,24 @@ namespace DbFrame.SQLContext.ExpressionTree
         {
             UnaryExpression cast = Expression.Convert(expression, typeof(object));
             return Expression.Lambda<Func<object>>(cast).Compile().Invoke();
+        }
+
+        ///
+        /// <summary> 获取成员表达式中的实际值
+        /// </summary>
+        private static object GetValue(MemberExpression expr)
+        {
+            object val;
+            var field = expr.Member as System.Reflection.FieldInfo;
+            if (field != null)
+            {
+                val = field.GetValue(((ConstantExpression)expr.Expression).Value);
+            }
+            else
+            {
+                val = Eval_1(expr);//((System.Reflection.PropertyInfo)expr.Member).GetValue(((ConstantExpression)expr.Expression).Value, null);
+            }
+            return val;
         }
 
     }

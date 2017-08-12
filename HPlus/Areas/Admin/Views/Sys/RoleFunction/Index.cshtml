@@ -1,8 +1,7 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
     DBContext db = new DBContext();
-    T_Roles troles = new T_Roles();
-    var list = db.FindToList(troles, " cRoles_Number ");
+    var list = db.FindToList<T_Roles>(null, " cRoles_Number ");
 }
 <div class="wrapper wrapper-content">
     <div class="row">

@@ -131,10 +131,10 @@
                     error_msg.html("提示：请输入登录密码").stop().fadeIn(200);
                     return false;
                 }
-                if (!yzm) {
-                    error_msg.html("提示：请输入验证码").stop().fadeIn(200);
-                    return false;
-                }
+                //if (!yzm) {
+                //    error_msg.html("提示：请输入验证码").stop().fadeIn(200);
+                //    return false;
+                //}
                 FW.Ajax({
                     url: "@Url.Action("Checked")",
                     data: {

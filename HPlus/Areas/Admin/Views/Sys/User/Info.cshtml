@@ -1,9 +1,5 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    DBContext db = new DBContext();
-    T_Roles roles = new T_Roles();
-    var list = db.GetList(db.Find(roles, ""));
-    var json = db.jss.Serialize(list);
 }
 <div class="row">
     <div class="col-sm-12">

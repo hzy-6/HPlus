@@ -37,13 +37,13 @@
                                             ErrorCode：
                                         </td>
                                         <td class="text-left">
-                                            @if (string.IsNullOrEmpty(Tools.getString(Model.ErrorCode)))
+                                            @if (string.IsNullOrEmpty(Tools.getString(Model.status)))
                                             {
                                                 <text>无</text>
                                             }
                                             else
                                             {
-                                                <text>@Model.ErrorCode</text>
+                                                <text>@Model.status</text>
                                             }
                                         </td>
                                     </tr>
