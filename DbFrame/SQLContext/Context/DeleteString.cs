@@ -19,29 +19,18 @@ namespace DbFrame.SQLContext.Context
 
         public virtual SQL GetSql<T>(Expression<Func<T, bool>> Where) where T : BaseEntity, new()
         {
-            return this.SqlString<T>(this.GetWhereString<T>(Where));
-        }
-
-        private SQL SqlString<T>(string Where) where T : BaseEntity, new()
-        {
             var Model = (T)Activator.CreateInstance(typeof(T));
-            var di = new Dictionary<string, object>();
             string TabName = Model.GetTabelName();
-            return new SQL(string.Format(" DELETE FROM {0} WHERE 1=1 {1} ", TabName, string.Join(" ", Where)), di);
+            var pa = new ParserArgs();
+            pa.TabIsAlias = false;
+            this.GetWhereString<T>(Where, pa);
+            return this.SqlString<T>(TabName, pa.Builder.ToString(), pa.SqlParameters);
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
+        private SQL SqlString<T>(string TabName, string Where, Dictionary<string, object> SqlPar) where T : BaseEntity, new()
+        {
+            return new SQL(string.Format(" DELETE FROM {0} WHERE 1=1 {1} ", TabName, Where), SqlPar);
+        }
 
     }
 }

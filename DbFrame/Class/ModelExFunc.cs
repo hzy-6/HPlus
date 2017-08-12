@@ -33,15 +33,12 @@ C#扩展方法第一个参数指定该方法作用于哪个类型，并且该参
             if (body == null) throw new Exception("语法错误 这里用过使用 new {  } 匿名实例化语法！");
             if (body.Arguments.Count > 0)
             {
-                var list = new List<string>();
                 var values = body.Arguments;
                 foreach (MemberExpression item in values)
                 {
-                    list.Add(item.Member.Name);
+                    Model.NoDbField.Add(item.Member.Name);
                 }
-            }
-
-            //Model.NoDbField
+            }            
         }
 
         /// <summary>

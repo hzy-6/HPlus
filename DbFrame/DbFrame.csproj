@@ -83,7 +83,20 @@
     <Compile Include="SQLContext\Context\WhereString.cs" />
     <Compile Include="SQLContext\DeleteContext.cs" />
     <Compile Include="SQLContext\EditContext.cs" />
+    <Compile Include="SQLContext\ExpressionTree\ExpressionParser.cs" />
+    <Compile Include="SQLContext\ExpressionTree\ExpressionTypeCode.cs" />
     <Compile Include="SQLContext\ExpressionTree\Helper.cs" />
+    <Compile Include="SQLContext\ExpressionTree\IExpressionParser.cs" />
+    <Compile Include="SQLContext\ExpressionTree\Parser.cs" />
+    <Compile Include="SQLContext\ExpressionTree\ParserArgs.cs" />
+    <Compile Include="SQLContext\ExpressionTree\Parsers\BinaryExpressionParser.cs" />
+    <Compile Include="SQLContext\ExpressionTree\Parsers\ConstantExpressionParser.cs" />
+    <Compile Include="SQLContext\ExpressionTree\Parsers\MemberExpressionParser.cs" />
+    <Compile Include="SQLContext\ExpressionTree\Parsers\MethodCallExpressionParser.cs" />
+    <Compile Include="SQLContext\ExpressionTree\Parsers\ParameterExpressionParser.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SQLContext\ExpressionTree\Parsers\UnaryExpressionParser.cs" />
     <Compile Include="SQLContext\FindContext.cs" />
     <Compile Include="ToJson.cs" />
   </ItemGroup>

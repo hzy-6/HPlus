@@ -19,14 +19,19 @@ namespace DbFrame.SQLContext.Context
 
         public virtual SQL GetSql<T>(string[] From, Expression<Func<T, bool>> Where, string OrderBy) where T : BaseEntity, new()
         {
-            return this.SqlString<T>(From == null ? new string[] { " * " } : From, this.GetWhereString<T>(Where), OrderBy);
+            var Model = (T)Activator.CreateInstance(typeof(T));
+            string TabName = Model.GetTabelName() + (Where == null ? "" : " " + Where.Parameters[0].Name);
+            if (Where != null)
+            {
+                ParserArgs pa = new ParserArgs();
+                this.GetWhereString<T>(Where, pa);
+                return this.SqlString(From == null ? new string[] { " * " } : From, TabName, pa.Builder.ToString(), pa.SqlParameters, OrderBy);
+            }
+            return this.SqlString(From == null ? new string[] { " * " } : From, TabName, "", new Dictionary<string, object>(), OrderBy);
         }
 
-        private SQL SqlString<T>(string[] From, string Where, string OrderBy) where T : BaseEntity, new()
+        private SQL SqlString(string[] From, string TabName, string Where, Dictionary<string, object> SqlPar, string OrderBy)
         {
-            var Model = (T)Activator.CreateInstance(typeof(T));
-            var di = new Dictionary<string, object>();
-            string TabName = Model.GetTabelName();
             var from = new List<string>();
             foreach (var item in From.ToList())
             {
@@ -34,7 +39,7 @@ namespace DbFrame.SQLContext.Context
                 from.Add(Name);
             }
             OrderBy = string.IsNullOrEmpty(OrderBy) ? "" : " ORDER BY " + OrderBy;
-            return new SQL(string.Format(" SELECT {0} FROM {1} \r\n  WHERE 1=1 {2} {3} ", string.Join(",", from), TabName, string.Join(" ", Where), OrderBy), di);
+            return new SQL(string.Format(" SELECT {0} FROM {1} \r\n  WHERE 1=1 {2} {3} ", string.Join(",", from), TabName, Where, OrderBy), SqlPar);
         }
 
 

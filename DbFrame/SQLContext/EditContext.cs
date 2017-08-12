@@ -55,6 +55,9 @@ namespace DbFrame.SQLContext
                 //判断如果是 主键 不做为 Set 对象
                 if (item.Name == Model.GetKey().FieldName)
                     continue;
+                //检测有无忽略字段
+                if (!string.IsNullOrEmpty(Model.GetNoDbField().Find(f => f == item.Name)))
+                    continue;
                 list.Add(Expression.Bind(item, Expression.Constant(item.GetValue(Model), item.PropertyType)));
             }
             var Set = Expression.MemberInit(Expression.New(typeof(T)), list);
@@ -76,6 +79,9 @@ namespace DbFrame.SQLContext
             {
                 //判断如果是 主键 不做为 Set 对象
                 if (item.Name == Model.GetKey().FieldName)
+                    continue;
+                //检测有无忽略字段
+                if (!string.IsNullOrEmpty(Model.GetNoDbField().Find(f => f == item.Name)))
                     continue;
                 list.Add(Expression.Bind(item, Expression.Constant(item.GetValue(Model), item.PropertyType)));
             }

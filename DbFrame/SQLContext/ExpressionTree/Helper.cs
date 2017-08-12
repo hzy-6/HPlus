@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 //
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace DbFrame.SQLContext.ExpressionTree
 {
@@ -182,20 +183,21 @@ namespace DbFrame.SQLContext.ExpressionTree
             return Expression.Lambda<Func<object>>(cast).Compile().Invoke();
         }
 
-        ///
-        /// <summary> 获取成员表达式中的实际值
+        /// <summary> 
+        /// 获取成员表达式中的实际值
         /// </summary>
-        private static object GetValue(MemberExpression expr)
+        public static object GetValue(MemberExpression expr)
         {
             object val;
-            var field = expr.Member as System.Reflection.FieldInfo;
+            var field = expr.Member as FieldInfo;
             if (field != null)
             {
                 val = field.GetValue(((ConstantExpression)expr.Expression).Value);
             }
             else
             {
-                val = Eval_1(expr);//((System.Reflection.PropertyInfo)expr.Member).GetValue(((ConstantExpression)expr.Expression).Value, null);
+                //val = ((PropertyInfo)expr.Member).GetValue(((ConstantExpression)expr.Expression).Value, null);
+                val = Eval_1(expr);
             }
             return val;
         }

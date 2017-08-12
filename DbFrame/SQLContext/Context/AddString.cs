@@ -19,15 +19,16 @@ namespace DbFrame.SQLContext.Context
 
         public virtual SQL GetSql<T>(MemberInitExpression body) where T : BaseEntity, new()
         {
-            return this.SqlString<T>(body);
+            var SqlPar = new Dictionary<string, object>();
+            return this.SqlString<T>(body, SqlPar);
         }
 
-        private SQL SqlString<T>(MemberInitExpression body) where T : BaseEntity, new()
+        private SQL SqlString<T>(MemberInitExpression body, Dictionary<string, object> SqlPar) where T : BaseEntity, new()
         {
             var Model = (T)Activator.CreateInstance(typeof(T));
-            var di = new Dictionary<string, object>();
-            List<string> col = new List<string>(), val = new List<string>();
             string TabName = Model.GetTabelName();
+            var col = new List<string>();
+            var val = new List<string>();
             foreach (MemberAssignment item in body.Bindings)
             {
                 //检测有无忽略字段
@@ -35,13 +36,11 @@ namespace DbFrame.SQLContext.Context
                     continue;
                 var Value = Helper.Eval_1(item.Expression);
                 var Name = item.Member.Name;
-                col.Add(Name); val.Add("@" + Name + "");
-                if (di.ContainsKey(Name))
-                    di[Name] = Value;
-                else
-                    di.Add(Name, Value);
+                var len = SqlPar.Count;
+                col.Add(Name); val.Add("@" + Name + len + "");
+                SqlPar.Add(Name + len, Value);
             }
-            return new SQL(string.Format(" INSERT INTO {0} ({1}) VALUES ({2}) ", TabName, string.Join(",", col), string.Join(",", val)), di);
+            return new SQL(string.Format(" INSERT INTO {0} ({1}) VALUES ({2}) ", TabName, string.Join(",", col), string.Join(",", val)), SqlPar);
         }
 
 

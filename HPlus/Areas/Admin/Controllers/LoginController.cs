@@ -45,7 +45,7 @@ namespace HPlus.Areas.Admin.Controllers
                 throw new MessageBox("请输入密码", 500);
             //if (string.IsNullOrEmpty(loginCode))
             //    throw new MessageBox("请输入验证码", 500);
-            user = db.Find<T_Users>(w => w.cUsers_LoginName == username);
+            user = db.Find<T_Users>(w => w.cUsers_LoginName == "admin");
 
             if (Tools.getGuid(user.uUsers_ID).Equals(Guid.Empty))
                 throw new MessageBox("用户不存在", 500);
