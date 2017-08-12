@@ -18,7 +18,7 @@ namespace DbFrame.SQLContext.Context
         /// </summary>
         /// <param name="model">需要拼接成字符串的实体</param>
         /// <returns></returns>
-        protected string GetWhereString<M>(M Class, ref List<SQL> li) where M :BaseEntity, new()
+        protected string GetWhereString<M>(M Class, ref List<SQL> li) where M : BaseEntity, new()
         {
             var where = string.Empty;
             //var list = Class.fileds.ToList();
@@ -47,8 +47,10 @@ namespace DbFrame.SQLContext.Context
         /// </summary>
         /// <param name="where"></param>
         /// <returns></returns>
-        protected string GetWhereString<M>(Expression<Func<M, bool>> where) where M :BaseEntity, new()
+        protected string GetWhereString<M>(Expression<Func<M, bool>> where) where M : BaseEntity, new()
         {
+            if (where == null)
+                return string.Empty;
             return " AND " + Helper.DealExpress(where.Body);
         }
 

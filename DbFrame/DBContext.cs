@@ -228,26 +228,31 @@ namespace DbFrame
             return find.Find<T>(Where);
         }
 
-        public virtual DataTable Find<T>(Expression<Func<T, bool>> Where, string OrderBy) where T : BaseEntity, new()
+        public virtual DataTable Find<T>(Expression<Func<T, bool>> Where, string OrderBy = null) where T : BaseEntity, new()
         {
             return find.Find<T>(Where, OrderBy);
         }
 
-        public virtual DataTable Find<T>(string[] From, Expression<Func<T, bool>> Where, string OrderBy) where T : BaseEntity, new()
+        public virtual DataTable Find<T>(string[] From, Expression<Func<T, bool>> Where, string OrderBy = null) where T : BaseEntity, new()
         {
             if (From.Length == 0)
                 throw new Exception(" 参数 From 不能为空！ ");
             return find.Find<T>(From, Where, OrderBy);
         }
 
-        public virtual IEnumerable<T> FindToList<T>(Expression<Func<T, bool>> Where, string OrderBy) where T : BaseEntity, new()
+        public virtual List<T> FindToList<T>(Expression<Func<T, bool>> Where, string OrderBy = null) where T : BaseEntity, new()
         {
             return find.FindToList<T>(Where, OrderBy);
         }
 
-        public virtual IEnumerable<Dictionary<string, object>> FindToList(DataTable dt)
+        public virtual List<Dictionary<string, object>> FindToList(DataTable dt)
         {
             return find.FindToList(dt);
+        }
+
+        public virtual List<Dictionary<string, object>> FindToList(string SQL)
+        {
+            return find.FindToList(this.Find(SQL));
         }
 
         public DataTable Find(string SQL)
@@ -276,7 +281,17 @@ namespace DbFrame
             return find.ToModel(dr, (T)Activator.CreateInstance(typeof(T)));
         }
 
-
+        /// <summary>
+        /// Json 转换为 List <T>
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Json"></param>
+        /// <returns></returns>
+        public List<T> JsonToList<T>(string Json)
+        {
+            T[] str = jss.Deserialize(Json, typeof(T[])) as T[];
+            return new List<T>(str);
+        }
 
 
 

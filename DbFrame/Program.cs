@@ -20,7 +20,7 @@ namespace DbFrame
             Stopwatch s = new Stopwatch();
             s.Start();
 
-            if (db.Delete<Member>(item => item.Member_CreateTime < DateTime.Now))
+            if (db.Delete<TestMember>(item => item.Member_CreateTime < DateTime.Now))
                 Console.WriteLine("删除成功");
             else
                 Console.WriteLine("删除失败");

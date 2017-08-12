@@ -74,12 +74,12 @@ namespace DbFrame.SQLContext
             return this.ExecuteSQL<T>(From, Where, OrderBy);
         }
 
-        public virtual IEnumerable<T> FindToList<T>(Expression<Func<T, bool>> Where, string OrderBy) where T :BaseEntity, new()
+        public virtual List<T> FindToList<T>(Expression<Func<T, bool>> Where, string OrderBy) where T : BaseEntity, new()
         {
             return DbHelper.ConvertDataTableToList<T>(this.ExecuteSQL<T>(null, Where, OrderBy));
         }
 
-        public virtual IEnumerable<Dictionary<string, object>> FindToList(DataTable dt)
+        public virtual List<Dictionary<string, object>> FindToList(DataTable dt)
         {
             return DbHelper.ConvertDataTableToList<Dictionary<string, object>>(dt);
         }

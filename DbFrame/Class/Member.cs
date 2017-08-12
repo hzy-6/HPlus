@@ -9,9 +9,9 @@ using DbFrame.Class;
 namespace DbFrame.Class
 {
     [ObjectRemarks.Table("Member")]
-    public class Member : BaseEntity
+    public class TestMember : BaseEntity
     {
-        public Member()
+        public TestMember()
         {
             this.AddNoDbField(item => new { item.Member_CreateTime });
         }

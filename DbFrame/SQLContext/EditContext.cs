@@ -25,7 +25,7 @@ namespace DbFrame.SQLContext
             dbhelper = new DbHelper(ConnectionString);
         }
 
-        private bool ExecuteSQL<T>(ref MemberInitExpression Set, Expression<Func<T, bool>> Where) where T :BaseEntity, new()
+        private bool ExecuteSQL<T>(ref MemberInitExpression Set, Expression<Func<T, bool>> Where) where T : BaseEntity, new()
         {
             var sql = edit.GetSql<T>(Set, Where);
             if (!dbhelper.Commit(new List<SQL>() { sql }))
@@ -33,25 +33,28 @@ namespace DbFrame.SQLContext
             return true;
         }
 
-        private bool ExecuteSQL<T>(ref MemberInitExpression Set, Expression<Func<T, bool>> Where, ref List<SQL> li) where T :BaseEntity, new()
+        private bool ExecuteSQL<T>(ref MemberInitExpression Set, Expression<Func<T, bool>> Where, ref List<SQL> li) where T : BaseEntity, new()
         {
             var sql = edit.GetSql<T>(Set, Where);
             li.Add(sql);
             return true;
         }
 
-        public virtual bool Edit<T>(Expression<Func<T>> Func, Expression<Func<T, bool>> Where) where T :BaseEntity, new()
+        public virtual bool Edit<T>(Expression<Func<T>> Func, Expression<Func<T, bool>> Where) where T : BaseEntity, new()
         {
             var Set = Func.Body as MemberInitExpression;
             return ExecuteSQL<T>(ref Set, Where);
         }
 
-        public virtual bool Edit<T>(T Model, Expression<Func<T, bool>> Where) where T :BaseEntity, new()
+        public virtual bool Edit<T>(T Model, Expression<Func<T, bool>> Where) where T : BaseEntity, new()
         {
             var list = new List<MemberBinding>();
             var fileds = Model.EH.GetAllPropertyInfo(Model);
             foreach (var item in fileds)
             {
+                //判断如果是 主键 不做为 Set 对象
+                if (item.Name == Model.GetKey().FieldName)
+                    continue;
                 list.Add(Expression.Bind(item, Expression.Constant(item.GetValue(Model), item.PropertyType)));
             }
             var Set = Expression.MemberInit(Expression.New(typeof(T)), list);
@@ -59,18 +62,21 @@ namespace DbFrame.SQLContext
             return ExecuteSQL<T>(ref Set, Where);
         }
 
-        public virtual bool Edit<T>(Expression<Func<T>> Func, Expression<Func<T, bool>> Where, ref List<SQL> li) where T :BaseEntity, new()
+        public virtual bool Edit<T>(Expression<Func<T>> Func, Expression<Func<T, bool>> Where, ref List<SQL> li) where T : BaseEntity, new()
         {
             var Set = Func.Body as MemberInitExpression;
             return ExecuteSQL<T>(ref Set, Where, ref li);
         }
 
-        public virtual bool Edit<T>(T Model, Expression<Func<T, bool>> Where, ref List<SQL> li) where T :BaseEntity, new()
+        public virtual bool Edit<T>(T Model, Expression<Func<T, bool>> Where, ref List<SQL> li) where T : BaseEntity, new()
         {
             var list = new List<MemberBinding>();
             var fileds = Model.EH.GetAllPropertyInfo(Model);
             foreach (var item in fileds)
             {
+                //判断如果是 主键 不做为 Set 对象
+                if (item.Name == Model.GetKey().FieldName)
+                    continue;
                 list.Add(Expression.Bind(item, Expression.Constant(item.GetValue(Model), item.PropertyType)));
             }
             var Set = Expression.MemberInit(Expression.New(typeof(T)), list);

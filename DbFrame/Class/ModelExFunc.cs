@@ -83,6 +83,8 @@ C#扩展方法第一个参数指定该方法作用于哪个类型，并且该参
         {
             var type = Model.GetType();
             var attrs = Attribute.GetCustomAttributes(type, true);
+            if (attrs.Length == 0)
+                throw new Exception("实体:" + type.Name + "未描述实体对应表名！");
             foreach (var item in attrs)
             {
                 if (item is ObjectRemarks.TableAttribute)
