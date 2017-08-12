@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using WebControl.PageCode;
-using DBAccess.Entity;
+using DbFrame.Class;
 using Utility;
 
 namespace Aop

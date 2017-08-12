@@ -21,8 +21,27 @@ namespace DBAccess
             s.Start();
             //申明一个操作实体的对象类
             DBContext db = new DBContext();
-            var model = new T_Users { uUsers_ID = Guid.NewGuid(), cUsers_Email = "1396510655@qq.com" };
-            var aa = Insert(item => item == model);
+            //var model = new T_Users { uUsers_ID = Guid.NewGuid(), cUsers_Email = "1396510655@qq.com" };
+            // var aa = Insert(item => item == model);
+
+            //1000:7s 
+            //10000:69.633 s
+            for (int i = 0; i < 10000; i++)
+            {
+                T_Users user = new T_Users();
+                user.uUsers_ID = Guid.NewGuid();
+                user.cUsers_Email = "xxxxxx@qq.com";
+                user.cUsers_LoginName = "admin_test";
+                user.cUsers_LoginPwd = "123";
+                user.cUsers_Name = "测试管理员";
+                //var userid = db.Add(user);
+                var userid = db.Add(user, false);//第二个参数表示不验证实体
+                if (string.IsNullOrEmpty(userid)) { Console.WriteLine("ID" + i + ":错误\r\n"); }
+                Console.WriteLine("ID" + i + ":" + userid + "\r\n");
+            }
+
+
+
             //var li = new List<SQL_Container>();
             //var id = Guid.NewGuid();
             //var user = new T_Users();

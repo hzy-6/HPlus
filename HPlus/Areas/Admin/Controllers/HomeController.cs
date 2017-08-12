@@ -7,8 +7,8 @@ using System.Web.Mvc;
 using Aop;
 using Utility;
 using BLL;
-using DBAccess;
-using DBAccess.Entity;
+using DbFrame;
+using DbFrame.Class;
 using Model;
 
 namespace HPlus.Areas.Admin.Controllers
@@ -24,8 +24,7 @@ namespace HPlus.Areas.Admin.Controllers
 
         public ActionResult Index()
         {
-            tuser.uUsers_ID = Tools.getGuid(Tools.getSession("UserID"));
-            tuser = db.Find<T_Users>(tuser);
+            tuser = db.Find<T_Users>(w => w.uUsers_ID == Tools.getSession("UserID").To_Guid());
             ViewData["userName"] = tuser.cUsers_Name;
             //获取页面菜单
             ViewData["Menu"] = tmenubl.CreateSysMenu();

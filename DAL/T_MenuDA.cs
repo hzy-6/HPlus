@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 //
 using System.Data;
 using System.Collections;
-using DBAccess;
-using DBAccess.Entity;
+using DbFrame;
+using DbFrame.Class;
 using Utility;
 
 namespace DAL
@@ -28,7 +28,7 @@ namespace DAL
                              where (cMenu_Url is  null or cMenu_Url='') )a
                              join                                    
      (select cMenu_Number,uMenu_ParentID
-                     from dbo.T_RoleMenuFunction join T_Menu on uMenu_ID=uRoleMenuFunction_MenuID and uRoleMenuFunction_RoleID='" + Tools.getGuid(Tools.getSession("RoleID")) + @"'
+                     from dbo.T_RoleMenuFunction join T_Menu on uMenu_ID=uRoleMenuFunction_MenuID and uRoleMenuFunction_RoleID='" + Tools.getSession("RoleID").To_Guid() + @"'
                 group by uRoleMenuFunction_MenuID,uRoleMenuFunction_RoleID,cMenu_Number,uMenu_ParentID
                        ) b on charindex(a.cMenu_Number,b.cMenu_Number)>0 or b.uMenu_ParentID=a.uMenu_ID
                    union select uMenu_ID,cMenu_Name,cMenu_Url,cMenu_Icon,uMenu_ParentID,cMenu_Number 
@@ -36,7 +36,7 @@ namespace DAL
                join (select uRoleMenuFunction_MenuID,uRoleMenuFunction_RoleID 
                from dbo.T_RoleMenuFunction 
                group by uRoleMenuFunction_MenuID,uRoleMenuFunction_RoleID)a
-                on uMenu_ID=a.uRoleMenuFunction_MenuID and a.uRoleMenuFunction_RoleID='" + Tools.getGuid(Tools.getSession("RoleID")) + @"'
+                on uMenu_ID=a.uRoleMenuFunction_MenuID and a.uRoleMenuFunction_RoleID='" + Tools.getSession("RoleID").To_Guid() + @"'
                   order by cMenu_Number asc");
             }
         }
@@ -60,7 +60,7 @@ namespace DAL
 		ORDER BY cMenu_Number";
             }
 
-            return db.GetList(db.Find(sql));
+            return db.FindToList(sql);
         }
 
 

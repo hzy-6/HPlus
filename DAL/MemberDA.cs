@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 //
 using System.Data;
 using System.Collections;
-using DBAccess;
-using DBAccess.Entity;
+using DbFrame;
+using DbFrame.Class;
 using Utility;
 using Model;
 
@@ -30,8 +30,9 @@ namespace DAL
             where += string.IsNullOrEmpty(Tools.getString(query["Member_Name"])) ? "" : " and Member_Name like '%" + Tools.getString(query["Member_Name"]) + "%'";
 
             var pe = db.Find(@"select Member_Name,Member_Sex,Member_CreateTime,Member_ID _ukid from member where 1=1 " + where + " ", pageindex, pagesize);
-            return new ToJson().GetPagingEntity(pe, new List<BaseModel>()
-            { new MemberM()
+            return new ToJson().GetPagingEntity(pe, new List<BaseEntity>()
+            {
+                new MemberM()
             });
         }
 

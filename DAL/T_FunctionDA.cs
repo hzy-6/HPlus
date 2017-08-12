@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 //
 using System.Data;
 using System.Collections;
-using DBAccess;
-using DBAccess.Entity;
+using DbFrame;
+using DbFrame.Class;
 using Utility;
 using Model;
 
@@ -30,7 +30,7 @@ namespace DAL
             string where = "";
             PagingEntity pe = db.Find(@"select uFunction_ID _ukid, iFunction_Number, cFunction_Name, cFunction_ByName, dFunction_CreateTime from [dbo].[T_Function]
                                                 where 1=1 " + where + " order by  iFunction_Number ", pageindex, pagesize);
-            return new ToJson().GetPagingEntity(pe, new List<BaseModel>()
+            return new ToJson().GetPagingEntity(pe, new List<BaseEntity>()
             {
                 new T_Function()
             });

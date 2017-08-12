@@ -6,8 +6,8 @@ using System.Web.Mvc;
 //
 using Aop;
 using Application;
-using DBAccess;
-using DBAccess.Entity;
+using DbFrame;
+using DbFrame.Class;
 using Utility;
 using BLL;
 using Model;
@@ -28,8 +28,7 @@ namespace HPlus.Areas.Admin.Controllers.Sys
 
         public override ActionResult Index()
         {
-            tuser.uUsers_ID = Tools.getGuid(Tools.getSession("UserID"));
-            tuser = db.Find(tuser);
+            tuser = db.Find<T_Users>(w => w.uUsers_ID == Tools.getSession("UserID").To_Guid());
             ViewData["userName"] = tuser.cUsers_Name;
             return View();
         }
@@ -45,15 +44,17 @@ namespace HPlus.Areas.Admin.Controllers.Sys
                 throw new MessageBox("确认新密码不能为空");
             if (!newpwd.Equals(newlypwd))
                 throw new MessageBox("两次密码不一致");
-            tuser = new T_Users();
-            tuser.uUsers_ID = Tools.getGuid(Tools.getSession("UserID"));
-            tuser = db.Find(tuser) as T_Users;
+
+            tuser = db.Find<T_Users>(w => w.uUsers_ID == Tools.getSession("UserID").To_Guid()) as T_Users;
             if (!tuser.cUsers_LoginPwd.Equals(oldpwd.Trim()))//Tools.MD5Encrypt(oldpwd.Trim())))
                 throw new MessageBox("旧密码不正确");
             tuser = new T_Users();
             tuser.uUsers_ID = Tools.getGuid(Tools.getSession("UserID"));
             tuser.cUsers_LoginPwd = newlypwd.Trim();//Tools.MD5Encrypt(newlypwd.Trim());
-            if (!db.Edit(tuser, ref li))
+            if (!db.Edit<T_Users>(() => new T_Users()
+            {
+                cUsers_LoginPwd = newlypwd.Trim()
+            }, w => w.uUsers_ID == Tools.getSession("UserID").To_Guid(), ref li))
                 throw new MessageBox(db.ErrorMessge);
             if (!db.Commit(li))
                 throw new MessageBox(db.ErrorMessge);

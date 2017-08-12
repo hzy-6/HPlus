@@ -10,8 +10,8 @@ using Utility;
 using Application;
 using Model;
 using BLL;
-using DBAccess;
-using DBAccess.Entity;
+using DbFrame;
+using DbFrame.Class;
 using System.Data;
 using WebControl.PageCode;
 //
@@ -35,7 +35,7 @@ namespace Aop
         T_RolesBL trolesbl = new T_RolesBL();
         T_Menu tmenu = new T_Menu();
         protected DBContext db = new DBContext();
-        protected List<SQL_Container> li = new List<SQL_Container>();
+        protected List<SQL> li = new List<SQL>();
 
         /// <summary>
         /// 主键ID
@@ -70,9 +70,7 @@ namespace Aop
                 throw new MessageBox("区域(" + Area + "),控制器(" + ControllerName + "):的程序中缺少菜单ID");
             }
 
-            tmenu = new T_Menu();
-            tmenu.cMenu_Number = MenuID;
-            tmenu = db.Find(tmenu);
+            tmenu = db.Find<T_Menu>(w => w.cMenu_Number == MenuID);
             MenuID = Tools.getGuidString(tmenu.uMenu_ID);
             if (!tmenu.cMenu_Url.StartsWith("/" + Area + "/" + ControllerName + "/"))
             {
@@ -81,9 +79,9 @@ namespace Aop
 
             //这里得判断一下是否是查找带回调用页面
             string fun = Tools.getString(filterContext.HttpContext.Request.QueryString["fun"]);
-            var _func_list = db.FindToList(tfunction, " iFunction_Number ");
-            var _role_menu_func_list = db.FindToList(trmf);
-            var _menu_func_list = db.FindToList(tmenufunction);
+            var _func_list = db.FindToList<T_Function>(null, " iFunction_Number ");
+            var _role_menu_func_list = db.FindToList<T_RoleMenuFunction>(null);
+            var _menu_func_list = db.FindToList<T_MenuFunction>(null);
             var _power_list = new Dictionary<string, object>();
 
             if (string.IsNullOrEmpty(fun))

@@ -4,63 +4,38 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 //
-using DBAccess.Entity;
-using DBAccess.CustomAttribute;
-using System.Reflection;
+using DbFrame.Class;
 
 namespace Model
 {
-    public class T_Users : BaseModel
+    [ObjectRemarks.Table("T_Users")]
+    public class T_Users : BaseEntity
     {
         //uUsers_ID, cUsers_Name, cUsers_LoginName, cUsers_LoginPwd, cUsers_Email, dUsers_CreateTime
         public T_Users()
         {
-            this.TableName = "T_Users";
-            this.NotFiled.Add("dUsers_CreateTime");
+            this.AddNoDbField(item => new { item.dUsers_CreateTime });
         }
 
-        [Filed(DisplayName = "用户ID", IsPrimaryKey = true)]
-        public Guid? uUsers_ID
-        {
-            set { SetValue(MethodBase.GetCurrentMethod().Name, value); }
-            get { return GetValue<Guid?>(MethodBase.GetCurrentMethod().Name); }
-        }
+        [ObjectRemarks.Field("ID", FieldType = typeof(Guid?), IsPrimaryKey = true)]
+        public Guid? uUsers_ID { get; set; }
 
-        [CRequired(ErrorMessage = "{name}不能为空")]
-        [Filed(DisplayName = "用户名")]
-        public string cUsers_Name
-        {
-            set { SetValue(MethodBase.GetCurrentMethod().Name, value); }
-            get { return GetValue<string>(MethodBase.GetCurrentMethod().Name); }
-        }
+        [ObjectRemarks.CRequired(ErrorMessage = "{name}不能为空")]
+        [ObjectRemarks.Field("用户名")]
+        public string cUsers_Name { get; set; }
 
-        [CRequired(ErrorMessage = "{name}不能为空")]
-        [Filed(DisplayName = "登陆名称")]
-        public string cUsers_LoginName
-        {
-            set { SetValue(MethodBase.GetCurrentMethod().Name, value); }
-            get { return GetValue<string>(MethodBase.GetCurrentMethod().Name); }
-        }
+        [ObjectRemarks.CRequired(ErrorMessage = "{name}不能为空")]
+        [ObjectRemarks.Field("登陆名称")]
+        public string cUsers_LoginName { get; set; }
 
-        [Filed(DisplayName = "登陆密码")]
-        public string cUsers_LoginPwd
-        {
-            set { SetValue(MethodBase.GetCurrentMethod().Name, value); }
-            get { return GetValue<string>(MethodBase.GetCurrentMethod().Name); }
-        }
+        [ObjectRemarks.Field("登陆密码")]
+        public string cUsers_LoginPwd { get; set; }
 
-        [Filed(DisplayName = "邮箱")]
-        public string cUsers_Email
-        {
-            set { SetValue(MethodBase.GetCurrentMethod().Name, value); }
-            get { return GetValue<string>(MethodBase.GetCurrentMethod().Name); }
-        }
+        [ObjectRemarks.Field("邮箱")]
+        public string cUsers_Email { get; set; }
 
-        [Filed(DisplayName = "创建时间")]
-        public DateTime? dUsers_CreateTime
-        {
-            set { SetValue(MethodBase.GetCurrentMethod().Name, value); }
-            get { return GetValue<DateTime?>(MethodBase.GetCurrentMethod().Name); }
-        }
+        [ObjectRemarks.Field("创建时间")]
+        public DateTime? dUsers_CreateTime { get; set; }
+
     }
 }

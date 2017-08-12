@@ -4,47 +4,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 //
-using DBAccess.Entity;
-using DBAccess.CustomAttribute;
-using System.Reflection;
+using DbFrame.Class;
 
 namespace Model
 {
-    public class T_UsersRoles : BaseModel
+    [ObjectRemarks.Table("T_UsersRoles")]
+    public class T_UsersRoles : BaseEntity
     {
         //uUsersRoles_ID, uUsersRoles_UsersID, uUsersRoles_RoleID, dUsersRoles_CreateTime
         public T_UsersRoles()
         {
-            this.TableName = "T_UsersRoles";
-            this.NotFiled.Add("dUsersRoles_CreateTime");
+            this.AddNoDbField(item => new { item.dUsersRoles_CreateTime });
         }
 
-        [Filed(DisplayName = "用户角色ID", IsPrimaryKey = true)]
-        public Guid? uUsersRoles_ID
-        {
-            set { SetValue("uUsersRoles_ID", value); }
-            get { return GetValue<Guid?>("uUsersRoles_ID"); }
-        }
+        [ObjectRemarks.Field("ID", FieldType = typeof(Guid?), IsPrimaryKey = true)]
+        public Guid? uUsersRoles_ID { get; set; }
 
-        [Filed(DisplayName = "用户ID")]
-        public Guid? uUsersRoles_UsersID
-        {
-            set { SetValue("uUsersRoles_UsersID", value); }
-            get { return GetValue<Guid?>("uUsersRoles_UsersID"); }
-        }
+        [ObjectRemarks.Field("用户ID")]
+        public Guid? uUsersRoles_UsersID { get; set; }
 
-        [Filed(DisplayName = "角色ID")]
-        public Guid? uUsersRoles_RoleID
-        {
-            set { SetValue("uUsersRoles_RoleID", value); }
-            get { return GetValue<Guid?>("uUsersRoles_RoleID"); }
-        }
+        [ObjectRemarks.Field("角色ID")]
+        public Guid? uUsersRoles_RoleID { get; set; }
 
-        [Filed(DisplayName = "创建时间")]
-        public DateTime? dUsersRoles_CreateTime
-        {
-            set { SetValue("dUsersRoles_CreateTime", value); }
-            get { return GetValue<DateTime?>("dUsersRoles_CreateTime"); }
-        }
+        [ObjectRemarks.Field("创建时间")]
+        public DateTime? dUsersRoles_CreateTime { get; set; }
+
     }
 }

@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNet.Utilities", "DotNet.Utilities\DotNet.Utilities.csproj", "{0A9704F9-7864-45AF-BFA7-E09F2B30A29F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbFrame", "..\..\实体框架\DbFrame\DbFrame\DbFrame.csproj", "{5F79A006-5751-4C9D-BEE3-8DDFBAB0F99D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{0A9704F9-7864-45AF-BFA7-E09F2B30A29F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A9704F9-7864-45AF-BFA7-E09F2B30A29F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A9704F9-7864-45AF-BFA7-E09F2B30A29F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F79A006-5751-4C9D-BEE3-8DDFBAB0F99D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F79A006-5751-4C9D-BEE3-8DDFBAB0F99D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F79A006-5751-4C9D-BEE3-8DDFBAB0F99D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F79A006-5751-4C9D-BEE3-8DDFBAB0F99D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,5 +92,6 @@ Global
 		{EB839CBA-AE8F-45B8-88B3-F85A84E8C80F} = {7ED0B224-5F16-4541-9B57-202EBD39393E}
 		{5F2DF45B-B6E5-4687-AFDE-BF2F9E5AB0DB} = {7ED0B224-5F16-4541-9B57-202EBD39393E}
 		{CAA3BBE7-5940-4B59-BD23-DC3CB5C5E370} = {F0D6C716-24A7-434A-A288-C2F4319D0C67}
+		{5F79A006-5751-4C9D-BEE3-8DDFBAB0F99D} = {F0D6C716-24A7-434A-A288-C2F4319D0C67}
 	EndGlobalSection
 EndGlobal

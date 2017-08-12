@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 //
 using System.Data;
 using System.Collections;
-using DBAccess;
-using DBAccess.Entity;
+using DbFrame;
+using DbFrame.Class;
 using Utility;
 using Model;
 
@@ -29,7 +29,7 @@ union all
 select case when CHARACTER_MAXIMUM_LENGTH is null then COLUMN_NAME+' [字段类型:'+DATA_TYPE+']'
 when CHARACTER_MAXIMUM_LENGTH is not null then COLUMN_NAME+' [字段类型:'+DATA_TYPE+'('+CONVERT(varchar(10),CHARACTER_MAXIMUM_LENGTH)+')]' end
  name,TABLE_NAME+'$~'+COLUMN_NAME id,TABLE_NAME from INFORMATION_SCHEMA.COLUMNS";
-            return db.GetList(db.Find(sql));
+            return db.FindToList(sql);
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ when CHARACTER_MAXIMUM_LENGTH is not null then COLUMN_NAME+' [字段类型:'+DAT
         {
             string sql = @"select a.COLUMN_NAME colname,case when a.COLUMN_NAME=b.COLUMN_NAME then '主键' end iskey,a.DATA_TYPE type from INFORMATION_SCHEMA.COLUMNS a 
 left join INFORMATION_SCHEMA.KEY_COLUMN_USAGE b on a.TABLE_NAME=b.TABLE_NAME where a.TABLE_NAME='" + table + "' ";
-            return db.GetList(db.Find(sql));
+            return db.FindToList(sql);
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ left join INFORMATION_SCHEMA.KEY_COLUMN_USAGE b on a.TABLE_NAME=b.TABLE_NAME whe
         public List<Dictionary<string, object>> GetAllTable()
         {
             string sql = @"SELECT * FROM INFORMATION_SCHEMA.TABLES";
-            return db.GetList(db.Find(sql));
+            return db.FindToList(sql);
         }
 
 

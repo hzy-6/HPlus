@@ -4,47 +4,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 //
-using DBAccess.Entity;
-using DBAccess.CustomAttribute;
-using System.Reflection;
+using DbFrame.Class;
 
 namespace Model
 {
-    public class T_MenuFunction : BaseModel
+    [ObjectRemarks.Table("T_MenuFunction")]
+    public class T_MenuFunction : BaseEntity
     {
         //uMenuFunction_ID, uMenuFunction_MenuID, uMenuFunction_FunctionID, dMenuFunction_CreateTime
         public T_MenuFunction()
         {
-            this.TableName = "T_MenuFunction";
-            this.NotFiled.Add("dMenuFunction_CreateTime");
+            this.AddNoDbField(item => new { item.dMenuFunction_CreateTime });
         }
 
-        [Filed(DisplayName = "菜单功能ID", IsPrimaryKey = true)]
-        public Guid? uMenuFunction_ID
-        {
-            set { SetValue("uMenuFunction_ID", value); }
-            get { return GetValue<Guid?>("uMenuFunction_ID"); }
-        }
+        [ObjectRemarks.Field("ID", FieldType = typeof(Guid?), IsPrimaryKey = true)]
+        public Guid? uMenuFunction_ID { get; set; }
 
-        [Filed(DisplayName = "菜单ID")]
-        public Guid? uMenuFunction_MenuID
-        {
-            set { SetValue("uMenuFunction_MenuID", value); }
-            get { return GetValue<Guid?>("uMenuFunction_MenuID"); }
-        }
+        [ObjectRemarks.Field("菜单ID")]
+        public Guid? uMenuFunction_MenuID { get; set; }
 
-        [Filed(DisplayName = "功能ID")]
-        public Guid? uMenuFunction_FunctionID
-        {
-            set { SetValue("uMenuFunction_FunctionID", value); }
-            get { return GetValue<Guid?>("uMenuFunction_FunctionID"); }
-        }
+        [ObjectRemarks.Field("功能ID")]
+        public Guid? uMenuFunction_FunctionID { get; set; }
 
-        [Filed(DisplayName = "创建时间")]
-        public DateTime? dMenuFunction_CreateTime
-        {
-            set { SetValue("dMenuFunction_CreateTime", value); }
-            get { return GetValue<DateTime?>("dMenuFunction_CreateTime"); }
-        }
+        [ObjectRemarks.Field("创建时间")]
+        public DateTime? dMenuFunction_CreateTime { get; set; }
+
+
     }
 }

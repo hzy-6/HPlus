@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 //
 using System.Data;
 using System.Collections;
-using DBAccess;
-using DBAccess.Entity;
+using DbFrame;
+using DbFrame.Class;
 using Utility;
 using Model;
 
@@ -37,7 +37,7 @@ namespace DAL
 				            left join dbo.T_UsersRoles b on a.uUsers_ID=b.uUsersRoles_UsersID
 				            left join dbo.T_Roles c on b.uUsersRoles_RoleID=c.uRoles_ID
                                                 where 1=1 " + where + " ", pageindex, pagesize);
-            return new ToJson().GetPagingEntity(pe, new List<BaseModel>()
+            return new ToJson().GetPagingEntity(pe, new List<BaseEntity>()
             {
                 new T_Users(),
                 new T_Roles()

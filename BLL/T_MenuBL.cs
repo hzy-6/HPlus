@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using System.Collections;
 using System.Data;
 using Utility;
-using DBAccess;
-using DBAccess.Entity;
+using DbFrame;
+using DbFrame.Class;
 using DAL;
 using Model;
 
@@ -125,11 +125,9 @@ namespace BLL
         public List<Dictionary<string, object>> GetMenuAndFunctionTree()
         {
             var di = new Dictionary<string, object>();
-            T_Function tf = new T_Function();
-            T_MenuFunction tmf = new T_MenuFunction();
-            var tf_list = db.FindToList(tf, " [iFunction_Number] asc");
+            var tf_list = db.FindToList<T_Function>(null, " [iFunction_Number] asc");
             var list = new T_MenuDA().GetMenuAndFunctionTree();
-            var tmf_list = db.FindToList(tmf);
+            var tmf_list = db.FindToList<T_MenuFunction>(null);
             for (int i = 0; i < list.Count; i++)
             {
                 string url = Tools.getString(list[i]["ur"]);
@@ -167,14 +165,13 @@ namespace BLL
         public List<Dictionary<string, object>> GetRoleMenuFunctionTree(string roleid)
         {
             var dic = new Dictionary<string, object>();
-            T_Function tf = new T_Function();
-            T_MenuFunction tmf = new T_MenuFunction();
-            T_RoleMenuFunction trmf = new T_RoleMenuFunction();
-            var menu_list = db.FindToList<T_Menu>(t_menu, " cMenu_Number desc ");
-            trmf.uRoleMenuFunction_RoleID = Tools.getGuid(roleid);
-            var trmf_list = db.FindToList(trmf);//角色菜单功能
-            var tf_list = db.FindToList(tf, " [iFunction_Number] asc");//功能
-            var tmf_list = db.FindToList(tmf);//菜单功能
+            //T_Function tf = new T_Function();
+            //T_MenuFunction tmf = new T_MenuFunction();
+            //T_RoleMenuFunction trmf = new T_RoleMenuFunction();
+            var menu_list = db.FindToList<T_Menu>(null, " cMenu_Number desc ");
+            var trmf_list = db.FindToList<T_RoleMenuFunction>(item => item.uRoleMenuFunction_RoleID == roleid.To_Guid());//角色菜单功能
+            var tf_list = db.FindToList<T_Function>(null, " [iFunction_Number] asc");//功能
+            var tmf_list = db.FindToList<T_MenuFunction>(null);//菜单功能
 
             var list = new List<Dictionary<string, object>>();
             var _paret_menu_list = menu_list.FindAll(item => item.uMenu_ParentID == null || item.uMenu_ParentID.Equals(Guid.Empty));

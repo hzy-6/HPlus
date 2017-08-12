@@ -6,8 +6,8 @@ using System.Web.Mvc;
 //
 using Aop;
 using Application;
-using DBAccess;
-using DBAccess.Entity;
+using DbFrame;
+using DbFrame.Class;
 using Utility;
 using BLL;
 using Model;
@@ -56,10 +56,9 @@ namespace HPlus.Areas.Admin.Controllers.Sys
                 throw new MessageBox("请选择角色");
             var list = ((object[])jss.DeserializeObject(json)).ToList();
 
-            trolemenufunction = new T_RoleMenuFunction();
-            trolemenufunction.uRoleMenuFunction_RoleID = Tools.getGuid(roleid);
-            if (!db.Delete(trolemenufunction, ref li))
+            if (!db.Delete<T_RoleMenuFunction>(w => w.uRoleMenuFunction_RoleID == roleid.To_Guid(), ref li))
                 throw new MessageBox(db.ErrorMessge);
+
             if (list.Count > 0)
             {
                 var guid_list = new List<Guid>();

@@ -50,9 +50,9 @@
     <Compile Include="T_UsersRoles.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DBAccess\DBAccess.csproj">
-      <Project>{caa3bbe7-5940-4b59-bd23-dc3cb5c5e370}</Project>
-      <Name>DBAccess</Name>
+    <ProjectReference Include="..\..\..\实体框架\DbFrame\DbFrame\DbFrame.csproj">
+      <Project>{5f79a006-5751-4c9d-bee3-8ddfbab0f99d}</Project>
+      <Name>DbFrame</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

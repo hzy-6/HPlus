@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using System.Collections;
 using System.Data;
 using Utility;
-using DBAccess;
-using DBAccess.Entity;
+using DbFrame;
+using DbFrame.Class;
 using DAL;
 using Model;
 using Application;
@@ -18,7 +18,7 @@ namespace BLL
     public class T_FunctionBL
     {
         DBContext db = new DBContext();
-        List<SQL_Container> li = new List<SQL_Container>();
+        List<SQL> li = new List<SQL>();
         T_Function tf = new T_Function();
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace BLL
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public List<SQL_Container> Save(T_Function model)
+        public List<SQL> Save(T_Function model)
         {
             tf = model;
             if (Tools.getGuid(model.uFunction_ID).Equals(Guid.Empty))
@@ -49,7 +49,7 @@ namespace BLL
             }
             else
             {
-                if (!db.Edit(tf, ref li))
+                if (!db.Edit<T_Function>(tf, w => w.uFunction_ID == tf.uFunction_ID, ref li))
                     throw new MessageBox(db.ErrorMessge);
             }
             return li;
@@ -60,12 +60,11 @@ namespace BLL
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
-        public List<SQL_Container> Delete(string ID)
+        public List<SQL> Delete(string ID)
         {
             db.JsonToList<string>(ID).ForEach(item =>
             {
-                tf.uFunction_ID = Tools.getGuid(item);
-                if (!db.Delete(tf, ref li))
+                if (!db.Delete<T_Function>(w => w.uFunction_ID == item.To_Guid(), ref li))
                     throw new MessageBox(db.ErrorMessge);
             });
             return li;
@@ -78,9 +77,7 @@ namespace BLL
         /// <returns></returns>
         public Dictionary<string, object> Find(Guid ID)
         {
-            tf = new T_Function();
-            tf.uFunction_ID = Tools.getGuid(ID);
-            tf = db.Find(tf);
+            tf = db.Find<T_Function>(w => w.uFunction_ID == ID.To_Guid());
             var di = new ToJson().GetDictionary(new Dictionary<string, object>()
             {
                 {"tf",tf},

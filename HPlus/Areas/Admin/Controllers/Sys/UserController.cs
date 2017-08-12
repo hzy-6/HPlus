@@ -6,8 +6,8 @@ using System.Web.Mvc;
 //
 using Aop;
 using Application;
-using DBAccess;
-using DBAccess.Entity;
+using DbFrame;
+using DbFrame.Class;
 using Utility;
 using BLL;
 using Model;

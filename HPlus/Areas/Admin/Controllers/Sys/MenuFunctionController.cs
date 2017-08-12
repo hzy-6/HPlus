@@ -6,8 +6,8 @@ using System.Web.Mvc;
 //
 using Aop;
 using Application;
-using DBAccess;
-using DBAccess.Entity;
+using DbFrame;
+using DbFrame.Class;
 using Utility;
 using BLL;
 using Model;
@@ -62,7 +62,7 @@ namespace HPlus.Areas.Admin.Controllers.Sys
                     break;
                 case false:
                     this.KeyID = Tools.getGuidString(model.uMenu_ID);
-                    if (!db.Edit(tmenu, ref li))
+                    if (!db.Edit<T_Menu>(tmenu, w => w.uMenu_ID == KeyID.To_Guid(), ref li))
                         throw new MessageBox(db.ErrorMessge);
                     break;
             }
@@ -82,20 +82,14 @@ namespace HPlus.Areas.Admin.Controllers.Sys
             switch (!Tools.getGuid(ID).Equals(Guid.Empty))
             {
                 case true://单个删除
-                    tmenu = new T_Menu();
-                    tmenu.uMenu_ParentID = Tools.getGuid(ID);
-                    if (!db.Delete(tmenu, ref li))
+                    if (!db.Delete<T_Menu>(w => w.uMenu_ParentID == ID.To_Guid(), ref li))
                         throw new MessageBox(db.ErrorMessge);
 
                     //删除菜单的功能
-                    tmenufunction = new T_MenuFunction();
-                    tmenufunction.uMenuFunction_MenuID = Tools.getGuid(ID);
-                    if (!db.Delete(tmenufunction, ref li))
+                    if (!db.Delete<T_MenuFunction>(w => w.uMenuFunction_MenuID == ID.To_Guid(), ref li))
                         throw new MessageBox(db.ErrorMessge);
 
-                    tmenu = new T_Menu();
-                    tmenu.uMenu_ID = Tools.getGuid(ID);
-                    if (!db.Delete(tmenu, ref li))
+                    if (!db.Delete<T_Menu>(w => w.uMenu_ID == ID.To_Guid(), ref li))
                         throw new MessageBox(db.ErrorMessge);
                     break;
                 case false://多个删除
@@ -104,21 +98,14 @@ namespace HPlus.Areas.Admin.Controllers.Sys
                     var list = db.JsonToList<string>(ID);
                     foreach (var item in list)
                     {
-
-                        tmenu = new T_Menu();
-                        tmenu.uMenu_ParentID = Tools.getGuid(item);
-                        if (!db.Delete(tmenu, ref li))
+                        if (!db.Delete<T_Menu>(w => w.uMenu_ParentID == item.To_Guid(), ref li))
                             throw new MessageBox(db.ErrorMessge);
 
                         //删除菜单的功能
-                        tmenufunction = new T_MenuFunction();
-                        tmenufunction.uMenuFunction_MenuID = Tools.getGuid(item);
-                        if (!db.Delete(tmenufunction, ref li))
+                        if (!db.Delete<T_MenuFunction>(w => w.uMenuFunction_MenuID == item.To_Guid(), ref li))
                             throw new MessageBox(db.ErrorMessge);
 
-                        tmenu = new T_Menu();
-                        tmenu.uMenu_ID = Tools.getGuid(item);
-                        if (!db.Delete(tmenu, ref li))
+                        if (!db.Delete<T_Menu>(w => w.uMenu_ID == item.To_Guid(), ref li))
                             throw new MessageBox(db.ErrorMessge);
                     }
                     break;
@@ -138,17 +125,14 @@ namespace HPlus.Areas.Admin.Controllers.Sys
         [HttpPost]
         public ActionResult Find(string ID)
         {
-            tmenu = new T_Menu();
-            tmenu.uMenu_ID = Tools.getGuid(ID);
-            tmenu = db.Find(tmenu);
+            tmenu = db.Find<T_Menu>(w => w.uMenu_ID == ID.To_Guid());
 
             if (Tools.getGuid(ID).Equals(Guid.Empty))
             {
                 tmenu.dMenu_CreateTime = Tools.getDateTime(DateTime.Now);
             }
-            T_Menu menu = new T_Menu();
-            menu.uMenu_ID = tmenu.uMenu_ParentID;
-            menu = db.Find(menu);
+
+            var menu = db.Find<T_Menu>(w => w.uMenu_ID == tmenu.uMenu_ParentID);
 
             var di = new ToJson().GetDictionary(new Dictionary<string, object>()
             {
@@ -156,7 +140,7 @@ namespace HPlus.Areas.Admin.Controllers.Sys
                 {"pname",Tools.getString( menu.cMenu_Name)},
                 {"status",1}
             });
-            di["dMenu_CreateTime"] = Tools.getDateTimeString(di["dMenu_CreateTime"], "yyyy-MM-dd HH:mm:ss");
+            di["dMenu_CreateTime"] = di["dMenu_CreateTime"].To_DateTimeString("yyyy-MM-dd HH:mm:ss");
             return Json(di, JsonRequestBehavior.DenyGet);
         }
 
@@ -169,8 +153,7 @@ namespace HPlus.Areas.Admin.Controllers.Sys
         {
             var json = ((object[])jss.DeserializeObject(nodes)).ToList();
             var list = new List<Guid>();
-            tmenufunction = new T_MenuFunction();
-            if (!db.Delete(tmenufunction, ref li))
+            if (!db.Delete<T_MenuFunction>(null, ref li))
                 throw new MessageBox(db.ErrorMessge);
             json.ForEach(item =>
             {

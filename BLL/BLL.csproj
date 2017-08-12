@@ -50,6 +50,10 @@
     <Compile Include="T_UsersBL.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\实体框架\DbFrame\DbFrame\DbFrame.csproj">
+      <Project>{5f79a006-5751-4c9d-bee3-8ddfbab0f99d}</Project>
+      <Name>DbFrame</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Application\Application.csproj">
       <Project>{33cac359-f4b4-4b82-84cc-5e7bade0fd8d}</Project>
       <Name>Application</Name>
@@ -57,10 +61,6 @@
     <ProjectReference Include="..\DAL\DAL.csproj">
       <Project>{81a5962b-761f-4b31-9ab0-b8e17a639315}</Project>
       <Name>DAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DBAccess\DBAccess.csproj">
-      <Project>{caa3bbe7-5940-4b59-bd23-dc3cb5c5e370}</Project>
-      <Name>DBAccess</Name>
     </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{0065f6d0-f174-40e1-9733-1636b11e0d87}</Project>

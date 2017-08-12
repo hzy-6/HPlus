@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using System.Collections;
 using System.Data;
 using Utility;
-using DBAccess;
-using DBAccess.Entity;
+using DbFrame;
+using DbFrame.Class;
 using DAL;
 using Model;
 using Application;
@@ -18,7 +18,7 @@ namespace BLL
     public class T_UsersBL
     {
         DBContext db = new DBContext();
-        List<SQL_Container> li = new List<SQL_Container>();
+        List<SQL> li = new List<SQL>();
         T_Users tuser = new T_Users();
         T_Roles troles = new T_Roles();
         T_UsersRoles tuserrole = new T_UsersRoles();
@@ -41,40 +41,40 @@ namespace BLL
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public List<SQL_Container> Save(T_Users model, string uRoles_ID)
+        public List<SQL> Save(T_Users model, string uRoles_ID)
         {
             tuser = model;
-            if (Tools.getGuid(model.uUsers_ID).Equals(Guid.Empty))
+            if (model.uUsers_ID.To_Guid().Equals(Guid.Empty))
             {
                 if (string.IsNullOrEmpty(tuser.cUsers_LoginPwd))
                     tuser.cUsers_LoginPwd = "123456"; //Tools.MD5Encrypt("123456");
                 else
                     tuser.cUsers_LoginPwd = model.cUsers_LoginPwd;//Tools.MD5Encrypt(model.cUsers_LoginPwd);
-                model.uUsers_ID = Tools.getGuid(db.Add(tuser, ref li));
-                if (Tools.getGuid(model.uUsers_ID).Equals(Guid.Empty))
+                model.uUsers_ID = db.Add(tuser, ref li).To_Guid();
+                if (model.uUsers_ID.To_Guid().Equals(Guid.Empty))
                     throw new MessageBox(db.ErrorMessge);
                 //用户角色
                 tuserrole.uUsersRoles_UsersID = tuser.uUsers_ID;
                 tuserrole.uUsersRoles_RoleID = Tools.getGuid(uRoles_ID);
-                if (Tools.getGuid(db.Add(tuserrole, ref li)).Equals(Guid.Empty))
+                if (db.Add(tuserrole, ref li).To_Guid().Equals(Guid.Empty))
                     throw new MessageBox(db.ErrorMessge);
             }
             else
             {
-                if (!string.IsNullOrEmpty(tuser.cUsers_LoginPwd))
-                    tuser.cUsers_LoginPwd = model.cUsers_LoginPwd;//Tools.MD5Encrypt(model.cUsers_LoginPwd);
-                else
-                    tuser.fileds.Remove("cUsers_LoginPwd");
-                if (!db.Edit(tuser, ref li))
+                //如果 密码字段为空，则设置忽略字段
+                if (string.IsNullOrEmpty(tuser.cUsers_LoginPwd))
+                    tuser.AddNoDbField(f => f.cUsers_LoginPwd);
+                if (!db.Edit<T_Users>(tuser, w => w.uUsers_ID == tuser.uUsers_ID, ref li))
                     throw new MessageBox(db.ErrorMessge);
+
                 //用户角色
-                tuserrole.uUsersRoles_UsersID = tuser.uUsers_ID;
-                if (!db.Delete(tuserrole, ref li))
+                if (!db.Delete<T_UsersRoles>(w => w.uUsersRoles_UsersID == tuser.uUsers_ID, ref li))
                     throw new MessageBox(db.ErrorMessge);
-                tuserrole = new T_UsersRoles();
-                tuserrole.uUsersRoles_UsersID = tuser.uUsers_ID;
-                tuserrole.uUsersRoles_RoleID = Tools.getGuid(uRoles_ID);
-                if (Tools.getGuid(db.Add(tuserrole, ref li)).Equals(Guid.Empty))
+                if (db.Add<T_UsersRoles>(() => new T_UsersRoles()
+                {
+                    uUsersRoles_UsersID = tuser.uUsers_ID,
+                    uUsersRoles_RoleID = uRoles_ID.To_Guid()
+                }, ref li).To_Guid().Equals(Guid.Empty))
                     throw new MessageBox(db.ErrorMessge);
             }
             return li;
@@ -85,17 +85,13 @@ namespace BLL
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
-        public List<SQL_Container> Delete(string ID)
+        public List<SQL> Delete(string ID)
         {
             db.JsonToList<string>(ID).ForEach(item =>
             {
-                tuserrole = new T_UsersRoles();
-                tuserrole.uUsersRoles_UsersID = tuser.uUsers_ID;
-                if (!db.Delete(tuserrole, ref li))
+                if (!db.Delete<T_UsersRoles>(w => w.uUsersRoles_UsersID == item.To_Guid(), ref li))
                     throw new MessageBox(db.ErrorMessge);
-                tuser = new T_Users();
-                tuser.uUsers_ID = Tools.getGuid(item);
-                if (!db.Delete(tuser, ref li))
+                if (!db.Delete<T_Users>(w => w.uUsers_ID == item.To_Guid(), ref li))
                     throw new MessageBox(db.ErrorMessge);
             });
             return li;
@@ -108,15 +104,9 @@ namespace BLL
         /// <returns></returns>
         public Dictionary<string, object> Find(Guid ID)
         {
-            tuser = new T_Users();
-            tuser.uUsers_ID = ID;
-            tuser = db.Find(tuser);
-            tuserrole = new T_UsersRoles();
-            tuserrole.uUsersRoles_UsersID = tuser.uUsers_ID;
-            tuserrole = db.Find(tuserrole);
-            troles = new T_Roles();
-            troles.uRoles_ID = tuserrole.uUsersRoles_RoleID;
-            troles = db.Find(troles);
+            tuser = db.Find<T_Users>(w => w.uUsers_ID == ID);
+            tuserrole = db.Find<T_UsersRoles>(w => w.uUsersRoles_UsersID == tuser.uUsers_ID);
+            troles = db.Find<T_Roles>(w => w.uRoles_ID == tuserrole.uUsersRoles_RoleID);
 
             tuser.cUsers_LoginPwd = "";
             var di = new ToJson().GetDictionary(new Dictionary<string, object>()
@@ -125,7 +115,7 @@ namespace BLL
                 {"troles",troles},
                 {"status",1}
             });
-            di["dUsers_CreateTime"] = Tools.getDateTimeString(di["dUsers_CreateTime"], "yyyy-MM-dd");
+            di["dUsers_CreateTime"] = di["dUsers_CreateTime"].To_DateTimeString();
             return di;
         }
 

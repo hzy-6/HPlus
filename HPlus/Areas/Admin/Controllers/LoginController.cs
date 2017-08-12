@@ -10,8 +10,8 @@ using Utility;
 using BLL;
 using Model;
 using Utility.ValidateHelper;
-using DBAccess;
-using DBAccess.Entity;
+using DbFrame;
+using DbFrame.Class;
 
 namespace HPlus.Areas.Admin.Controllers
 {
@@ -45,9 +45,8 @@ namespace HPlus.Areas.Admin.Controllers
                 throw new MessageBox("请输入密码", 500);
             //if (string.IsNullOrEmpty(loginCode))
             //    throw new MessageBox("请输入验证码", 500);
-            user = new T_Users();
-            user.cUsers_LoginName = username;
-            user = db.Find<T_Users>(user);
+            user = db.Find<T_Users>(w => w.cUsers_LoginName == username);
+
             if (Tools.getGuid(user.uUsers_ID).Equals(Guid.Empty))
                 throw new MessageBox("用户不存在", 500);
             if (!Tools.getString(user.cUsers_LoginPwd).Trim().Equals(userpwd))//Tools.MD5Encrypt(userpwd)))//
@@ -57,12 +56,11 @@ namespace HPlus.Areas.Admin.Controllers
             //    throw new MessageBox("验证码失效", 500);
             //if (!code.ToLower().Equals(loginCode))
             //    throw new MessageBox("验证码不正确", 500);
-            tuserroles = new T_UsersRoles();
-            tuserroles.uUsersRoles_UsersID = user.uUsers_ID;
-            tuserroles = db.Find<T_UsersRoles>(tuserroles);
-            troles = new T_Roles();
-            troles.uRoles_ID = tuserroles.uUsersRoles_RoleID;
-            troles = db.Find<T_Roles>(troles);
+
+            tuserroles = db.Find<T_UsersRoles>(w => w.uUsersRoles_UsersID == user.uUsers_ID);
+
+            troles = db.Find<T_Roles>(w => w.uRoles_ID == tuserroles.uUsersRoles_RoleID);
+
             Session["UserID"] = user.uUsers_ID;
 
             if (user.cUsers_LoginName.Equals("admin"))

@@ -6,8 +6,8 @@ using System.Web.Mvc;
 //
 using Aop;
 using Application;
-using DBAccess;
-using DBAccess.Entity;
+using DbFrame;
+using DbFrame.Class;
 using Utility;
 using BLL;
 using Model;
@@ -102,7 +102,7 @@ namespace HPlus.Areas.Admin.Controllers.Sys
         [HttpPost]
         public ActionResult Num()
         {
-            return Json(new { status = 1, num = Tools.GetOrderNumber(troles.TableName, Tools.getAttrName(() => troles.cRoles_Number)) });
+            return Json(new { status = 1, num = Tools.GetOrderNumber(troles.GetTabelName(), Tools.getAttrName(() => troles.cRoles_Number)) });
         }
 
         #endregion  基本操作，增删改查

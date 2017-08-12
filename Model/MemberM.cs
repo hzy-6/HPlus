@@ -4,47 +4,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 //
-using DBAccess.Entity;
-using DBAccess.CustomAttribute;
-using System.Reflection;
+using DbFrame.Class;
 
 namespace Model
 {
-    public class MemberM : BaseModel
+    [ObjectRemarks.Table("Member")]
+    public class MemberM : BaseEntity
     {
         public MemberM()
         {
-            this.TableName = "Member";
-            this.NotFiled.Add("Member_CreateTime");
+            this.AddNoDbField(item => new { item.Member_CreateTime });
         }
 
-        [Filed(DisplayName = "Member_ID", IsPrimaryKey = true)]
-        public Guid? Member_ID
-        {
-            set { SetValue(MethodBase.GetCurrentMethod().Name, value); }
-            get { return GetValue<Guid?>(MethodBase.GetCurrentMethod().Name); }
-        }
+        [ObjectRemarks.Field("ID", FieldType = typeof(Guid?), IsPrimaryKey = true)]
+        public Guid? Member_ID { get; set; }
 
-        [Filed(DisplayName = "会员名称")]
-        public string Member_Name
-        {
-            set { SetValue(MethodBase.GetCurrentMethod().Name, value); }
-            get { return GetValue<string>(MethodBase.GetCurrentMethod().Name); }
-        }
+        [ObjectRemarks.CRequired(ErrorMessage = "{name}不能为空！")]
+        [ObjectRemarks.Field("会员名称")]
+        public string Member_Name { get; set; }
 
-        [Filed(DisplayName = "性别")]
-        public string Member_Sex
-        {
-            set { SetValue(MethodBase.GetCurrentMethod().Name, value); }
-            get { return GetValue<string>(MethodBase.GetCurrentMethod().Name); }
-        }
+        [ObjectRemarks.Field("会员性别")]
+        public string Member_Sex { get; set; }
 
-        [Filed(DisplayName = "创建时间")]
-        public DateTime? Member_CreateTime
-        {
-            set { SetValue(MethodBase.GetCurrentMethod().Name, value); }
-            get { return GetValue<DateTime?>(MethodBase.GetCurrentMethod().Name); }
-        }
+        [ObjectRemarks.Field("创建时间")]
+        public DateTime? Member_CreateTime { get; set; }
 
 
     }

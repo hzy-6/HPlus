@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using System.Collections;
 using System.Data;
 using Utility;
-using DBAccess;
-using DBAccess.Entity;
+using DbFrame;
+using DbFrame.Class;
 using DAL;
 using Model;
 

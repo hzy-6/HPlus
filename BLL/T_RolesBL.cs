@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using System.Collections;
 using System.Data;
 using Utility;
-using DBAccess;
-using DBAccess.Entity;
+using DbFrame;
+using DbFrame.Class;
 using DAL;
 using Model;
 using Application;
@@ -18,7 +18,7 @@ namespace BLL
     public class T_RolesBL
     {
         DBContext db = new DBContext();
-        List<SQL_Container> li = new List<SQL_Container>();
+        List<SQL> li = new List<SQL>();
         T_Roles troles = new T_Roles();
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace BLL
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public List<SQL_Container> Save(T_Roles model)
+        public List<SQL> Save(T_Roles model)
         {
             troles = model;
             if (Tools.getGuid(model.uRoles_ID).Equals(Guid.Empty))
@@ -49,7 +49,7 @@ namespace BLL
             }
             else
             {
-                if (!db.Edit(troles, ref li))
+                if (!db.Edit(troles, item => item.uRoles_ID == troles.uRoles_ID, ref li))
                     throw new MessageBox(db.ErrorMessge);
             }
             return li;
@@ -60,12 +60,11 @@ namespace BLL
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
-        public List<SQL_Container> Delete(string ID)
+        public List<SQL> Delete(string ID)
         {
             db.JsonToList<string>(ID).ForEach(item =>
             {
-                troles.uRoles_ID = Tools.getGuid(item);
-                if (!db.Delete(troles, ref li))
+                if (!db.Delete<T_Roles>(f => f.uRoles_ID == Tools.getGuid(item), ref li))
                     throw new MessageBox(db.ErrorMessge);
             });
             return li;
@@ -78,8 +77,7 @@ namespace BLL
         /// <returns></returns>
         public Dictionary<string, object> Find(Guid ID)
         {
-            troles.uRoles_ID = Tools.getGuid(ID);
-            troles = db.Find(troles);
+            troles = db.Find<T_Roles>(f => f.uRoles_ID == Tools.getGuid(ID));
             var di = new ToJson().GetDictionary(new Dictionary<string, object>()
             {
                 {"troles",troles},
