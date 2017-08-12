@@ -48,7 +48,7 @@
     <Compile Include="T_UsersDA.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\实体框架\DbFrame\DbFrame\DbFrame.csproj">
+    <ProjectReference Include="..\DbFrame\DbFrame.csproj">
       <Project>{5f79a006-5751-4c9d-bee3-8ddfbab0f99d}</Project>
       <Name>DbFrame</Name>
     </ProjectReference>

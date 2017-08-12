@@ -69,10 +69,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\实体框架\DbFrame\DbFrame\DbFrame.csproj">
-      <Project>{5f79a006-5751-4c9d-bee3-8ddfbab0f99d}</Project>
-      <Name>DbFrame</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Application\Application.csproj">
       <Project>{33cac359-f4b4-4b82-84cc-5e7bade0fd8d}</Project>
       <Name>Application</Name>
@@ -80,6 +76,10 @@
     <ProjectReference Include="..\BLL\BLL.csproj">
       <Project>{dc21c673-f22d-4ff4-92a8-476cf947bfc9}</Project>
       <Name>BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DbFrame\DbFrame.csproj">
+      <Project>{5f79a006-5751-4c9d-bee3-8ddfbab0f99d}</Project>
+      <Name>DbFrame</Name>
     </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{0065f6d0-f174-40e1-9733-1636b11e0d87}</Project>
