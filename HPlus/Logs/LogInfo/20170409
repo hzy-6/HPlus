@@ -1,0 +1,111 @@
+
+日志时间：2017-04-09 15:04:40,515 [9264] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-04-09 15:19:20,290 [13552] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-04-09 15:20:27,089 [1180] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-04-09 15:21:00,699 [15264] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-04-09 15:21:31,160 [11068] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-04-09 15:25:07,871 [17320] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-04-09 15:25:59,507 [16752] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序已结束 
+
+日志时间：2017-04-09 15:26:19,295 [17320] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-04-09 15:39:39,151 [1220] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序已结束 
+
+日志时间：2017-04-09 15:39:46,760 [17320] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-04-09 15:48:20,767 [4696] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序已结束 
+
+日志时间：2017-04-09 15:52:16,062 [17320] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-04-09 15:53:02,350 [4964] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+-----------------------------------------------------
+::1
+异常信息: 未将对象引用设置到对象的实例。
+错误源:WebControl
+堆栈信息:   在 WebControl.BaseControl.NoDoubleTag.GetHTML() 位置 f:\框架\GitHub-Project\HPlus\WebControl\BaseControl\NoDoubleTag.cs:行号 40
+   在 WebControl.BaseControl.NoDoubleTag..ctor(String tag, Object attr) 位置 f:\框架\GitHub-Project\HPlus\WebControl\BaseControl\NoDoubleTag.cs:行号 34
+   在 ASP._Page_Views_Home_TestPage_cshtml.Execute() 位置 f:\框架\GitHub-Project\HPlus\HPlus\Views\Home\TestPage.cshtml:行号 17
+   在 System.Web.WebPages.WebPageBase.ExecutePageHierarchy()
+   在 System.Web.Mvc.WebViewPage.ExecutePageHierarchy()
+   在 System.Web.WebPages.StartPage.ExecutePageHierarchy()
+   在 System.Web.WebPages.WebPageBase.ExecutePageHierarchy(WebPageContext pageContext, TextWriter writer, WebPageRenderingBase startPage)
+   在 System.Web.Mvc.ViewResultBase.ExecuteResult(ControllerContext context)
+   在 System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass1a.<InvokeActionResultWithFilters>b__17()
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilter(IResultFilter filter, ResultExecutingContext preContext, Func`1 continuation)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilter(IResultFilter filter, ResultExecutingContext preContext, Func`1 continuation)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass25.<BeginInvokeAction>b__22(IAsyncResult asyncResult)
+ 
+
+日志时间：2017-04-09 15:53:02,363 [4964] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序错误 
+
+日志时间：2017-04-09 15:53:13,610 [17012] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-04-09 15:54:19,717 [9256] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-04-09 16:09:14,942 [11196] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序已结束 
+
+日志时间：2017-04-09 16:09:20,720 [9256] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-04-09 16:11:52,419 [16500] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序已结束 
