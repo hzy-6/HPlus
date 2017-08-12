@@ -66,7 +66,7 @@
     <Compile Include="DBContext.cs" />
     <Compile Include="Class\BaseEntity.cs" />
     <Compile Include="Class\BootStrapTableColModel.cs" />
-    <Compile Include="Class\Member.cs" />
+    <Compile Include="Class\TestMember.cs" />
     <Compile Include="Class\ModelExFunc.cs" />
     <Compile Include="Class\PagingEntity.cs" />
     <Compile Include="Class\SQL.cs" />
