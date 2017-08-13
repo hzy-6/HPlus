@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{5F79A006-5751-4C9D-BEE3-8DDFBAB0F99D}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DbFrame</RootNamespace>
     <AssemblyName>DbFrame</AssemblyName>
@@ -63,6 +63,7 @@
     <Compile Include="AdoDotNet\OracleHelper.cs" />
     <Compile Include="AdoDotNet\SqlHelper.cs" />
     <Compile Include="Class\ObjectRemarks.cs" />
+    <Compile Include="Class\TestT_Users.cs" />
     <Compile Include="DBContext.cs" />
     <Compile Include="Class\BaseEntity.cs" />
     <Compile Include="Class\BootStrapTableColModel.cs" />
@@ -98,6 +99,16 @@
     </Compile>
     <Compile Include="SQLContext\ExpressionTree\Parsers\UnaryExpressionParser.cs" />
     <Compile Include="SQLContext\FindContext.cs" />
+    <Compile Include="SQLContext\IDBContext.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SQLContext\IQuery.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SQLContext\Query.cs" />
+    <Compile Include="SQLContext\Select.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ToJson.cs" />
   </ItemGroup>
   <ItemGroup>
