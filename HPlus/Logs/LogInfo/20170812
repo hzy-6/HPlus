@@ -1,0 +1,539 @@
+
+日志时间：2017-08-12 14:46:37,260 [171448] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 14:46:38,128 [172708] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+-----------------------------------------------------
+::1
+异常信息: c:\Users\hzy_1\AppData\Local\Temp\Temporary ASP.NET Files\vs\a21213f3\fe708023\App_Web_index.cshtml.44e9485f.lkh_aykd.0.cs(30): error CS0246: 未能找到类型或命名空间名称“DBAccess”(是否缺少 using 指令或程序集引用?)
+错误源:System.Web
+堆栈信息:   在 System.Web.Compilation.AssemblyBuilder.Compile()
+   在 System.Web.Compilation.BuildProvidersCompiler.PerformBuild()
+   在 System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   在 System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   在 System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   在 System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   在 System.Web.Mvc.BuildManagerWrapper.System.Web.Mvc.IBuildManager.FileExists(String virtualPath)
+   在 System.Web.Mvc.BuildManagerViewEngine.FileExists(ControllerContext controllerContext, String virtualPath)
+   在 System.Web.Mvc.VirtualPathProviderViewEngine.<>c__DisplayClass4.<GetPathFromGeneralName>b__0(String path)
+   在 System.Web.WebPages.DefaultDisplayMode.GetDisplayInfo(HttpContextBase httpContext, String virtualPath, Func`2 virtualPathExists)
+   在 System.Web.WebPages.DisplayModeProvider.<>c__DisplayClassb.<GetDisplayInfoForVirtualPath>b__8(IDisplayMode mode)
+   在 System.Linq.Enumerable.WhereSelectListIterator`2.MoveNext()
+   在 System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source, Func`2 predicate)
+   在 System.Web.WebPages.DisplayModeProvider.GetDisplayInfoForVirtualPath(String virtualPath, HttpContextBase httpContext, Func`2 virtualPathExists, IDisplayMode currentDisplayMode, Boolean requireConsistentDisplayMode)
+   在 System.Web.Mvc.VirtualPathProviderViewEngine.GetPathFromGeneralName(ControllerContext controllerContext, List`1 locations, String name, String controllerName, String areaName, String cacheKey, String[]& searchedLocations)
+   在 System.Web.Mvc.VirtualPathProviderViewEngine.GetPath(ControllerContext controllerContext, String[] locations, String[] areaLocations, String locationsPropertyName, String name, String controllerName, String cacheKeyPrefix, Boolean useCache, String[]& searchedLocations)
+   在 System.Web.Mvc.VirtualPathProviderViewEngine.FindView(ControllerContext controllerContext, String viewName, String masterName, Boolean useCache)
+   在 Aop.CustomViewEngine.FindView(ControllerContext controllerContext, String viewName, String masterName, Boolean useCache) 位置 f:\框架\GitHub-Project\HPlus\Aop\CustomViewEngine.cs:行号 35
+   在 System.Web.Mvc.ViewEngineCollection.<>c__DisplayClassc.<FindView>b__b(IViewEngine e)
+   在 System.Web.Mvc.ViewEngineCollection.Find(Func`2 lookup, Boolean trackSearchedPaths)
+   在 System.Web.Mvc.ViewEngineCollection.FindView(ControllerContext controllerContext, String viewName, String masterName)
+   在 System.Web.Mvc.ViewResult.FindView(ControllerContext context)
+   在 System.Web.Mvc.ViewResultBase.ExecuteResult(ControllerContext context)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResult(ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass1a.<InvokeActionResultWithFilters>b__17()
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilter(IResultFilter filter, ResultExecutingContext preContext, Func`1 continuation)
+   在 System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass1a.<>c__DisplayClass1c.<InvokeActionResultWithFilters>b__19()
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilter(IResultFilter filter, ResultExecutingContext preContext, Func`1 continuation)
+   在 System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass1a.<>c__DisplayClass1c.<InvokeActionResultWithFilters>b__19()
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultWithFilters(ControllerContext controllerContext, IList`1 filters, ActionResult actionResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass25.<>c__DisplayClass2a.<BeginInvokeAction>b__20()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass25.<BeginInvokeAction>b__22(IAsyncResult asyncResult)
+ 
+
+日志时间：2017-08-12 14:46:38,136 [172708] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序错误 
+
+日志时间：2017-08-12 14:47:30,153 [171548] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序已结束 
+
+日志时间：2017-08-12 14:50:26,810 [171448] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 14:50:52,287 [174992] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+-----------------------------------------------------
+::1
+异常信息: 列名 'username' 无效。
+错误源:.Net SqlClient Data Provider
+堆栈信息:   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   在 System.Data.SqlClient.SqlDataReader.get_MetaData()
+   在 System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataSet dataSet, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataSet dataSet)
+   在 DbFrame.AdoDotNet.SqlHelper.ExecuteDataset(SqlConnection connection, CommandType commandType, String commandText, SqlParameter[] commandParameters) 位置 f:\框架\GitHub-Project\HPlus\DbFrame\AdoDotNet\SqlHelper.cs:行号 669
+   在 DbFrame.AdoDotNet.SqlHelper.ExecuteDataset(String connectionString, CommandType commandType, String commandText, SqlParameter[] commandParameters) 位置 f:\框架\GitHub-Project\HPlus\DbFrame\AdoDotNet\SqlHelper.cs:行号 581
+   在 DbFrame.AdoDotNet.DbHelper.ExecuteDataset(SQL SQL) 位置 f:\框架\GitHub-Project\HPlus\DbFrame\AdoDotNet\DbHelper.cs:行号 35
+   在 DbFrame.SQLContext.FindContext.ExecuteSQL[T](String[] From, Expression`1 Where, String OrderBy) 位置 f:\框架\GitHub-Project\HPlus\DbFrame\SQLContext\FindContext.cs:行号 35
+   在 DbFrame.SQLContext.FindContext.Find[T](Expression`1 Where) 位置 f:\框架\GitHub-Project\HPlus\DbFrame\SQLContext\FindContext.cs:行号 46
+   在 DbFrame.DBContext.Find[T](Expression`1 Where) 位置 f:\框架\GitHub-Project\HPlus\DbFrame\DBContext.cs:行号 228
+   在 HPlus.Areas.Admin.Controllers.LoginController.Checked(String username, String userpwd, String loginCode) 位置 f:\框架\GitHub-Project\HPlus\HPlus\Areas\Admin\Controllers\LoginController.cs:行号 48
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass42.<BeginInvokeSynchronousActionMethod>b__41()
+   在 System.Web.Mvc.Async.AsyncResultWrapper.<>c__DisplayClass8`1.<BeginSynchronous>b__7(IAsyncResult _)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass37.<>c__DisplayClass39.<BeginInvokeActionMethodWithFilters>b__33()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass4f.<InvokeActionMethodFilterAsynchronously>b__49()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass4f.<InvokeActionMethodFilterAsynchronously>b__49()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass37.<BeginInvokeActionMethodWithFilters>b__36(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass25.<>c__DisplayClass2a.<BeginInvokeAction>b__20()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass25.<BeginInvokeAction>b__22(IAsyncResult asyncResult)
+ 
+
+日志时间：2017-08-12 14:50:52,303 [174992] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序错误 
+
+日志时间：2017-08-12 14:51:19,789 [174244] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 14:54:17,049 [178756] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 14:57:35,320 [71652] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 14:58:57,979 [191496] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 15:02:12,106 [192368] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 15:09:50,297 [198944] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 15:10:20,117 [202176] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+-----------------------------------------------------
+::1
+异常信息: 从作用域“”引用了“Model.T_Users”类型的变量“w”，但该变量未定义
+错误源:System.Core
+堆栈信息:   在 System.Linq.Expressions.Compiler.VariableBinder.Reference(ParameterExpression node, VariableStorageKind storage)
+   在 System.Linq.Expressions.Compiler.VariableBinder.VisitParameter(ParameterExpression node)
+   在 System.Linq.Expressions.ParameterExpression.Accept(ExpressionVisitor visitor)
+   在 System.Linq.Expressions.ExpressionVisitor.Visit(Expression node)
+   在 System.Linq.Expressions.ExpressionVisitor.VisitMember(MemberExpression node)
+   在 System.Linq.Expressions.MemberExpression.Accept(ExpressionVisitor visitor)
+   在 System.Linq.Expressions.ExpressionVisitor.Visit(Expression node)
+   在 System.Linq.Expressions.Compiler.VariableBinder.VisitUnary(UnaryExpression node)
+   在 System.Linq.Expressions.UnaryExpression.Accept(ExpressionVisitor visitor)
+   在 System.Linq.Expressions.ExpressionVisitor.Visit(Expression node)
+   在 System.Linq.Expressions.ExpressionVisitor.Visit(ReadOnlyCollection`1 nodes)
+   在 System.Linq.Expressions.Compiler.VariableBinder.VisitLambda[T](Expression`1 node)
+   在 System.Linq.Expressions.Expression`1.Accept(ExpressionVisitor visitor)
+   在 System.Linq.Expressions.ExpressionVisitor.Visit(Expression node)
+   在 System.Linq.Expressions.Compiler.LambdaCompiler.Compile(LambdaExpression lambda, DebugInfoGenerator debugInfoGenerator)
+   在 System.Linq.Expressions.Expression`1.Compile()
+   在 DbFrame.SQLContext.ExpressionTree.Helper.Eval_1(Expression expression) 位置 f:\框架\GitHub-Project\HPlus\DbFrame\SQLContext\ExpressionTree\Helper.cs:行号 182
+   在 DbFrame.SQLContext.ExpressionTree.Helper.DealExpress(Expression exp) 位置 f:\框架\GitHub-Project\HPlus\DbFrame\SQLContext\ExpressionTree\Helper.cs:行号 36
+   在 DbFrame.SQLContext.ExpressionTree.Helper.DealBinaryExpression(BinaryExpression exp) 位置 f:\框架\GitHub-Project\HPlus\DbFrame\SQLContext\ExpressionTree\Helper.cs:行号 107
+   在 DbFrame.SQLContext.ExpressionTree.Helper.DealExpress(Expression exp) 位置 f:\框架\GitHub-Project\HPlus\DbFrame\SQLContext\ExpressionTree\Helper.cs:行号 32
+   在 DbFrame.SQLContext.Context.WhereString.GetWhereString[M](Expression`1 where) 位置 f:\框架\GitHub-Project\HPlus\DbFrame\SQLContext\Context\WhereString.cs:行号 54
+   在 DbFrame.SQLContext.Context.FindString.GetSql[T](String[] From, Expression`1 Where, String OrderBy) 位置 f:\框架\GitHub-Project\HPlus\DbFrame\SQLContext\Context\FindString.cs:行号 22
+   在 DbFrame.SQLContext.FindContext.ExecuteSQL[T](String[] From, Expression`1 Where, String OrderBy) 位置 f:\框架\GitHub-Project\HPlus\DbFrame\SQLContext\FindContext.cs:行号 34
+   在 DbFrame.SQLContext.FindContext.Find[T](Expression`1 Where) 位置 f:\框架\GitHub-Project\HPlus\DbFrame\SQLContext\FindContext.cs:行号 46
+   在 DbFrame.DBContext.Find[T](Expression`1 Where) 位置 f:\框架\GitHub-Project\HPlus\DbFrame\DBContext.cs:行号 228
+   在 HPlus.Areas.Admin.Controllers.LoginController.Checked(String username, String userpwd, String loginCode) 位置 f:\框架\GitHub-Project\HPlus\HPlus\Areas\Admin\Controllers\LoginController.cs:行号 48
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass42.<BeginInvokeSynchronousActionMethod>b__41()
+   在 System.Web.Mvc.Async.AsyncResultWrapper.<>c__DisplayClass8`1.<BeginSynchronous>b__7(IAsyncResult _)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass37.<>c__DisplayClass39.<BeginInvokeActionMethodWithFilters>b__33()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass4f.<InvokeActionMethodFilterAsynchronously>b__49()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass4f.<InvokeActionMethodFilterAsynchronously>b__49()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass37.<BeginInvokeActionMethodWithFilters>b__36(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass25.<>c__DisplayClass2a.<BeginInvokeAction>b__20()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass25.<BeginInvokeAction>b__22(IAsyncResult asyncResult)
+ 
+
+日志时间：2017-08-12 15:10:20,129 [202176] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序错误 
+
+日志时间：2017-08-12 15:11:25,241 [204472] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 15:13:34,920 [205532] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 15:14:36,562 [208308] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+-----------------------------------------------------
+::1
+异常信息: “<”附近有语法错误。
+错误源:.Net SqlClient Data Provider
+堆栈信息:   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   在 System.Data.SqlClient.SqlDataReader.get_MetaData()
+   在 System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataSet dataSet, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataSet dataSet)
+   在 DbFrame.AdoDotNet.SqlHelper.ExecuteDataset(SqlConnection connection, CommandType commandType, String commandText, SqlParameter[] commandParameters) 位置 f:\框架\GitHub-Project\HPlus\DbFrame\AdoDotNet\SqlHelper.cs:行号 669
+   在 DbFrame.AdoDotNet.SqlHelper.ExecuteDataset(String connectionString, CommandType commandType, String commandText, SqlParameter[] commandParameters) 位置 f:\框架\GitHub-Project\HPlus\DbFrame\AdoDotNet\SqlHelper.cs:行号 581
+   在 DbFrame.AdoDotNet.DbHelper.ExecuteDataset(SQL SQL) 位置 f:\框架\GitHub-Project\HPlus\DbFrame\AdoDotNet\DbHelper.cs:行号 35
+   在 DbFrame.SQLContext.FindContext.ExecuteSQL[T](String[] From, Expression`1 Where, String OrderBy) 位置 f:\框架\GitHub-Project\HPlus\DbFrame\SQLContext\FindContext.cs:行号 35
+   在 DbFrame.SQLContext.FindContext.Find[T](Expression`1 Where) 位置 f:\框架\GitHub-Project\HPlus\DbFrame\SQLContext\FindContext.cs:行号 46
+   在 DbFrame.DBContext.Find[T](Expression`1 Where) 位置 f:\框架\GitHub-Project\HPlus\DbFrame\DBContext.cs:行号 228
+   在 HPlus.Areas.Admin.Controllers.LoginController.Checked(String username, String userpwd, String loginCode) 位置 f:\框架\GitHub-Project\HPlus\HPlus\Areas\Admin\Controllers\LoginController.cs:行号 48
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass42.<BeginInvokeSynchronousActionMethod>b__41()
+   在 System.Web.Mvc.Async.AsyncResultWrapper.<>c__DisplayClass8`1.<BeginSynchronous>b__7(IAsyncResult _)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass37.<>c__DisplayClass39.<BeginInvokeActionMethodWithFilters>b__33()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass4f.<InvokeActionMethodFilterAsynchronously>b__49()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass4f.<InvokeActionMethodFilterAsynchronously>b__49()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass37.<BeginInvokeActionMethodWithFilters>b__36(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass25.<>c__DisplayClass2a.<BeginInvokeAction>b__20()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass25.<BeginInvokeAction>b__22(IAsyncResult asyncResult)
+ 
+
+日志时间：2017-08-12 15:14:36,578 [208308] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序错误 
+
+日志时间：2017-08-12 15:16:11,970 [205840] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 15:17:49,598 [213824] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 15:18:50,714 [215532] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 15:21:08,231 [182924] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 15:27:53,393 [232084] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 15:35:37,073 [225844] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 15:37:16,544 [235172] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 15:38:31,710 [230892] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 15:39:34,782 [224752] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 15:41:03,389 [243716] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 15:42:36,076 [243652] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 15:44:18,421 [246416] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 15:45:02,924 [256808] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 15:48:18,108 [268076] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 15:49:15,746 [166196] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 15:50:23,237 [263556] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 15:54:04,832 [286352] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 16:45:36,343 [201444] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 18:28:49,539 [73628] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 18:31:29,764 [54400] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 18:33:22,229 [53716] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 18:45:39,305 [46992] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 18:47:32,738 [65992] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 19:00:23,163 [110012] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 19:10:48,208 [62204] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 19:26:01,788 [106620] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 19:28:25,288 [103552] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 19:29:34,156 [96396] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 19:32:40,164 [114636] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 19:35:11,356 [104484] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 19:35:54,419 [116132] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+-----------------------------------------------------
+::1
+异常信息: 尚未实现UnaryExpression的解析
+错误源:DbFrame
+堆栈信息:   在 DbFrame.SQLContext.ExpressionTree.Parser.GetParser(Expression expr) 位置 f:\框架\GitHub-Project\HPlus\DbFrame\SQLContext\ExpressionTree\Parser.cs:行号 164
+   在 DbFrame.SQLContext.ExpressionTree.Parser.Where(Expression expr, ParserArgs args) 位置 f:\框架\GitHub-Project\HPlus\DbFrame\SQLContext\ExpressionTree\Parser.cs:行号 177
+   在 DbFrame.SQLContext.ExpressionTree.Parsers.BinaryExpressionParser.Where(BinaryExpression expr, ParserArgs args) 位置 f:\框架\GitHub-Project\HPlus\DbFrame\SQLContext\ExpressionTree\Parsers\BinaryExpressionParser.cs:行号 47
+   在 DbFrame.SQLContext.ExpressionTree.ExpressionParser`1.Where(Expression expr, ParserArgs args) 位置 f:\框架\GitHub-Project\HPlus\DbFrame\SQLContext\ExpressionTree\ExpressionParser.cs:行号 28
+   在 DbFrame.SQLContext.ExpressionTree.Parser.Where(Expression expr, ParserArgs args) 位置 f:\框架\GitHub-Project\HPlus\DbFrame\SQLContext\ExpressionTree\Parser.cs:行号 177
+   在 DbFrame.SQLContext.Context.WhereString.GetWhereString[M](Expression`1 where, ParserArgs pa) 位置 f:\框架\GitHub-Project\HPlus\DbFrame\SQLContext\Context\WhereString.cs:行号 34
+   在 DbFrame.SQLContext.Context.FindString.GetSql[T](String[] From, Expression`1 Where, String OrderBy) 位置 f:\框架\GitHub-Project\HPlus\DbFrame\SQLContext\Context\FindString.cs:行号 27
+   在 DbFrame.SQLContext.FindContext.ExecuteSQL[T](String[] From, Expression`1 Where, String OrderBy) 位置 f:\框架\GitHub-Project\HPlus\DbFrame\SQLContext\FindContext.cs:行号 34
+   在 DbFrame.SQLContext.FindContext.Find[T](Expression`1 Where) 位置 f:\框架\GitHub-Project\HPlus\DbFrame\SQLContext\FindContext.cs:行号 46
+   在 DbFrame.DBContext.Find[T](Expression`1 Where) 位置 f:\框架\GitHub-Project\HPlus\DbFrame\DBContext.cs:行号 228
+   在 HPlus.Areas.Admin.Controllers.HomeController.Index() 位置 f:\框架\GitHub-Project\HPlus\HPlus\Areas\Admin\Controllers\HomeController.cs:行号 27
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass42.<BeginInvokeSynchronousActionMethod>b__41()
+   在 System.Web.Mvc.Async.AsyncResultWrapper.<>c__DisplayClass8`1.<BeginSynchronous>b__7(IAsyncResult _)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass37.<>c__DisplayClass39.<BeginInvokeActionMethodWithFilters>b__33()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass4f.<InvokeActionMethodFilterAsynchronously>b__49()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass4f.<InvokeActionMethodFilterAsynchronously>b__49()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass37.<BeginInvokeActionMethodWithFilters>b__36(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass25.<>c__DisplayClass2a.<BeginInvokeAction>b__20()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass25.<BeginInvokeAction>b__22(IAsyncResult asyncResult)
+ 
+
+日志时间：2017-08-12 19:35:54,437 [116132] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序错误 
+
+日志时间：2017-08-12 19:41:07,186 [140568] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 19:41:46,688 [228940] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 19:51:53,217 [124704] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 19:52:59,606 [143452] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 19:56:48,359 [149196] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 22:14:57,095 [280744] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 22:22:09,505 [317508] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 22:27:52,300 [300928] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 22:41:35,491 [321140] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 22:45:37,323 [327156] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 22:49:41,957 [290524] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 22:56:35,067 [337664] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 22:59:44,471 [342972] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 23:02:03,506 [341848] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 23:26:30,878 [329844] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 23:34:52,853 [50148] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 
+
+日志时间：2017-08-12 23:40:34,019 [367344] 
+日志级别：INFO  
+日 志 类：loginfo [(null)] 
+应用程序启动 

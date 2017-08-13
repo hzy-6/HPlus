@@ -21,8 +21,6 @@ namespace DbFrame
             s.Start();
 
 
-            SQLContext.IQuery query = new SQLContext.Select();
-            query.FindList<TestT_Users, TestMember>((user, member) => new { _ukid = user.uUsers_ID, member.Member_Name }).InnerJoin<TestT_Users, TestMember>((user, member) => user.uUsers_ID == member.Member_ID);
 
 
 
@@ -36,13 +34,6 @@ namespace DbFrame
 
             Console.WriteLine(" 耗时：" + (s.ElapsedMilliseconds * 0.001) + " s");
             Console.ReadKey();
-
-        }
-
-        public static void FindList<T1, T2>(Expression<Func<T1, T2, object>> Func)
-            where T1 : BaseEntity
-            where T2 : BaseEntity, new()
-        {
 
         }
 
