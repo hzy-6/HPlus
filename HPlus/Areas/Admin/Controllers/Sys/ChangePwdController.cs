@@ -45,7 +45,7 @@ namespace HPlus.Areas.Admin.Controllers.Sys
             if (!newpwd.Equals(newlypwd))
                 throw new MessageBox("两次密码不一致");
 
-            tuser = db.Find<T_Users>(w => w.uUsers_ID == Tools.getSession("UserID").To_Guid()) as T_Users;
+            tuser = db.Find<T_Users>(w => w.uUsers_ID == Tools.getSession("UserID").To_Guid());
             if (!tuser.cUsers_LoginPwd.Equals(oldpwd.Trim()))//Tools.MD5Encrypt(oldpwd.Trim())))
                 throw new MessageBox("旧密码不正确");
             tuser = new T_Users();
@@ -54,7 +54,7 @@ namespace HPlus.Areas.Admin.Controllers.Sys
             if (!db.Edit<T_Users>(() => new T_Users()
             {
                 cUsers_LoginPwd = newlypwd.Trim()
-            }, w => w.uUsers_ID == Tools.getSession("UserID").To_Guid(), ref li))
+            }, w => w.uUsers_ID == Tools.getSession("UserID").To_Guid(), li))
                 throw new MessageBox(db.ErrorMessge);
             if (!db.Commit(li))
                 throw new MessageBox(db.ErrorMessge);

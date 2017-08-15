@@ -36,6 +36,30 @@ namespace DbFrame.Reflection
         }
 
         /// <summary>
+        /// 获取表名
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public string GetTabName(Type type)
+        {
+            var attrs = Attribute.GetCustomAttributes(type, true);
+            if (attrs.Length == 0)
+                throw new Exception("实体:" + type.Name + "未描述实体对应表名！");
+            foreach (var item in attrs)
+            {
+                if (item is ObjectRemarks.TableAttribute)
+                {
+                    return (item as ObjectRemarks.TableAttribute).TableName;
+                }
+                else
+                {
+                    continue;
+                }
+            }
+            return string.Empty;
+        }
+
+        /// <summary>
         /// 获取自定字段的别名
         /// </summary>
         /// <param name="filed">字段</param>

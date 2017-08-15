@@ -43,13 +43,13 @@ namespace BLL
             tf = model;
             if (Tools.getGuid(model.uFunction_ID).Equals(Guid.Empty))
             {
-                model.uFunction_ID = Tools.getGuid(db.Add(tf, ref li));
+                model.uFunction_ID = Tools.getGuid(db.Add(tf, li));
                 if (Tools.getGuid(model.uFunction_ID).Equals(Guid.Empty))
                     throw new MessageBox(db.ErrorMessge);
             }
             else
             {
-                if (!db.Edit<T_Function>(tf, w => w.uFunction_ID == tf.uFunction_ID, ref li))
+                if (!db.Edit<T_Function>(tf, w => w.uFunction_ID == tf.uFunction_ID, li))
                     throw new MessageBox(db.ErrorMessge);
             }
             return li;
@@ -64,7 +64,7 @@ namespace BLL
         {
             db.JsonToList<string>(ID).ForEach(item =>
             {
-                if (!db.Delete<T_Function>(w => w.uFunction_ID == item.To_Guid(), ref li))
+                if (!db.Delete<T_Function>(w => w.uFunction_ID == item.To_Guid(), li))
                     throw new MessageBox(db.ErrorMessge);
             });
             return li;

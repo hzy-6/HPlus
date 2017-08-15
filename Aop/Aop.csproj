@@ -77,8 +77,8 @@
       <Project>{dc21c673-f22d-4ff4-92a8-476cf947bfc9}</Project>
       <Name>BLL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DbFrame\DbFrame.csproj">
-      <Project>{5f79a006-5751-4c9d-bee3-8ddfbab0f99d}</Project>
+    <ProjectReference Include="..\DbFrame\DbFrame\DbFrame.csproj">
+      <Project>{ad62d093-b750-499d-8ae6-c851e1782995}</Project>
       <Name>DbFrame</Name>
     </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">

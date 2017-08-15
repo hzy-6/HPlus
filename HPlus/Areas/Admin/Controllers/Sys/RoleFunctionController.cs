@@ -56,7 +56,7 @@ namespace HPlus.Areas.Admin.Controllers.Sys
                 throw new MessageBox("请选择角色");
             var list = ((object[])jss.DeserializeObject(json)).ToList();
 
-            if (!db.Delete<T_RoleMenuFunction>(w => w.uRoleMenuFunction_RoleID == roleid.To_Guid(), ref li))
+            if (!db.Delete<T_RoleMenuFunction>(w => w.uRoleMenuFunction_RoleID == roleid.To_Guid(), li))
                 throw new MessageBox(db.ErrorMessge);
 
             if (list.Count > 0)
@@ -71,7 +71,7 @@ namespace HPlus.Areas.Admin.Controllers.Sys
                         trolemenufunction.uRoleMenuFunction_MenuID = Tools.getGuid(func["pId"]);
                         trolemenufunction.uRoleMenuFunction_FunctionID = Tools.getGuid(func["id"]);
                         trolemenufunction.uRoleMenuFunction_RoleID = Tools.getGuid(roleid);
-                        if (Tools.getGuid(db.Add(trolemenufunction, ref li)).Equals(Guid.Empty))
+                        if (Tools.getGuid(db.Add(trolemenufunction, li)).Equals(Guid.Empty))
                             throw new MessageBox(db.ErrorMessge);
                         guid_list.Add(Tools.getGuid(func["pId"]));
                     }

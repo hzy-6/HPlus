@@ -51,13 +51,13 @@ namespace DbFrame
 
 
 
-        public virtual string Add<T>(T Model, bool IsCheck = false) where T : BaseEntity, new()
+        public string Add<T>(T Model, bool IsCheck = false) where T : BaseEntity, new()
         {
             try
             {
                 if (IsCheck)
                     this.Check(Model);
-                var key = add.Add<T>(Model);
+                var key = add.Add<T>(Model).To_String();
                 if (string.IsNullOrEmpty(key))
                     throw new Exception("操作失败");
                 return key;
@@ -69,11 +69,11 @@ namespace DbFrame
             }
         }
 
-        public virtual string Add<T>(Expression<Func<T>> Func) where T : BaseEntity, new()
+        public string Add<T>(Expression<Func<T>> Func) where T : BaseEntity, new()
         {
             try
             {
-                var key = add.Add<T>(Func);
+                var key = add.Add<T>(Func).To_String();
                 if (string.IsNullOrEmpty(key))
                     throw new Exception("操作失败");
                 return key;
@@ -85,13 +85,13 @@ namespace DbFrame
             }
         }
 
-        public virtual string Add<T>(T Model, ref List<SQL> li, bool IsCheck = false) where T : BaseEntity, new()
+        public string Add<T>(T Model, List<SQL> li, bool IsCheck = false) where T : BaseEntity, new()
         {
             try
             {
                 if (IsCheck)
                     this.Check(Model);
-                var key = add.Add<T>(Model, ref li);
+                var key = add.Add<T>(Model, li).To_String();
                 if (string.IsNullOrEmpty(key))
                     throw new Exception("操作失败");
                 return key;
@@ -103,11 +103,11 @@ namespace DbFrame
             }
         }
 
-        public virtual string Add<T>(Expression<Func<T>> Func, ref List<SQL> li) where T : BaseEntity, new()
+        public string Add<T>(Expression<Func<T>> Func, List<SQL> li) where T : BaseEntity, new()
         {
             try
             {
-                var key = add.Add<T>(Func, ref li);
+                var key = add.Add<T>(Func, li).To_String();
                 if (string.IsNullOrEmpty(key))
                     throw new Exception("操作失败");
                 return key;
@@ -123,7 +123,7 @@ namespace DbFrame
         /**********************修该**********************/
 
 
-        public virtual bool Edit<T>(T Model, Expression<Func<T, bool>> Where, bool IsCheck = false) where T : BaseEntity, new()
+        public bool Edit<T>(T Model, Expression<Func<T, bool>> Where, bool IsCheck = false) where T : BaseEntity, new()
         {
             try
             {
@@ -140,7 +140,7 @@ namespace DbFrame
             }
         }
 
-        public virtual bool Edit<T>(Expression<Func<T>> Set, Expression<Func<T, bool>> Where) where T : BaseEntity, new()
+        public bool Edit<T>(Expression<Func<T>> Set, Expression<Func<T, bool>> Where) where T : BaseEntity, new()
         {
             try
             {
@@ -155,13 +155,13 @@ namespace DbFrame
             }
         }
 
-        public virtual bool Edit<T>(T Model, Expression<Func<T, bool>> Where, ref List<SQL> li, bool IsCheck = false) where T : BaseEntity, new()
+        public bool Edit<T>(T Model, Expression<Func<T, bool>> Where, List<SQL> li, bool IsCheck = false) where T : BaseEntity, new()
         {
             try
             {
                 if (IsCheck)
                     this.Check(Model);
-                if (edit.Edit(Model, Where, ref li))
+                if (edit.Edit(Model, Where, li))
                     return true;
                 throw new Exception("操作失败");
             }
@@ -172,11 +172,11 @@ namespace DbFrame
             }
         }
 
-        public virtual bool Edit<T>(Expression<Func<T>> Set, Expression<Func<T, bool>> Where, ref List<SQL> li) where T : BaseEntity, new()
+        public bool Edit<T>(Expression<Func<T>> Set, Expression<Func<T, bool>> Where, List<SQL> li) where T : BaseEntity, new()
         {
             try
             {
-                if (edit.Edit(Set, Where, ref li))
+                if (edit.Edit(Set, Where, li))
                     return true;
                 throw new Exception("操作失败");
             }
@@ -191,7 +191,7 @@ namespace DbFrame
 
         /**********************删除**********************/
 
-        public virtual bool Delete<T>(Expression<Func<T, bool>> Where) where T : BaseEntity, new()
+        public bool Delete<T>(Expression<Func<T, bool>> Where) where T : BaseEntity, new()
         {
             try
             {
@@ -206,11 +206,11 @@ namespace DbFrame
             }
         }
 
-        public virtual bool Delete<T>(Expression<Func<T, bool>> Where, ref List<SQL> li) where T : BaseEntity, new()
+        public bool Delete<T>(Expression<Func<T, bool>> Where, List<SQL> li) where T : BaseEntity, new()
         {
             try
             {
-                if (delete.Delete<T>(Where, ref li))
+                if (delete.Delete<T>(Where, li))
                     return true;
                 throw new Exception("操作失败");
             }
@@ -223,34 +223,40 @@ namespace DbFrame
 
 
         /**********************查询**********************/
-        public virtual T Find<T>(Expression<Func<T, bool>> Where) where T : BaseEntity, new()
+        public SQLContext.Context.IQuery Find()
+        {
+            SQLContext.QueryContext query = new QueryContext(_ConnectionString);
+            return query;
+        }
+
+        public T Find<T>(Expression<Func<T, bool>> Where) where T : BaseEntity, new()
         {
             return find.Find<T>(Where);
         }
 
-        public virtual DataTable Find<T>(Expression<Func<T, bool>> Where, string OrderBy = null) where T : BaseEntity, new()
+        public DataTable Find<T>(Expression<Func<T, bool>> Where, string OrderBy = null) where T : BaseEntity, new()
         {
-            return find.Find<T>(Where, OrderBy);
+            return find.FindTable<T>(Where, OrderBy);
         }
 
-        public virtual DataTable Find<T>(string[] From, Expression<Func<T, bool>> Where, string OrderBy = null) where T : BaseEntity, new()
+        public DataTable Find<T>(string[] From, Expression<Func<T, bool>> Where, string OrderBy = null) where T : BaseEntity, new()
         {
             if (From.Length == 0)
                 throw new Exception(" 参数 From 不能为空！ ");
             return find.Find<T>(From, Where, OrderBy);
         }
 
-        public virtual List<T> FindToList<T>(Expression<Func<T, bool>> Where, string OrderBy = null) where T : BaseEntity, new()
+        public List<T> FindToList<T>(Expression<Func<T, bool>> Where, string OrderBy = null) where T : BaseEntity, new()
         {
             return find.FindToList<T>(Where, OrderBy);
         }
 
-        public virtual List<Dictionary<string, object>> FindToList(DataTable dt)
+        public List<Dictionary<string, object>> FindToList(DataTable dt)
         {
             return find.FindToList(dt);
         }
 
-        public virtual List<Dictionary<string, object>> FindToList(string SQL)
+        public List<Dictionary<string, object>> FindToList(string SQL)
         {
             return find.FindToList(this.Find(SQL));
         }

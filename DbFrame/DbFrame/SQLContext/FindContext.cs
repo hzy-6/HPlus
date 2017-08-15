@@ -4,22 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 //
+using System.Web.Script.Serialization;
 using System.Linq.Expressions;
 using System.Data;
-using System.Web.Script.Serialization;
 using DbFrame.SQLContext.ExpressionTree;
+using DbFrame.AdoDotNet;
 using DbFrame.SQLContext.Context;
 using DbFrame.Class;
-using DbFrame.AdoDotNet;
 
 namespace DbFrame.SQLContext
 {
-    public class FindContext
+    public class FindContext : AbstractFind
     {
         private string _ConnectionString { get; set; }
         private FindString find = new FindString();
         private DbHelper dbhelper = null;
-        private JavaScriptSerializer jss;
+        private JavaScriptSerializer jss { get; set; }
         public FindContext(string ConnectionString)
         {
             this._ConnectionString = ConnectionString;
@@ -29,36 +29,10 @@ namespace DbFrame.SQLContext
             jss = new JavaScriptSerializer();
         }
 
-        private DataTable ExecuteSQL<T>(string[] From, Expression<Func<T, bool>> Where, string OrderBy = "") where T :BaseEntity, new()
+        private DataTable ExecuteSQL<T>(string[] From, Expression<Func<T, bool>> Where, string OrderBy = "") where T : BaseEntity, new()
         {
             var sql = find.GetSql<T>(From, Where, OrderBy);
             return dbhelper.ExecuteDataset(sql);
-        }
-
-        /// <summary>
-        /// 根据条件 获取实体
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="Where"></param>
-        /// <returns></returns>
-        public virtual T Find<T>(Expression<Func<T, bool>> Where) where T :BaseEntity, new()
-        {
-            var dt = this.ExecuteSQL<T>(null, Where);
-            if (dt.Rows.Count == 0)
-                return (T)Activator.CreateInstance(typeof(T));
-            return ToModel(dt.Rows[0], (T)Activator.CreateInstance(typeof(T)));
-        }
-
-        /// <summary>
-        /// 根据条件 获取 DataTable 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="Where"></param>
-        /// <param name="OrderBy"></param>
-        /// <returns></returns>
-        public virtual DataTable Find<T>(Expression<Func<T, bool>> Where, string OrderBy) where T :BaseEntity, new()
-        {
-            return this.ExecuteSQL<T>(null, Where, OrderBy);
         }
 
         /// <summary>
@@ -69,7 +43,7 @@ namespace DbFrame.SQLContext
         /// <param name="Where"></param>
         /// <param name="OrderBy"></param>
         /// <returns></returns>
-        public virtual DataTable Find<T>(string[] From, Expression<Func<T, bool>> Where, string OrderBy) where T :BaseEntity, new()
+        public virtual DataTable Find<T>(string[] From, Expression<Func<T, bool>> Where, string OrderBy) where T : BaseEntity, new()
         {
             return this.ExecuteSQL<T>(From, Where, OrderBy);
         }
@@ -109,7 +83,7 @@ namespace DbFrame.SQLContext
         /// <param name="r"></param>
         /// <param name="Model"></param>
         /// <returns></returns>
-        public T ToModel<T>(DataRow r, T Class) where T :BaseEntity, new()
+        public T ToModel<T>(DataRow r, T Class) where T : BaseEntity, new()
         {
             var model = new Dictionary<string, object>();
             foreach (DataColumn item in r.Table.Columns) model.Add(item.ColumnName, r[item.ColumnName] == DBNull.Value ? null : r[item.ColumnName]);
@@ -123,6 +97,46 @@ namespace DbFrame.SQLContext
             });
             return jss.Deserialize<T>(json);
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /// <summary>
+        /// 根据条件 获取实体
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Where"></param>
+        /// <returns></returns>
+        public override T Find<T>(Expression<Func<T, bool>> Where)
+        {
+            var dt = this.ExecuteSQL<T>(null, Where);
+            if (dt.Rows.Count == 0)
+                return (T)Activator.CreateInstance(typeof(T));
+            return ToModel(dt.Rows[0], (T)Activator.CreateInstance(typeof(T)));
+        }
+
+        public override DataTable FindTable<T>(Expression<Func<T, bool>> Where, string OrderBy)
+        {
+            return this.ExecuteSQL<T>(null, Where, OrderBy);
+        }
+
+        public override IList<T> FindList<T>(Expression<Func<T, bool>> Where, string OrderBy)
+        {
+            return DbHelper.ConvertDataTableToList<T>(this.ExecuteSQL<T>(null, Where, OrderBy));
+        }
+
+
 
 
 

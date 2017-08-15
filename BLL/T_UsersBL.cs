@@ -50,13 +50,13 @@ namespace BLL
                     tuser.cUsers_LoginPwd = "123456"; //Tools.MD5Encrypt("123456");
                 else
                     tuser.cUsers_LoginPwd = model.cUsers_LoginPwd;//Tools.MD5Encrypt(model.cUsers_LoginPwd);
-                model.uUsers_ID = db.Add(tuser, ref li).To_Guid();
+                model.uUsers_ID = db.Add(tuser, li).To_Guid();
                 if (model.uUsers_ID.To_Guid().Equals(Guid.Empty))
                     throw new MessageBox(db.ErrorMessge);
                 //用户角色
                 tuserrole.uUsersRoles_UsersID = tuser.uUsers_ID;
                 tuserrole.uUsersRoles_RoleID = Tools.getGuid(uRoles_ID);
-                if (db.Add(tuserrole, ref li).To_Guid().Equals(Guid.Empty))
+                if (db.Add(tuserrole, li).To_Guid().Equals(Guid.Empty))
                     throw new MessageBox(db.ErrorMessge);
             }
             else
@@ -64,17 +64,17 @@ namespace BLL
                 //如果 密码字段为空，则设置忽略字段
                 if (string.IsNullOrEmpty(tuser.cUsers_LoginPwd))
                     tuser.AddNoDbField(f => new { f.cUsers_LoginPwd });
-                if (!db.Edit<T_Users>(tuser, w => w.uUsers_ID == tuser.uUsers_ID, ref li))
+                if (!db.Edit<T_Users>(tuser, w => w.uUsers_ID == tuser.uUsers_ID, li))
                     throw new MessageBox(db.ErrorMessge);
 
                 //用户角色
-                if (!db.Delete<T_UsersRoles>(w => w.uUsersRoles_UsersID == tuser.uUsers_ID, ref li))
+                if (!db.Delete<T_UsersRoles>(w => w.uUsersRoles_UsersID == tuser.uUsers_ID, li))
                     throw new MessageBox(db.ErrorMessge);
                 if (db.Add<T_UsersRoles>(() => new T_UsersRoles()
                 {
                     uUsersRoles_UsersID = tuser.uUsers_ID,
                     uUsersRoles_RoleID = uRoles_ID.To_Guid()
-                }, ref li).To_Guid().Equals(Guid.Empty))
+                }, li).To_Guid().Equals(Guid.Empty))
                     throw new MessageBox(db.ErrorMessge);
             }
             return li;
@@ -89,9 +89,9 @@ namespace BLL
         {
             db.JsonToList<string>(ID).ForEach(item =>
             {
-                if (!db.Delete<T_UsersRoles>(w => w.uUsersRoles_UsersID == item.To_Guid(), ref li))
+                if (!db.Delete<T_UsersRoles>(w => w.uUsersRoles_UsersID == item.To_Guid(), li))
                     throw new MessageBox(db.ErrorMessge);
-                if (!db.Delete<T_Users>(w => w.uUsers_ID == item.To_Guid(), ref li))
+                if (!db.Delete<T_Users>(w => w.uUsers_ID == item.To_Guid(), li))
                     throw new MessageBox(db.ErrorMessge);
             });
             return li;

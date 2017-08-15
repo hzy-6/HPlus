@@ -6,22 +6,20 @@ using System.Threading.Tasks;
 //
 using System.Linq.Expressions;
 using DbFrame.SQLContext.ExpressionTree;
+using DbFrame.AdoDotNet;
 using DbFrame.SQLContext.Context;
 using DbFrame.Class;
-using DbFrame.AdoDotNet;
 
 namespace DbFrame.SQLContext
 {
-    public class AddContext
+    public class AddContext : AbstractSql
     {
+
         private string _ConnectionString { get; set; }
-        private AddString add = new AddString();
         private DbHelper dbhelper = null;
         public AddContext(string ConnectionString)
         {
             this._ConnectionString = ConnectionString;
-            if (add != null)
-                add = new AddString();
             dbhelper = new DbHelper(ConnectionString);
         }
 
@@ -75,11 +73,10 @@ namespace DbFrame.SQLContext
             }
         }
 
-        private string ExecuteSQL<T>(ref MemberInitExpression body, T Model) where T : BaseEntity, new()
+        private string ExecuteSQL<T>(ref MemberInitExpression body, T Model, List<SQL> li = null) where T : BaseEntity, new()
         {
             var ID = this.CreatePrimaryKey<T>(ref body, Model.GetKey().FieldName, Model.GetKey().FieldType, Model.GetKey().IsIdentity);
-            var Sql = add.GetSql<T>(body);
-
+            var Sql = this.GetSQL<T>(body);
 
             if (ID.Contains("SELECT SCOPE_IDENTITY()"))
             {
@@ -87,9 +84,16 @@ namespace DbFrame.SQLContext
                 ID = obj != null ? obj.ToString() : string.Empty;
             };
 
-            if (!dbhelper.Commit(new List<SQL>() { Sql }))
+            if (li == null)
             {
-                return string.Empty;
+                if (!dbhelper.Commit(new List<SQL>() { Sql }))
+                {
+                    return string.Empty;
+                }
+            }
+            else
+            {
+                li.Add(Sql);
             }
 
             //if (dbhelper.ExecuteNonQuery(Sql) == 0)
@@ -100,23 +104,30 @@ namespace DbFrame.SQLContext
             return ID;
         }
 
-        private string ExecuteSQL<T>(ref MemberInitExpression body, T Model, ref List<SQL> li) where T : BaseEntity, new()
+
+        private SQL GetSQL<T>(MemberInitExpression Body) where T : BaseEntity, new()
         {
-            var ID = this.CreatePrimaryKey<T>(ref body, Model.GetKey().FieldName, Model.GetKey().FieldType, Model.GetKey().IsIdentity);
-            var Sql = add.GetSql<T>(body);
-
-            if (ID.Contains("SELECT SCOPE_IDENTITY()"))
+            var Model = (T)Activator.CreateInstance(typeof(T));
+            string TabName = Model.GetTabelName();
+            var SqlPar = new Dictionary<string, object>();
+            var col = new List<string>();
+            var val = new List<string>();
+            foreach (MemberAssignment item in Body.Bindings)
             {
-                var obj = dbhelper.ExecuteScalar(ID);
-                ID = obj != null ? obj.ToString() : string.Empty;
-            };
+                //检测有无忽略字段
+                if (!string.IsNullOrEmpty(Model.GetNoDbField().Find(f => f == item.Member.Name)))
+                    continue;
+                var Value = Helper.Eval_1(item.Expression);
+                var Name = item.Member.Name;
+                var len = SqlPar.Count;
+                col.Add(Name); val.Add("@" + Name + len + "");
+                SqlPar.Add(Name + len, Value);
+            }
+            return new SQL(string.Format(" INSERT INTO {0} ({1}) VALUES ({2}) ", TabName, string.Join(",", col), string.Join(",", val)), SqlPar);
 
-            li.Add(Sql);
-
-            return ID;
         }
 
-        public string Add<T>(T Model) where T : BaseEntity, new()
+        public override object Add<T>(T Model)
         {
             var list = new List<MemberBinding>();
             var fileds = Model.EH.GetAllPropertyInfo(Model);
@@ -129,7 +140,7 @@ namespace DbFrame.SQLContext
             return this.ExecuteSQL(ref body, Model);
         }
 
-        public string Add<T>(Expression<Func<T>> Func) where T : BaseEntity, new()
+        public override object Add<T>(Expression<Func<T>> Func)
         {
             var Model = (T)Activator.CreateInstance(typeof(T));
             var body = Func.Body as MemberInitExpression;
@@ -137,7 +148,7 @@ namespace DbFrame.SQLContext
             return this.ExecuteSQL(ref body, Model);
         }
 
-        public string Add<T>(T Model, ref List<SQL> li) where T : BaseEntity, new()
+        public override object Add<T>(T Model, List<SQL> li)
         {
             var list = new List<MemberBinding>();
             var fileds = Model.EH.GetAllPropertyInfo(Model);
@@ -147,17 +158,64 @@ namespace DbFrame.SQLContext
             }
             var body = Expression.MemberInit(Expression.New(typeof(T)), list);
 
-            return this.ExecuteSQL(ref body, Model, ref li);
+            return this.ExecuteSQL(ref body, Model, li);
         }
 
-        public string Add<T>(Expression<Func<T>> Func, ref List<SQL> li) where T : BaseEntity, new()
+        public override object Add<T>(Expression<Func<T>> Func, List<SQL> li)
         {
             var Model = (T)Activator.CreateInstance(typeof(T));
             var body = Func.Body as MemberInitExpression;
 
-            return this.ExecuteSQL(ref body, Model, ref li);
+            return this.ExecuteSQL(ref body, Model, li);
         }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public override bool Edit<T>(T Set, Expression<Func<T, bool>> Where)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool Edit<T>(Expression<Func<T>> Set, Expression<Func<T, bool>> Where)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool Edit<T>(T Set, Expression<Func<T, bool>> Where, List<SQL> li)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool Edit<T>(Expression<Func<T>> Set, Expression<Func<T, bool>> Where, List<SQL> li)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool Delete<T>(Expression<Func<T, bool>> Where)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool Delete<T>(Expression<Func<T, bool>> Where, List<SQL> li)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

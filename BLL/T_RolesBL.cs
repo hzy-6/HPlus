@@ -43,13 +43,13 @@ namespace BLL
             troles = model;
             if (Tools.getGuid(model.uRoles_ID).Equals(Guid.Empty))
             {
-                model.uRoles_ID = Tools.getGuid(db.Add(troles, ref li));
+                model.uRoles_ID = Tools.getGuid(db.Add(troles, li));
                 if (model.uRoles_ID.Equals(Guid.Empty))
                     throw new MessageBox(db.ErrorMessge);
             }
             else
             {
-                if (!db.Edit(troles, item => item.uRoles_ID == troles.uRoles_ID, ref li))
+                if (!db.Edit(troles, item => item.uRoles_ID == troles.uRoles_ID, li))
                     throw new MessageBox(db.ErrorMessge);
             }
             return li;
@@ -64,7 +64,7 @@ namespace BLL
         {
             db.JsonToList<string>(ID).ForEach(item =>
             {
-                if (!db.Delete<T_Roles>(f => f.uRoles_ID == Tools.getGuid(item), ref li))
+                if (!db.Delete<T_Roles>(f => f.uRoles_ID == Tools.getGuid(item),  li))
                     throw new MessageBox(db.ErrorMessge);
             });
             return li;
