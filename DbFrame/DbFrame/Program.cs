@@ -23,16 +23,26 @@ namespace DbFrame
             Stopwatch s = new Stopwatch();
             s.Start();
 
-            for (int i = 0; i < 1000; i++)
+            //for (int i = 0; i < 1000; i++)
+            //{
+            //    /* SQLContext.Context.IQuery iquery = db.Find().
+            //     Query<TestT_Users, TestMember>((A, B) => new { _ukid = A.uUsers_ID, B.Member_Name })
+            //     .InnerJoin<TestT_Users, TestMember>((A, B) => A.uUsers_ID == B.Member_ID)
+            //     .Where<TestT_Users>(A => A.uUsers_ID == Guid.Empty);
+            //     Console.WriteLine("SQL:" + iquery.ToSQL() + "\r\n");
+            //     */
+
+
+
+
+            //}
+            var name = "admin";
+            var list = db.FindToList<TestT_Users>(w => w.cUsers_LoginName.Contains(name));
+            foreach (var item in list)
             {
-                SQLContext.Context.IQuery iquery = db.Find().
-                Query<TestT_Users, TestMember>((A, B) => new { _ukid = A.uUsers_ID, B.Member_Name })
-                .InnerJoin<TestT_Users, TestMember>((A, B) => A.uUsers_ID == B.Member_ID)
-                .Where<TestT_Users>(A => A.uUsers_ID == Guid.Empty);
-
-                Console.WriteLine("SQL:" + iquery.ToSQL() + "\r\n");
+                Console.WriteLine("SQL:" + item.cUsers_LoginName + "\r\n");
             }
-
+            Console.WriteLine("总和:" + list.Count + "\r\n");
 
             Console.WriteLine(" 耗时：" + (s.ElapsedMilliseconds * 0.001) + " s");
             Console.ReadKey();
