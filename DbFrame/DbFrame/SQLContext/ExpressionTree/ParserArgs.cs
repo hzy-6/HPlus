@@ -28,7 +28,7 @@ namespace DbFrame.SQLContext.ExpressionTree
 
         public IList<ParameterExpression> Forms { get; set; }
 
-        public readonly string[] FormsAlias = { "it", "A", "B", "C", "D", "E" };
+        //public readonly string[] FormsAlias = { "it", "A", "B", "C", "D", "E" };
 
         /// <summary> 
         /// 追加参数
